@@ -160,6 +160,20 @@ def index() -> FileResponse:
     return FileResponse(WEB / "index.html")
 
 
+@app.get("/demo", include_in_schema=False)
+def demo_page() -> FileResponse:
+    """The web UI replaying a saved photo and result (web/demo/result.json): instant, identical every time."""
+    return FileResponse(WEB / "index.html")
+
+
+@app.get("/demo/{name}", include_in_schema=False)
+def demo_file(name: str) -> FileResponse:
+    path = WEB / "demo" / Path(name).name
+    if not path.is_file():
+        raise HTTPException(404, f"no demo file {name}")
+    return FileResponse(path)
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}

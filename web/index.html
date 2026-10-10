@@ -437,6 +437,21 @@ function zoom(on) {
   el.zoom.dataset.zoomed = on ? "1" : "";
   el.zoom.textContent = on ? "Whole photo" : "Zoom to bottles";
 }
+
+async function replay() {  // /demo: a saved photo and result (web/demo/result.json), shown at once, same every time
+  const data = await (await fetch("/demo/result.json")).json();
+  document.body.classList.add("viewing");
+  el.drop.hidden = true; el.view.hidden = false;
+  dims = { w: data.width, h: data.height };
+  el.frame.style.setProperty("--ar", dims.w / dims.h);
+  el.view.style.setProperty("--ar", dims.w / dims.h);
+  el.photo.src = `/demo/${data.photo}`;
+  await el.photo.decode().catch(() => {});
+  el.frame.classList.add("loaded");
+  pipeline = data.pipeline; results = { [pipeline]: data };
+  render(data);
+}
+if (location.pathname.startsWith("/demo")) replay();
 </script>
 </body>
 </html>
