@@ -1,0 +1,92 @@
+{
+ "1": {
+  "readable": true,
+  "brand": "Dewar's",
+  "product": "Highlander Honey",
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": "honey-infused Scotch whisky"
+ },
+ "2": {
+  "readable": true,
+  "brand": "Johnnie Walker",
+  "product": "Blue Label",
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": "blended Scotch whisky"
+ },
+ "3": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": null,
+  "fill_note": "mostly hidden behind other bottles"
+ },
+ "4": {
+  "readable": true,
+  "brand": "Cachaça 51",
+  "product": "Ouro",
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": "aged cachaça"
+ },
+ "5": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": null,
+  "fill_note": "mostly hidden behind other bottles"
+ },
+ "6": {
+  "readable": true,
+  "brand": "Jameson",
+  "product": "Irish Whiskey",
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": "Irish whiskey"
+ },
+ "7": {
+  "readable": true,
+  "brand": null,
+  "product": "Triple Sec",
+  "category": "liqueur",
+  "size_ml": 750,
+  "liquid": "orange liqueur"
+ },
+ "8": {
+  "readable": true,
+  "brand": "Kahlúa",
+  "product": "The Original",
+  "category": "liqueur",
+  "size_ml": 750,
+  "liquid": "rum and coffee liqueur"
+ },
+ "9": {
+  "readable": true,
+  "brand": "Relska",
+  "product": "Premium Blend Vodka",
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": "vodka"
+ },
+ "10": {
+  "readable": true,
+  "brand": "Basil Hayden's",
+  "product": "Kentucky Straight Bourbon",
+  "category": "spirit",
+  "size_ml": 750,
+  "liquid": "bourbon whiskey"
+ },
+ "11": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "other",
+  "size_ml": 750,
+  "liquid": null
+ }
+}

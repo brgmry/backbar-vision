@@ -293,7 +293,7 @@ async function showPreview(f, token) {
   el.frame.classList.add("loaded");
 }
 
-// /demo: dropping bar_03.jpg shows the saved result (web/demo/result.json) once the scan has run for its "seconds"
+// /demo: dropping the demo photo shows the saved result (web/demo/result.json) once the scan has run for its "seconds"
 // (a staged wait, not live work); the time shown is the real elapsed time. Any other photo runs the real pipeline.
 const DEMO = location.pathname.startsWith("/demo");
 
@@ -305,8 +305,9 @@ async function identify() {
       setScanning(true, p);
       const t0 = performance.now();
       let data;
-      if (DEMO && f.name === "bar_03.jpg") {
-        data = await (await fetch("/demo/result.json")).json();
+      const saved = DEMO && await fetch("/demo/result.json").then((r) => r.json()).catch(() => null);
+      if (saved && f.name === saved.image) {
+        data = saved;
         await ready.catch(() => {});  // the photo is on screen before the clock can stop
         await new Promise((r) => setTimeout(r, Math.max(0, data.seconds * 1000 - (performance.now() - t0))));
       } else {
