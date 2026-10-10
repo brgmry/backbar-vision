@@ -15,6 +15,7 @@ from rapidfuzz import fuzz
 from scipy.optimize import linear_sum_assignment
 
 MATCH_THRESHOLD = 60  # token_set_ratio below this counts as a wrong identification
+BAR = {"spirit", "liqueur", "wine", "beer", "mixer"}  # what a bar camera is for
 TO_ML = {"ml": 1, "g": 1, "pint": 568}  # g treated as ml: close enough for sauces
 
 
@@ -41,12 +42,15 @@ def match_photo(preds, inventory):
 def score_photo(preds, inventory):
     matched = [(p, i) for p, i in zip(preds, match_photo(preds, inventory)) if i is not None]
     n = len(inventory)
+    bar = [i for i in inventory if i["category"] in BAR]
     return {
         "count_error": len(preds) - n,
         "recall": len(matched) / n,
         "precision": len(matched) / len(preds) if preds else 0.0,
         "category_acc": sum(p["category"] == i["category"] for p, i in matched) / n,
         "size_acc": sum(abs(size_ml(p) - size_ml(i)) / size_ml(i) <= 0.1 for p, i in matched) / n,
+        # recall over the bar items only (spirits, liqueurs, wine, beer, mixers); non-bar predictions ignored
+        "bar_recall": sum(i["category"] in BAR for _, i in matched) / len(bar) if bar else 0.0,
     }
 
 
