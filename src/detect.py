@@ -1,6 +1,6 @@
 """Step 1: find every bottle in each photo with OWLv2 and save the crops.
 
-Usage: python src/detect.py [data/raw]   -> data/crops/<photo>/<n>.jpg + data/crops/boxes.csv
+Usage: python src/detect.py [photos_dir] [out_dir]   -> <out_dir>/<photo>/<n>.jpg + <out_dir>/boxes.csv (default data/raw -> data/crops)
 """
 import csv
 import sys
@@ -88,10 +88,10 @@ def iou(a, b) -> float:
     return float(inter / union) if union else 0.0
 
 
-def main(folder: str) -> None:
+def main(folder: str, out_dir: str = "data/crops") -> None:
     processor = Owlv2Processor.from_pretrained(MODEL)
     model = Owlv2ForObjectDetection.from_pretrained(MODEL).to(DEVICE).eval()
-    out = Path("data/crops")
+    out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     rows = []
     for path in sorted(p for p in Path(folder).iterdir() if p.suffix.lower() in EXTS):
@@ -111,4 +111,4 @@ def main(folder: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw")
+    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw", sys.argv[2] if len(sys.argv) > 2 else "data/crops")

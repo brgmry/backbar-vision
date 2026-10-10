@@ -8,3 +8,4 @@ data/catalogue/
 data/external/*
 !data/external/README.md
 vendor/
+data/train/
