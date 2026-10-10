@@ -1,17 +1,20 @@
-"""Read-only local dashboard: photos, boxes, predictions, scores, pipeline status.
+"""Local dashboard: photos, boxes, predictions, scores, pipeline status, and the bar labelling page.
 
 Run from the repo root: .venv/bin/python src/dashboard.py  ->  http://localhost:8501
-Re-reads files on every request. Never writes data, never calls a model or an API.
+Re-reads files on every request. Never calls a model or an API. The only write is
+POST /api/bars/label, which writes data/test_bars/labels/<photo>.txt and nothing else.
 """
 import csv
 import io
 import json
+import re
 import statistics
 import sys
 from collections import defaultdict
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from fastapi.responses import HTMLResponse, Response
 from PIL import Image
 from pillow_heif import register_heif_opener
@@ -24,6 +27,11 @@ LOG_DIR = Path("runs/judge_logs")
 DETECT_SIDE = 2400  # detect.py resizes so the longest side is 2400px
 VIEW_SIDE = 1200
 IMG_EXT = {".heic", ".jpg", ".jpeg", ".png"}
+BARS = DATA / "test_bars"
+BARS_IMG = BARS / "img"
+BARS_LABELS = BARS / "labels"
+BAR_NAME = re.compile(r"^bar_\d{2,3}\.jpg$")
+MAX_LABEL_CHARS = 20000
 
 sys.path.insert(0, str(ROOT / "src"))
 try:
@@ -218,6 +226,73 @@ def api_results():
     return read_csv(DATA / "results.csv")
 
 
+def bar_path(name: str) -> Path:
+    """Only bar_NN.jpg files that actually exist in data/test_bars/img."""
+    if not BAR_NAME.match(name) or not (BARS_IMG / name).is_file():
+        raise HTTPException(404, f"no bar photo {name}")
+    return BARS_IMG / name
+
+
+def bar_label_path(name: str) -> Path:
+    return BARS_LABELS / (Path(name).stem + ".txt")
+
+
+@app.get("/bar/{name}")
+def bar_jpeg(name: str, side: int = 0):
+    path = bar_path(name)
+    if side <= 0:
+        return Response(path.read_bytes(), media_type="image/jpeg")
+    side = max(100, min(side, 2000))
+    key = ("bar:" + path.name, side, path.stat().st_mtime)
+    if key not in _jpeg_cache:
+        img = Image.open(path).convert("RGB")
+        img.thumbnail((side, side))
+        buf = io.BytesIO()
+        img.save(buf, "JPEG", quality=85)
+        _jpeg_cache[key] = buf.getvalue()
+    return Response(_jpeg_cache[key], media_type="image/jpeg")
+
+
+@app.get("/api/bars")
+def api_bars():
+    if not BARS_IMG.exists():
+        return []
+    out = []
+    for p in sorted(BARS_IMG.glob("bar_*.jpg")):
+        lab = bar_label_path(p.name)
+        lines = [l for l in lab.read_text().splitlines() if l.strip()] if lab.exists() else []
+        out.append({"name": p.name, "labelled": lab.exists(), "bottles": len(lines)})
+    return out
+
+
+@app.get("/api/bars/label/{name}")
+def api_bar_label(name: str):
+    path = bar_path(name)
+    lab = bar_label_path(path.name)
+    return {"name": path.name, "text": lab.read_text() if lab.exists() else "", "labelled": lab.exists()}
+
+
+class BarLabel(BaseModel):
+    name: str
+    text: str
+
+
+@app.post("/api/bars/label")
+def api_bar_label_save(body: BarLabel):
+    """The only write endpoint. Writes data/test_bars/labels/<stem>.txt for an existing bar photo."""
+    path = bar_path(body.name)
+    if len(body.text) > MAX_LABEL_CHARS:
+        raise HTTPException(413, "label text too long")
+    lines = [l.strip() for l in body.text.replace("\r", "").split("\n")]
+    text = "\n".join(l for l in lines if l) + "\n"
+    BARS_LABELS.mkdir(parents=True, exist_ok=True)
+    out = bar_label_path(path.name)
+    if out.resolve().parent != BARS_LABELS.resolve():
+        raise HTTPException(400, "bad name")
+    out.write_text(text)
+    return {"name": path.name, "bottles": text.count("\n") if text.strip() else 0}
+
+
 @app.get("/", response_class=HTMLResponse)
 def index():
     return PAGE
@@ -245,9 +320,15 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .sw{display:inline-block;width:10px;height:10px;margin-right:4px;vertical-align:middle}
 pre{background:#fff;border:1px solid #ddd;padding:8px;font-size:12px;overflow-x:auto;max-height:300px}
 .err{color:#a00}
+.done{color:#272;font-weight:600}.todo{color:#a60;font-weight:600}
+.card.labelled{border-color:#7b7;background:#f3fbf3}
+.labeller{flex:1 1 360px;min-width:300px}.labeller textarea{width:100%;box-sizing:border-box;height:60vh;font:13px ui-monospace,Menlo,monospace;padding:8px}
+.barimg{flex:2 1 600px;min-width:300px}.barimg img{width:100%;display:block;border:1px solid #ddd;cursor:zoom-in}
+.barimg.zoom{overflow:auto;max-height:85vh}.barimg.zoom img{width:auto;max-width:none;cursor:zoom-out}
+button{font-size:14px;padding:6px 16px;cursor:pointer}
 </style></head><body>
-<h1>bottle-vision</h1><div class="muted">Read-only. Every view re-reads the files. <span id="when"></span></div>
-<nav style="margin:12px 0"><a onclick="show('results')">Leaderboard</a><a onclick="show('claude')">Claude runs</a><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a></nav>
+<h1>bottle-vision</h1><div class="muted">Read-only except Label bars. Every view re-reads the files. <span id="when"></span></div>
+<nav style="margin:12px 0"><a onclick="show('results')">Leaderboard</a><a onclick="show('claude')">Claude runs</a><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a><a onclick="show('bars')">Label bars</a></nav>
 <div id="main"></div>
 <script>
 const COLORS=['#e6194b','#3cb44b','#4363d8','#f58231','#911eb4','#42d4f4','#f032e6','#9a6324','#469990','#800000','#808000','#000075'];
@@ -260,7 +341,7 @@ let INV=[],DETAIL=null,state={source:'detector',run:null};
 function show(view,arg){
   location.hash=view+(arg?'/'+arg:'');
   $('when').textContent='Loaded '+new Date().toLocaleTimeString();
-  ({results:viewResults,claude:viewClaude,photos:viewPhotos,photo:viewPhoto,scores:viewScores,status:viewStatus}[view]||viewPhotos)(arg).catch(e=>$('main').innerHTML='<p class=err>'+esc(e)+'</p>');
+  ({results:viewResults,claude:viewClaude,photos:viewPhotos,photo:viewPhoto,scores:viewScores,status:viewStatus,bars:viewBars,bar:viewBar}[view]||viewPhotos)(arg).catch(e=>$('main').innerHTML='<p class=err>'+esc(e)+'</p>');
 }
 async function viewPhotos(){
   const ps=await get('/api/photos');
@@ -332,6 +413,26 @@ async function viewStatus(){
   const s=await get('/api/status');
   $('main').innerHTML=`<h2>Counts</h2><table>${Object.entries(s.counts).map(([k,v])=>`<tr><td>${esc(k)}</td><td class=n>${v??'<span class=muted>missing</span>'}</td></tr>`).join('')}${s.prediction_files.map(f=>`<tr><td>data/${esc(f.file)} rows</td><td class=n>${f.rows}</td></tr>`).join('')}</table>
   <h2>Logs</h2>${s.logs.length?s.logs.map(l=>`<div><b>${esc(l.name)}</b> <span class=muted>${l.lines} lines, last 20</span><pre>${esc(l.tail)}</pre></div>`).join(''):'<p class=muted>No logs.</p>'}`;
+}
+const BAR_HELP='Label bars: type every bottle you can identify, one per line; skip bottles you cannot identify yourself.';
+async function viewBars(){
+  const bs=await get('/api/bars'),n=bs.filter(b=>b.labelled).length;
+  $('main').innerHTML=`<h2>Label bars: ${n} of ${bs.length} labelled</h2><p>${BAR_HELP}</p><p class=muted>Format: <code>brand | product | size</code>, size optional (e.g. <code>Gordon's | London Dry Gin | 70cl</code>). Test set only, never training. Saved to data/test_bars/labels/.</p>`+
+  (bs.length?'<div class=grid>'+bs.map(b=>`<div class="card ${b.labelled?'labelled':''}" onclick="show('bar','${esc(b.name)}')"><img loading=lazy src="/bar/${encodeURIComponent(b.name)}?side=400"><div>${esc(b.name)}</div><div class="${b.labelled?'done':'todo'}">${b.labelled?b.bottles+' bottles labelled':'not labelled'}</div></div>`).join('')+'</div>':'<p>No photos in data/test_bars/img.</p>');
+}
+async function viewBar(name){
+  const [bs,l]=await Promise.all([get('/api/bars'),get('/api/bars/label/'+encodeURIComponent(name))]);
+  const i=bs.findIndex(b=>b.name==name),prev=bs[i-1],next=bs[i+1];
+  const nav=b=>b?`<a onclick="show('bar','${esc(b.name)}')" style="cursor:pointer;color:#246">${esc(b.name)}</a>`:'';
+  $('main').innerHTML=`<div class=controls><a onclick="show('bars')" style="cursor:pointer;color:#246">&larr; all bars</a><b>${esc(name)}</b><span id=lstat class="${l.labelled?'done':'todo'}">${l.labelled?'labelled':'not labelled'}</span><span class=muted>${prev?'prev '+nav(prev):''} ${next?'next '+nav(next):''}</span></div>
+  <div class=detail><div class=barimg id=barimg><img src="/bar/${encodeURIComponent(name)}" onclick="this.parentNode.classList.toggle('zoom')" title="Click to zoom to full size"><div class=muted>Click the photo to toggle full size. <a href="/bar/${encodeURIComponent(name)}" target=_blank>Open full size in a new tab</a>.</div></div>
+  <div class=labeller><p>${BAR_HELP}</p><p class=muted>One per line: <code>brand | product | size</code> (size optional).</p><textarea id=ltext placeholder="Gordon's | London Dry Gin | 70cl&#10;Jameson | Irish Whiskey&#10;Aperol | Aperitivo">${esc(l.text)}</textarea>
+  <div class=controls><button onclick="saveBar('${esc(name)}')">Save</button><span id=saved class=muted></span></div></div></div>`;
+}
+async function saveBar(name){
+  const r=await fetch('/api/bars/label',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,text:$('ltext').value})});
+  if(!r.ok){$('saved').innerHTML='<span class=err>Save failed: '+r.status+'</span>';return}
+  const j=await r.json();$('saved').textContent='Saved '+j.bottles+' bottles at '+new Date().toLocaleTimeString();$('lstat').className='done';$('lstat').textContent='labelled';
 }
 const [v,...a]=location.hash.slice(1).split('/');show(v||'results',decodeURIComponent(a.join('/'))||undefined);
 </script></body></html>"""
