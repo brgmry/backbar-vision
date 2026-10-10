@@ -23,6 +23,7 @@ from fastapi.responses import FileResponse, Response
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel
 
+os.environ.setdefault("CROPS", "data/crops_whole")  # whole-bottle reference crops (src/recut_crops.py), read by match.py
 import identify  # also registers the HEIC opener and loads .env
 
 K = 3  # reference crops per item, the best k in match.py's eval
@@ -70,7 +71,7 @@ def identify_local(path: Path) -> list[BottleOut]:
         img = detect.load(path)
         scale = Image.open(path).width / img.width
         boxes, crops = [], []
-        for n, (_, (x1, y1, x2, y2)) in enumerate(detect.detect(model, processor, img)):
+        for n, (_, (x1, y1, x2, y2)) in enumerate(detect.detect(model, processor, img, prefer_whole=True)):
             box = [max(0, x1), max(0, y1), min(img.width, x2), min(img.height, y2)]
             crop = Path(tmp) / f"{n:02d}.jpg"
             img.crop(box).save(crop, quality=92)  # same encoding as the reference crops
