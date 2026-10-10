@@ -15,3 +15,5 @@ python-multipart
 torchvision
 pyobjc-framework-Vision; sys_platform == 'darwin'
 pyobjc-framework-Quartz; sys_platform == 'darwin'
+imagehash
+ddgs
