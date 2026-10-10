@@ -26,10 +26,20 @@ def size_ml(row):
     return float(row["size"]) * TO_ML.get(row["unit"], 1)
 
 
+def match_photo(preds, inventory):
+    """For each prediction, the inventory row it is matched to one-to-one, or None."""
+    if not preds:
+        return []
+    sim = np.array([[fuzz.token_set_ratio(norm(p), norm(i)) for i in inventory] for p in preds])
+    out = [None] * len(preds)
+    for r, c in zip(*linear_sum_assignment(-sim)):
+        if sim[r, c] >= MATCH_THRESHOLD:
+            out[r] = inventory[c]
+    return out
+
+
 def score_photo(preds, inventory):
-    sim = np.array([[fuzz.token_set_ratio(norm(p), norm(i)) for i in inventory] for p in preds]) if preds else np.zeros((0, len(inventory)))
-    rows, cols = linear_sum_assignment(-sim) if preds else ([], [])
-    matched = [(preds[r], inventory[c]) for r, c in zip(rows, cols) if sim[r, c] >= MATCH_THRESHOLD]
+    matched = [(p, i) for p, i in zip(preds, match_photo(preds, inventory)) if i is not None]
     n = len(inventory)
     return {
         "count_error": len(preds) - n,

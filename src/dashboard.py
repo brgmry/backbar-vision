@@ -188,6 +188,36 @@ def api_status():
     }
 
 
+@app.get("/api/runs/{name}")
+def api_runs(name: str):
+    """Every run of one predictions file: per-run means, per-photo scores, every row with what it matched."""
+    f = DATA / name
+    if scorer is None or not f.exists() or f.parent != DATA:
+        raise HTTPException(404)
+    inv = inventory()
+    by_run = defaultdict(lambda: defaultdict(list))
+    for r in read_csv(f):
+        if r.get("image"):
+            by_run[r.get("run", "1")][r["image"]].append(r)
+    runs = []
+    for run, photos_ in sorted(by_run.items(), key=lambda kv: int(kv[0]) if kv[0].isdigit() else kv[0]):
+        per_photo = []
+        for image, rows in sorted(photos_.items()):
+            for r, m in zip(rows, scorer.match_photo(rows, inv)):
+                r["matched"] = f"{m['brand']} {m['product']}".strip() if m else ""
+            found = {r["matched"] for r in rows if r["matched"]}
+            per_photo.append({"image": image, "scores": scorer.score_photo(rows, inv), "rows": rows,
+                              "missed": [f"{i['brand']} {i['product']}".strip() for i in inv if f"{i['brand']} {i['product']}".strip() not in found]})
+        metrics = list(per_photo[0]["scores"])
+        runs.append({"run": run, "means": {m: statistics.mean(p["scores"][m] for p in per_photo) for m in metrics}, "photos": per_photo})
+    return {"file": name, "runs": runs}
+
+
+@app.get("/api/results")
+def api_results():
+    return read_csv(DATA / "results.csv")
+
+
 @app.get("/", response_class=HTMLResponse)
 def index():
     return PAGE
@@ -217,7 +247,7 @@ pre{background:#fff;border:1px solid #ddd;padding:8px;font-size:12px;overflow-x:
 .err{color:#a00}
 </style></head><body>
 <h1>bottle-vision</h1><div class="muted">Read-only. Every view re-reads the files. <span id="when"></span></div>
-<nav style="margin:12px 0"><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a></nav>
+<nav style="margin:12px 0"><a onclick="show('results')">Leaderboard</a><a onclick="show('claude')">Claude runs</a><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a></nav>
 <div id="main"></div>
 <script>
 const COLORS=['#e6194b','#3cb44b','#4363d8','#f58231','#911eb4','#42d4f4','#f032e6','#9a6324','#469990','#800000','#808000','#000075'];
@@ -230,7 +260,7 @@ let INV=[],DETAIL=null,state={source:'detector',run:null};
 function show(view,arg){
   location.hash=view+(arg?'/'+arg:'');
   $('when').textContent='Loaded '+new Date().toLocaleTimeString();
-  ({photos:viewPhotos,photo:viewPhoto,scores:viewScores,status:viewStatus}[view]||viewPhotos)(arg).catch(e=>$('main').innerHTML='<p class=err>'+esc(e)+'</p>');
+  ({results:viewResults,claude:viewClaude,photos:viewPhotos,photo:viewPhoto,scores:viewScores,status:viewStatus}[view]||viewPhotos)(arg).catch(e=>$('main').innerHTML='<p class=err>'+esc(e)+'</p>');
 }
 async function viewPhotos(){
   const ps=await get('/api/photos');
@@ -275,12 +305,35 @@ async function viewScores(){
   $('main').innerHTML=`<h2>Scores (src/score.py logic, mean per run then across runs)</h2><table><tr><th>file</th><th>runs</th><th>photos</th><th>rows</th>${ms.map(m=>`<th>${m}</th>`).join('')}</tr>${s.files.map(f=>f.error?`<tr><td>${esc(f.file)}</td><td colspan=${3+ms.length} class=err>${esc(f.error)}</td></tr>`:`<tr><td>${esc(f.file)}</td><td class=n>${f.runs}</td><td class=n>${f.photos}</td><td class=n>${f.rows}</td>${ms.map(m=>`<td class=n>${f.means[m]?.toFixed(3)??''}</td>`).join('')}</tr>`).join('')}</table>
   <p class=muted>Local files: precision is always 1.0 and size/category just repeat ID accuracy (see CLAUDE.md).</p>`;
 }
+async function viewResults(){
+  const rs=await get('/api/results');
+  const ok=rs.filter(r=>r.follows_rule=='yes').sort((a,b)=>b.recall-a.recall),bad=rs.filter(r=>r.follows_rule!='yes');
+  const row=r=>`<tr><td>${esc(r.date)}</td><td><b>${esc(r.experiment)}</b><div class=muted>${esc(r.model)}</div></td><td>${esc(r.inputs)}</td><td class=n><b>${(+r.recall).toFixed(3)}</b>${r.recall_sd?' &plusmn; '+(+r.recall_sd).toFixed(3):''}</td><td class=n>${r.precision?(+r.precision).toFixed(3):''}</td><td class=n>${r.count_error?(+r.count_error).toFixed(2):''}</td><td class=muted>${esc(r.notes)}</td></tr>`;
+  const head='<tr><th>date</th><th>experiment</th><th>inputs</th><th>item recall</th><th>precision</th><th>count error</th><th>notes</th></tr>';
+  $('main').innerHTML=`<h2>Leaderboard: photos in, ground truth only for scoring</h2><p class=muted>Logged in data/results.csv. The bar to beat is the Claude baseline.</p><table>${head}${ok.map(row).join('')}</table>
+  <h2>Invalid: ground truth used as input (kept as a record)</h2><table>${head}${bad.map(row).join('')}</table>`;
+}
+async function viewClaude(){
+  const d=await get('/api/runs/predictions.csv');
+  const ms=Object.keys(d.runs[0]?.means||{}),pct=x=>(100*x).toFixed(1)+'%';
+  const mean=m=>d.runs.reduce((a,r)=>a+r.means[m],0)/d.runs.length;
+  const fmt=(m,x)=>m=='count_error'?x.toFixed(2):pct(x);
+  let h=`<h2>Claude baseline: ${d.runs.length} runs over the same ${d.runs[0]?.photos.length||0} photos</h2>
+  <p class=muted>Each run sends every photo once to claude-opus-5-5. The headline number is the mean of the per-run means. Rows are green when they matched a ground-truth item one-to-one (fuzzy name match &ge; 60), red when not.</p>
+  <table><tr><th>run</th>${ms.map(m=>`<th>${m}</th>`).join('')}</tr>${d.runs.map(r=>`<tr><td><a href="#claude" onclick="document.getElementById('run-${r.run}').scrollIntoView();return false">run ${esc(r.run)}</a></td>${ms.map(m=>`<td class=n>${fmt(m,r.means[m])}</td>`).join('')}</tr>`).join('')}
+  <tr><th>mean</th>${ms.map(m=>`<th class=n>${fmt(m,mean(m))}</th>`).join('')}</tr></table>`;
+  for(const r of d.runs){
+    h+=`<h2 id="run-${r.run}">Run ${esc(r.run)}: item recall ${pct(r.means.recall)}</h2><table><tr><th>photo</th>${ms.map(m=>`<th>${m}</th>`).join('')}<th>missed</th></tr>${r.photos.map(p=>`<tr><td><a onclick="state.source='predictions.csv';state.run='${r.run}';show('photo','${esc(p.image)}')" style="cursor:pointer;color:#246">${esc(p.image)}</a></td>${ms.map(m=>`<td class=n>${fmt(m,p.scores[m])}</td>`).join('')}<td class=muted>${esc(p.missed.join(', '))}</td></tr>`).join('')}</table>
+    <details><summary>All ${r.photos.reduce((a,p)=>a+p.rows.length,0)} rows of run ${esc(r.run)}</summary><table><tr><th>photo</th><th>#</th><th>brand</th><th>product</th><th>category</th><th>size</th><th>liquid</th><th>fill_ml</th><th>id_source</th><th>matched to</th><th>description</th></tr>${r.photos.flatMap(p=>p.rows.map(x=>`<tr style="background:${x.matched?'#eaf6ea':'#fbeaea'}"><td>${esc(p.image)}</td><td class=n>${esc(x.position)}</td><td>${esc(x.brand)}</td><td>${esc(x.product)}</td><td>${esc(x.category)}</td><td class=n>${esc(x.size)} ${esc(x.unit)}</td><td>${esc(x.liquid)}</td><td class=n>${esc(x.fill_ml)}</td><td>${esc(x.id_source)}</td><td>${esc(x.matched)||'<span class=err>no match</span>'}</td><td class=muted>${esc(x.description)}</td></tr>`)).join('')}</table></details>`;
+  }
+  $('main').innerHTML=h;
+}
 async function viewStatus(){
   const s=await get('/api/status');
   $('main').innerHTML=`<h2>Counts</h2><table>${Object.entries(s.counts).map(([k,v])=>`<tr><td>${esc(k)}</td><td class=n>${v??'<span class=muted>missing</span>'}</td></tr>`).join('')}${s.prediction_files.map(f=>`<tr><td>data/${esc(f.file)} rows</td><td class=n>${f.rows}</td></tr>`).join('')}</table>
   <h2>Logs</h2>${s.logs.length?s.logs.map(l=>`<div><b>${esc(l.name)}</b> <span class=muted>${l.lines} lines, last 20</span><pre>${esc(l.tail)}</pre></div>`).join(''):'<p class=muted>No logs.</p>'}`;
 }
-const [v,...a]=location.hash.slice(1).split('/');show(v||'photos',decodeURIComponent(a.join('/'))||undefined);
+const [v,...a]=location.hash.slice(1).split('/');show(v||'results',decodeURIComponent(a.join('/'))||undefined);
 </script></body></html>"""
 
 

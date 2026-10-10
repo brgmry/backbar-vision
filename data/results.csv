@@ -1,0 +1,5 @@
+date,experiment,model,predictions_file,inputs,follows_rule,recall,recall_sd,precision,count_error,notes
+2026-10-10,Claude baseline (open-ended),claude-opus-5-5 effort medium,predictions.csv,photo only,yes,0.595,0.015,0.605,-0.171,"5 runs x 7 photos. Invents brands it cannot read (Flying Goose for Thai Dragon), 144/414 ids guessed from shape."
+2026-10-10,Local LOPO k=3,OWLv2 + DINOv2-base NN,predictions_local_k3.csv,photo + hand-labelled crops of the same bottles,no,0.976,,,-0.286,Reference crops come from our ground truth. Not a valid result.
+2026-10-10,Local LOPO k=2,OWLv2 + DINOv2-base NN,predictions_local_k2.csv,photo + hand-labelled crops of the same bottles,no,0.929,,,-0.857,Not a valid result.
+2026-10-10,Local LOPO k=1,OWLv2 + DINOv2-base NN,predictions_local_k1.csv,photo + hand-labelled crops of the same bottles,no,0.881,,,-1.429,Not a valid result.
