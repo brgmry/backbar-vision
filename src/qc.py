@@ -20,7 +20,7 @@ from PIL import Image
 from pillow_heif import register_heif_opener
 from pydantic import BaseModel
 
-from fill import describe, neck_start, row_widths, segment, upscale
+from fill import describe, fit, neck_start, row_widths, segment
 from vlm import get_vlm
 
 register_heif_opener()
@@ -81,7 +81,7 @@ class VLMQC:
         prompt = (f"This crop should show one bottle: {describe(item)}. ok: true only if that bottle is in the "
                   "middle of the crop and fully visible from cap to base, with nothing in front of the part that "
                   "holds liquid. reason: a few words when ok is false.")
-        return self.vlm.ask([upscale(crop)], prompt, Verdict)
+        return self.vlm.ask([fit(crop)[0]], prompt, Verdict)
 
 
 def get_qc(spec: str) -> CropQC:

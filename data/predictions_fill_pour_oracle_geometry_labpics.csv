@@ -1,0 +1,5 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6347.HEIC,1,oracle box: OWLv2 detection picked by hand,"[1837, 1163, 517, 1437]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,50.0,oracle,True
+1,IMG_6348.HEIC,1,oracle box: OWLv2 detection picked by hand,"[1709, 1320, 668, 2217]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,50.0,oracle,True
+1,IMG_6349.HEIC,1,oracle box: OWLv2 detection picked by hand,"[1791, 1621, 641, 1678]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,50.0,oracle,True
+1,IMG_6351.HEIC,1,oracle box: OWLv2 detection picked by hand,"[1723, 990, 727, 2404]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,41.1,oracle,True

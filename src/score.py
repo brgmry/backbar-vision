@@ -4,8 +4,8 @@ Every photo shows all inventory items. Per photo, predicted bottles are matched 
 to inventory items by fuzzy brand+product similarity (Hungarian assignment).
 
 With --alcohol, only alcohol items count (inventory and predictions), as in src/experiment.py.
-If data/labelled/fill.csv (id,fill_ml: measured, never model-made) exists, also reports fill-level MAE in
-percentage points of bottle size, over matched bottles whose fill was visible.
+If data/labelled/fill.csv (image,id,fill_ml: measured, never model-made; blank image = every photo) exists,
+also reports fill-level MAE in percentage points of bottle size, over matched bottles whose fill was visible.
 
 Usage: python src/score.py [data/predictions.csv] [--alcohol]
 """
@@ -61,10 +61,15 @@ def score_photo(preds, inventory):
     }
 
 
+def fill_truth(truth, image, item_id):
+    return truth.get((image, item_id), truth.get(("", item_id)))
+
+
 def fill_errors(matched, truth):
     """Absolute fill error in percentage points of bottle size, for matched bottles with a measured fill."""
-    return [abs(float(p["fill_ml"]) - truth[i["id"]]) / size_ml(i) * 100
-            for p, i in matched if i["id"] in truth and p.get("fill_ml") not in (None, "")]
+    return [abs(float(p["fill_ml"]) - fill_truth(truth, p["image"], i["id"])) / size_ml(i) * 100
+            for p, i in matched
+            if fill_truth(truth, p["image"], i["id"]) is not None and p.get("fill_ml") not in (None, "")]
 
 
 def main(path, alcohol=False):
@@ -76,13 +81,13 @@ def main(path, alcohol=False):
         if not alcohol or row["category"] in ALCOHOL:
             by_photo[(row.get("run", "1"), row["image"])].append(row)
 
-    truth = {r["id"]: float(r["fill_ml"]) for r in csv.DictReader(open(FILL_TRUTH))} if FILL_TRUTH.exists() else {}
+    truth = {(r.get("image", ""), r["id"]): float(r["fill_ml"]) for r in csv.DictReader(open(FILL_TRUTH))} if FILL_TRUTH.exists() else {}
     scores, errors, measured = {}, [], 0
     for key, preds in sorted(by_photo.items()):
         scores[key] = score_photo(preds, inventory)
         matched = [(p, i) for p, i in zip(preds, match_photo(preds, inventory)) if i is not None]
         errors += fill_errors(matched, truth)
-        measured += sum(i["id"] in truth for _, i in matched)
+        measured += sum(fill_truth(truth, p["image"], i["id"]) is not None for p, i in matched)
     metrics = list(next(iter(scores.values())))
 
     print(f"{'run':>3} {'image':<15}" + "".join(f"{m:>14}" for m in metrics))

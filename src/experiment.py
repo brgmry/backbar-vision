@@ -25,6 +25,7 @@ register_heif_opener()
 ALCOHOL = {"spirit", "liqueur", "wine", "beer"}
 PAD = 0.15  # detector boxes clip caps and bases; SAM gets the box, the crop gets room around it
 EXCLUDE = Path("data/labelled/crop_exclude.csv")
+PHOTO_DIRS = [Path("data/raw"), Path("data/pour")]
 NULLED = ["description", "brand", "product", "category", "liquid", "size", "unit", "glass", "fill_ml",
           "id_source", "fill_visible"]
 
@@ -68,7 +69,7 @@ def main(ids_path: str, specs: list[str]) -> None:
                 results[e.name].append(row | {"fill_ml": None, "fill_visible": False})
             continue
         if row["image"] != photo_name:
-            photo_name, photo = row["image"], Image.open(Path("data/raw") / row["image"]).convert("RGB")
+            photo_name, photo = row["image"], Image.open(next(d / row["image"] for d in PHOTO_DIRS if (d / row["image"]).exists())).convert("RGB")
         crop, box = padded_crop(photo, json.loads(row["bbox"]))
         for e in estimators:
             try:
