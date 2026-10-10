@@ -40,7 +40,8 @@ The only input is photos. `data/labelled/` and `data/crops/labels.csv` are used 
 ## Eval protocol (from here on)
 - **Enrolment photos** (`data/enrol/`): each bottle alone, 3 shots, plain surface. The only source of reference crops. Never scored.
 - **Test photos** (`data/test/`): new arrangements, a different surface and light, plus bottles not in the inventory. Labelled only for scoring, after predictions are written. Never used as references.
-- Report ID accuracy (crop accuracy and item recall). Size, category and liquid only count when something actually predicts them.
+- **Bar test set** (`data/test_bars/`): ~30 real bar photos from web search, labelled by humans only (never by a model, since the baseline is a model). Never used for training: any training image within phash distance 6 of `data/test_bars/phashes.txt` is dropped.
+- Report ID accuracy (crop accuracy and item recall), plus `bar_recall` (spirits, liqueurs, wine, beer, mixers only). Size, category and liquid only count when something actually predicts them.
 - A fair comparison gives both systems the same information: local vs Claude open-ended, and local vs Claude given the stock list and reference images.
 
 ## Rules
