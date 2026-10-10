@@ -2,7 +2,7 @@
 
 Usage (from the repo root, data/ paths are relative):
     .venv/bin/uvicorn api:app --app-dir src
-    curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:opus'
+    curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:opus-grid'
 
 Fill runs on alcohol bottles only (other rows keep fill null): crop clearing (qc.GeometryQC) first, then the
 fill estimator named by `fill` (see fill.py; `none` skips it).
@@ -206,7 +206,7 @@ def add_label_text(photo: Image.Image, bottles: list[BottleOut]) -> None:
 
 @app.post("/identify", response_model=PhotoOut)
 def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "local",
-                   fill: str = "geometry:opus", ocr: bool = True) -> PhotoOut:
+                   fill: str = "geometry:opus-grid", ocr: bool = True) -> PhotoOut:
     """One photo of bottles -> every stock bottle, left to right, with fill level for alcohol bottles.
     pipeline=local needs no API key; fill=none skips fill, which then needs no API key either."""
     name = Path(image.filename or "").name or "upload"
