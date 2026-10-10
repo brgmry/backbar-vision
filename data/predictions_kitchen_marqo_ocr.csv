@@ -1,0 +1,123 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"crop 2, sim 0.61","[0, 2920, 233, 590]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,2,"crop 3, sim 0.56","[205, 2235, 328, 697]",Eroski,Sidra natural,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,3,"crop 4, sim 0.63","[1402, 2401, 224, 431]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,4,"crop 5, sim 0.67","[1611, 2149, 381, 719]",Kroger,Apple Cider,alcohol,,1 Gallon,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,5,"crop 6, sim 0.57","[1975, 2149, 205, 702]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,6,"crop 7, sim 0.57","[2173, 2237, 183, 614]",Martini,Martini Rouge,alcohol,,100 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,7,"crop 8, sim 0.57","[2351, 2275, 219, 576]",Chamarel,Rhum,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,8,"crop 9, sim 1.00","[2539, 2204, 202, 678]",Johnnie Walker Black Label,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,9,"crop 10, sim 0.41","[2727, 2504, 162, 359]",RECYCLEZ-MOI,Gini Lemon,mixer,,33cl,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,10,"crop 11, sim 0.67","[2749, 2137, 245, 635]",Schweppes,Schweppes ginger ale,mixer,,"0,9 l",,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,11,"crop 12, sim 0.46","[2858, 1471, 202, 293]",Gallo,Sauvignon blanc,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,12,"crop 13, sim 0.66","[2996, 2297, 255, 609]",Wegmans Organic,Organic Mango Lemonade,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,13,"crop 14, sim 0.59","[3075, 1333, 133, 281]",Aquarius,Aquarius blue ice,mixer,,500 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,14,"crop 15, sim 0.70","[3213, 2601, 114, 271]",Corona,cerveza,alcohol,,355 cm3/ 355 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,15,"crop 16, sim 0.63","[3308, 2249, 240, 652]",Efes,Efes Draft Beer 500Ml,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,16,"crop 17, sim 1.00","[3489, 2180, 257, 733]",Bacardi Carta Blanca,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6339.HEIC,17,"crop 18, sim 0.59","[3677, 2392, 198, 521]",Angostura,Angostura  - aromatic bitters,alcohol,,200ml,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,1,"crop 1, sim 0.54","[2, 2927, 286, 407]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,2,"crop 2, sim 0.52","[307, 2804, 426, 431]",Dagsbier,DAGSBIER 7% vol,alcohol,,50 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,3,"crop 3, sim 0.56","[645, 2063, 336, 690]",ifri,Ifri Eau minerale gazeuse,mixer,,1 l,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,4,"crop 4, sim 0.60","[1859, 2361, 248, 443]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,5,"crop 5, sim 0.60","[2104, 2263, 414, 771]",Kroger,Apple Cider,alcohol,,1 Gallon,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,6,"crop 6, sim 0.57","[2344, 2132, 162, 371]",Migros Selection,Moscato,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,7,"crop 7, sim 0.61","[2570, 2202, 159, 521]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,8,"crop 8, sim 0.63","[2687, 2244, 219, 754]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,9,"crop 9, sim 0.63","[2894, 2052, 276, 764]",Eptinger,Mineralwasser,mixer,,1 Liter,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,10,"crop 10, sim 0.51","[2996, 1278, 169, 338]",Coca-Cola,Coca Cola Zero Açúcar,mixer,,350 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,11,"crop 11, sim 0.62","[3096, 2078, 159, 612]",La Cave d'Augustin Florent,Côtes de Provence - 2018,alcohol,,75 cL,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,12,"crop 12, sim 0.64","[3261, 2299, 240, 823]",Félix Solís Avantis,Vino blanco,alcohol,,75 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,13,"crop 13, sim 0.60","[3303, 2235, 224, 293]",Château de la Lande,Monbazillac,alcohol,,37'5 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,14,"crop 14, sim 0.60","[3392, 1023, 117, 288]",Aquarius,Aquarius blue ice,mixer,,500 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,15,"crop 15, sim 0.63","[3392, 2216, 202, 624]",AquaVale,Sparkling spring water,mixer,,6 x 500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,16,"crop 16, sim 0.62","[3594, 2299, 286, 712]",Efes,Efes Draft Beer 500Ml,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6340.HEIC,17,"crop 17, sim 0.54","[3877, 2304, 233, 538]",Angostura,Angostura  - aromatic bitters,alcohol,,200ml,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,1,"crop 1, sim 0.57","[10, 1902, 416, 688]",rolly gassmann,riesling,alcohol,,74cl,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,2,"crop 2, sim 0.42","[2056, 2018, 414, 821]",Martini,Rosso,alcohol,,1.5 l,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,3,"crop 3, sim 0.60","[2311, 1821, 200, 438]",Tamaris,Réserve des Tamaris 2010 - Fitou,alcohol,,75 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,4,"crop 4, sim 0.57","[2404, 2137, 214, 478]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,5,"crop 5, sim 0.35","[2592, 1637, 236, 631]",Pedras,Lima & Hortelã,mixer,,25 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,6,"crop 6, sim 0.60","[2616, 2099, 219, 559]",Zur alten Mühle,Haselnuss Spirituose,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,7,"crop 7, sim 0.48","[2711, 1076, 169, 350]",Coca-Cola,coca cola 33 cl,mixer,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,8,"crop 8, sim 0.51","[2830, 2097, 233, 785]",Vert pamp,Vert pamp,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,9,"crop 9, sim 0.66","[2908, 1004, 117, 276]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,10,"crop 10, sim 0.69","[2944, 1935, 95, 290]",El Mayu,Sidra,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,11,"crop 11, sim 0.55","[2970, 2049, 186, 566]",Dalston Cola,Raw Fiyah Ginger Beer,mixer,,275 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,12,"crop 12, sim 0.56","[3037, 1676, 176, 555]",Ch'ti,Ch'ti blonde,alcohol,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,13,"crop 13, sim 0.57","[3163, 809, 131, 317]",Aquarius,Aquarius blue ice,mixer,,500 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,14,"crop 14, sim 0.64","[3187, 2059, 198, 288]",Coca Cola,Cola Zero,mixer,,0.2l,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,15,"crop 15, sim 1.00","[3211, 1457, 212, 740]",Bacardi Carta Blanca,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,16,"crop 16, sim 0.61","[3446, 1566, 221, 647]",Baileys,Baileys with a hint of Coffee Flavour,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,17,"crop 17, sim 0.65","[3449, 2135, 345, 714]",Wegmans Organic,Organic Mango Lemonade,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6341.HEIC,18,"crop 18, sim 0.52","[4779, 952, 167, 176]",Fernandes,Cream Ginger,mixer,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,1,"crop 1, sim 0.55","[2, 2116, 126, 395]",Fernandes,Cream Ginger,mixer,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,2,"crop 2, sim 0.59","[2023, 1894, 445, 859]",Barr,Tizer,mixer,,330 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,3,"crop 3, sim 0.55","[2192, 1666, 188, 352]",demory,demory,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,4,"crop 4, sim 0.52","[2370, 2002, 157, 469]",Coca-Cola Company,,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,5,"crop 5, sim 0.58","[2506, 1944, 221, 595]",Zur alten Mühle,Haselnuss Spirituose,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,6,"crop 6, sim 0.47","[2520, 819, 183, 371]",Coca-Cola,coca cola 33 cl,mixer,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,7,"crop 7, sim 0.53","[2532, 1457, 269, 716]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,8,"crop 8, sim 0.53","[2706, 1956, 288, 816]",Moulin de Vignoles,,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,9,"crop 9, sim 0.66","[2837, 1773, 102, 300]",El Mayu,Sidra,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,10,"crop 10, sim 0.59","[2942, 1488, 190, 590]",Indio,Indio,alcohol,,355ml,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,11,"crop 11, sim 0.59","[2975, 509, 133, 359]",Aquarius,Aquarius blue ice,mixer,,500 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,12,"crop 12, sim 1.00","[3118, 1959, 236, 769]",Johnnie Walker Black Label,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,13,"crop 13, sim 1.00","[3130, 1261, 221, 743]",Bacardi Carta Blanca,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,14,"crop 14, sim 0.62","[3365, 1366, 243, 700]",Baileys,Baileys with a hint of Coffee Flavour,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6342.HEIC,15,"crop 15, sim 0.42","[3387, 1992, 347, 735]",Appie,Appie cidre le poiré gingembre,alcohol,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,1,"crop 1, sim 0.78","[0, 3096, 52, 281]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,2,"crop 3, sim 0.58","[7, 2237, 359, 614]",rolly gassmann,riesling,alcohol,,74cl,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,3,"crop 4, sim 0.49","[683, 2961, 207, 129]",Coca-Cola,Coca-cola light,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,4,"crop 5, sim 0.60","[2040, 2368, 378, 578]",Kroger,Apple Cider,alcohol,,1 Gallon,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,5,"crop 6, sim 0.56","[2211, 2185, 164, 309]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,6,"crop 7, sim 0.53","[2347, 2473, 131, 364]",Shloer,Shloer Rose,mixer,,750 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,7,"crop 8, sim 0.56","[2459, 1987, 245, 743]",Cola Zero,Meradona,mixer,,1.5 g,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,8,"crop 9, sim 0.56","[2509, 2418, 205, 543]",Jack Daniel's,Jack daniels 150 anniversaire,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,9,"crop 10, sim 0.51","[2580, 1497, 155, 319]",Coca-Cola,Coca Cola Zero Açúcar,mixer,,350 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,10,"crop 11, sim 0.48","[2618, 2294, 126, 340]",Schweppes,6X33CL SLIM INDIAN SCHWEPPES,mixer,,6x33cl,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,11,"crop 12, sim 1.00","[2704, 2380, 209, 593]",Johnnie Walker Black Label,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,12,"crop 13, sim 0.51","[2766, 1297, 186, 395]",Gallo,Sauvignon blanc,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,13,"crop 14, sim 0.65","[2775, 2299, 88, 209]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,14,"crop 15, sim 0.48","[2825, 1983, 117, 293]",Bombay Sapphire,Bombay Sapphire London Dry Gin,alcohol,,1l,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,15,"crop 16, sim 0.58","[2851, 2063, 171, 524]",Ramune,Hatakosen Tokyo Uji-matcha Ramune,mixer,,200 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,16,"crop 17, sim 0.62","[2961, 2454, 202, 562]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,17,"crop 18, sim 0.55","[3004, 1257, 114, 271]",Aldi,Lightly sparkling spring water,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,18,"crop 19, sim 1.00","[3039, 1833, 181, 693]",Bacardi Carta Blanca,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,19,"crop 20, sim 0.64","[3227, 1956, 202, 585]",Baileys,Baileys with a hint of Coffee Flavour,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6343.HEIC,20,"crop 21, sim 0.58","[3306, 2504, 295, 495]",Wegmans Organic,Organic Mango Lemonade,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,1,"crop 1, sim 0.56","[0, 2313, 376, 707]",Sodastream,Sodastream Sodamix Classic Diet Cola Flavour.,mixer,,0.440 litre,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,2,"crop 2, sim 0.53","[264, 2137, 90, 207]",Mirinda,Mirinda POMME 1.5l,mixer,,1.5L,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,3,"crop 3, sim 0.57","[295, 1935, 345, 624]",rolly gassmann,riesling,alcohol,,74cl,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,4,"crop 4, sim 0.61","[2173, 2080, 364, 735]",Kroger,Apple Cider,alcohol,,1 Gallon,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,5,"crop 5, sim 0.55","[2323, 1909, 176, 309]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,6,"crop 6, sim 0.52","[2504, 2192, 107, 407]",The Letter Company,Villa Italia,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,7,"crop 7, sim 0.67","[2578, 1749, 217, 578]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,8,"crop 8, sim 0.57","[2608, 2147, 207, 531]",Jack Daniel’s,Wiskey,alcohol,,5 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,9,"crop 9, sim 0.46","[2678, 1211, 129, 228]",Red Bull,Energy Drink,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,10,"crop 10, sim 0.53","[2742, 1219, 169, 319]",Coca-Cola,Coca Cola Zero Açúcar,mixer,,350 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,11,"crop 11, sim 1.00","[2813, 2123, 209, 600]",Johnnie Walker Black Label,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,12,"crop 12, sim 0.71","[2913, 2004, 90, 269]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,13,"crop 13, sim 0.56","[2975, 1768, 152, 521]",Ramune,Hatakosen Tokyo Uji-matcha Ramune,mixer,,200 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,14,"crop 14, sim 0.55","[3058, 2128, 207, 719]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,15,"crop 15, sim 1.00","[3144, 1568, 181, 678]",Bacardi Carta Blanca,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,16,"crop 16, sim 0.56","[3196, 966, 100, 302]",Aquarius,Aquarius blue ice,mixer,,500 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,17,"crop 17, sim 0.62","[3344, 1678, 195, 602]",Efes,Efes Draft Beer 500Ml,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,18,"crop 18, sim 0.66","[3389, 2194, 300, 647]",Wegmans Organic,Organic Mango Lemonade,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6345.HEIC,19,"crop 19, sim 0.57","[4758, 1104, 152, 209]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,1,"crop 1, sim 0.77","[0, 2875, 269, 400]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,2,"crop 3, sim 0.57","[186, 2182, 352, 614]",rolly gassmann,riesling,alcohol,,74cl,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,3,"crop 4, sim 0.62","[2125, 2285, 402, 659]",Barr,Tizer,mixer,,330 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,4,"crop 5, sim 0.58","[2268, 2106, 162, 298]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,5,"crop 6, sim 0.57","[2516, 1940, 236, 583]",Coca-Cola,Coca-Cola 2.5L retornable,mixer,,"2,5 l",,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,6,"crop 7, sim 0.53","[2530, 2461, 212, 255]",Zur alten Mühle,Haselnuss Spirituose,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,7,"crop 8, sim 0.52","[2618, 1404, 159, 321]",Coca-Cola,Coca Cola Zero Açúcar,mixer,,350 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,8,"crop 9, sim 1.00","[2742, 2323, 209, 555]",Johnnie Walker Black Label,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,9,"crop 11, sim 0.66","[2806, 2206, 105, 262]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,10,"crop 12, sim 0.56","[2899, 1956, 162, 524]",Ch'ti,Ch'ti blonde,alcohol,,33 cl,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,11,"crop 13, sim 0.50","[3008, 2335, 198, 664]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,12,"crop 14, sim 0.54","[3044, 1154, 114, 307]",Aquarius,Aquarius blue ice,mixer,,500 ml,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,13,"crop 15, sim 1.00","[3056, 1795, 176, 666]",Bacardi Carta Blanca,,,,,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,14,"crop 16, sim 0.62","[3265, 1878, 188, 576]",Efes,Efes Draft Beer 500Ml,alcohol,,500ml,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,15,"crop 17, sim 0.66","[3327, 2373, 288, 590]",Wegmans Organic,Organic Mango Lemonade,mixer,,,,,,catalogue:marqo:ocr,False
+1,IMG_6346.HEIC,16,"crop 18, sim 0.59","[3408, 2316, 157, 186]",Bombay Sapphire,Bombay Sapphire London Dry Gin,alcohol,,1l,,,,catalogue:marqo:ocr,False
