@@ -34,6 +34,13 @@ Results, 7 photos x 12 items, leave-one-photo-out:
 
 **These numbers are optimistic, not a result.** The reference crops come from the other 6 photos of the same bottles, same room, same light, minutes apart. Size and category are copied from the inventory once the ID is right, so size_acc and category_acc just repeat ID accuracy. The honest no-help number is the packshot row (0.59).
 
+## Model design (agreed 10 Oct)
+photo -> OWLv2 tiled detector -> crop -> DINOv2 backbone -> trained projection head -> (a) brand classifier (softmax, brands with 100+ training images) and (b) nearest-neighbour retrieval against the catalogue gallery for exact product -> product or "unknown". OCR on each crop (Apple Vision) matched against catalogue names, fused with the image score, reported as a separate ablation.
+- Order: frozen backbone + head first, fine-tune the backbone only if time is left.
+- Score both brand recall and product recall.
+- Leaderboard rows: zero-shot retrieval, + trained head, + brand classifier, + OCR fusion.
+- Unknown threshold and hyperparameters tuned on a validation split of the external data, never on a test set.
+
 ## Ground truth is the answer, never an input
 The only input is photos. `data/labelled/` and `data/crops/labels.csv` are used by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The LOPO results above break this rule and are kept only as a record of what not to report.
 
