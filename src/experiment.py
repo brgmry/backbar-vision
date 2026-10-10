@@ -3,7 +3,8 @@
 The identification step is whatever wrote the predictions CSV (src/identify.py, src/match.py, ...), so
 identifiers and fill estimators swap independently.
 
-Usage: python src/experiment.py <predictions.csv> <fill spec> [<fill spec> ...]
+Usage: python src/experiment.py <predictions.csv> <fill spec> [<fill spec> ...] [--all]
+  --all: every category, not just alcohol (fill tests on any clear bottle)
   e.g. python src/experiment.py data/predictions_local_k3.csv geometry:edge geometry:opus vlm:opus
   -> data/predictions_fill_<ids>_<spec>.csv per spec (shared schema), overlays in runs/fill/<spec>/
 Crops listed in data/labelled/crop_exclude.csv (image + bbox, checked by eye) are skipped: fill stays null.
@@ -25,7 +26,7 @@ register_heif_opener()
 ALCOHOL = {"spirit", "liqueur", "wine", "beer"}
 PAD = 0.15  # detector boxes clip caps and bases; SAM gets the box, the crop gets room around it
 EXCLUDE = Path("data/labelled/crop_exclude.csv")
-PHOTO_DIRS = [Path("data/raw"), Path("data/pour")]
+PHOTO_DIRS = [Path("data/raw"), Path("data/pour"), Path("data/reference")]
 NULLED = ["description", "brand", "product", "category", "liquid", "size", "unit", "glass", "fill_ml",
           "id_source", "fill_visible"]
 
@@ -53,14 +54,14 @@ def overlay(crop: Image.Image, debug: dict, label: str) -> Image.Image:
     return img
 
 
-def main(ids_path: str, specs: list[str]) -> None:
+def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL) -> None:
     rows = list(csv.DictReader(open(ids_path)))
     estimators = [get_estimator(s) for s in specs]
     excluded = {(r["image"], r["bbox"]) for r in csv.DictReader(open(EXCLUDE))} if EXCLUDE.exists() else set()
     results = {e.name: [] for e in estimators}
     photo_name, photo = None, None
     for row in rows:
-        if row["category"] not in ALCOHOL:
+        if categories and row["category"] not in categories:
             for e in estimators:
                 results[e.name].append(row | {k: None for k in NULLED})
             continue
@@ -96,4 +97,5 @@ def main(ids_path: str, specs: list[str]) -> None:
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         sys.exit(__doc__)
-    main(sys.argv[1], sys.argv[2:])
+    args = [a for a in sys.argv[1:] if a != "--all"]
+    main(args[0], args[1:], None if "--all" in sys.argv else ALCOHOL)
