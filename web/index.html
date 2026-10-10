@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>bottle-vision</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 100'%3E%3Cpath fill='%23f0a43a' d='M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #0d0b09;
+  --panel: #161310;
+  --panel-2: #1f1b17;
+  --line: #2b2621;
+  --text: #f5eee4;
+  --muted: #9a9086;
+  --faint: #635a51;
+  --amber: #f0a43a;
+  --red: #ff8a76;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", system-ui, sans-serif;
+}
+@property --s { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --x { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --y { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); }
+body {
+  min-height: 100vh;
+  color: var(--text);
+  font: 15px/1.45 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  background: radial-gradient(900px 520px at 78% -140px, #3d260c66, transparent 70%), var(--bg);
+}
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+/* header */
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 32px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; font-size: 16px; letter-spacing: -.01em; }
+.brand svg { width: 13px; height: 30px; }
+.brand em { font: italic 400 19px var(--serif); color: var(--muted); margin-left: -6px; }
+.seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: 196px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); }
+.seg::before { content: ""; position: absolute; inset: 3px auto 3px 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--amber); box-shadow: 0 2px 14px #f0a43a45; transition: transform .45s var(--ease); }
+.seg[data-p="claude"]::before { transform: translateX(100%); }
+.seg button { position: relative; border: 0; background: none; padding: 7px 0; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; transition: color .3s; }
+.seg button[aria-checked="true"] { color: #1a1109; }
+
+main { padding: 6px 32px 40px; max-width: 1440px; margin: 0 auto; }
+
+/* empty state */
+.drop { display: grid; place-content: center; justify-items: center; gap: 30px; min-height: calc(100vh - 120px); padding: 48px 24px; text-align: center; border: 1.5px dashed var(--line); border-radius: 28px; cursor: pointer; outline: none; transition: border-color .3s, background .3s; }
+.drop:hover, .drop:focus-visible, body.dragging .drop { border-color: #f0a43a80; background: #f0a43a07; }
+.drop.nope { animation: shake .45s; }
+.shelf { display: flex; align-items: flex-end; gap: 16px; height: 128px; }
+.shelf svg { height: 100%; overflow: visible; transition: transform .6s var(--ease); transition-delay: calc(var(--i) * 45ms); }
+.drop:hover .shelf svg, body.dragging .shelf svg { transform: translateY(-8px); }
+.glass { fill: #ffffff07; stroke: #ffffff30; stroke-width: 1.3; vector-effect: non-scaling-stroke; }
+.liquid { fill-opacity: .88; transform-box: fill-box; transform-origin: bottom; animation: pour 1.5s var(--ease) backwards; animation-delay: calc(var(--i) * 110ms + 200ms); }
+h1 { font: 400 clamp(36px, 5.4vw, 60px)/1.04 var(--serif); letter-spacing: -.02em; }
+h1 em { color: var(--amber); }
+.drop p { margin-top: 14px; color: var(--muted); font-size: 16px; }
+.drop u { color: var(--text); text-decoration-color: var(--amber); text-underline-offset: 4px; }
+kbd { font: 12px var(--sans); color: var(--text); padding: 1px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; background: var(--panel); }
+.hint { font-size: 13px; color: var(--faint); transition: color .3s; }
+.hint.error { color: var(--red); }
+
+/* results */
+.view { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 28px; align-items: start; animation: rise .6s var(--ease); }
+@media (max-width: 960px) { .view { grid-template-columns: 1fr; } header, main { padding-left: 18px; padding-right: 18px; } }
+.stage { display: grid; justify-items: center; gap: 14px; }
+.frame { --ar: 1.333; position: relative; width: min(100%, calc(76vh * var(--ar))); aspect-ratio: var(--ar); overflow: hidden; border-radius: 18px; background: var(--panel); box-shadow: 0 40px 90px -40px #000, 0 0 0 1px var(--line); }
+.layer { position: absolute; inset: 0; transform-origin: 0 0; transform: scale(var(--s)) translate(calc(var(--x) * -100%), calc(var(--y) * -100%)); transition: --s 1.15s var(--ease), --x 1.15s var(--ease), --y 1.15s var(--ease); }
+.layer img { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .6s, filter 1s var(--ease); }
+.loaded .layer img { opacity: 1; }
+.scanning .layer img { filter: saturate(.35) brightness(.5); }
+#boxes { position: absolute; inset: 0; }
+.scan { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .5s; }
+.scanning .scan { opacity: 1; }
+.scan::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(#ffffff0a 1px, transparent 1px), linear-gradient(90deg, #ffffff0a 1px, transparent 1px); background-size: 44px 44px; }
+.scan::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, transparent, #f0a43a14 60%, #f0a43a50 95%, #ffdcaa 100%); animation: sweep 2.4s cubic-bezier(.45, 0, .4, 1) infinite; }
+
+.box { --d: 450ms; position: absolute; cursor: pointer; border: calc(2px / var(--s)) solid var(--c); border-radius: calc(7px / var(--s)); background: color-mix(in srgb, var(--c) 9%, transparent); box-shadow: 0 0 calc(24px / var(--s)) color-mix(in srgb, var(--c) 40%, transparent); transition: opacity .25s, background .25s; animation: pop .6s var(--ease) backwards; animation-delay: calc(var(--d) + var(--i) * 70ms); }
+.box.on { z-index: 2; background: color-mix(in srgb, var(--c) 24%, transparent); }
+.focus .box:not(.on) { opacity: .16; }
+.pin { position: absolute; left: calc(-2px / var(--s)); bottom: 100%; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--c); color: #140e08; font: 700 12px/22px var(--sans); text-align: center; box-shadow: 0 4px 14px #000a; transform-origin: 0 100%; transform: translateY(calc(-4px / var(--s))) scale(calc(1 / var(--s))); }
+
+.bar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; width: min(100%, calc(76vh * var(--ar, 1.333))); }
+.status { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; margin-right: auto; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.status b { color: var(--text); font-weight: 600; }
+.status.error { color: var(--red); }
+.status .faint { color: var(--faint); font-size: 13px; }
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); animation: pulse 1.4s infinite; }
+.btn { padding: 7px 15px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 13px; font-weight: 550; cursor: pointer; transition: border-color .2s, background .2s, transform .15s; }
+.btn:hover { border-color: #f0a43a70; }
+.btn:active { transform: scale(.96); }
+.btn:disabled { opacity: .35; pointer-events: none; }
+.btn.primary { border-color: transparent; background: var(--amber); color: #1a1109; }
+
+.side { position: sticky; top: 20px; display: grid; gap: 14px; }
+.count { min-height: 34px; font: 400 34px/1 var(--serif); }
+.count small { margin-left: 8px; font: 14px var(--sans); color: var(--muted); }
+.list { display: grid; gap: 8px; max-height: calc(100vh - 130px); overflow-y: auto; padding: 2px 6px 2px 2px; list-style: none; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.card { display: grid; grid-template-columns: 26px minmax(0, 1fr) 30px; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); transition: border-color .2s, background .2s, transform .3s var(--ease); animation: rise .6s var(--ease) backwards; animation-delay: calc(var(--i) * 60ms); }
+.card.on { transform: translateX(-4px); border-color: color-mix(in srgb, var(--c) 70%, transparent); background: color-mix(in srgb, var(--c) 7%, var(--panel)); }
+.num { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--c); color: #140e08; font-size: 12px; font-weight: 700; }
+.maker { overflow: hidden; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; text-overflow: ellipsis; }
+.product { margin: 1px 0 3px; font-size: 15px; font-weight: 550; line-height: 1.25; }
+.meta { color: var(--muted); font-size: 12.5px; }
+.meta i { color: var(--faint); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel-2); color: var(--muted); font-size: 11px; }
+.gauge { display: grid; justify-items: center; gap: 4px; color: var(--muted); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+.gauge svg { width: 17px; height: 42px; overflow: visible; }
+.gauge .liquid { fill: var(--c); animation-delay: calc(var(--i) * 60ms + 300ms); }
+.gauge.unknown { color: var(--faint); }
+.gauge.unknown .glass { stroke-dasharray: 3 3; }
+.skel { height: 84px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(100deg, var(--panel) 30%, var(--panel-2) 50%, var(--panel) 70%) 0 0 / 300% 100%; animation: shimmer 1.6s linear infinite; }
+.empty { padding: 28px 8px; color: var(--muted); }
+
+.dragmask { position: fixed; inset: 12px; z-index: 10; display: grid; place-items: center; border: 2px dashed var(--amber); border-radius: 28px; background: #0d0b09d0; backdrop-filter: blur(8px); font: 400 40px var(--serif); opacity: 0; pointer-events: none; transition: opacity .2s; }
+body.dragging.viewing .dragmask { opacity: 1; }
+
+@keyframes pour { from { transform: scaleY(0); } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes pop { from { opacity: 0; transform: scale(1.3); } }
+@keyframes sweep { from { transform: translateY(-100%); } to { transform: translateY(250%); } }
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 #f0a43a90; } 100% { box-shadow: 0 0 0 9px #f0a43a00; } }
+@keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 40 100" aria-hidden="true"><path fill="#f0a43a" d="M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z"/></svg>
+    bottle <em>vision</em>
+  </div>
+  <div class="seg" id="seg" data-p="local" role="radiogroup" aria-label="Pipeline">
+    <button role="radio" aria-checked="true" data-p="local" title="OWLv2 + DINOv2 on this machine">Local</button>
+    <button role="radio" aria-checked="false" data-p="claude" title="Claude vision baseline">Claude</button>
+  </div>
+</header>
+
+<main>
+  <section class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a photo of bottles">
+    <div class="shelf" id="shelf" aria-hidden="true"></div>
+    <div>
+      <h1>What's on the <em>back bar</em>?</h1>
+      <p>Drop a photo of your bottles, paste it with <kbd id="paste">⌘V</kbd>, or <u>browse</u>.</p>
+    </div>
+    <p class="hint" id="hint"></p>
+  </section>
+
+  <section class="view" id="view" hidden>
+    <div class="stage">
+      <div class="frame" id="frame">
+        <div class="layer" id="layer"><img id="photo" alt=""><div id="boxes"></div></div>
+        <div class="scan"></div>
+      </div>
+      <div class="bar">
+        <div class="status" id="status"></div>
+        <button class="btn" id="zoom" hidden>Whole photo</button>
+        <button class="btn" id="copy" disabled>Copy JSON</button>
+        <button class="btn primary" id="again">New photo</button>
+      </div>
+    </div>
+    <aside class="side">
+      <div class="count" id="count"></div>
+      <ol class="list" id="list"></ol>
+    </aside>
+  </section>
+</main>
+
+<input id="file" type="file" accept="image/*,.heic,.heif" hidden>
+<div class="dragmask" aria-hidden="true">Drop to scan</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const el = { seg: $("seg"), drop: $("drop"), shelf: $("shelf"), hint: $("hint"), paste: $("paste"), view: $("view"), frame: $("frame"),
+  layer: $("layer"), photo: $("photo"), boxes: $("boxes"), status: $("status"), zoom: $("zoom"), copy: $("copy"),
+  again: $("again"), count: $("count"), list: $("list"), file: $("file") };
+
+const COLORS = { spirit: "#f0a43a", liqueur: "#c38bff", wine: "#ef5d72", beer: "#f4d35e", mixer: "#4fd1c5", soft_drink: "#9be15d",
+  syrup: "#e0915a", sauce: "#ff6b4a", dairy: "#ece6da", oil: "#c3c96b", other: "#9a9086" };
+const SOURCE = { label: "Read off the label", shape: "Guessed from shape", reference: "Matched to a reference" };
+const HINTS = { local: "Local runs OWLv2 and DINOv2 on this machine. Nothing leaves it.",
+  claude: "Claude reads every label. Needs ANTHROPIC_API_KEY in .env." };
+const TO_ML = { ml: 1, g: 1, pint: 568 };
+const BOTTLE = "M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z";
+const SHELF = [  // [path, top y, fill, colour]: wine, whisky, mixer, sauce, miniature, jug
+  ["M17 3h6v27c0 4 9 7 9 16v48a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3V46c0-9 9-12 9-16z", 3, .62, COLORS.wine],
+  [BOTTLE, 14, .38, COLORS.spirit],
+  ["M18 10h4v18c0 3 6 5 6 11v55a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3V39c0-6 6-8 6-11z", 10, .72, COLORS.mixer],
+  ["M17 36h6v6c0 2 7 3 7 8v44a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3V50c0-5 7-6 7-8z", 36, .8, COLORS.sauce],
+  ["M18 60h4v7c0 2 4 3 4 6v22a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V73c0-3 4-4 4-6z", 60, .9, COLORS.syrup],
+  ["M13 26h12v6l9 9v53a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V41l7-9z", 26, .5, COLORS.dairy],
+];
+
+let pipeline = "local", file = null, dims = null, ready = null, results = {}, current = null;
+let fileToken = 0, runToken = 0, timer = 0, dragDepth = 0;
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+const form = (f) => { const d = new FormData(); d.append("image", f, f.name); return d; };
+
+function bottleSvg(path, top, fill, id, color) {
+  const y = 97 - fill * (97 - top);
+  const liquid = fill > 0 ? `<g clip-path="url(#${id})"><rect class="liquid" x="0" y="${y}" width="40" height="${97 - y}" ${color ? `fill="${color}"` : ""}/></g>` : "";
+  return `<svg viewBox="0 0 40 100"><defs><clipPath id="${id}"><path d="${path}"/></clipPath></defs>${liquid}<path class="glass" d="${path}"/></svg>`;
+}
+
+el.shelf.innerHTML = SHELF.map(([d, top, fill, c], i) => bottleSvg(d, top, fill, `shelf${i}`, c).replace("<svg", `<svg style="--i:${i}"`)).join("");
+el.hint.textContent = HINTS.local;
+el.paste.textContent = /Mac|iPhone|iPad/.test(navigator.platform) ? "⌘V" : "Ctrl+V";
+
+// input: click, keyboard, drag and drop anywhere, paste
+el.drop.addEventListener("click", () => el.file.click());
+el.drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.file.click(); } });
+el.file.addEventListener("change", () => { choose(el.file.files[0]); el.file.value = ""; });
+addEventListener("dragenter", (e) => { if (e.dataTransfer.types.includes("Files")) { dragDepth++; document.body.classList.add("dragging"); } });
+addEventListener("dragleave", () => { if (--dragDepth <= 0) { dragDepth = 0; document.body.classList.remove("dragging"); } });
+addEventListener("dragover", (e) => e.preventDefault());
+addEventListener("drop", (e) => { e.preventDefault(); dragDepth = 0; document.body.classList.remove("dragging"); choose(e.dataTransfer.files[0]); });
+addEventListener("paste", (e) => choose([...e.clipboardData.files][0]));
+
+el.seg.addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b || b.dataset.p === pipeline) return;
+  pipeline = el.seg.dataset.p = b.dataset.p;
+  for (const x of el.seg.children) x.setAttribute("aria-checked", x === b);
+  el.hint.textContent = HINTS[pipeline];
+  el.hint.classList.remove("error");
+  if (file) identify();
+});
+el.zoom.addEventListener("click", () => zoom(el.zoom.dataset.zoomed !== "1"));
+el.again.addEventListener("click", () => {
+  fileToken++; runToken++; file = null; current = null;
+  setScanning(false);
+  document.body.classList.remove("viewing");
+  el.view.hidden = true; el.drop.hidden = false; el.drop.focus();
+});
+el.copy.addEventListener("click", async () => {
+  const { seconds, ...json } = current;
+  await navigator.clipboard.writeText(JSON.stringify(json, null, 2));
+  el.copy.textContent = "Copied";
+  setTimeout(() => { el.copy.textContent = "Copy JSON"; }, 1400);
+});
+
+function choose(f) {
+  if (!f) return;
+  if (!f.type.startsWith("image/") && !/\.hei[cf]$/i.test(f.name)) {
+    if (!el.drop.hidden) {
+      el.hint.textContent = `${f.name} isn't a photo. Try a JPEG, PNG or HEIC.`;
+      el.hint.classList.add("error");
+      el.drop.classList.remove("nope"); void el.drop.offsetWidth; el.drop.classList.add("nope");
+    }
+    return;
+  }
+  el.hint.textContent = HINTS[pipeline];
+  el.hint.classList.remove("error");
+  file = f; results = {}; dims = null;
+  const token = ++fileToken;
+  document.body.classList.add("viewing");
+  el.drop.hidden = true; el.view.hidden = false;
+  el.frame.classList.remove("loaded");
+  ready = showPreview(f, token);
+  ready.catch(() => {});  // identify() reports it
+  identify();
+}
+
+async function showPreview(f, token) {
+  const res = await fetch("/preview", { method: "POST", body: form(f) });
+  if (!res.ok) throw new Error(await detail(res));
+  const blob = await res.blob();
+  if (token !== fileToken) return;
+  dims = { w: +res.headers.get("X-Width"), h: +res.headers.get("X-Height") };
+  el.frame.style.setProperty("--ar", dims.w / dims.h);
+  el.view.style.setProperty("--ar", dims.w / dims.h);
+  if (el.photo.src.startsWith("blob:")) URL.revokeObjectURL(el.photo.src);
+  el.photo.src = URL.createObjectURL(blob);
+  await el.photo.decode().catch(() => {});
+  el.frame.classList.add("loaded");
+}
+
+async function identify() {
+  const token = ++runToken, p = pipeline, f = file;
+  clear();
+  try {
+    if (!results[p]) {
+      setScanning(true, p);
+      const t0 = performance.now();
+      const res = await fetch(`/identify?pipeline=${p}`, { method: "POST", body: form(f) });
+      if (!res.ok) throw new Error(await detail(res));
+      const data = await res.json();
+      data.seconds = (performance.now() - t0) / 1000;
+      if (f === file) results[p] = data;
+    }
+    await ready;
+    if (token === runToken) render(results[p]);
+  } catch (e) {
+    if (token === runToken) fail(e instanceof TypeError ? "Can't reach the API. Is uvicorn running?" : e.message);
+  } finally {
+    if (token === runToken) setScanning(false);
+  }
+}
+
+async function detail(res) {
+  try {
+    const j = await res.json();
+    if (typeof j.detail === "string") return j.detail;
+  } catch {}
+  return `The API answered ${res.status}.`;
+}
+
+function clear() {
+  current = null;
+  el.boxes.innerHTML = "";
+  el.list.innerHTML = "";
+  el.count.innerHTML = "";
+  el.frame.classList.remove("focus");
+  el.copy.disabled = true;
+  el.zoom.hidden = true;
+  zoom(false);
+}
+
+function setScanning(on, p) {
+  el.frame.classList.toggle("scanning", on);
+  clearInterval(timer);
+  if (!on) return;
+  const t0 = performance.now();
+  const label = p === "local" ? "Finding and matching bottles" : "Claude is reading the labels";
+  const tick = () => {
+    const s = (performance.now() - t0) / 1000;
+    const slow = p === "local" && s > 6 ? `<span class="faint">The first run loads the models, up to a minute.</span>` : "";
+    el.status.className = "status";
+    el.status.innerHTML = `<span class="pulse"></span><span>${label}</span><b>${s.toFixed(1)} s</b>${slow}`;
+  };
+  tick();
+  timer = setInterval(tick, 100);
+  el.list.innerHTML = '<li class="skel"></li>'.repeat(5);
+}
+
+function fail(msg) {
+  setScanning(false);
+  el.list.innerHTML = "";
+  el.status.className = "status error";
+  el.status.textContent = msg;
+}
+
+function render(d) {
+  current = d;
+  const { w, h } = dims;
+  const n = d.bottles.length;
+  const name = d.pipeline === "local" ? "Local" : "Claude";
+  el.status.className = "status";
+  el.status.innerHTML = `<b>${name}</b><span>${n} found in ${d.seconds.toFixed(1)} s</span>`;
+  el.count.innerHTML = `${n}<small>${n === 1 ? "bottle" : "bottles"} in ${esc(d.image)}</small>`;
+  el.copy.disabled = false;
+  el.zoom.hidden = !n;
+  if (!n) {
+    el.list.innerHTML = '<li class="empty">No bottles found. Try a closer, brighter photo.</li>';
+    return;
+  }
+  el.boxes.innerHTML = d.bottles.map((b, i) => {
+    const [x, y, bw, bh] = b.bbox;
+    return `<div class="box" data-i="${i}" style="--i:${i};--c:${COLORS[b.category] ?? COLORS.other};left:${x / w * 100}%;top:${y / h * 100}%;width:${bw / w * 100}%;height:${bh / h * 100}%"><span class="pin">${b.position}</span></div>`;
+  }).join("");
+  el.list.innerHTML = d.bottles.map(card).join("");
+  const boxes = [...el.boxes.children], cards = [...el.list.children];
+  const link = (i, on, scroll) => {
+    el.frame.classList.toggle("focus", on);
+    boxes[i].classList.toggle("on", on);
+    cards[i].classList.toggle("on", on);
+    if (on && scroll) cards[i].scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  boxes.forEach((b, i) => {
+    b.addEventListener("mouseenter", () => link(i, true, true));
+    b.addEventListener("mouseleave", () => link(i, false));
+  });
+  cards.forEach((c, i) => {
+    c.addEventListener("mouseenter", () => link(i, true));
+    c.addEventListener("mouseleave", () => link(i, false));
+  });
+  zoom(true);
+}
+
+function card(b, i) {
+  const ml = b.size * (TO_ML[b.unit] ?? 1);
+  const known = b.fill_ml != null && ml > 0;
+  const fill = known ? clamp(b.fill_ml / ml, 0, 1) : 0;
+  const size = `${+b.size} ${b.unit === "pint" && +b.size !== 1 ? "pints" : b.unit}`;
+  const tags = [SOURCE[b.id_source] ?? b.id_source, known && `${Math.round(b.fill_ml)} ml left`].filter(Boolean);
+  return `<li class="card" style="--i:${i};--c:${COLORS[b.category] ?? COLORS.other}">
+    <span class="num">${b.position}</span>
+    <div>
+      <div class="maker">${esc(b.brand || "Unknown brand")}</div>
+      <div class="product">${esc(b.product)}</div>
+      <div class="meta">${esc(b.category.replace("_", " "))} · ${esc(size)} · ${esc(b.liquid)}</div>
+      ${b.description ? `<div class="meta"><i>${esc(b.description)}</i></div>` : ""}
+      <div class="tags">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+    </div>
+    <div class="gauge${known ? "" : " unknown"}" title="${known ? `${Math.round(b.fill_ml)} ml of ${esc(size)}` : "Liquid line not visible"}">
+      ${bottleSvg(BOTTLE, 14, fill, `gauge${i}`)}
+      <span>${known ? `${Math.round(fill * 100)}%` : "?"}</span>
+    </div>
+  </li>`;
+}
+
+function zoom(on) {
+  let s = 1, x = 0, y = 0;
+  on = on && current?.bottles.length > 0;
+  if (on) {
+    let x0 = 1, y0 = 1, x1 = 0, y1 = 0;
+    for (const { bbox: [bx, by, bw, bh] } of current.bottles) {
+      x0 = Math.min(x0, bx / dims.w); y0 = Math.min(y0, by / dims.h);
+      x1 = Math.max(x1, (bx + bw) / dims.w); y1 = Math.max(y1, (by + bh) / dims.h);
+    }
+    const pad = 0.06;
+    s = clamp(Math.min(1 / (x1 - x0 + 2 * pad), 1 / (y1 - y0 + 2 * pad)), 1, 4);
+    x = clamp((x0 + x1) / 2 - 0.5 / s, 0, 1 - 1 / s);
+    y = clamp((y0 + y1) / 2 - 0.5 / s, 0, 1 - 1 / s);
+  }
+  el.layer.style.setProperty("--s", s);
+  el.layer.style.setProperty("--x", x);
+  el.layer.style.setProperty("--y", y);
+  el.zoom.dataset.zoomed = on ? "1" : "";
+  el.zoom.textContent = on ? "Whole photo" : "Zoom to bottles";
+}
+</script>
+</body>
+</html>
