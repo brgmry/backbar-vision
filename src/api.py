@@ -40,6 +40,8 @@ ASSUMED_SIZE_ML = 700  # unidentified bottles: UK standard spirit bottle, so fil
 app = FastAPI(title="bottle-vision")
 import testing_routes  # noqa: E402  Testing tab: /testing and /api/test (read-only)
 app.include_router(testing_routes.router)
+import data_routes  # noqa: E402  Data tab: /data and /api/data (read-only)
+app.include_router(data_routes.router)
 _local_lock = threading.Lock()  # one torch inference at a time
 
 

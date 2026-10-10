@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>bottle-vision data</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 100'%3E%3Cpath fill='%23f0a43a' d='M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z'/%3E%3C/svg%3E">
+<style>
+/* tokens copied from index.html so the tabs read as one app */
+:root {
+  --bg: #0d0b09;
+  --panel: #161310;
+  --panel-2: #1f1b17;
+  --line: #2b2621;
+  --text: #f5eee4;
+  --muted: #9a9086;
+  --faint: #635a51;
+  --amber: #f0a43a;
+  --red: #ff8a76;
+  --green: #8fd694;
+  --blue: #8ab8ff;
+  --violet: #c9a2ff;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); }
+body { min-height: 100vh; color: var(--text); font: 15px/1.45 var(--sans); -webkit-font-smoothing: antialiased;
+  background: radial-gradient(900px 520px at 78% -140px, #3d260c66, transparent 70%), var(--bg); }
+button, select, input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+header { display: flex; align-items: center; gap: 16px; padding: 20px 32px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; font-size: 16px; letter-spacing: -.01em; }
+.brand svg { width: 13px; height: 30px; }
+.brand em { font: italic 400 19px var(--serif); color: var(--muted); margin-left: -6px; }
+.tabs { display: flex; gap: 4px; margin-left: 18px; }
+.tabs a { padding: 6px 13px; border-radius: 999px; color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none; transition: color .2s, background .2s; }
+.tabs a:hover { color: var(--text); }
+.tabs a[aria-current] { color: var(--text); background: var(--panel-2); }
+
+main { padding: 6px 32px 60px; max-width: 1440px; margin: 0 auto; }
+@media (max-width: 960px) { header, main { padding-left: 16px; padding-right: 16px; } header { flex-wrap: wrap; } }
+h2 { font: 400 32px/1.1 var(--serif); letter-spacing: -.02em; }
+h2 em { color: var(--amber); }
+.sub { margin: 6px 0 18px; color: var(--muted); font-size: 14px; max-width: 760px; }
+.err { color: var(--red); }
+.empty { color: var(--muted); font-size: 13.5px; padding: 8px 2px; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 12px; }
+.controls label { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+select, input[type=search] { padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 13px; max-width: 320px; }
+select { cursor: pointer; }
+input[type=search] { width: 260px; outline: none; }
+select:hover, input[type=search]:focus { border-color: #f0a43a70; }
+.stats { color: var(--muted); font-size: 13px; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+.stats b { color: var(--text); font-weight: 650; }
+.stats span { margin-right: 14px; white-space: nowrap; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; max-height: 92px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.chip { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--muted); font-size: 12px; cursor: pointer; white-space: nowrap; }
+.chip:hover { color: var(--text); border-color: #f0a43a70; }
+.chip.on { color: #1a1109; background: var(--amber); border-color: var(--amber); font-weight: 650; }
+.chip i { font-style: normal; opacity: .7; margin-left: 4px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.tile { display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); overflow: hidden; cursor: pointer; text-align: left; padding: 0; transition: border-color .2s, transform .2s var(--ease); }
+.tile:hover { border-color: #f0a43a90; transform: translateY(-2px); }
+.tile .ph { aspect-ratio: 1; background: #fff1 center/contain no-repeat; display: grid; place-items: center; overflow: hidden; }
+.tile img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.tile .cap { padding: 8px 10px 10px; display: grid; gap: 2px; min-width: 0; }
+.tile .b { font-weight: 650; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tile .p { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-height: 1.4em; }
+.badge { justify-self: start; margin-top: 4px; padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #140e08; background: var(--c, var(--faint)); }
+.broken { color: var(--faint); font-size: 12px; }
+
+.pager { display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 22px; color: var(--muted); font-size: 13px; }
+.pager button { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); cursor: pointer; }
+.pager button:disabled { opacity: .35; cursor: default; }
+.pager button:not(:disabled):hover { border-color: #f0a43a70; }
+
+dialog { margin: auto; width: min(1180px, calc(100vw - 32px)); max-height: calc(100vh - 40px); border: 1px solid var(--line); border-radius: 18px; background: var(--bg); color: var(--text); padding: 0; box-shadow: 0 40px 90px -20px #000; }
+dialog::backdrop { background: #000b; }
+.dwrap { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 26px; padding: 24px; }
+@media (max-width: 900px) { .dwrap { grid-template-columns: 1fr; padding: 16px; } }
+.big { border-radius: 14px; overflow: hidden; background: #fff; display: grid; place-items: center; min-height: 240px; }
+.big img { max-width: 100%; max-height: 72vh; display: block; }
+.close { position: sticky; top: 0; float: right; margin: 10px 12px -40px 0; z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); cursor: pointer; font-size: 18px; line-height: 1; }
+.close:hover { border-color: #f0a43a90; }
+.side { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.side h3 { font: 400 24px/1.15 var(--serif); }
+.side h4 { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 5px 12px; font-size: 13px; }
+dt { color: var(--muted); }
+dd { overflow-wrap: anywhere; }
+dd.ocr { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--amber); }
+a.link { color: var(--amber); text-decoration: none; cursor: pointer; }
+a.link:hover { text-decoration: underline; }
+.mini { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; margin-top: 8px; }
+.mini button { aspect-ratio: 1; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; padding: 0; cursor: pointer; }
+.mini button:hover { border-color: var(--amber); }
+.mini img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.dwrap .full { grid-column: 1 / -1; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 40 100" aria-hidden="true"><path fill="#f0a43a" d="M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z"/></svg>
+    bottle <em>vision</em>
+  </div>
+  <nav class="tabs" aria-label="Views"><a href="/">Identify</a><a href="/testing">Testing</a><a href="/data" aria-current="page">Data</a></nav>
+</header>
+
+<main>
+  <h2>Training <em>data</em></h2>
+  <p class="sub">Every image the model learns from, from data/train/index.csv. Real-world photos whose label text OCR confirmed show as verified. Click an image for its full metadata and the source catalogue row.</p>
+
+  <div class="controls">
+    <label>Source <select id="source">
+      <option value="all">All sources</option>
+      <option value="off">Open Food Facts</option>
+      <option value="retail">Retailers</option>
+      <option value="wild_verified">Verified real photos</option>
+      <option value="wild">Unverified wild</option>
+      <option value="beer_ru">Beer</option>
+    </select></label>
+    <input type="search" id="q" placeholder="Search brand or product" aria-label="Search brand or product">
+    <a class="link" id="clearBrand" hidden></a>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="chips" id="brands" aria-label="Brands"></div>
+  <div class="grid" id="grid"><p class="empty">Loading the index...</p></div>
+  <div class="pager" id="pager"></div>
+</main>
+
+<dialog id="detail" aria-label="Image detail">
+  <button class="close" id="closeBtn" aria-label="Close">&times;</button>
+  <div class="dwrap" id="dBody"></div>
+</dialog>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const fmt = n => n.toLocaleString("en-GB");
+const SRC = {
+  off: ["Open Food Facts", "var(--amber)"], saq: ["SAQ", "var(--blue)"], systembolaget: ["Systembolaget", "var(--blue)"],
+  drinkfinder: ["Drinkfinder", "var(--blue)"], wild_verified: ["Verified", "var(--green)"], wild: ["Wild", "var(--faint)"],
+  beer_ru: ["Beer", "var(--violet)"],
+};
+const badge = s => `<span class="badge" style="--c:${(SRC[s] || [s, "var(--faint)"])[1]}">${esc((SRC[s] || [s])[0])}</span>`;
+
+const st = {source: "all", q: "", brand: "", page: 1};
+function readHash() {
+  const h = new URLSearchParams(location.hash.slice(1));
+  st.source = h.get("source") || "all"; st.q = h.get("q") || ""; st.brand = h.get("brand") || ""; st.page = +h.get("page") || 1;
+  $("#source").value = st.source; $("#q").value = st.q;
+}
+function writeHash() {
+  const h = new URLSearchParams();
+  for (const k of ["source", "q", "brand"]) if (st[k] && !(k === "source" && st[k] === "all")) h.set(k, st[k]);
+  if (st.page > 1) h.set("page", st.page);
+  history.replaceState(null, "", "#" + h.toString());
+}
+
+let seq = 0;
+async function load() {
+  writeHash();
+  const my = ++seq;
+  const p = new URLSearchParams({source: st.source, q: st.q, brand: st.brand, page: st.page, per: 60});
+  let d;
+  try {
+    const r = await fetch("/api/data/items?" + p);
+    if (!r.ok) throw new Error(await r.text());
+    d = await r.json();
+  } catch (e) { $("#grid").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
+  if (my !== seq) return;
+  st.page = d.page;
+  const order = ["off", "saq", "systembolaget", "drinkfinder", "wild_verified", "wild", "beer_ru"];
+  $("#stats").innerHTML = `<span><b>${fmt(d.total)}</b> images match</span>` +
+    order.filter(s => d.sources[s]).map(s => `<span>${esc(SRC[s][0])} ${fmt(d.sources[s])}</span>`).join("");
+  const cb = $("#clearBrand");
+  cb.hidden = !st.brand; cb.textContent = `Brand: ${st.brand} (clear)`;
+  $("#brands").innerHTML = d.brands.map(b => `<button class="chip${b.key === st.brand ? " on" : ""}" data-k="${esc(b.key)}">${esc(b.name)}<i>${fmt(b.count)}</i></button>`).join("");
+  $("#grid").innerHTML = d.items.length ? d.items.map(tile).join("") : `<p class="empty">Nothing matches this filter.</p>`;
+  $("#pager").innerHTML = d.pages > 1 ? `<button data-p="${d.page - 1}" ${d.page <= 1 ? "disabled" : ""}>Previous</button>
+    <span>Page ${fmt(d.page)} of ${fmt(d.pages)}</span>
+    <button data-p="${d.page + 1}" ${d.page >= d.pages ? "disabled" : ""}>Next</button>` : "";
+}
+function img(it, size) { return `/api/data/img?path=${encodeURIComponent(it.path)}&size=${size}`; }
+function tile(it) {
+  return `<button class="tile" data-id="${it.id}"><div class="ph"><img loading="lazy" alt="" src="${img(it, "thumb")}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'broken',textContent:'no image'}))"></div>
+    <div class="cap"><span class="b">${esc(it.brand || "(no brand)")}</span><span class="p">${esc(it.product)}</span>${badge(it.source)}</div></button>`;
+}
+
+const LABELS = {path: "Path", source: "Source", brand: "Brand", brand_key: "Brand key", product: "Product", product_key: "Product key",
+  size: "Size", group: "Group", gallery: "Gallery", ocr_text: "OCR text", id: "Row"};
+function dl(obj, labels = {}) {
+  return `<dl>${Object.entries(obj).map(([k, v]) => {
+    const val = /^https?:\/\//.test(v) ? `<a class="link" href="${esc(v)}" target="_blank" rel="noopener">${esc(v)}</a>` : esc(v === "" ? "-" : v);
+    return `<dt>${esc(labels[k] || k)}</dt><dd${k === "ocr_text" ? ' class="ocr"' : ""}>${val}</dd>`;
+  }).join("")}</dl>`;
+}
+async function openItem(id) {
+  const dlg = $("#detail");
+  $("#dBody").innerHTML = `<p class="empty">Loading...</p>`;
+  if (!dlg.open) dlg.showModal();
+  let d;
+  try {
+    const r = await fetch(`/api/data/item/${id}`);
+    if (!r.ok) throw new Error(await r.text());
+    d = await r.json();
+  } catch (e) { $("#dBody").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
+  const it = d.item;
+  const same = d.same_product.length ? `<section class="full"><h4>Same product (${fmt(d.same_product_total)} other image${d.same_product_total === 1 ? "" : "s"})</h4>
+    <div class="mini">${d.same_product.map(s => `<button data-id="${s.id}" title="${esc(s.brand)} ${esc(s.product)}"><img loading="lazy" alt="" src="${img(s, "thumb")}"></button>`).join("")}</div></section>` : "";
+  $("#dBody").innerHTML = `
+    <div class="big"><img alt="${esc(it.brand)} ${esc(it.product)}" src="${img(it, "full")}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'broken',textContent:'image missing or unreadable'}))"></div>
+    <div class="side">
+      <div><h3>${esc(it.brand || "(no brand)")}</h3><p class="sub" style="margin:4px 0 6px">${esc(it.product)}</p>${badge(it.source)}</div>
+      <div><h4>Index row</h4>${dl(it, LABELS)}</div>
+      ${d.product_meta ? `<div><h4>Source catalogue row</h4>${dl(d.product_meta)}</div>` : ""}
+      ${it.brand_key ? `<a class="link" data-brand="${esc(it.brand_key)}">More from ${esc(it.brand)} (${fmt(d.brand_total)} images)</a>` : ""}
+    </div>${same}`;
+}
+
+$("#source").onchange = e => { st.source = e.target.value; st.page = 1; load(); };
+let t;
+$("#q").oninput = e => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value.trim(); st.page = 1; load(); }, 250); };
+$("#brands").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; st.brand = st.brand === b.dataset.k ? "" : b.dataset.k; st.page = 1; load(); };
+$("#clearBrand").onclick = () => { st.brand = ""; st.page = 1; load(); };
+$("#pager").onclick = e => { const b = e.target.closest("button[data-p]"); if (!b || b.disabled) return; st.page = +b.dataset.p; load(); scrollTo({top: 0, behavior: "smooth"}); };
+$("#grid").onclick = e => { const b = e.target.closest(".tile"); if (b) openItem(+b.dataset.id); };
+$("#dBody").onclick = e => {
+  const m = e.target.closest(".mini button"); if (m) { openItem(+m.dataset.id); $("#detail").scrollTop = 0; return; }
+  const a = e.target.closest("a[data-brand]");
+  if (a) { st.brand = a.dataset.brand; st.source = "all"; st.q = ""; st.page = 1; $("#source").value = "all"; $("#q").value = ""; $("#detail").close(); load(); }
+};
+$("#closeBtn").onclick = () => $("#detail").close();
+$("#detail").onclick = e => { if (e.target === e.currentTarget) e.currentTarget.close(); };
+readHash();
+load();
+</script>
+</body>
+</html>
