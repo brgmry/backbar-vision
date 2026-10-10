@@ -32,7 +32,13 @@ Results, 7 photos x 12 items, leave-one-photo-out:
 | 2 | 0.85 | 0.93 |
 | 3 | 0.87 | 0.98 |
 
-Caveat: one set of bottles, one room, one light. Reference crops come from the same session as the test photo, which flatters the numbers. New photos (different surface, light, extra bottles) are the next eval.
+**These numbers are optimistic, not a result.** The reference crops come from the other 6 photos of the same bottles, same room, same light, minutes apart. Size and category are copied from the inventory once the ID is right, so size_acc and category_acc just repeat ID accuracy. The honest no-help number is the packshot row (0.59).
+
+## Eval protocol (from here on)
+- **Enrolment photos** (`data/enrol/`): each bottle alone, 3 shots, plain surface. The only source of reference crops. Never scored.
+- **Test photos** (`data/test/`): new arrangements, a different surface and light, plus bottles not in the inventory. Labelled only for scoring, after predictions are written. Never used as references.
+- Report ID accuracy (crop accuracy and item recall). Size, category and liquid only count when something actually predicts them.
+- A fair comparison gives both systems the same information: local vs Claude open-ended, and local vs Claude given the stock list and reference images.
 
 ## Rules
 - **Eval first.** Every approach is scored against `data/labelled/inventory.csv` before it's called working. Report identification accuracy and fill-level mean absolute error (percentage points).
