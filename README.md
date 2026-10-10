@@ -13,3 +13,11 @@ Camera-based stock tracking for restaurant bars. From a photo: what bottle, what
 
 ## Setup
 Keys go in `.env`, never committed.
+
+## Run the baseline
+```
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+cp .env.example .env   # add your key
+.venv/bin/python src/identify.py data/raw
+```
+Writes `data/predictions.csv`: brand, product, type, size, liquid, glass, confidence per photo.

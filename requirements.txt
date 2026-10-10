@@ -1,0 +1,5 @@
+anthropic
+pydantic
+pillow
+pillow-heif
+python-dotenv
