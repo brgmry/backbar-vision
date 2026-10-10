@@ -26,7 +26,7 @@ from PIL import Image
 from pydantic import BaseModel
 from scipy import ndimage
 
-from vlm import get_vlm
+from vlm import MAX_PIXELS, MAX_SIDE, get_vlm
 
 SAM = "facebook/sam2.1-hiera-large"
 DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -34,7 +34,7 @@ SHOULDER_WIN = 0.03  # of bottle height: span over which width change is measure
 NECK_FLAT = 0.1  # neck starts where, above the shoulder, width shrinks by less than 10% per SHOULDER_WIN
 MAX_ELEVATION = 60  # degrees; a deeper base ellipse means the base is hidden, not a steeper camera
 MIN_CONTRAST = 12.0  # Lab distance; a weaker edge means no visible liquid line
-VLM_UPSCALE = 2  # crops are ~400px tall; give the VLM more pixels to look at
+VLM_UPSCALE = 2  # small crops (~400px tall) are enlarged up to 2x for the VLM, big ones shrunk to fit its limit
 
 
 @dataclass
@@ -75,7 +75,7 @@ class VLMFill:
                   "visible: can you see the top surface of the liquid through the container? "
                   "fill_ml: ml of liquid left, from the liquid line and the bottle's shape (a neck holds less than "
                   "the body). null when visible is false.")
-        ans = self.vlm.ask([upscale(crop)], prompt, Estimate)
+        ans = self.vlm.ask([fit(crop)[0]], prompt, Estimate)
         return Fill(ans.fill_ml if ans.visible else None, ans.visible)
 
 
@@ -206,7 +206,7 @@ class VLMLine:
         self.name = model
 
     def find(self, crop, mask, full_y, bottom_y, item):
-        big = upscale(crop)
+        big, scale = fit(crop)
         prompt = (f"This {big.width}x{big.height} pixel photo shows one bottle: {describe(item)}. "
                   "visible: can you see the top surface of the liquid through the container? "
                   "y: the pixel row, counted from the top of this image, where the liquid surface meets the left "
@@ -214,11 +214,13 @@ class VLMLine:
                   "the row of its left and right ends (its middle), not its front or back edge. "
                   "null when visible is false.")
         ans = self.vlm.ask([big], prompt, Line)
-        return ans.y // VLM_UPSCALE if ans.visible and ans.y is not None else None
+        return round(ans.y / scale) if ans.visible and ans.y is not None else None
 
 
-def upscale(crop: Image.Image) -> Image.Image:
-    return crop.resize((crop.width * VLM_UPSCALE, crop.height * VLM_UPSCALE), Image.LANCZOS)
+def fit(crop: Image.Image) -> tuple[Image.Image, float]:
+    """The crop resized for the VLM (up to VLM_UPSCALE, within its size limit), and the factor used."""
+    scale = min(VLM_UPSCALE, MAX_SIDE / max(crop.size), (MAX_PIXELS / (crop.width * crop.height)) ** 0.5)
+    return crop.resize((int(crop.width * scale), int(crop.height * scale)), Image.LANCZOS), scale
 
 
 def get_estimator(spec: str) -> FillEstimator:
