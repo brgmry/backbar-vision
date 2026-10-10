@@ -35,6 +35,7 @@ class BottleOut(identify.Bottle):
     glass: Literal["clear", "green", "amber", "frosted", "opaque"] | None  # the local pipeline doesn't read glass
     id_source: Literal["label", "shape", "reference"]
     fill_note: str | None = None  # why fill is null: crop rejected, not alcohol, line not visible
+    label_text: str | None = None  # what Apple Vision OCR reads on the label (macOS only), not yet used for the ID
 
 
 class PhotoOut(BaseModel):
@@ -164,9 +165,25 @@ def add_fill(path: Path, bottles: list[BottleOut], spec: str) -> None:
         b.fill_note = None if f.visible else "liquid line not visible"
 
 
+def add_label_text(path: Path, bottles: list[BottleOut]) -> None:
+    """OCR on each bottle's full-resolution crop (src/ocr.py), in place. Skipped off macOS."""
+    try:
+        from ocr import read_text
+    except ImportError:
+        return
+    from experiment import padded_crop
+
+    photo = Image.open(path).convert("RGB")
+    with tempfile.TemporaryDirectory() as tmp:
+        for b in bottles:
+            crop_path = Path(tmp) / f"{b.position}.jpg"
+            padded_crop(photo, b.bbox)[0].save(crop_path, quality=92)
+            b.label_text = " | ".join(t for t, _ in read_text(crop_path)) or None
+
+
 @app.post("/identify", response_model=PhotoOut)
 def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "local",
-                   fill: str = "geometry:opus") -> PhotoOut:
+                   fill: str = "geometry:opus", ocr: bool = True) -> PhotoOut:
     """One photo of bottles -> every stock bottle, left to right, with fill level for alcohol bottles.
     pipeline=local needs no API key; fill=none skips fill, which then needs no API key either."""
     name = Path(image.filename or "").name or "upload"
@@ -178,6 +195,8 @@ def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "lo
         except UnidentifiedImageError:
             raise HTTPException(400, f"{name} is not an image")
         bottles = identify_local(path) if pipeline == "local" else identify_claude(path)
+        if ocr:
+            add_label_text(path, bottles)
         if fill != "none":
             try:
                 add_fill(path, bottles, fill)
