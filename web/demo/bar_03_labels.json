@@ -1,0 +1,906 @@
+{
+ "1": {
+  "readable": true,
+  "brand": "Greene King",
+  "product": "Ice Breaker Pale Ale",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "pale ale"
+ },
+ "2": {
+  "readable": true,
+  "brand": "Greene King",
+  "product": "Abbot Ale",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "bitter ale"
+ },
+ "3": {
+  "readable": true,
+  "brand": "Old Speckled Hen",
+  "product": "Old Speckled Hen",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "English pale ale"
+ },
+ "4": {
+  "readable": true,
+  "brand": "Greene King",
+  "product": "IPA",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "India pale ale (bitter)"
+ },
+ "5": {
+  "readable": true,
+  "brand": "Jack Rabbit",
+  "product": "White Wine",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "white wine"
+ },
+ "6": {
+  "readable": true,
+  "brand": "Jack Rabbit",
+  "product": "Sauvignon Blanc",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "white wine (Sauvignon Blanc)"
+ },
+ "7": {
+  "readable": true,
+  "brand": "Jack Rabbit",
+  "product": "White Wine",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "white wine"
+ },
+ "8": {
+  "readable": true,
+  "brand": "Moët & Chandon",
+  "product": "Impérial Brut",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "champagne"
+ },
+ "9": {
+  "readable": true,
+  "brand": "Moët & Chandon",
+  "product": "Impérial Brut",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "Champagne"
+ },
+ "10": {
+  "readable": true,
+  "brand": "Moët & Chandon",
+  "product": "Impérial Brut",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "champagne"
+ },
+ "11": {
+  "readable": true,
+  "brand": "Moët & Chandon",
+  "product": "Ice Impérial",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "champagne"
+ },
+ "12": {
+  "readable": true,
+  "brand": "Moët & Chandon",
+  "product": "Ice Impérial",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "champagne"
+ },
+ "13": {
+  "readable": true,
+  "brand": "Moët & Chandon",
+  "product": "Ice Impérial",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "champagne"
+ },
+ "14": {
+  "readable": true,
+  "brand": "Jack Rabbit",
+  "product": "Red Wine",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "red wine"
+ },
+ "15": {
+  "readable": true,
+  "brand": "Jack Rabbit",
+  "product": "Rosé",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "rosé wine"
+ },
+ "16": {
+  "readable": true,
+  "brand": "Jack Rabbit",
+  "product": "Red Wine",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "red wine"
+ },
+ "17": {
+  "readable": true,
+  "brand": "Greene King",
+  "product": "IPA",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "India pale ale (bitter)"
+ },
+ "18": {
+  "readable": true,
+  "brand": "Morland",
+  "product": "Old Speckled Hen",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "English pale ale"
+ },
+ "19": {
+  "readable": true,
+  "brand": "Greene King",
+  "product": "Abbot Ale",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "Bitter ale"
+ },
+ "20": {
+  "readable": true,
+  "brand": "Ice Breaker",
+  "product": "Pale Ale",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "pale ale"
+ },
+ "21": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unknown spirit, possibly whiskey"
+ },
+ "22": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "likely dark or spiced rum"
+ },
+ "23": {
+  "readable": true,
+  "brand": "Smirnoff",
+  "product": "No. 21 Vodka",
+  "category": "spirit",
+  "size_ml": 1000,
+  "liquid": "vodka"
+ },
+ "24": {
+  "readable": true,
+  "brand": "Southern Comfort",
+  "product": "Original",
+  "category": "liqueur",
+  "size_ml": 1000,
+  "liquid": "whiskey-based fruit and spice liqueur"
+ },
+ "25": {
+  "readable": true,
+  "brand": "The Famous Grouse",
+  "product": "Blended Scotch Whisky",
+  "category": "spirit",
+  "size_ml": 1500,
+  "liquid": "blended Scotch whisky"
+ },
+ "26": {
+  "readable": true,
+  "brand": "Jack Daniel's",
+  "product": "Old No. 7 Tennessee Whiskey",
+  "category": "spirit",
+  "size_ml": 1000,
+  "liquid": "Tennessee whiskey"
+ },
+ "27": {
+  "readable": true,
+  "brand": "Bacardi",
+  "product": "Carta Blanca",
+  "category": "spirit",
+  "size_ml": 1500,
+  "liquid": "white rum"
+ },
+ "28": {
+  "readable": true,
+  "brand": "Captain Morgan",
+  "product": "Spiced Gold",
+  "category": "spirit",
+  "size_ml": 1500,
+  "liquid": "spiced rum"
+ },
+ "29": {
+  "readable": true,
+  "brand": "Gordon's",
+  "product": "Premium Pink Distilled Gin",
+  "category": "spirit",
+  "size_ml": 1500,
+  "liquid": "pink gin"
+ },
+ "30": {
+  "readable": true,
+  "brand": "Gordon's",
+  "product": "Premium Pink Distilled Gin",
+  "category": "spirit",
+  "size_ml": 1500,
+  "liquid": "pink gin"
+ },
+ "31": {
+  "readable": true,
+  "brand": "Gordon's",
+  "product": "Premium Pink Distilled Gin",
+  "category": "spirit",
+  "size_ml": 1000,
+  "liquid": "pink gin"
+ },
+ "32": {
+  "readable": true,
+  "brand": "Bombay Sapphire",
+  "product": "London Dry Gin",
+  "category": "spirit",
+  "size_ml": 1000,
+  "liquid": "gin"
+ },
+ "33": {
+  "readable": true,
+  "brand": "Grey Goose",
+  "product": "Vodka",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "vodka"
+ },
+ "34": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "golden yellow liqueur"
+ },
+ "35": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unidentified clear spirit, possibly vodka or gin"
+ },
+ "36": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unidentified spirit"
+ },
+ "37": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unidentified spirit, possibly vodka, in a tall frosted bottle"
+ },
+ "38": {
+  "readable": true,
+  "brand": "Havana Club",
+  "product": "Añejo Especial",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gold rum"
+ },
+ "39": {
+  "readable": true,
+  "brand": "Highland Park",
+  "product": "12 Year Old Viking Honour Single Malt Scotch Whisky",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "single malt Scotch whisky"
+ },
+ "40": {
+  "readable": true,
+  "brand": "Bushmills",
+  "product": "12 Year Old Single Malt Irish Whiskey",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "Irish single malt whiskey"
+ },
+ "41": {
+  "readable": true,
+  "brand": "Drambuie",
+  "product": "Scotch Whisky Liqueur",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "whisky liqueur"
+ },
+ "42": {
+  "readable": true,
+  "brand": "Jameson",
+  "product": "Irish Whiskey",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "Irish whiskey"
+ },
+ "43": {
+  "readable": true,
+  "brand": "Glayva",
+  "product": "Scotch Whisky Liqueur",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "Scotch whisky liqueur with honey, spices and tangerine"
+ },
+ "44": {
+  "readable": true,
+  "brand": "Laphroaig",
+  "product": "Select Islay Single Malt Scotch Whisky",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "Islay single malt Scotch whisky"
+ },
+ "45": {
+  "readable": true,
+  "brand": "Jim Beam",
+  "product": "Kentucky Straight Bourbon Whiskey",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "bourbon whiskey"
+ },
+ "46": {
+  "readable": true,
+  "brand": "Ardbeg",
+  "product": "Ten Years Old Islay Single Malt Scotch Whisky",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "Islay single malt Scotch whisky"
+ },
+ "47": {
+  "readable": true,
+  "brand": "Absolut",
+  "product": "Vodka",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "vodka"
+ },
+ "48": {
+  "readable": true,
+  "brand": "Absolut",
+  "product": "Vanilia",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "vanilla flavoured vodka"
+ },
+ "49": {
+  "readable": true,
+  "brand": "Havana Club",
+  "product": "Añejo 7 Años",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "dark rum"
+ },
+ "50": {
+  "readable": true,
+  "brand": "Dead Man's Fingers",
+  "product": "Spiced Rum",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "spiced rum"
+ },
+ "51": {
+  "readable": true,
+  "brand": "Sailor Jerry",
+  "product": "Spiced Caribbean Rum",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "spiced rum"
+ },
+ "52": {
+  "readable": true,
+  "brand": "O.V.D",
+  "product": "Old Vatted Demerara Rum",
+  "category": "spirit",
+  "size_ml": 1000,
+  "liquid": "dark rum"
+ },
+ "53": {
+  "readable": true,
+  "brand": "Whitley Neill",
+  "product": "Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "54": {
+  "readable": true,
+  "brand": "Whitley Neill",
+  "product": "Blackberry Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "flavoured gin"
+ },
+ "55": {
+  "readable": true,
+  "brand": "Whitley Neill",
+  "product": "Blackberry Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "blackberry flavoured gin"
+ },
+ "56": {
+  "readable": true,
+  "brand": "Gordon's",
+  "product": "London Dry Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "57": {
+  "readable": true,
+  "brand": "Tanqueray",
+  "product": "Flor de Sevilla Distilled Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "orange-flavoured gin"
+ },
+ "58": {
+  "readable": true,
+  "brand": "Tanqueray",
+  "product": "London Dry Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "59": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "60": {
+  "readable": true,
+  "brand": "Hendrick's",
+  "product": "Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "61": {
+  "readable": true,
+  "brand": "Brockmans",
+  "product": "Intensely Smooth Premium Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "62": {
+  "readable": true,
+  "brand": "Bumbu",
+  "product": "The Original",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "rum"
+ },
+ "63": {
+  "readable": true,
+  "brand": "Boë",
+  "product": "Violet Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "violet flavoured gin"
+ },
+ "64": {
+  "readable": true,
+  "brand": "Cointreau",
+  "product": "Triple Sec Orange Liqueur",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "orange liqueur (triple sec)"
+ },
+ "65": {
+  "readable": true,
+  "brand": "Jägermeister",
+  "product": "Jägermeister",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "herbal liqueur"
+ },
+ "66": {
+  "readable": true,
+  "brand": "Fireball",
+  "product": "Cinnamon Whisky Liqueur",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "cinnamon flavoured whisky liqueur"
+ },
+ "67": {
+  "readable": true,
+  "brand": "Disaronno",
+  "product": "Originale Amaretto",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "amaretto liqueur"
+ },
+ "68": {
+  "readable": true,
+  "brand": "Jose Cuervo",
+  "product": "Especial Silver",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "silver tequila"
+ },
+ "69": {
+  "readable": true,
+  "brand": "Cockburn's",
+  "product": "Fine Ruby",
+  "category": "wine",
+  "size_ml": 750,
+  "liquid": "ruby port"
+ },
+ "70": {
+  "readable": true,
+  "brand": "Antica Sambuca",
+  "product": "Classic",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "sambuca (anise liqueur)"
+ },
+ "71": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "dark spirit, possibly spiced rum"
+ },
+ "72": {
+  "readable": true,
+  "brand": "Glayva",
+  "product": "Scotch Whisky Liqueur",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "Scotch whisky liqueur with honey, tangerine and spices"
+ },
+ "73": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "golden yellow liqueur"
+ },
+ "74": {
+  "readable": true,
+  "brand": "Pimm's",
+  "product": "No.1 Cup",
+  "category": "liqueur",
+  "size_ml": 1000,
+  "liquid": "Gin-based fruit cup liqueur"
+ },
+ "75": {
+  "readable": true,
+  "brand": "Courvoisier",
+  "product": "VS Cognac",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "cognac"
+ },
+ "76": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "rum"
+ },
+ "77": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "aged rum (uncertain)"
+ },
+ "78": {
+  "readable": true,
+  "brand": "Edinburgh Gin",
+  "product": "Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "79": {
+  "readable": true,
+  "brand": "Edinburgh Gin",
+  "product": "Classic Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "gin"
+ },
+ "80": {
+  "readable": true,
+  "brand": "Gordon's",
+  "product": "London Dry Gin",
+  "category": "spirit",
+  "size_ml": 1000,
+  "liquid": "gin"
+ },
+ "81": {
+  "readable": true,
+  "brand": "Beefeater",
+  "product": "Blood Orange Gin",
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "blood orange flavoured gin"
+ },
+ "82": {
+  "readable": true,
+  "brand": "Sourz",
+  "product": "Apple",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "sour apple flavoured liqueur"
+ },
+ "83": {
+  "readable": true,
+  "brand": "Sourz",
+  "product": "Cherry",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "cherry flavoured sour liqueur"
+ },
+ "84": {
+  "readable": true,
+  "brand": "Midori",
+  "product": "Melon Liqueur",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "melon liqueur"
+ },
+ "85": {
+  "readable": true,
+  "brand": "Sourz",
+  "product": "Raspberry",
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "raspberry-flavoured sour liqueur"
+ },
+ "86": {
+  "readable": true,
+  "brand": "Sourz",
+  "product": null,
+  "category": "liqueur",
+  "size_ml": 700,
+  "liquid": "Sour fruit-flavoured liqueur; a red-coloured flavour, exact flavour not readable"
+ },
+ "87": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "mixer",
+  "size_ml": 200,
+  "liquid": "bottled mixer or soft drink, possibly tonic water"
+ },
+ "88": {
+  "readable": true,
+  "brand": "Birra Moretti",
+  "product": "L'Autentica",
+  "category": "beer",
+  "size_ml": 330,
+  "liquid": "Italian lager"
+ },
+ "89": {
+  "readable": true,
+  "brand": "Birra Moretti",
+  "product": "L'Autentica",
+  "category": "beer",
+  "size_ml": 330,
+  "liquid": "Italian lager"
+ },
+ "90": {
+  "readable": true,
+  "brand": "Beck's",
+  "product": "Beck's Blue",
+  "category": "beer",
+  "size_ml": 275,
+  "liquid": "alcohol-free lager"
+ },
+ "91": {
+  "readable": true,
+  "brand": "Beck's",
+  "product": "Beck's Blue",
+  "category": "beer",
+  "size_ml": 275,
+  "liquid": "alcohol-free lager"
+ },
+ "92": {
+  "readable": true,
+  "brand": "Peroni",
+  "product": "Nastro Azzurro 0.0%",
+  "category": "beer",
+  "size_ml": 330,
+  "liquid": "alcohol-free lager"
+ },
+ "93": {
+  "readable": true,
+  "brand": "Peroni",
+  "product": "Nastro Azzurro 0.0%",
+  "category": "beer",
+  "size_ml": 330,
+  "liquid": "alcohol-free lager"
+ },
+ "94": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "bottled cider or beer"
+ },
+ "95": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unknown spirit"
+ },
+ "96": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unknown spirit, possibly gin in blue glass"
+ },
+ "97": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "beer",
+  "size_ml": 330,
+  "liquid": "unknown bottled drink, likely beer"
+ },
+ "98": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unidentified spirit in a blue bottle, possibly gin"
+ },
+ "99": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unknown spirit in a dark bottle"
+ },
+ "100": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "bottled ale"
+ },
+ "101": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "cider"
+ },
+ "102": {
+  "readable": true,
+  "brand": "Kopparberg",
+  "product": "Mixed Fruit Cider",
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "fruit cider"
+ },
+ "103": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "spirit",
+  "size_ml": 700,
+  "liquid": "unknown clear spirit"
+ },
+ "104": {
+  "readable": true,
+  "brand": "J2O",
+  "product": "Apple & Mango",
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "apple and mango juice drink"
+ },
+ "105": {
+  "readable": true,
+  "brand": "J2O",
+  "product": null,
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "fruit juice drink, pale yellow-green, likely an apple-based flavour"
+ },
+ "106": {
+  "readable": true,
+  "brand": "J2O",
+  "product": "Orange & Passion Fruit",
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "orange and passion fruit juice drink"
+ },
+ "107": {
+  "readable": true,
+  "brand": "J2O",
+  "product": "Orange & Passion Fruit",
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "orange and passion fruit juice drink"
+ },
+ "108": {
+  "readable": true,
+  "brand": "J2O",
+  "product": null,
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "fruit juice drink, likely orange and passion fruit or apple and mango"
+ },
+ "109": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "beer",
+  "size_ml": 500,
+  "liquid": "fruit cider (dark red/purple)"
+ },
+ "110": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "mixer",
+  "size_ml": 200,
+  "liquid": "ginger beer"
+ },
+ "111": {
+  "readable": true,
+  "brand": "Fentimans",
+  "product": "Ginger Beer",
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "botanically brewed ginger beer"
+ },
+ "112": {
+  "readable": true,
+  "brand": "Fentimans",
+  "product": "Premium Indian Tonic Water",
+  "category": "mixer",
+  "size_ml": 200,
+  "liquid": "tonic water"
+ },
+ "113": {
+  "readable": false,
+  "brand": null,
+  "product": null,
+  "category": "soft_drink",
+  "size_ml": 275,
+  "liquid": "cloudy lemonade"
+ }
+}
