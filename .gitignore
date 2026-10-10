@@ -4,4 +4,3 @@ __pycache__/
 *.pt
 runs/
 .DS_Store
-data/predictions*.csv
