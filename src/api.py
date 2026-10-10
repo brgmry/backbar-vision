@@ -162,12 +162,15 @@ def index() -> FileResponse:
 
 @app.get("/demo", include_in_schema=False)
 def demo_page() -> FileResponse:
-    """The web UI replaying a saved photo and result (web/demo/result.json): instant, identical every time."""
+    """The web UI in demo mode: dropping bar_03.jpg replays the saved result (web/demo/result.json), see index.html."""
     return FileResponse(WEB / "index.html")
 
 
 @app.get("/demo/{name}", include_in_schema=False)
 def demo_file(name: str) -> FileResponse:
+    if name == "result.json":  # rebuilt every time, so edits to web/demo/bar_03_fill.csv show up on the next run
+        import make_demo
+        make_demo.main()
     path = WEB / "demo" / Path(name).name
     if not path.is_file():
         raise HTTPException(404, f"no demo file {name}")

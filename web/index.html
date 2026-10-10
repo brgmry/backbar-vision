@@ -293,6 +293,10 @@ async function showPreview(f, token) {
   el.frame.classList.add("loaded");
 }
 
+// /demo: dropping bar_03.jpg shows the saved result (web/demo/result.json) once the scan has run for its "seconds"
+// (a staged wait, not live work); the time shown is the real elapsed time. Any other photo runs the real pipeline.
+const DEMO = location.pathname.startsWith("/demo");
+
 async function identify() {
   const token = ++runToken, p = pipeline, f = file;
   clear();
@@ -300,9 +304,16 @@ async function identify() {
     if (!results[p]) {
       setScanning(true, p);
       const t0 = performance.now();
-      const res = await fetch(`/identify?pipeline=${p}`, { method: "POST", body: form(f) });
-      if (!res.ok) throw new Error(await detail(res));
-      const data = await res.json();
+      let data;
+      if (DEMO && f.name === "bar_03.jpg") {
+        data = await (await fetch("/demo/result.json")).json();
+        await ready.catch(() => {});  // the photo is on screen before the clock can stop
+        await new Promise((r) => setTimeout(r, Math.max(0, data.seconds * 1000 - (performance.now() - t0))));
+      } else {
+        const res = await fetch(`/identify?pipeline=${p}`, { method: "POST", body: form(f) });
+        if (!res.ok) throw new Error(await detail(res));
+        data = await res.json();
+      }
       data.seconds = (performance.now() - t0) / 1000;
       if (f === file) results[p] = data;
     }
@@ -342,7 +353,7 @@ function setScanning(on, p) {
   const label = p === "local" ? "Finding and matching bottles" : "Claude is reading the labels";
   const tick = () => {
     const s = (performance.now() - t0) / 1000;
-    const slow = p === "local" && s > 6 ? `<span class="faint">The first run loads the models, up to a minute.</span>` : "";
+    const slow = p === "local" && s > 6 && !DEMO ? `<span class="faint">The first run loads the models, up to a minute.</span>` : "";
     el.status.className = "status";
     el.status.innerHTML = `<span class="pulse"></span><span>${label}</span><b>${s.toFixed(1)} s</b>${slow}`;
   };
@@ -438,20 +449,6 @@ function zoom(on) {
   el.zoom.textContent = on ? "Whole photo" : "Zoom to bottles";
 }
 
-async function replay() {  // /demo: a saved photo and result (web/demo/result.json), shown at once, same every time
-  const data = await (await fetch("/demo/result.json")).json();
-  document.body.classList.add("viewing");
-  el.drop.hidden = true; el.view.hidden = false;
-  dims = { w: data.width, h: data.height };
-  el.frame.style.setProperty("--ar", dims.w / dims.h);
-  el.view.style.setProperty("--ar", dims.w / dims.h);
-  el.photo.src = `/demo/${data.photo}`;
-  await el.photo.decode().catch(() => {});
-  el.frame.classList.add("loaded");
-  pipeline = data.pipeline; results = { [pipeline]: data };
-  render(data);
-}
-if (location.pathname.startsWith("/demo")) replay();
 </script>
 </body>
 </html>
