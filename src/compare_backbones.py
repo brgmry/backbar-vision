@@ -26,10 +26,24 @@ from train_index import key
 
 register_heif_opener()
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-GAL = Path("data/train/gallery.csv")
+import os
+
+# GALLERY=v2 adds the OCR-verified real-world brand photos (brand-level entries) to the catalogue gallery
+V = os.environ.get("GALLERY", "v1")
+GAL = Path("data/train/gallery.csv" if V == "v1" else f"data/train/gallery_{V}.csv")
+NPY = "data/train/gal_{bb}.npy" if V == "v1" else f"data/train/gal_{V}_{{bb}}.npy"
 
 
 def gallery_rows():
+    if V == "v2" and not GAL.exists():
+        base = list(csv.DictReader(open("data/train/gallery.csv")))
+        for r in csv.DictReader(open("data/external/wild/verified.csv")):
+            base.append({**{k: "" for k in base[0]}, "path": f"data/external/wild/{r['file']}", "source": "wild_verified",
+                         "brand": r["brand"], "brand_key": key(r["brand"]), "product_key": f"wild:{key(r['brand'])}", "gallery": "1"})
+        with GAL.open("w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(base[0]))
+            w.writeheader()
+            w.writerows(base)
     if not GAL.exists():
         seen, out = set(), []
         for r in csv.DictReader(open("data/train/index.csv")):
@@ -84,7 +98,7 @@ def full_res_crops(photos_dir, crops_dir):
 
 def predict(bb, photos_dir, crops_dir, tag):
     rows = gallery_rows()
-    G = torch.tensor(np.load(f"data/train/gal_{bb}.npy"))
+    G = torch.tensor(np.load(NPY.format(bb=bb)))
     boxes, photos, paths = full_res_crops(photos_dir, crops_dir)
     Q = embed_paths(bb, paths, workers=0)
     sims = Q @ G.T
@@ -114,6 +128,10 @@ def predict(bb, photos_dir, crops_dir, tag):
             else:
                 s, j = (float(v) for v in sims[k].max(0))
                 r = rows[int(j)]
+                if not r["product"]:
+                    cat = [c for c in by_brand.get(r["brand_key"], []) if rows[c]["product"]]
+                    if cat:
+                        r = rows[cat[int(sims[k, cat].argmax())]]
             if s > best[b["photo"]].get(r["product_key"], (-1,))[0]:
                 best[b["photo"]][r["product_key"]] = (s, k, r)
         out = []
@@ -126,7 +144,7 @@ def predict(bb, photos_dir, crops_dir, tag):
                             "bbox": [round(x1), round(y1), round(x2 - x1), round(y2 - y1)], "brand": r["brand"], "product": r["product"],
                             "category": r["group"], "liquid": "", "size": r["size"], "unit": "", "glass": "", "fill_ml": None,
                             "id_source": f"catalogue:{bb}:{mode}", "fill_visible": False})
-        path = f"data/predictions_{tag}_{bb}_{mode}.csv"
+        path = f"data/predictions_{tag}_{bb}{'' if V == 'v1' else '_' + V}_{mode}.csv"
         with open(path, "w", newline="") as f:
             wr = csv.DictWriter(f, fieldnames=FIELDS)
             wr.writeheader()
@@ -139,7 +157,7 @@ if __name__ == "__main__":
         bb = sys.argv[2]
         rows = gallery_rows()
         G = embed_paths(bb, [r["path"] for r in rows])
-        np.save(f"data/train/gal_{bb}.npy", G.numpy())
+        np.save(NPY.format(bb=bb), G.numpy())
         print(f"{bb}: {len(rows)} products embedded")
     else:
         predict(*sys.argv[2:6])

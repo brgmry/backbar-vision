@@ -108,3 +108,15 @@ The Whisky Exchange and Total Wine (403 to a polite UA), Master of Malt (429), M
 - Classes: 3 box labels, `Bottle` (/m/04dr76w), `Wine` (/m/081qc), `Beer` (/m/01599). Every image with at least one such box in validation, test and train.
 - Layout: `images/{validation,test,train}/<ImageID>.jpg`; `boxes.csv` = split, label, plus the original Open Images columns (normalised XMin/XMax/YMin/YMax, IsOccluded, IsTruncated, IsGroupOf, IsDepiction, IsInside), only for images on disk. `meta/bb-*.csv` are the filtered source CSVs, `meta/fetch.py` re-runs the resumable download.
 - Use: generic bottle detection/crops and negatives (c). No brand labels.
+
+## off_alcohol/ : Open Food Facts bar products (pre-training only)
+
+- Source: Open Food Facts full dump, Hugging Face `openfoodfacts/product-database` `food.parquet` (4.79M products, pulled 10 Oct 2026). Images from `images.openfoodfacts.org`. Licence: database ODbL, images CC BY-SA 3.0 (attribute "Open Food Facts contributors").
+- Selection by OFF category tags only, never by `data/labelled/`. Alcohol: alcoholic-beverages, distilled-beverages, artisanal-spirits, liqueurs, wines (incl. sparkling, fortified, champagne, prosecco), beers (lagers, stouts), ciders, hard seltzer, whisky, vodka, gins, rums, tequilas, cognac, brandys, vermouth, aperitif, sherry. Mixers: tonic, sodas, colas, lemonades, carbonated waters, ginger beer/ale, bitters, cocktail mixers, alcohol-free cocktails/beer/wine. Plain still water and squash syrups excluded. Exact lists in `src/external/off_select.py`.
+- Counts: 57,197 products (36,083 alcohol, 21,114 mixer), 249,095 images, 5.4 GB. UK-tagged: 2,507 products (4.4%), 13,409 images. Any country.
+- `products.csv`: code, brands, product_name, quantity, categories, countries, group (alcohol|mixer), uk, n_images, image_ids.
+- `images.csv`: code, name, url (every image fetched).
+- `img/<code>/front_<lang>.jpg`: the selected, cropped front photo per language (62,156 total). `img/<code>/<imgid>.jpg`: every raw upload (other views, back labels, shelf shots). All at the 400px size.
+- `raw/food.parquet`: the 7.9 GB source dump, kept so selection can be re-run.
+- Rebuild: `python src/external/off_select.py` then `python src/external/off_download.py 16` (resume-safe, UK first).
+- Labels are crowd-sourced: brands/categories are noisy, and some "front" crops are wrong or show a multipack. Raw images include ingredient/nutrition panels, not just the bottle. Same barcode can be different vintages or label redesigns.

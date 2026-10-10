@@ -50,10 +50,11 @@ def load(name: str):
     from transformers import AutoImageProcessor, AutoModel
     proc = AutoImageProcessor.from_pretrained(BACKBONES[name])
     size = 384 if name in ("siglip2", "cat2real") else 224
-    model = AutoModel.from_pretrained(BACKBONES[name], dtype=torch.float16).to(DEVICE).eval()
+    dtype = torch.float32 if name == "cat2real" else torch.float16  # ViT-L overflows to NaN in fp16
+    model = AutoModel.from_pretrained(BACKBONES[name], dtype=dtype).to(DEVICE).eval()
 
     def emb(x):
-        x = x.to(DEVICE, torch.float16)
+        x = x.to(DEVICE, dtype)
         if name == "siglip2":
             v = model.get_image_features(pixel_values=x)
             v = getattr(v, "pooler_output", v)
