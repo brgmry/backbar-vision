@@ -29,3 +29,6 @@ uv pip install -p .venv -r requirements.txt
 curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local'
 ```
 `POST /identify` takes one photo and returns `{image, pipeline, bottles: [...]}` in the shared output schema. `pipeline=local` (default) runs the local pipeline with k=3 reference crops per item from every photo in `data/crops`, so photos from `data/raw` score themselves; test with new photos. The first local call loads the models (about a minute), later calls take a few seconds. `pipeline=claude` runs the baseline and needs the key in `.env`. Interactive docs at `localhost:8000/docs`.
+
+## Dashboard
+`.venv/bin/python src/dashboard.py` then open http://localhost:8501 (read-only view of photos, boxes, predictions, scores and pipeline status).
