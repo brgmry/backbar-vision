@@ -1,0 +1,151 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"crop 1, sim 0.62","[0, 2373, 228, 583]",AquaVale,Sparkling spring water,mixer,,6 x 500ml,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,2,"crop 2, sim 0.71","[2, 2820, 236, 712]",Schöfferhofer,Schöfferhofer Weizen Dunkel,alcohol,,"0,5 l",,,,catalogue:ocr,False
+1,IMG_6339.HEIC,3,"crop 3, sim 0.66","[190, 2240, 352, 702]",Champagne Lanson,Black Label Brut,alcohol,,750 ml,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,4,"crop 4, sim 0.30","[1402, 2409, 205, 424]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,5,"crop 5, sim 0.67","[1597, 2156, 386, 674]",Tradition,Limonade,mixer,,"2,63L",,,,catalogue:ocr,False
+1,IMG_6339.HEIC,6,"crop 6, sim 0.09","[1978, 2199, 205, 638]",Baramel,Cidre bouché biologique,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,7,"crop 7, sim 0.61","[2180, 2292, 181, 566]",Martini,Martini rosso,alcohol,,1l,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,8,"crop 8, sim 0.69","[2351, 2401, 207, 452]",Krupnik,Wodka Krupnik 38% 500ML Sobieski,alcohol,,500 mL,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,9,"crop 9, sim 1.00","[2539, 2468, 188, 414]",Johnnie Walker Black Label,,,,,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,10,"crop 10, sim 0.71","[2566, 2182, 181, 336]",Suntory,Suntory Whisky Toki,alcohol,,70 cl,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,11,"crop 11, sim 0.30","[2727, 2504, 162, 359]",RECYCLEZ-MOI,Gini Lemon,mixer,,33cl,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,12,"crop 12, sim 0.78","[2751, 2152, 193, 300]",Maison Aubert,Limonade bio artisanale Mandarine,mixer,,33cl,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,13,"crop 13, sim 0.69","[2823, 2494, 171, 383]",Thomas Philipps,Waldmeister Brause,mixer,,"3,05 l",,,,catalogue:ocr,False
+1,IMG_6339.HEIC,14,"crop 14, sim 0.74","[2832, 2071, 193, 495]",Rioba,Limonade,mixer,,33 cl,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,15,"crop 15, sim 0.67","[2858, 1471, 202, 293]",Asda,diet cola No artificial colours or flavours Each 2,mixer,,,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,16,"crop 16, sim 0.80","[2968, 2356, 293, 557]",Dominio de Borgia,Vino Tinto,alcohol,,2 l,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,17,"crop 17, sim 0.61","[3075, 1333, 133, 281]",Aqua Vale,Peach & Passion Fruit Flavoured Sparkling Water,mixer,,1L,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,18,"crop 18, sim 0.73","[3213, 2592, 105, 278]",la prohibida,La prohibida,alcohol,,25 cl,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,19,"crop 19, sim 0.69","[3299, 2420, 233, 495]",Allgäuer Brauhaus,Hefeweissbier hell,alcohol,,0.5l,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,20,"crop 20, sim 0.71","[3337, 2285, 207, 345]",La Grihète,Mange-soif,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,21,"crop 21, sim 1.00","[3482, 2413, 250, 521]",Bacardi Carta Blanca,,,,,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,22,"crop 22, sim 0.60","[3537, 2235, 200, 367]",Duval,Pastis der Marseille,alcohol,,1 l,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,23,"crop 23, sim 0.68","[3672, 2492, 198, 428]",Sainsbury's,Kentish Ale,alcohol,,500 ml,,,,catalogue:ocr,False
+1,IMG_6339.HEIC,24,"crop 24, sim 0.62","[3763, 2413, 86, 112]",Capri-Sun,Pomme,mixer,,200 ml,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,1,"crop 1, sim 0.61","[0, 2599, 286, 826]",Panizo,Orujo,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,2,"crop 2, sim 0.66","[290, 2661, 464, 654]",CanO Water,Sparkling Spring Water,mixer,,330 ml,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,3,"crop 3, sim 0.64","[633, 2078, 369, 674]",To Øl City,To Øl Summer Hero 2.0,Ale,,440 ml,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,4,"crop 4, sim 0.24","[1852, 2368, 243, 440]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,5,"crop 5, sim 0.71","[2102, 2320, 428, 747]",Fanta,Fanta,mixer,,1.25l,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,6,"crop 6, sim 0.65","[2342, 2111, 171, 400]",Flensburger,Flensburger -Edles helles,alcohol,,0.33l,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,7,"crop 7, sim 0.73","[2575, 2230, 176, 269]",Suntory,Suntory Whisky Toki,alcohol,,70 cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,8,"crop 8, sim 0.74","[2587, 2499, 109, 245]",Appenzeller Bier,Panaché Citron,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,9,"crop 9, sim 0.67","[2689, 2492, 171, 521]",wunderbräu,Grapefruit Radler Alkoholfrei,mixer,,"0,5 l",,,,catalogue:ocr,False
+1,IMG_6340.HEIC,10,"crop 10, sim 0.62","[2744, 2232, 105, 224]",KA,KA fruit punch,mixer,,2 l,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,11,"crop 11, sim 0.75","[2806, 2708, 100, 250]",Marks & Spencers,Captain Morgan Spiced Gold,alcohol,,700 ml,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,12,"crop 12, sim 0.73","[2882, 2266, 224, 585]",Vitaminwater,Vitaminwater Defence Himbeere Apfel,mixer,,500ml,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,13,"crop 13, sim 0.81","[2894, 2002, 262, 559]",Maniva,Acqua minerale naturale frizzante Frizzante,mixer,,"1,5 l",,,,catalogue:ocr,False
+1,IMG_6340.HEIC,14,"crop 14, sim 0.67","[2996, 1278, 169, 338]",Sainsbury's,Pinot Noir,alcohol,,75 cL,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,15,"crop 15, sim 0.67","[3123, 1985, 143, 474]",Mix,Biere mix,alcohol,,33cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,16,"crop 16, sim 0.68","[3144, 2340, 102, 324]",19 Crimes,The Banished,alcohol,,75 cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,17,"crop 17, sim 0.63","[3261, 2299, 240, 823]",Hasseröder,Hasseröder,alcohol,,"6 x 0,33 l",,,,catalogue:ocr,False
+1,IMG_6340.HEIC,18,"crop 18, sim 0.60","[3296, 2211, 307, 271]",Valdoglio,Limoncello,alcohol,,50 cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,19,"crop 19, sim 0.70","[3392, 1023, 117, 288]",Heineken,Heineken,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,20,"crop 20, sim 0.70","[3430, 2301, 164, 564]",Sir Edward's,Sir Edward's,alcohol,,200 cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,21,"crop 21, sim 0.73","[3587, 2425, 290, 654]",Maisel & Friends,Jeff's Bavarian Ale,alcohol,,"0,75 l",,,,catalogue:ocr,False
+1,IMG_6340.HEIC,22,"crop 22, sim 0.61","[3589, 2380, 60, 67]",Soplica,Orzech Laskowy,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,23,"crop 23, sim 0.61","[3670, 2304, 76, 131]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,24,"crop 24, sim 0.64","[3675, 2399, 57, 86]",beefeater,Beefeater Gin 40% 35Cl,alcohol,,35 cl,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,25,"crop 25, sim 0.59","[3713, 2249, 140, 207]",Frangelico,Frangelico Haselnuss Likör,alcohol,,0.7l,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,26,"crop 26, sim 0.66","[3865, 2437, 236, 421]",Moulins d'Ascq,Moulins d'Ascq Printemps,alcohol,,0.75 l,,,,catalogue:ocr,False
+1,IMG_6340.HEIC,27,"crop 27, sim 0.65","[3975, 2299, 109, 143]",Coca-Cola,Coca Cola,mixer,,2 liter (2 QT 3.6 FL OZ) 676.FL OZ,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,1,"crop 1, sim 0.64","[0, 1909, 421, 690]",Coca-Cola Company,Lo-cal Monster Energy,mixer,,250 ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,2,"crop 2, sim 0.15","[2059, 2013, 431, 774]",Cockta,Cockta Free,mixer,,1.5 L,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,3,"crop 3, sim 0.03","[2313, 1833, 190, 419]",An Cnoc,An Cnoc 18 years Single Malt,Scotch whisky,,700 ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,4,"crop 4, sim 0.15","[2404, 2152, 231, 350]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,5,"crop 5, sim 0.76","[2606, 2111, 217, 455]",Bigallet,Liqueur Verveine,alcohol,,35 cl,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,6,"crop 6, sim 0.80","[2611, 1637, 245, 743]",Schweppes,Schweppes bitter lemon,mixer,,0.9 l,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,7,"crop 7, sim 0.69","[2711, 1076, 169, 350]",Sainsbury's,Brita Kettle,alcohol,,75 cL,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,8,"crop 8, sim 0.65","[2808, 2249, 240, 540]",Waitrose,Mirin rice wine,alcohol,,150 ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,9,"crop 9, sim 0.61","[2835, 2097, 136, 278]",Fentimans,Curiosity Cola,mixer,,275ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,10,"crop 10, sim 0.61","[2908, 1004, 117, 276]",U,"Vin rosé IGP Sable De Camargue, - Bouteille 1,5L",alcohol,,1.5000 l,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,11,"crop 11, sim 0.70","[2942, 1937, 93, 319]",Linbrunn Pincészet,Cabernet sauvignon,alcohol,,750 ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,12,"crop 12, sim 0.66","[2970, 2049, 186, 566]",Smirnoff,Sangria,alcohol,,473ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,13,"crop 13, sim 0.71","[3034, 1664, 178, 574]",Sourz,Cherry Sourz,alcohol,,70 cl,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,14,"crop 14, sim 0.62","[3154, 2061, 238, 436]",Captain Morgan,Captain Morgan Spiced Gold,alcohol,,200 ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,15,"crop 15, sim 0.63","[3168, 804, 117, 309]",Red Bull,Red Bull Blue Edition,mixer,,250ml,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,16,"crop 16, sim 1.00","[3201, 1438, 219, 821]",Bacardi Carta Blanca,,,,,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,17,"crop 17, sim 0.71","[3411, 1547, 255, 724]",Nygårda,Nygårda Lagrad Julmust Romfat,mixer,,33 cl,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,18,"crop 18, sim 0.80","[3449, 2147, 350, 640]",Robinson's,"Real fruit double strength orange & pineapple, concentrated soft drink with sweeteners",mixer,,1l,,,,catalogue:ocr,False
+1,IMG_6341.HEIC,19,"crop 19, sim 0.59","[4767, 950, 183, 181]",Potum Brewery,Potum Brewery Not For You,Ale,,440 ml,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,1,"crop 1, sim 0.68","[2, 2116, 126, 395]",Coca-Cola,Diet coca cola twisted strawberry,mixer,,,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,2,"crop 2, sim 0.75","[2021, 1890, 452, 695]",Tradition,Limonade,mixer,,"2,63L",,,,catalogue:ocr,False
+1,IMG_6342.HEIC,3,"crop 3, sim 0.78","[2180, 1666, 200, 357]",San Miguel,Bière blonde,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,4,"crop 4, sim 0.77","[2368, 2013, 162, 452]",Pacific coast selections,"Old Fashioned Lemonade, Old Fashioned",mixer,,64 fl oz/2 Quart/1.89 l,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,5,"crop 5, sim 0.79","[2482, 1454, 288, 726]",Sainsbury's,Sparkling Spring Water,mixer,,2L,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,6,"crop 6, sim 0.77","[2506, 1959, 257, 583]",Villa Mazzolini,Amaretto,alcohol,,0.7l,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,7,"crop 7, sim 0.70","[2520, 819, 183, 371]",Coca-Cola,Huevo,mixer,,,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,8,"crop 8, sim 0.54","[2713, 1933, 240, 647]",Dilmoor,Sambuca,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,9,"crop 9, sim 0.71","[2851, 1771, 93, 297]",Cockburn’s,Vinho Cockburns Special Reserve 750ML,alcohol,,75cl,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,10,"crop 10, sim 0.67","[2942, 1476, 183, 605]",Sourz,Cherry Sourz,alcohol,,70 cl,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,11,"crop 11, sim 0.70","[2992, 521, 112, 338]",Red Bull,Red Bull Sugarfree,mixer,,250 ml,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,12,"crop 12, sim 1.00","[3094, 1904, 250, 685]",Johnnie Walker Black Label,,,,,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,13,"crop 13, sim 1.00","[3113, 1235, 233, 866]",Bacardi Carta Blanca,,,,,,,,catalogue:ocr,False
+1,IMG_6342.HEIC,14,"crop 14, sim 0.71","[3332, 1354, 269, 759]",Maisel & Friends,Jeff's Bavarian Ale,alcohol,,"0,75 l",,,,catalogue:ocr,False
+1,IMG_6342.HEIC,15,"crop 15, sim 0.22","[3389, 1999, 362, 576]",Appie,La limonade mona,mixer,,33cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,1,"crop 1, sim 0.60","[0, 2271, 371, 607]",BUSAB Sverige AB,KUBIK Hard Seltzer Passionsfrukt,Blanddryck,,330 ml,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,2,"crop 2, sim 0.55","[0, 3096, 52, 281]",Bavaria,Bier,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,3,"crop 3, sim 0.63","[683, 2961, 207, 129]",Auchan,Corsé,alcohol,,0.25 kg,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,4,"crop 4, sim 0.69","[2040, 2368, 378, 578]",minute maid,Fruit & Nada,mixer,,50 cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,5,"crop 5, sim 0.74","[2216, 2190, 143, 290]",Charles Quint,Keizer Karel Ommegang Blond 33 CL Fles,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,6,"crop 6, sim 0.70","[2349, 2499, 133, 402]",Denner,Kirsch,alcohol,,1 l,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,7,"crop 7, sim 0.76","[2456, 1997, 255, 535]",Carrick Glen,Sparkling Natural Mineral Water,mixer,,500ml,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,8,"crop 8, sim 0.76","[2461, 2528, 240, 455]",Bigallet,Bigallet Genepi Extra Sec,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,9,"crop 9, sim 0.70","[2580, 1497, 155, 319]",Sainsbury's,Pinot Noir,alcohol,,75 cL,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,10,"crop 10, sim 0.74","[2618, 2294, 126, 340]",Brasserie Parisis,Bière blonde,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,11,"crop 11, sim 0.90","[2663, 2399, 178, 750]",Diageo Scotland Limited,Black Label,alcohol,,1 l,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,12,"crop 12, sim 0.63","[2749, 2482, 136, 312]",Jack Daniel's,Woodford Reverve Double Oakek,alcohol,,700 mL,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,13,"crop 13, sim 0.54","[2766, 1297, 186, 395]",Nebuleuse,Malt Capone,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,14,"crop 14, sim 0.61","[2775, 2299, 88, 209]",Brasserie artisanale du Dauphiné,21 Alpe d'Huez,alcohol,,75 cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,15,"crop 15, sim 0.68","[2825, 1983, 117, 293]",simply fruity,blackcurrant and apple,mixer,,330ml,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,16,"crop 16, sim 0.73","[2854, 2066, 133, 450]",Orangina,Orangina,mixer,,"1,5 l",,,,catalogue:ocr,False
+1,IMG_6343.HEIC,17,"crop 17, sim 0.63","[2939, 2399, 217, 774]",Powell & Mahoney,Blood Orange Mimosa Non-Alcoholic Cocktail Mixer,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,18,"crop 18, sim 0.64","[3004, 1257, 114, 271]",Bacardi-Martini,Gin Bombay,alcohol,,0.7l,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,19,"crop 19, sim 1.00","[3020, 1830, 193, 657]",Bacardi Carta Blanca,,,,,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,20,"crop 20, sim 0.73","[3218, 2425, 181, 157]",3 Monts,3 Monts bière de Flandre,alcohol,,75 cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,21,"crop 21, sim 0.57","[3225, 1949, 205, 531]",Kristoffel,Kristoffel beer,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6343.HEIC,22,"crop 22, sim 0.78","[3296, 2485, 319, 681]",Robinson's,"Real fruit double strength orange & pineapple, concentrated soft drink with sweeteners",mixer,,1l,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,1,"crop 1, sim 0.63","[2, 2068, 386, 552]",To Øl City,To Øl Summer Hero 2.0,Ale,,440 ml,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,2,"crop 2, sim 0.69","[7, 2361, 357, 659]",CanO Water,Sparkling Spring Water,mixer,,330 ml,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,3,"crop 3, sim 0.65","[293, 1940, 357, 621]",Pepsi,Cola,mixer,,,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,4,"crop 4, sim 0.69","[2168, 2082, 386, 726]",Cantine Caviro,Solegro,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,5,"crop 5, sim 0.78","[2347, 1906, 145, 295]",Flensburger,Flensburger -Edles helles,alcohol,,0.33l,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,6,"crop 6, sim 0.70","[2482, 2202, 124, 307]",Johnnie walker,Whisky Ecosse Blended 40% vol.,alcohol,,1l,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,7,"crop 7, sim 0.74","[2585, 1742, 231, 654]",Azur,wasser,mixer,,1l,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,8,"crop 8, sim 0.78","[2594, 2152, 200, 488]",Villa Mazzolini,Amaretto,alcohol,,0.7l,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,9,"crop 9, sim 0.71","[2678, 1211, 129, 228]",Mascaret,Limonade,mixer,,75cl,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,10,"crop 10, sim 0.60","[2742, 1219, 169, 319]",Double Dutch,Skinny Tonic Water,mixer,,150ml,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,11,"crop 11, sim 1.00","[2823, 2202, 188, 631]",Johnnie Walker Black Label,,,,,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,12,"crop 12, sim 0.60","[2894, 2004, 83, 269]",Italia Plaza Centro,Prosecco,alcohol,,75cl,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,13,"crop 13, sim 0.70","[2975, 1766, 155, 512]",griottines,Griottines® Original 70cl,alcohol,,70 cL,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,14,"crop 14, sim 0.33","[3054, 2135, 212, 502]",Carola,Carola rouge,mixer,,1L,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,15,"crop 15, sim 1.00","[3132, 1566, 193, 735]",Bacardi Carta Blanca,,,,,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,16,"crop 16, sim 0.67","[3192, 969, 105, 293]",Monster Energy,Monster Energy Original,mixer,,500ml,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,17,"crop 17, sim 0.79","[3327, 1664, 209, 645]",Maisel & Friends,Jeff's Bavarian Ale,alcohol,,"0,75 l",,,,catalogue:ocr,False
+1,IMG_6345.HEIC,18,"crop 18, sim 0.73","[3380, 2204, 307, 478]",Wegmans Organic,Wegmans organic strawberry leomonade,mixer,,,,,,catalogue:ocr,False
+1,IMG_6345.HEIC,19,"crop 19, sim 0.62","[4758, 1104, 152, 209]",Nestlé,Sanpellegrino Aranciata,mixer,,33cl,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,1,"crop 1, sim 0.64","[0, 2304, 290, 533]",Casón Histórico,Sangría,alcohol,,1.5 l,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,2,"crop 2, sim 0.70","[2, 2670, 264, 624]",San Miguel,Cerveza especial,alcohol,,24 x 25 cl,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,3,"crop 3, sim 0.66","[181, 2187, 371, 614]",Coca-Cola Company,Lo-cal Monster Energy,mixer,,250 ml,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,4,"crop 4, sim 0.73","[2116, 2301, 397, 709]",Tradition,Limonade,mixer,,"2,63L",,,,catalogue:ocr,False
+1,IMG_6346.HEIC,5,"crop 5, sim 0.75","[2273, 2109, 150, 300]",Charles Quint,Keizer Karel Ommegang Blond 33 CL Fles,alcohol,,33 cl,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,6,"crop 6, sim 0.65","[2447, 2428, 95, 240]",Trader Joe's,Fresh Squeezed Lemonade,mixer,,,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,7,"crop 7, sim 0.64","[2468, 2592, 67, 212]",SCEA Château Lafoux,Château Lafoux,alcohol,,75 cl,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,8,"crop 8, sim 0.77","[2513, 1942, 245, 555]",Sainsbury's,Sparkling Spring Water,mixer,,2L,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,9,"crop 9, sim 0.77","[2530, 2461, 212, 255]",Sonjo dell’ Amore,Amaretto Liqueur,alcohol,,"0,7 l",,,,catalogue:ocr,False
+1,IMG_6346.HEIC,10,"crop 10, sim 0.67","[2618, 1404, 159, 321]",Oslo Mikrobryggeriet,We are going to party like it's 1989,alcohol,,0.33 l,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,11,"crop 11, sim 0.42","[2768, 2459, 131, 286]",Johnnie walker,Whisky Ecosse Blended 40% vol.,alcohol,,1l,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,12,"crop 12, sim 0.69","[2780, 2330, 121, 228]",PITU,Cachaça,alcohol,,700 g,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,13,"crop 13, sim 0.61","[2794, 1335, 129, 267]",Coca-Cola,Huevo,mixer,,,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,14,"crop 14, sim 0.66","[2818, 2206, 93, 250]",Italia Plaza Centro,Prosecco,alcohol,,75cl,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,15,"crop 15, sim 0.77","[2827, 2501, 159, 528]",Legend of Kremlin,Vodka,alcohol,,70 cl,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,16,"crop 16, sim 0.67","[2918, 1966, 148, 486]",Bavaria,8.6,alcohol,,,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,17,"crop 17, sim 0.65","[2992, 2444, 212, 595]",Waitrose,Mirin rice wine,alcohol,,150 ml,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,18,"crop 18, sim 0.73","[3049, 1159, 100, 255]",CARRICK GLEN,Water,mixer,,12 x 500 ml,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,19,"crop 19, sim 1.00","[3054, 1771, 186, 676]",Bacardi Carta Blanca,,,,,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,20,"crop 20, sim 0.63","[3054, 2306, 109, 207]",Stella alpina,Acqua minerale naturale frizzante,mixer,,"0,5 l",,,,catalogue:ocr,False
+1,IMG_6346.HEIC,21,"crop 21, sim 0.78","[3256, 1866, 198, 614]",Maisel & Friends,Jeff's Bavarian Ale,alcohol,,"0,75 l",,,,catalogue:ocr,False
+1,IMG_6346.HEIC,22,"crop 22, sim 0.78","[3315, 2425, 309, 605]",Robinson's,"Real fruit double strength orange & pineapple, concentrated soft drink with sweeteners",mixer,,1l,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,23,"crop 23, sim 0.59","[3408, 2316, 157, 186]",K-Classic,Cola light,mixer,,6pcs,,,,catalogue:ocr,False
+1,IMG_6346.HEIC,24,"crop 24, sim 0.63","[4565, 1283, 150, 188]",Erdinger,Erdinger Alcohol Free Weissbrau,mixer,,33cl,,,,catalogue:ocr,False

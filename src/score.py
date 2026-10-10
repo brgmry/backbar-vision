@@ -10,6 +10,7 @@ also reports fill-level MAE in percentage points of bottle size, over matched bo
 Usage: python src/score.py [data/predictions.csv] [--alcohol]
 """
 import csv
+import re
 import statistics
 import sys
 from collections import defaultdict
@@ -38,7 +39,19 @@ def brand_ok(pred, item):
 
 
 def size_ml(row):
-    return float(row["size"]) * TO_ML.get(row["unit"], 1)
+    """Size in ml from a number + unit, or from free text like "70cl", "0,5l", "1ltr". None if unreadable."""
+    try:
+        return float(row["size"]) * TO_ML.get(row.get("unit", ""), 1)
+    except (TypeError, ValueError):
+        m = re.search(r"([\d.,]+)\s*(ml|cl|l|ltr|litre|liter|g|kg|oz|pint)?", str(row.get("size", "")).lower())
+        if not m:
+            return None
+        try:
+            v = float(m.group(1).replace(",", "."))
+        except ValueError:
+            return None
+        return v * {"ml": 1, "g": 1, "cl": 10, "l": 1000, "ltr": 1000, "litre": 1000, "liter": 1000,
+                    "kg": 1000, "oz": 29.57, "pint": 568}.get(m.group(2) or "ml", 1)
 
 
 def match_photo(preds, inventory):
@@ -62,7 +75,7 @@ def score_photo(preds, inventory):
         "recall": len(matched) / n,
         "precision": len(matched) / len(preds) if preds else 0.0,
         "category_acc": sum(p["category"] == i["category"] for p, i in matched) / n,
-        "size_acc": sum(abs(size_ml(p) - size_ml(i)) / size_ml(i) <= 0.1 for p, i in matched) / n,
+        "size_acc": sum(size_ml(p) is not None and abs(size_ml(p) - size_ml(i)) / size_ml(i) <= 0.1 for p, i in matched) / n,
         # strict: matched AND the brand is right; items with no known brand are left out
         "brand_recall": sum(brand_ok(p, i) for p, i in matched) / max(1, sum(bool(i["brand"]) for i in inventory)),
         # recall over the bar items only (spirits, liqueurs, wine, beer, mixers); non-bar predictions ignored
