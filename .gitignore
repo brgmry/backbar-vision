@@ -7,3 +7,4 @@ runs/
 data/catalogue/
 data/external/*
 !data/external/README.md
+vendor/

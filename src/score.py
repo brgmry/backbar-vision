@@ -3,12 +3,17 @@
 Every photo shows all inventory items. Per photo, predicted bottles are matched one-to-one
 to inventory items by fuzzy brand+product similarity (Hungarian assignment).
 
-Usage: python src/score.py [data/predictions.csv]
+With --alcohol, only alcohol items count (inventory and predictions), as in src/experiment.py.
+If data/labelled/fill.csv (id,fill_ml: measured, never model-made) exists, also reports fill-level MAE in
+percentage points of bottle size, over matched bottles whose fill was visible.
+
+Usage: python src/score.py [data/predictions.csv] [--alcohol]
 """
 import csv
 import statistics
 import sys
 from collections import defaultdict
+from pathlib import Path
 
 import numpy as np
 from rapidfuzz import fuzz
@@ -17,6 +22,8 @@ from scipy.optimize import linear_sum_assignment
 MATCH_THRESHOLD = 60  # token_set_ratio below this counts as a wrong identification
 BAR = {"spirit", "liqueur", "wine", "beer", "mixer"}  # what a bar camera is for
 TO_ML = {"ml": 1, "g": 1, "pint": 568}  # g treated as ml: close enough for sauces
+ALCOHOL = {"spirit", "liqueur", "wine", "beer"}
+FILL_TRUTH = Path("data/labelled/fill.csv")
 
 
 def norm(row):
@@ -54,13 +61,28 @@ def score_photo(preds, inventory):
     }
 
 
-def main(path):
+def fill_errors(matched, truth):
+    """Absolute fill error in percentage points of bottle size, for matched bottles with a measured fill."""
+    return [abs(float(p["fill_ml"]) - truth[i["id"]]) / size_ml(i) * 100
+            for p, i in matched if i["id"] in truth and p.get("fill_ml") not in (None, "")]
+
+
+def main(path, alcohol=False):
     inventory = list(csv.DictReader(open("data/labelled/inventory.csv")))
+    if alcohol:
+        inventory = [i for i in inventory if i["category"] in ALCOHOL]
     by_photo = defaultdict(list)
     for row in csv.DictReader(open(path)):
-        by_photo[(row.get("run", "1"), row["image"])].append(row)
+        if not alcohol or row["category"] in ALCOHOL:
+            by_photo[(row.get("run", "1"), row["image"])].append(row)
 
-    scores = {key: score_photo(preds, inventory) for key, preds in sorted(by_photo.items())}
+    truth = {r["id"]: float(r["fill_ml"]) for r in csv.DictReader(open(FILL_TRUTH))} if FILL_TRUTH.exists() else {}
+    scores, errors, measured = {}, [], 0
+    for key, preds in sorted(by_photo.items()):
+        scores[key] = score_photo(preds, inventory)
+        matched = [(p, i) for p, i in zip(preds, match_photo(preds, inventory)) if i is not None]
+        errors += fill_errors(matched, truth)
+        measured += sum(i["id"] in truth for _, i in matched)
     metrics = list(next(iter(scores.values())))
 
     print(f"{'run':>3} {'image':<15}" + "".join(f"{m:>14}" for m in metrics))
@@ -76,7 +98,11 @@ def main(path):
         vals = run_means[m]
         spread = f" ± {statistics.stdev(vals):.3f} across runs" if len(vals) > 1 else ""
         print(f"  {m:<14}{statistics.mean(vals):>7.3f}{spread}")
+    if truth:
+        mae = f"{statistics.mean(errors):.1f} pp" if errors else "n/a"
+        print(f"  fill MAE      {mae:>7} over {len(errors)}/{measured} matched bottles with a measured fill (rest: fill not visible)")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/predictions.csv")
+    args = [a for a in sys.argv[1:] if a != "--alcohol"]
+    main(args[0] if args else "data/predictions.csv", alcohol="--alcohol" in sys.argv)
