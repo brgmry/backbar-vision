@@ -19,6 +19,7 @@ import numpy as np
 from rapidfuzz import fuzz
 from scipy.optimize import linear_sum_assignment
 
+BRAND_THRESHOLD = 80  # brand_recall: brands must match, not just product words
 MATCH_THRESHOLD = 60  # token_set_ratio below this counts as a wrong identification
 BAR = {"spirit", "liqueur", "wine", "beer", "mixer"}  # what a bar camera is for
 TO_ML = {"ml": 1, "g": 1, "pint": 568}  # g treated as ml: close enough for sauces
@@ -28,6 +29,12 @@ FILL_TRUTH = Path("data/labelled/fill.csv")
 
 def norm(row):
     return f"{row['brand']} {row['product']}".lower()
+
+
+def brand_ok(pred, item):
+    """Strict: the predicted brand names the item's brand. Generic names ("Coffee Liqueur") and "Unknown" fail."""
+    p, i = pred["brand"].lower().strip(), item["brand"].lower().strip()
+    return bool(p and i and p != "unknown" and fuzz.token_set_ratio(p, i) >= BRAND_THRESHOLD)
 
 
 def size_ml(row):
@@ -56,6 +63,8 @@ def score_photo(preds, inventory):
         "precision": len(matched) / len(preds) if preds else 0.0,
         "category_acc": sum(p["category"] == i["category"] for p, i in matched) / n,
         "size_acc": sum(abs(size_ml(p) - size_ml(i)) / size_ml(i) <= 0.1 for p, i in matched) / n,
+        # strict: matched AND the brand is right; items with no known brand are left out
+        "brand_recall": sum(brand_ok(p, i) for p, i in matched) / max(1, sum(bool(i["brand"]) for i in inventory)),
         # recall over the bar items only (spirits, liqueurs, wine, beer, mixers); non-bar predictions ignored
         "bar_recall": sum(i["category"] in BAR for _, i in matched) / len(bar) if bar else 0.0,
     }
