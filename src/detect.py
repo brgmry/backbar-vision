@@ -31,7 +31,10 @@ def load(path: Path) -> Image.Image:
     return img
 
 
-def detect(model, processor, img: Image.Image) -> list[tuple[float, list[float]]]:
+def detect(model, processor, img: Image.Image, prefer_whole: bool = False) -> list[tuple[float, list[float]]]:
+    """prefer_whole: boxes from the whole-image pass win over tile boxes, whatever their score. Tiles often see
+    a bottle in pieces (cap half, label half) that outscore the whole-bottle box; with this on, tile boxes only
+    add bottles the whole-image pass missed (small ones)."""
     w, h = img.size
     tw, th = w / (TILES - (TILES - 1) * OVERLAP), h / (TILES - (TILES - 1) * OVERLAP)
     boxes, scores = [], []
@@ -44,13 +47,15 @@ def detect(model, processor, img: Image.Image) -> list[tuple[float, list[float]]
                     continue
                 boxes.append([x1 + x0, y1 + y0, x2 + x0, y2 + y0])
                 scores.append(score)
+    n_tiles = len(boxes)
     for score, box in detect_tile(model, processor, img):
         boxes.append(box)
         scores.append(score)
     if not boxes:
         return []
-    boxes_t, scores_t = torch.tensor(boxes), torch.tensor(scores)
-    return [(scores[i], boxes[i]) for i in nms(boxes_t, scores_t)]
+    rank = [s + (1.0 if prefer_whole and i >= n_tiles else 0.0) for i, s in enumerate(scores)]  # scores are < 1
+    boxes_t, rank_t = torch.tensor(boxes), torch.tensor(rank)
+    return [(scores[i], boxes[i]) for i in nms(boxes_t, rank_t)]
 
 
 def detect_tile(model, processor, img: Image.Image) -> list[tuple[float, list[float]]]:
