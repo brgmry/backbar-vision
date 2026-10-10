@@ -1,0 +1,177 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,bar_01.jpg,1,"crop 8, sim 0.70","[115, 437, 45, 189]",Pampero,Pampero Seleccion,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,2,"crop 9, sim 0.76","[118, 617, 42, 16]",Mission,Passion-Technique Premium Lager World 2018,alcohol,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,3,"crop 11, sim 0.70","[176, 438, 44, 189]",Giarola,Sambuca,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,4,"crop 12, sim 0.69","[211, 150, 62, 274]",Southern Comfort,Southern Comfort,alcohol,,700ml,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,5,"crop 20, sim 0.70","[291, 436, 43, 179]",Crai,Gassosa,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,6,"crop 22, sim 0.73","[301, 160, 61, 199]",Bell's,Scotch whisky,alcohol,,750ml,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,7,"crop 33, sim 0.69","[462, 163, 56, 253]",Ricard,Ricard édition limitée,alcohol,,1 l,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,8,"crop 34, sim 0.78","[464, 539, 23, 76]",Coca-Cola,Coca-cola,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,9,"crop 40, sim 0.82","[535, 469, 49, 132]",Baileys,"Irish Cream Original Bailey's 17% 50 cl, 1 Bouteille",alcohol,,500ml,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,10,"crop 44, sim 0.83","[571, 769, 25, 35]",Angelo Poretti,Angelo Poretti,alcohol,,66unknown,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,11,"crop 47, sim 0.83","[589, 702, 179, 62]",Pepsi,Pepsi,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,12,"crop 50, sim 0.79","[629, 191, 65, 169]",Jack Daniel's,Jack daniels 150 anniversaire,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,13,"crop 58, sim 0.78","[812, 686, 139, 61]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,14,"crop 59, sim 0.86","[824, 787, 28, 56]",Eco,Eco,alcohol,,50cl,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,15,"crop 60, sim 0.70","[836, 184, 55, 228]",L'Étoile d'Azur,L'Étoile d'Azur Rosé 2015,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,16,"crop 63, sim 0.77","[904, 452, 43, 136]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,17,"crop 69, sim 0.84","[960, 766, 21, 37]",Ratz,RATZ,alcohol,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,18,"crop 80, sim 0.86","[1061, 439, 37, 146]",Côtes de bourg,Duplessis,alcohol,,75 cl,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,19,"crop 88, sim 0.71","[1140, 216, 50, 155]",Aperol,Apéros Apéritif Italien 15*,alcohol,,70cl,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,20,"crop 99, sim 0.86","[1217, 660, 92, 46]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,21,"crop 100, sim 0.81","[1252, 742, 26, 58]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_01.jpg,22,"crop 101, sim 0.74","[1257, 252, 45, 122]",Ursus,Ursus,alcohol,,"0,33",,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,1,"crop 2, sim 0.88","[0, 1427, 67, 71]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,2,"crop 4, sim 0.89","[1, 790, 40, 178]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,3,"crop 7, sim 0.76","[29, 1131, 115, 288]",Gordon's,Gin Gordon's,alcohol,,1l,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,4,"crop 9, sim 0.74","[57, 786, 141, 203]",tursan,Secret d Eugénie,alcohol,,75cl,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,5,"crop 10, sim 0.70","[87, 384, 88, 251]",Brasserie Galibier,Snowball,alcohol,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,6,"crop 12, sim 0.72","[141, 1150, 130, 318]",Artic Brands Group,Artic Blue Gin,alcohol,,500ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,7,"crop 13, sim 0.79","[163, 365, 84, 274]",TALISKER,"Single Malt Scotch Whisky,",alcohol,,70cl,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,8,"crop 14, sim 0.75","[206, 359, 106, 282]",Salcombe Gin,Salcombe Rose Sainte Marie Gin 70cl,Gin,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,9,"crop 16, sim 0.87","[242, 762, 76, 26]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,10,"crop 17, sim 0.71","[286, 1244, 141, 256]",Bimmerle,Schwarzwald Gin,alcohol,,500ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,11,"crop 18, sim 0.72","[302, 301, 88, 341]",finley,Bitter Lemon Finley,mixer,,200 ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,12,"crop 20, sim 0.81","[357, 409, 35, 319]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,13,"crop 21, sim 0.86","[516, 565, 114, 272]",Jack Daniel's,Tennessee Honey,alcohol,,1L,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,14,"crop 22, sim 0.65","[539, 877, 132, 314]",Monkey Shoulder,Monkey Shoulder,alcohol,,700ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,15,"crop 25, sim 0.63","[641, 854, 147, 330]",Ricard,Ricard,alcohol,,35cl,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,16,"crop 32, sim 0.72","[868, 883, 160, 406]",Dreher,Bier,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,17,"crop 33, sim 0.84","[924, 561, 140, 351]",Jack Daniel's,Jack daniel's pomme,alcohol,,700ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,18,"crop 34, sim 0.71","[971, 1089, 89, 95]",MIAMI Soul,MIAMI Soul,mixer,,250 ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,19,"crop 35, sim 0.82","[984, 900, 76, 113]",De Castellane,Champagne Brut,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,20,"crop 37, sim 0.76","[1061, 553, 57, 337]",Rosbacher,MARTIN HILSHEIMER,mixer,,"0,75 l",,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,21,"crop 39, sim 0.80","[1106, 652, 194, 232]",Jack Daniel's,Jack Fire,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,22,"crop 41, sim 0.70","[1144, 1134, 92, 102]",Johnnie Walker,Mini Johnnie Walker Black Label,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,23,"crop 45, sim 0.79","[1292, 553, 239, 391]",Jack Daniel's,Jack daniel,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,24,"crop 47, sim 0.71","[1347, 947, 91, 180]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_02.jpg,25,"crop 48, sim 0.77","[1392, 127, 177, 342]",Jack Daniel's Tennessee Honey,,,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,1,"crop 4, sim 0.78","[75, 910, 191, 109]",Tuborg,Tubourg,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,2,"crop 10, sim 0.71","[150, 199, 41, 107]",Abbot,abbot,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,3,"crop 11, sim 0.81","[167, 372, 31, 87]",De Castellane,Champagne Brut,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,4,"crop 12, sim 0.74","[167, 408, 53, 119]",Drambuie,Drambuie,alcohol,,700 mL,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,5,"crop 16, sim 0.77","[232, 588, 42, 131]",Whitley Neill,Gin,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,6,"crop 17, sim 0.72","[233, 372, 34, 154]",Jameson,Whisky,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,7,"crop 18, sim 0.80","[245, 396, 55, 132]",Glayva,Glayva Liqueur 70cl,Liqueurs,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,8,"crop 20, sim 0.69","[273, 588, 41, 118]",chartreuse,liqueur 9 ème centenaire chartreuse,alcohol,,o70,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,9,"crop 21, sim 0.77","[281, 202, 33, 104]",Alltech,Kentucky IPA,alcohol,,330 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,10,"crop 22, sim 0.78","[308, 376, 33, 150]",Laphroaig,Laphroaig Select,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,11,"crop 24, sim 0.79","[318, 592, 36, 65]",Rosemount Estate,Rosemount Shiraz Cabernet,Rött vin,,3000 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,12,"crop 25, sim 0.76","[326, 392, 45, 135]",Jim Beam,Bourbon Wiskey,alcohol,,35 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,13,"crop 26, sim 0.79","[343, 596, 25, 68]",Rosbacher,MARTIN HILSHEIMER,mixer,,"0,75 l",,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,14,"crop 27, sim 0.75","[360, 586, 40, 121]",Gordon's,Gin Gordon's,alcohol,,1l,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,15,"crop 28, sim 0.79","[363, 910, 39, 103]",Coca-Cola,Coca-cola,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,16,"crop 30, sim 0.76","[378, 377, 33, 149]",OBAN,Oban Single Malt Scotch Whisky,alcohol,,700 g,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,17,"crop 31, sim 0.73","[384, 630, 41, 133]",Beefeater,beefeater London blood orange,alcohol,,"0,7 l",,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,18,"crop 32, sim 0.74","[385, 759, 41, 58]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,19,"crop 37, sim 0.87","[406, 301, 58, 145]",Smirnoff,Vodka,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,20,"crop 39, sim 0.73","[421, 177, 38, 130]",Vagrant Cider,Vagrant Cider Skytramp Cider 75cl,Cider,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,21,"crop 45, sim 0.80","[461, 278, 61, 144]",Southern Comfort Liqueur,,,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,22,"crop 47, sim 0.82","[468, 632, 142, 80]",Kirkland Gin,,,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,23,"crop 52, sim 0.75","[482, 601, 41, 103]",Hendrick's,Gin,alcohol,,0.7l,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,24,"crop 53, sim 0.86","[483, 799, 38, 27]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,25,"crop 56, sim 0.70","[520, 284, 56, 138]",Famous Grouse,,,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,26,"crop 57, sim 0.73","[521, 587, 39, 114]",Brockman's,BROCKMAN'S PREMIUM GIN Intensely Smooth,alcohol,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,27,"crop 58, sim 0.87","[523, 800, 23, 21]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,28,"crop 59, sim 0.80","[523, 170, 32, 136]",Martini Vermouth,,,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,29,"crop 61, sim 0.86","[550, 158, 41, 150]",Moet & Chandon,Moët & Chandon Brut Impérial,alcohol,,"0,75 l",,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,30,"crop 62, sim 0.79","[556, 298, 30, 126]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,31,"crop 71, sim 0.82","[640, 287, 59, 204]",Bacardi,Barcadi Carta Blanca,alcohol,,0.7l,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,32,"crop 73, sim 0.75","[662, 167, 39, 143]",Alfred Rothschild,Champagne Cuvée Excellence,alcohol,,75 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,33,"crop 74, sim 0.86","[663, 797, 26, 27]",Angelo Poretti,Angelo Poretti,alcohol,,66unknown,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,34,"crop 77, sim 0.70","[694, 594, 40, 106]",Jägermeister,Jägermeister,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,35,"crop 78, sim 0.80","[697, 290, 58, 175]",Captain Morgan,Rhum ambré,alcohol,,700 ml e,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,36,"crop 81, sim 0.72","[710, 900, 38, 113]",Dagsbier,DAGSBIER 7% vol,alcohol,,50 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,37,"crop 83, sim 0.74","[738, 168, 33, 141]",Prosecco origine contrôle brut,Bottega gold,alcohol,,Product of Italy *****,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,38,"crop 84, sim 0.80","[738, 579, 46, 122]",Fireball,Cinnamome whisky,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,39,"crop 86, sim 0.76","[758, 286, 58, 174]",GORDON'S,Розовый Джин Premium Pin,alcohol,,70cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,40,"crop 88, sim 0.79","[782, 590, 51, 113]",Disaronno,Disaronno Originale,alcohol,,500ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,41,"crop 89, sim 0.82","[786, 174, 37, 134]",Brasserie Galibier,Snowball,alcohol,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,42,"crop 91, sim 0.88","[811, 546, 351, 108]",Captain Morgan,Captain Morgan Rum,alcohol,,700 mL,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,43,"crop 92, sim 0.72","[823, 317, 60, 234]",Bombay Sapphire,Bombay Sapphire London Dry Gin,alcohol,,1 L,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,44,"crop 93, sim 0.73","[829, 577, 37, 127]",Crai,Gassosa,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,45,"crop 95, sim 0.75","[863, 563, 34, 138]",Gordon's,Gordon's Special Dry London Gin,alcohol,,70unknown,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,46,"crop 96, sim 0.82","[867, 354, 43, 171]",Grey Goose,Grey goose original,alcohol,,"4,5 L",,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,47,"crop 101, sim 0.73","[892, 912, 31, 83]",Three Cents,Gentlemen's soda,mixer,,200ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,48,"crop 104, sim 0.72","[921, 912, 32, 82]",Gwoon,Orange Zero Sugar,mixer,,"1,5l",,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,49,"crop 106, sim 0.80","[928, 644, 47, 122]",Sourz,Cherry Sourz,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,50,"crop 107, sim 0.79","[938, 559, 36, 140]",Clément,Rhum,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,51,"crop 109, sim 0.78","[962, 360, 38, 163]",Côtes de bourg,Duplessis,alcohol,,75 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,52,"crop 110, sim 0.77","[968, 557, 37, 147]",Hennessy,Hennessy VS COGNAC,alcohol,,1 l,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,53,"crop 111, sim 0.76","[977, 199, 38, 106]",Greene King,IPA,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,54,"crop 112, sim 0.64","[982, 912, 32, 83]",COCA-COLA SERVICES SA/NV,"fanta Orange 0,33",mixer,,330 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,55,"crop 113, sim 0.74","[985, 613, 45, 153]",Midori,Midori,alcohol,,700ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,56,"crop 114, sim 0.76","[991, 402, 45, 122]",Absolut,Absolut Vodka,alcohol,,1 l,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,57,"crop 118, sim 0.76","[1039, 198, 38, 106]",Morland,Old Speckled Hen - Low Alcohol,alcohol,,500ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,58,"crop 121, sim 0.69","[1042, 555, 39, 143]",Pulp des niNes,Rouge 2018,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,59,"crop 126, sim 0.77","[1082, 578, 43, 130]",Moulin d'Aubey,Cognac,alcohol,,35 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,60,"crop 127, sim 0.73","[1112, 394, 49, 132]",Dead Man's Fingers,,,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,61,"crop 129, sim 0.72","[1114, 197, 38, 107]",Warenghem,Whisky Breton,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,62,"crop 133, sim 0.83","[1146, 374, 35, 150]",Nando’s,Britvic lime cordial,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,63,"crop 139, sim 0.69","[1191, 367, 43, 158]",El Dorado,El Dorado 5 Year Old 70cl,Rum,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_03.jpg,64,"crop 142, sim 0.80","[1240, 362, 45, 163]",Havana Club,Rum,alcohol,,75cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,1,"crop 11, sim 0.77","[83, 258, 30, 70]",Eco,Eco,alcohol,,50cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,2,"crop 12, sim 0.81","[96, 287, 31, 105]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,3,"crop 15, sim 0.81","[115, 728, 79, 232]",Brasserie Galibier,Snowball,alcohol,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,4,"crop 32, sim 0.86","[277, 648, 128, 303]",Disaronno,Disaronno Originale,alcohol,,500ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,5,"crop 36, sim 0.82","[398, 608, 72, 341]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,6,"crop 38, sim 0.78","[543, 577, 56, 179]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,7,"crop 45, sim 0.72","[641, 620, 100, 346]",Black Velvet,,,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,8,"crop 46, sim 0.74","[659, 572, 72, 155]",Intermarché,Kingsbräu Bière blonde extra forte la cannette de 50,alcohol,,50cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,9,"crop 53, sim 0.71","[754, 420, 72, 251]",Captain Morgan,Original Spiced Rum,alcohol,,1.75 L,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,10,"crop 56, sim 0.81","[808, 451, 40, 142]",De Castellane,Champagne Brut,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,11,"crop 58, sim 0.71","[821, 441, 77, 234]",Havana Club,Rum,alcohol,,75cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,12,"crop 64, sim 0.83","[881, 664, 88, 304]",Clément,Rhum,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,13,"crop 68, sim 0.82","[941, 461, 37, 168]",Coca-Cola,Coca-cola,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,14,"crop 69, sim 0.77","[953, 627, 67, 335]",Chartreuse,Chartreuse Jaune,alcohol,,70 cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,15,"crop 71, sim 0.76","[970, 580, 35, 88]",Fernandes,Cream Ginger,mixer,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,16,"crop 76, sim 0.84","[1016, 593, 115, 381]",JAMESON,Whisky 40% + kolíska,alcohol,,4500 g,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,17,"crop 78, sim 0.83","[1056, 417, 69, 237]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,18,"crop 81, sim 0.82","[1123, 660, 108, 310]",Côtes de bourg,Duplessis,alcohol,,75 cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,19,"crop 86, sim 0.82","[1178, 611, 61, 236]",Rosemount Estate,Rosemount Shiraz Cabernet,Rött vin,,3000 ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,20,"crop 95, sim 0.77","[1298, 624, 106, 348]",L’HERITIER-GUYON,Crème de Cassis,alcohol,,700ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,21,"crop 97, sim 0.89","[1320, 1451, 85, 50]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,22,"crop 100, sim 0.75","[1351, 379, 71, 279]",Captain Morgan,Captain morgan,alcohol,,200 ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,23,"crop 102, sim 0.84","[1396, 381, 53, 241]",Captain Morgan,Captain Morgan Rum,alcohol,,700 mL,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,24,"crop 103, sim 0.79","[1398, 671, 124, 308]",1800 Tequila,,,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,25,"crop 107, sim 0.72","[1483, 384, 44, 203]",Teneguia,Vino blanco,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,26,"crop 112, sim 0.78","[1582, 575, 78, 189]",TALISKER,"Single Malt Scotch Whisky,",alcohol,,70cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,27,"crop 113, sim 0.82","[1587, 394, 89, 281]",Wild Turkey,Wild Turkey Bourbon 70cl,American Whiskey,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,28,"crop 114, sim 0.82","[1654, 381, 52, 145]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,29,"crop 115, sim 0.84","[1664, 449, 37, 228]",chateau vieux moulin,puisseguin saint emilion,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,30,"crop 118, sim 0.84","[1763, 364, 23, 101]",Angelo Poretti,Angelo Poretti,alcohol,,66unknown,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,31,"crop 121, sim 0.84","[1826, 345, 35, 120]",rolly gassmann,riesling,alcohol,,74cl,,,,catalogue:siglip2:raw,False
+1,bar_04.jpg,32,"crop 127, sim 0.85","[1965, 735, 35, 108]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,1,"crop 7, sim 0.80","[18, 1355, 91, 279]",Côtes de bourg,Duplessis,alcohol,,75 cl,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,2,"crop 15, sim 0.88","[168, 865, 60, 160]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,3,"crop 21, sim 0.87","[231, 1033, 108, 213]",Jack Daniel's,Jack Daniel's,alcohol,,20 cl,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,4,"crop 23, sim 0.80","[270, 1375, 91, 261]",Aperol,Aperol,alcohol,,1 l,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,5,"crop 35, sim 0.77","[410, 977, 87, 270]",Wild Turkey Rye,,,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,6,"crop 37, sim 0.81","[445, 1409, 99, 228]",L'Étoile d'Azur,L'Étoile d'Azur Rosé 2015,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,7,"crop 41, sim 0.83","[492, 968, 89, 279]",Wild Turkey,Wild Turkey Bourbon 70cl,American Whiskey,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,8,"crop 42, sim 0.76","[504, 186, 98, 270]",Vichy catalan,Vichy catalan,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,9,"crop 48, sim 0.81","[581, 950, 85, 298]",Glenkinchie,Glenkinchie Distillers Edition 2008 70cl,Single Malt Whisky,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,10,"crop 49, sim 0.84","[586, 730, 140, 56]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,11,"crop 53, sim 0.84","[623, 786, 81, 247]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,12,"crop 54, sim 0.86","[628, 913, 54, 179]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,13,"crop 57, sim 0.79","[658, 1000, 86, 247]",Jack Daniel's,Black Label No.7,alcohol,,1.75 l,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,14,"crop 59, sim 0.76","[694, 923, 78, 194]",Kaufland,Gin,alcohol,,0.7 l,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,15,"crop 63, sim 0.87","[753, 994, 81, 256]",Nando’s,Britvic lime cordial,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,16,"crop 69, sim 0.81","[841, 767, 72, 244]",Jhonnie walker,Jhonnie walker red label 375ml,alcohol,,375ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,17,"crop 77, sim 0.81","[965, 925, 89, 303]",Brasserie Galibier,Snowball,alcohol,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,18,"crop 79, sim 0.82","[975, 786, 84, 230]",Clément,Rhum,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,19,"crop 85, sim 0.82","[1059, 781, 87, 267]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,20,"crop 87, sim 0.78","[1116, 1013, 100, 237]",Knob Creek,Knob Creek Rye Whiskey 50% 70cl,American Whiskey,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,21,"crop 91, sim 0.83","[1137, 1488, 82, 140]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,22,"crop 95, sim 0.82","[1221, 987, 108, 264]",Knob Creek,Knob Creek kentucky straight bourbon Whiskey Small batch,alcohol,,700 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,23,"crop 97, sim 0.84","[1226, 823, 83, 261]",Jameson,Whisky,alcohol,,750 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,24,"crop 99, sim 0.85","[1276, 401, 57, 132]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,25,"crop 106, sim 0.73","[1347, 1022, 97, 228]",TALISKER,"Single Malt Scotch Whisky,",alcohol,,70cl,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,26,"crop 114, sim 0.74","[1481, 1273, 89, 353]",Lite,Lite A Fine Pilsner Beer,alcohol,,12 oz,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,27,"crop 123, sim 0.72","[1592, 931, 83, 144]",Southern Comfort,Southern Comfort,alcohol,,700ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,28,"crop 133, sim 0.77","[1675, 905, 98, 218]",Ilrhéa,Pineau des charente,alcohol,,1 l,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,29,"crop 134, sim 0.69","[1683, 1403, 75, 228]",MIAMI Soul,MIAMI Soul,mixer,,250 ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,30,"crop 136, sim 0.89","[1749, 987, 111, 263]",Maker's Mark,Kentucky Straight Bourbon Whisky,alcohol,,50ml,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,31,"crop 143, sim 0.71","[1854, 958, 105, 292]",Baileys,Baileys liquor,alcohol,,,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,32,"crop 151, sim 0.82","[1945, 363, 53, 249]",Fernandes,Cream Ginger,mixer,,33 cl,,,,catalogue:siglip2:raw,False
+1,bar_05.jpg,33,"crop 153, sim 0.79","[1949, 994, 51, 255]",Coca-Cola,Coca-cola,mixer,,,,,,catalogue:siglip2:raw,False

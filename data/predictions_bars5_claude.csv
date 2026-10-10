@@ -1,0 +1,190 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,bar_01.jpg,1,"shelf: clear bottle, black liquid, ornate label","[42, 440, 48, 192]",Antica,Sambuca Black,liqueur,black sambuca,700.0,ml,clear,600.0,label,True
+1,bar_01.jpg,2,"shelf: clear bottle, red liquid","[116, 440, 48, 175]",Antica,Sambuca Red,liqueur,red sambuca,700.0,ml,clear,250.0,label,True
+1,bar_01.jpg,3,"shelf: clear bottle, pink liquid","[177, 440, 42, 175]",Antica,Sambuca Raspberry,liqueur,pink sambuca,700.0,ml,clear,250.0,label,True
+1,bar_01.jpg,4,"shelf: clear bottle, green liquid, blue cap","[253, 438, 42, 175]",Antica,Sambuca Apple,liqueur,green sambuca,700.0,ml,clear,300.0,label,True
+1,bar_01.jpg,5,"shelf: clear bottle, yellow liquid, blue cap","[292, 438, 42, 175]",Antica,Sambuca Gold,liqueur,gold sambuca,700.0,ml,clear,400.0,label,True
+1,bar_01.jpg,6,"shelf: green bottle with pourer, bright green liquid","[355, 455, 38, 155]",Midori,Melon Liqueur,liqueur,melon liqueur,700.0,ml,clear,300.0,shape,True
+1,bar_01.jpg,7,shelf: dark Baileys bottle,"[535, 468, 50, 135]",Baileys,Original Irish Cream,liqueur,cream liqueur,700.0,ml,opaque,,label,False
+1,bar_01.jpg,8,"shelf: clear square bottle, black cap","[602, 482, 55, 118]",Unknown,Liqueur,liqueur,clear liqueur,700.0,ml,clear,350.0,shape,True
+1,bar_01.jpg,9,"shelf: square bottle with pourer, green liquid","[673, 455, 50, 140]",Sourz,Apple,liqueur,apple liqueur,700.0,ml,clear,250.0,shape,True
+1,bar_01.jpg,10,"shelf: square bottle with pourer, red liquid","[743, 455, 50, 140]",Sourz,Cherry,liqueur,cherry liqueur,700.0,ml,clear,250.0,shape,True
+1,bar_01.jpg,11,"shelf: square bottle with pourer, white label","[805, 455, 45, 135]",Sourz,Unknown,liqueur,liqueur,700.0,ml,clear,200.0,shape,True
+1,bar_01.jpg,12,"shelf: square bottle with pourer, dark liquid","[858, 455, 45, 135]",Sourz,Unknown,liqueur,liqueur,700.0,ml,clear,450.0,shape,True
+1,bar_01.jpg,13,"shelf: square bottle with pourer, blue liquid","[905, 455, 45, 135]",Sourz,Blue Raspberry,liqueur,blue liqueur,700.0,ml,clear,300.0,shape,True
+1,bar_01.jpg,14,shelf: small dark bottle,"[960, 478, 40, 110]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,400.0,shape,True
+1,bar_01.jpg,15,shelf: dark wine bottle 1,"[1020, 440, 35, 145]",Unknown,Red Wine,wine,red wine,750.0,ml,green,,shape,False
+1,bar_01.jpg,16,shelf: dark wine bottle 2,"[1060, 440, 38, 145]",Unknown,Red Wine,wine,red wine,750.0,ml,green,,shape,False
+1,bar_01.jpg,17,shelf: dark wine bottle 3,"[1100, 440, 38, 145]",Unknown,Red Wine,wine,red wine,750.0,ml,green,,shape,False
+1,bar_01.jpg,18,shelf: dark wine bottle 4,"[1140, 435, 38, 150]",Unknown,Red Wine,wine,red wine,750.0,ml,green,,shape,False
+1,bar_01.jpg,19,shelf: dark wine bottle 5,"[1177, 440, 38, 145]",Unknown,Red Wine,wine,red wine,750.0,ml,green,,shape,False
+1,bar_01.jpg,20,shelf: dark wine bottle 6,"[1215, 440, 38, 145]",Unknown,Red Wine,wine,red wine,750.0,ml,green,,shape,False
+1,bar_01.jpg,21,"optic: amber whisky, dark label","[37, 165, 50, 170]",The Famous Grouse,Blended Scotch Whisky,spirit,whisky,1000.0,ml,clear,850.0,shape,True
+1,bar_01.jpg,22,optic: clear Bacardi,"[112, 140, 65, 165]",Bacardi,Carta Blanca,spirit,white rum,1500.0,ml,clear,1300.0,label,True
+1,bar_01.jpg,23,"optic: Southern Comfort, red-amber","[210, 150, 62, 175]",Southern Comfort,Original,liqueur,whiskey liqueur,1000.0,ml,clear,950.0,label,True
+1,bar_01.jpg,24,"optic: Bell's, amber","[300, 160, 62, 190]",Bell's,Original Blended Scotch,spirit,whisky,1000.0,ml,clear,700.0,label,True
+1,bar_01.jpg,25,optic: Jack Daniel's square black label,"[375, 180, 68, 170]",Jack Daniel's,Old No. 7,spirit,whiskey,1000.0,ml,clear,900.0,label,True
+1,bar_01.jpg,26,optic: Smirnoff red label clear,"[460, 165, 58, 180]",Smirnoff,Red Label,spirit,vodka,1000.0,ml,clear,900.0,label,True
+1,bar_01.jpg,27,optic: Smirnoff red label clear 2,"[557, 172, 56, 175]",Smirnoff,Red Label,spirit,vodka,1000.0,ml,clear,900.0,label,True
+1,bar_01.jpg,28,optic: Jack Daniel's 2,"[628, 193, 66, 155]",Jack Daniel's,Old No. 7,spirit,whiskey,1000.0,ml,clear,850.0,label,True
+1,bar_01.jpg,29,"optic: Bell's 2, amber","[708, 185, 55, 165]",Bell's,Original Blended Scotch,spirit,whisky,1000.0,ml,clear,750.0,label,True
+1,bar_01.jpg,30,optic: clear Bacardi 2,"[835, 185, 55, 150]",Bacardi,Carta Blanca,spirit,white rum,1000.0,ml,clear,900.0,label,True
+1,bar_01.jpg,31,optic: Captain Morgan dark,"[905, 200, 55, 160]",Captain Morgan,Original Spiced Gold,spirit,spiced rum,1000.0,ml,clear,850.0,label,True
+1,bar_01.jpg,32,"optic: Martell brandy, amber","[966, 203, 55, 160]",Martell,VS,spirit,cognac,1000.0,ml,clear,850.0,label,True
+1,bar_01.jpg,33,optic: white Malibu,"[1033, 203, 50, 155]",Malibu,Original,liqueur,coconut rum,1000.0,ml,opaque,,label,False
+1,bar_01.jpg,34,optic: small red-brown bottle,"[1090, 230, 40, 135]",Martini,Rosso,wine,vermouth,1000.0,ml,clear,800.0,shape,True
+1,bar_01.jpg,35,optic: frosted Archers,"[1140, 215, 50, 140]",Archers,Peach Schnapps,liqueur,peach schnapps,1000.0,ml,frosted,800.0,label,True
+1,bar_01.jpg,36,optic: green Gordon's,"[1200, 220, 50, 140]",Gordon's,London Dry Gin,spirit,gin,1000.0,ml,green,850.0,label,True
+1,bar_01.jpg,37,optic: small dark bottle,"[1258, 250, 42, 120]",Lamb's,Navy Rum,spirit,dark rum,700.0,ml,clear,600.0,shape,True
+1,bar_01.jpg,38,optic: clear bottle far right,"[1310, 235, 38, 120]",Unknown,Vodka,spirit,vodka,700.0,ml,clear,600.0,shape,True
+1,bar_02.jpg,1,"dark green bottle, top-left shelf, far left","[0, 376, 54, 319]",Unknown,Gin,spirit,gin,700.0,ml,green,,shape,False
+1,bar_02.jpg,2,"white opaque bottle, gold cap, top-left shelf","[26, 411, 79, 287]",Whitley Neill,Gin,spirit,gin,700.0,ml,opaque,,shape,False
+1,bar_02.jpg,3,"clear bottle, orange Jaffa Cake label","[87, 386, 79, 319]",That Boutique-y Gin Company,Jaffa Cake Gin,spirit,gin,700.0,ml,clear,400.0,label,True
+1,bar_02.jpg,4,"clear bottle, yellow cap, gold label","[163, 364, 77, 274]",Gordon's,Gin,spirit,gin,700.0,ml,clear,350.0,label,True
+1,bar_02.jpg,5,"clear Salcombe Gin bottle, cork stopper","[204, 364, 105, 274]",Salcombe,Start Point Gin,spirit,gin,700.0,ml,clear,300.0,label,True
+1,bar_02.jpg,6,"tall purple bottle, top-left shelf","[306, 302, 82, 425]",Whitley Neill,Parma Violet Gin,spirit,gin,700.0,ml,clear,500.0,label,True
+1,bar_02.jpg,7,inverted cream-label Jack Daniel's Honey on optic,"[515, 542, 138, 312]",Jack Daniel's,Tennessee Honey,liqueur,honey whiskey liqueur,700.0,ml,clear,300.0,label,True
+1,bar_02.jpg,8,inverted black-label Jack Daniel's Old No.7 on optic,"[642, 542, 151, 306]",Jack Daniel's,Old No. 7 Tennessee Whiskey,spirit,whiskey,700.0,ml,clear,250.0,label,True
+1,bar_02.jpg,9,"inverted cream-label Jack Daniel's Honey, middle","[781, 551, 168, 332]",Jack Daniel's,Tennessee Honey,liqueur,honey whiskey liqueur,700.0,ml,clear,300.0,label,True
+1,bar_02.jpg,10,inverted green-label Jack Daniel's Apple,"[935, 555, 181, 357]",Jack Daniel's,Tennessee Apple,liqueur,apple whiskey liqueur,700.0,ml,clear,300.0,label,True
+1,bar_02.jpg,11,inverted red-label Jack Daniel's Fire,"[1105, 568, 202, 376]",Jack Daniel's,Tennessee Fire,liqueur,cinnamon whiskey liqueur,700.0,ml,clear,300.0,label,True
+1,bar_02.jpg,12,"inverted black-label Jack Daniel's Old No.7, far right","[1295, 555, 230, 402]",Jack Daniel's,Old No. 7 Tennessee Whiskey,spirit,whiskey,700.0,ml,clear,300.0,label,True
+1,bar_02.jpg,13,"clear bottle with gold hat-shaped stopper, bottom-left","[0, 1071, 83, 319]",Unknown,Gin,spirit,gin,700.0,ml,clear,,shape,False
+1,bar_02.jpg,14,"dark bottle with pink cap, bottom-left","[32, 1129, 77, 287]",Unknown,Rum,spirit,rum,700.0,ml,opaque,,shape,False
+1,bar_02.jpg,15,"copper/amber square bottle, bottom-left","[83, 1199, 77, 242]",Unknown,Gin,spirit,gin,700.0,ml,amber,,shape,False
+1,bar_02.jpg,16,"round clear bottle with pink liquid, cork, GIN label","[140, 1148, 128, 312]",Unknown,Pink Gin,spirit,pink gin,700.0,ml,clear,550.0,label,True
+1,bar_02.jpg,17,"blue hexagonal Gunpowder Gin bottle, cork","[291, 1247, 135, 253]",Drumshanbo,Gunpowder Irish Gin,spirit,gin,700.0,ml,opaque,,label,False
+1,bar_03.jpg,1,"top shelf far left brown beer bottle, blue label","[68, 200, 36, 106]",Wychwood,Ice Breaker,beer,beer,500.0,ml,amber,500.0,shape,False
+1,bar_03.jpg,2,"brown beer bottle, Abbot label","[150, 200, 40, 106]",Greene King,Abbot Ale,beer,ale,500.0,ml,amber,500.0,label,False
+1,bar_03.jpg,3,"brown beer bottle, Old Speckled Hen","[223, 202, 40, 104]",Morland,Old Speckled Hen,beer,ale,500.0,ml,amber,500.0,label,False
+1,bar_03.jpg,4,"green beer bottle, IPA label","[281, 204, 33, 102]",Greene King,IPA,beer,ale,500.0,ml,green,500.0,label,False
+1,bar_03.jpg,5,"clear wine bottle, pale wine, white label","[366, 178, 38, 128]",Unknown,White Wine,wine,white wine,750.0,ml,clear,750.0,shape,True
+1,bar_03.jpg,6,"clear wine bottle, pale wine","[420, 178, 40, 128]",Unknown,White Wine,wine,white wine,750.0,ml,clear,750.0,shape,True
+1,bar_03.jpg,7,"clear wine bottle, pale wine","[470, 178, 40, 128]",Unknown,White Wine,wine,white wine,750.0,ml,clear,750.0,shape,True
+1,bar_03.jpg,8,"dark green champagne bottle, gold foil","[522, 172, 32, 134]",Moët & Chandon,Brut Impérial,wine,champagne,750.0,ml,green,750.0,label,False
+1,bar_03.jpg,9,"dark green champagne bottle, gold foil","[552, 158, 38, 148]",Moët & Chandon,Brut Impérial,wine,champagne,750.0,ml,green,750.0,label,False
+1,bar_03.jpg,10,"dark green champagne bottle, gold foil","[592, 170, 38, 136]",Moët & Chandon,Brut Impérial,wine,champagne,750.0,ml,green,750.0,label,False
+1,bar_03.jpg,11,"white champagne bottle, black ribbon","[662, 168, 38, 138]",Moët & Chandon,Ice Impérial,wine,champagne,750.0,ml,opaque,,label,False
+1,bar_03.jpg,12,"white champagne bottle, black ribbon","[700, 155, 40, 151]",Moët & Chandon,Ice Impérial,wine,champagne,750.0,ml,opaque,,label,False
+1,bar_03.jpg,13,"white champagne bottle, black ribbon","[738, 168, 36, 138]",Moët & Chandon,Ice Impérial,wine,champagne,750.0,ml,opaque,,label,False
+1,bar_03.jpg,14,"dark wine bottle, white label","[786, 176, 38, 130]",Unknown,Red Wine,wine,red wine,750.0,ml,green,750.0,shape,False
+1,bar_03.jpg,15,"clear wine bottle, rosé","[837, 176, 40, 130]",Unknown,Rosé Wine,wine,rosé wine,750.0,ml,clear,750.0,shape,True
+1,bar_03.jpg,16,"dark wine bottle, white label","[887, 174, 40, 132]",Unknown,Red Wine,wine,red wine,750.0,ml,green,750.0,shape,False
+1,bar_03.jpg,17,"green beer bottle, IPA","[976, 198, 40, 106]",Greene King,IPA,beer,ale,500.0,ml,green,500.0,label,False
+1,bar_03.jpg,18,"brown beer bottle, Old Speckled Hen","[1038, 198, 42, 106]",Morland,Old Speckled Hen,beer,ale,500.0,ml,amber,500.0,label,False
+1,bar_03.jpg,19,"brown beer bottle, Abbot","[1113, 198, 40, 106]",Greene King,Abbot Ale,beer,ale,500.0,ml,amber,500.0,label,False
+1,bar_03.jpg,20,"brown beer bottle, Ice Breaker","[1170, 202, 36, 102]",Wychwood,Ice Breaker,beer,beer,500.0,ml,amber,500.0,label,False
+1,bar_03.jpg,21,middle shelf left ornate amber whisky bottle,"[37, 395, 56, 130]",Isle of Jura,10 Year Old,spirit,whisky,700.0,ml,clear,550.0,shape,True
+1,bar_03.jpg,22,dark bottle labelled 12,"[100, 380, 56, 146]",Glenfiddich,12 Year Old,spirit,whisky,700.0,ml,green,,shape,False
+1,bar_03.jpg,23,"Drambuie squat bottle, red label","[165, 375, 54, 151]",Drambuie,Drambuie,liqueur,whisky liqueur,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,24,green Jameson bottle,"[233, 376, 34, 148]",Jameson,Irish Whiskey,spirit,whiskey,700.0,ml,green,,label,False
+1,bar_03.jpg,25,"Glayva bottle, amber liquid","[245, 396, 56, 130]",Glayva,Glayva,liqueur,whisky liqueur,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,26,green bottle white label,"[307, 380, 34, 144]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,green,,shape,False
+1,bar_03.jpg,27,"bourbon bottle, amber","[328, 395, 42, 130]",Unknown,Bourbon,spirit,bourbon,700.0,ml,clear,550.0,label,True
+1,bar_03.jpg,28,green whisky bottle,"[380, 378, 30, 146]",Unknown,Whisky,spirit,whisky,700.0,ml,green,,shape,False
+1,bar_03.jpg,29,"inverted optic, Smirnoff red label","[408, 305, 56, 150]",Smirnoff,No. 21 Vodka,spirit,vodka,1000.0,ml,clear,600.0,label,True
+1,bar_03.jpg,30,"inverted optic, Southern Comfort","[460, 285, 60, 170]",Southern Comfort,Original,liqueur,whiskey liqueur,1000.0,ml,clear,200.0,label,True
+1,bar_03.jpg,31,"inverted optic, Famous Grouse","[521, 295, 58, 165]",The Famous Grouse,Blended Scotch,spirit,whisky,1000.0,ml,clear,350.0,label,True
+1,bar_03.jpg,32,"inverted optic, Jack Daniel's black label","[579, 305, 60, 155]",Jack Daniel's,Old No. 7,spirit,whiskey,1000.0,ml,clear,700.0,label,True
+1,bar_03.jpg,33,"inverted optic, Bacardi green-tint","[640, 290, 58, 170]",Bacardi,Carta Blanca,spirit,white rum,1000.0,ml,clear,800.0,label,True
+1,bar_03.jpg,34,"inverted optic, Captain Morgan","[698, 295, 58, 165]",Captain Morgan,Spiced Gold,spirit,spiced rum,1000.0,ml,clear,500.0,label,True
+1,bar_03.jpg,35,"inverted optic, Gordon's pink","[757, 298, 60, 165]",Gordon's,Premium Pink Gin,spirit,gin,1000.0,ml,clear,700.0,label,True
+1,bar_03.jpg,36,"inverted optic, blue Bombay Sapphire","[825, 315, 56, 135]",Bombay Sapphire,London Dry Gin,spirit,gin,1000.0,ml,clear,,label,False
+1,bar_03.jpg,37,frosted Grey Goose,"[867, 355, 44, 168]",Grey Goose,Vodka,spirit,vodka,700.0,ml,frosted,,label,False
+1,bar_03.jpg,38,tall clear bottle red cap,"[903, 362, 32, 160]",Unknown,Vodka,spirit,vodka,700.0,ml,clear,500.0,shape,True
+1,bar_03.jpg,39,Absolut Vodka clear,"[925, 400, 50, 122]",Absolut,Vodka,spirit,vodka,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,40,tall clear bottle purple cap,"[963, 362, 36, 160]",Unknown,Gin,spirit,gin,700.0,ml,clear,550.0,shape,True
+1,bar_03.jpg,41,Absolut Vanilia clear,"[990, 400, 48, 122]",Absolut,Vanilia,spirit,flavoured vodka,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,42,tall clear bottle green cap,"[1018, 360, 36, 162]",Unknown,Gin,spirit,gin,700.0,ml,clear,500.0,shape,True
+1,bar_03.jpg,43,Havana Club dark rum,"[1052, 380, 44, 142]",Havana Club,Añejo Especial,spirit,rum,700.0,ml,clear,400.0,label,True
+1,bar_03.jpg,44,tall white bottle,"[1080, 348, 32, 174]",Malibu,Original,liqueur,coconut rum liqueur,700.0,ml,opaque,,shape,False
+1,bar_03.jpg,45,dark Kraken-style bottle,"[1113, 393, 50, 130]",Kraken,Black Spiced Rum,spirit,spiced rum,700.0,ml,opaque,,shape,False
+1,bar_03.jpg,46,square amber bottle,"[1148, 376, 34, 146]",Unknown,Whiskey,spirit,whiskey,700.0,ml,clear,450.0,shape,True
+1,bar_03.jpg,47,OVD rum bottle,"[1190, 368, 46, 154]",OVD,Demerara Rum,spirit,dark rum,700.0,ml,clear,,label,False
+1,bar_03.jpg,48,Havana Club amber rum,"[1238, 362, 46, 160]",Havana Club,7 Años,spirit,rum,700.0,ml,clear,550.0,label,True
+1,bar_03.jpg,49,"front, EG gin clear","[208, 645, 42, 118]",Edinburgh Gin,Classic,spirit,gin,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,50,"front, EG gin clear","[260, 648, 40, 114]",Edinburgh Gin,Classic,spirit,gin,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,51,"front, Gordon's green bottle","[314, 625, 48, 140]",Gordon's,London Dry Gin,spirit,gin,700.0,ml,green,,label,False
+1,bar_03.jpg,52,"front, Beefeater blood orange","[385, 630, 44, 135]",Beefeater,Blood Orange,spirit,flavoured gin,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,53,"back, pink gin clear","[103, 578, 42, 124]",Unknown,Pink Gin,spirit,gin,700.0,ml,clear,500.0,shape,True
+1,bar_03.jpg,54,Whitley Neill purple,"[147, 590, 44, 112]",Whitley Neill,Parma Violet,spirit,gin,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,55,Whitley Neill,"[189, 590, 44, 112]",Whitley Neill,Blackberry,spirit,gin,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,56,Whitley Neill red,"[231, 590, 44, 112]",Whitley Neill,Raspberry,spirit,gin,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,57,dark gin bottle,"[273, 588, 44, 114]",Unknown,Gin,spirit,gin,700.0,ml,opaque,,shape,False
+1,bar_03.jpg,58,clear bottle red top,"[358, 588, 40, 114]",Unknown,Gin,spirit,gin,700.0,ml,clear,450.0,shape,True
+1,bar_03.jpg,59,green Tanqueray,"[400, 565, 44, 137]",Tanqueray,London Dry Gin,spirit,gin,700.0,ml,green,,label,False
+1,bar_03.jpg,60,clear gin bottle,"[442, 595, 42, 107]",Unknown,Gin,spirit,gin,700.0,ml,clear,450.0,shape,True
+1,bar_03.jpg,61,dark Hendrick's,"[483, 608, 42, 94]",Hendrick's,Gin,spirit,gin,700.0,ml,opaque,,label,False
+1,bar_03.jpg,62,dark Brockmans,"[522, 586, 40, 116]",Brockmans,Gin,spirit,gin,700.0,ml,opaque,,label,False
+1,bar_03.jpg,63,clear gin bottle pink,"[560, 590, 38, 112]",Unknown,Gin,spirit,gin,700.0,ml,clear,450.0,shape,True
+1,bar_03.jpg,64,Bóe violet gin,"[597, 582, 40, 120]",Bóe,Violet Gin,spirit,gin,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,65,front Sourz Apple green,"[870, 645, 46, 120]",Sourz,Apple,liqueur,liqueur,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,66,front Sourz Cherry red,"[926, 645, 48, 120]",Sourz,Cherry,liqueur,liqueur,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,67,front green liqueur,"[985, 615, 44, 150]",Midori,Melon Liqueur,liqueur,melon liqueur,700.0,ml,clear,550.0,shape,True
+1,bar_03.jpg,68,front Sourz dark pink,"[1043, 645, 46, 120]",Sourz,Raspberry,liqueur,liqueur,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,69,front Sourz orange,"[1113, 645, 48, 120]",Sourz,Mango,liqueur,liqueur,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,70,back amber bottle,"[657, 598, 36, 104]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,clear,450.0,shape,True
+1,bar_03.jpg,71,green Jägermeister,"[693, 598, 44, 104]",Jägermeister,Jägermeister,liqueur,herbal liqueur,700.0,ml,green,,label,False
+1,bar_03.jpg,72,Fireball amber,"[737, 580, 48, 122]",Fireball,Cinnamon Whisky,liqueur,whisky liqueur,700.0,ml,clear,500.0,label,True
+1,bar_03.jpg,73,Disaronno square,"[783, 598, 50, 104]",Disaronno,Originale,liqueur,amaretto,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,74,Jose Cuervo,"[830, 580, 38, 122]",Jose Cuervo,Especial Silver,spirit,tequila,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,75,dark Cockburn's port,"[862, 562, 36, 140]",Cockburn's,Special Reserve Port,wine,port,750.0,ml,opaque,,label,False
+1,bar_03.jpg,76,clear bottle blue label,"[900, 560, 40, 142]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,clear,450.0,shape,True
+1,bar_03.jpg,77,dark bottle,"[938, 560, 36, 142]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,opaque,,shape,False
+1,bar_03.jpg,78,pink-capped clear bottle,"[972, 560, 38, 142]",Archers,Peach Schnapps,liqueur,schnapps,700.0,ml,clear,400.0,shape,True
+1,bar_03.jpg,79,clear bottle gold cap,"[1008, 560, 38, 142]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,clear,400.0,shape,True
+1,bar_03.jpg,80,Pimm's,"[1043, 556, 40, 146]",Pimm's,No. 1,liqueur,gin liqueur,700.0,ml,clear,400.0,label,True
+1,bar_03.jpg,81,Courvoisier dark,"[1082, 580, 44, 122]",Courvoisier,VS,spirit,cognac,700.0,ml,clear,450.0,label,True
+1,bar_03.jpg,82,dark bottle,"[1122, 578, 42, 124]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,opaque,,shape,False
+1,bar_03.jpg,83,round decanter bottle,"[1163, 625, 60, 77]",Unknown,Brandy,spirit,brandy,700.0,ml,clear,400.0,shape,True
+1,bar_04.jpg,1,"round squat bottle with dark liquid, gold band, front left","[48, 759, 128, 179]",Chambord,Black Raspberry Liqueur,liqueur,raspberry liqueur,700.0,ml,clear,450.0,label,True
+1,bar_04.jpg,2,white and blue ceramic tequila decanter,"[207, 569, 79, 255]",Clase Azul,Reposado,spirit,tequila,750.0,ml,opaque,,shape,False
+1,bar_04.jpg,3,"square amber bottle, Disaronno label","[281, 689, 121, 255]",Disaronno,Originale Amaretto,liqueur,amaretto,700.0,ml,clear,450.0,label,True
+1,bar_04.jpg,4,"green bottle, cream Montenegro label","[425, 663, 102, 291]",Amaro Montenegro,Amaro,liqueur,amaro,700.0,ml,green,,label,False
+1,bar_04.jpg,5,"round bottle with reddish whisky, behind Montenegro","[523, 625, 96, 325]",Unknown,Bourbon,spirit,whiskey,750.0,ml,clear,400.0,shape,True
+1,bar_04.jpg,6,"round Crown Royal style bottle, amber","[561, 727, 89, 230]",Crown Royal,Fine De Luxe,spirit,whisky,750.0,ml,clear,350.0,shape,True
+1,bar_04.jpg,7,"dark bottle, red label Copper Pot","[644, 625, 96, 338]",Mitchell Creek,Copper Pot Whisky,spirit,whisky,750.0,ml,clear,,label,False
+1,bar_04.jpg,8,"green bottle, white Fernet-Branca label","[763, 663, 73, 300]",Fernet-Branca,Fernet,liqueur,amaro,750.0,ml,green,,label,False
+1,bar_04.jpg,9,dark green bottle next to Fernet,"[832, 670, 57, 293]",Branca Menta,Menta,liqueur,amaro,750.0,ml,green,,shape,False
+1,bar_04.jpg,10,amber whiskey bottle with green label,"[886, 702, 83, 261]",Bulleit,Bourbon,spirit,bourbon,750.0,ml,clear,550.0,shape,True
+1,bar_04.jpg,11,blue-tint Bombay Sapphire bottle,"[954, 644, 64, 312]",Bombay Sapphire,London Dry Gin,spirit,gin,750.0,ml,clear,400.0,label,False
+1,bar_04.jpg,12,green Jameson bottle,"[1020, 593, 105, 376]",Jameson,Irish Whiskey,spirit,whiskey,1000.0,ml,green,,label,False
+1,bar_04.jpg,13,"dark green flared bottle, Benedictine style","[1122, 676, 108, 287]",Unknown,Liqueur,liqueur,liqueur,750.0,ml,green,,shape,False
+1,bar_04.jpg,14,red liquid bottle with embossed seal,"[1222, 714, 89, 249]",Unknown,Liqueur,liqueur,liqueur,750.0,ml,clear,500.0,shape,True
+1,bar_04.jpg,15,dark bottle Cassis label,"[1298, 625, 105, 342]",L'Heritier-Guyot,Creme de Cassis,liqueur,blackcurrant liqueur,700.0,ml,opaque,,label,False
+1,bar_04.jpg,16,clear trapezoid 1800 bottle,"[1403, 695, 121, 274]",1800,Reposado Tequila,spirit,tequila,750.0,ml,clear,500.0,label,True
+1,bar_04.jpg,17,"tall clear bottle with cream label, right","[1524, 638, 96, 338]",Unknown,Vodka,spirit,vodka,1000.0,ml,clear,700.0,shape,True
+1,bar_04.jpg,18,Wild Turkey bottle back right,"[1582, 421, 89, 255]",Wild Turkey,101 Bourbon,spirit,bourbon,1000.0,ml,clear,,label,False
+1,bar_04.jpg,19,Bushmills bottle back row,"[1352, 434, 61, 230]",Bushmills,Original Irish Whiskey,spirit,whiskey,1000.0,ml,clear,,label,False
+1,bar_04.jpg,20,red label Kiser bottle back row,"[756, 408, 70, 230]",Unknown,Liqueur,liqueur,liqueur,750.0,ml,clear,,shape,False
+1,bar_05.jpg,1,"Middle shelf front, far left, round faceted Crown Royal bottle","[0, 1033, 115, 207]",Crown Royal,Fine De Luxe,spirit,whisky,750.0,ml,clear,550.0,label,True
+1,bar_05.jpg,2,Dark faceted Crown Royal style bottle,"[115, 1020, 115, 219]",Crown Royal,Black,spirit,whisky,750.0,ml,clear,500.0,shape,True
+1,bar_05.jpg,3,"Square bottle, dark label, Jack Daniel's style","[232, 1020, 105, 219]",Jack Daniel's,Single Barrel Select,spirit,whisky,750.0,ml,clear,450.0,shape,True
+1,bar_05.jpg,4,Tall bottle with white label behind,"[338, 969, 77, 270]",Old Forester,86 Proof,spirit,bourbon,750.0,ml,clear,400.0,shape,True
+1,bar_05.jpg,5,"Wild Turkey 101 Rye, white label","[411, 969, 84, 274]",Wild Turkey,101 Rye,spirit,rye whiskey,750.0,ml,clear,500.0,label,True
+1,bar_05.jpg,6,"Wild Turkey 101 bourbon, white label","[495, 969, 85, 274]",Wild Turkey,101,spirit,bourbon,750.0,ml,clear,550.0,label,True
+1,bar_05.jpg,7,"Green glass, The Glenlivet 12","[580, 950, 83, 293]",The Glenlivet,12 Year Old,spirit,scotch whisky,750.0,ml,green,,label,False
+1,bar_05.jpg,8,"Square bottle, red label, Jack Daniel's Fire","[661, 1008, 83, 236]",Jack Daniel's,Tennessee Fire,liqueur,cinnamon whiskey liqueur,750.0,ml,clear,500.0,label,True
+1,bar_05.jpg,9,"Square bottle, white/black label, Jack Daniel's Honey","[753, 995, 83, 249]",Jack Daniel's,Tennessee Honey,liqueur,honey whiskey liqueur,750.0,ml,clear,550.0,label,True
+1,bar_05.jpg,10,"Square Johnnie Walker bottle, slanted label, right of photo frame","[1031, 982, 79, 261]",Johnnie Walker,Black Label,spirit,scotch whisky,750.0,ml,clear,450.0,label,True
+1,bar_05.jpg,11,"Knob Creek Rye, black label","[1110, 1020, 102, 227]",Knob Creek,Rye,spirit,rye whiskey,750.0,ml,clear,400.0,label,True
+1,bar_05.jpg,12,"Knob Creek bourbon, newspaper style label","[1222, 1046, 105, 202]",Knob Creek,Kentucky Straight Bourbon,spirit,bourbon,750.0,ml,clear,550.0,label,True
+1,bar_05.jpg,13,"Bulleit flask style, yellow label with 10","[1346, 1020, 102, 227]",Bulleit,Bourbon 10 Year,spirit,bourbon,750.0,ml,clear,350.0,label,True
+1,bar_05.jpg,14,"Bulleit flask style, beige label","[1448, 1008, 96, 240]",Bulleit,Bourbon,spirit,bourbon,750.0,ml,clear,400.0,label,True
+1,bar_05.jpg,15,"Bulleit flask style, green label","[1543, 1008, 102, 240]",Bulleit,Rye,spirit,rye whiskey,750.0,ml,clear,450.0,label,True
+1,bar_05.jpg,16,"Bulleit flask style, orange label","[1652, 1008, 96, 240]",Bulleit,Bourbon,spirit,bourbon,750.0,ml,clear,450.0,shape,True
+1,bar_05.jpg,17,"Maker's Mark, red wax top","[1754, 989, 102, 259]",Maker's Mark,Bourbon,spirit,bourbon,750.0,ml,clear,500.0,label,True
+1,bar_05.jpg,18,Curved Angel's Envy bottle,"[1856, 957, 102, 291]",Angel's Envy,Port Finish Bourbon,spirit,bourbon,750.0,ml,clear,250.0,shape,True
+1,bar_05.jpg,19,"Back row, Seagram's 7 with red 7","[695, 893, 83, 179]",Seagram's,7 Crown,spirit,whisky,750.0,ml,clear,450.0,label,True
+1,bar_05.jpg,20,"Back row, dark Johnnie Walker blue label","[842, 765, 70, 230]",Johnnie Walker,Blue Label,spirit,scotch whisky,750.0,ml,clear,,label,False
+1,bar_05.jpg,21,"Back row, Jameson green bottle","[1224, 816, 83, 255]",Jameson,Irish Whiskey,spirit,irish whiskey,750.0,ml,green,,label,False
+1,bar_05.jpg,22,"Back row, Jameson Black Barrel","[1320, 816, 77, 255]",Jameson,Black Barrel,spirit,irish whiskey,750.0,ml,clear,400.0,label,True
+1,bar_05.jpg,23,"Back row, Jameson Caskmates green","[1397, 816, 83, 255]",Jameson,Caskmates Stout Edition,spirit,irish whiskey,750.0,ml,green,,label,False
+1,bar_05.jpg,24,"Back row, Southern Comfort","[1575, 880, 96, 191]",Southern Comfort,Original,liqueur,whiskey liqueur,750.0,ml,clear,450.0,label,True
+1,bar_05.jpg,25,"Back row, Tullamore D.E.W. green label","[1658, 816, 89, 191]",Tullamore D.E.W.,Original,spirit,irish whiskey,750.0,ml,clear,450.0,label,True
+1,bar_05.jpg,26,"Bottom shelf, green Martini & Rossi","[19, 1358, 89, 278]",Martini & Rossi,Extra Dry,wine,vermouth,1000.0,ml,green,,label,False
+1,bar_05.jpg,27,"Bottom shelf, second green Martini & Rossi","[185, 1358, 89, 278]",Martini & Rossi,Rosso,wine,vermouth,1000.0,ml,green,,label,False
+1,bar_05.jpg,28,"Bottom shelf, Aperol orange","[274, 1378, 83, 259]",Aperol,Aperitivo,liqueur,aperitif,1000.0,ml,clear,600.0,label,True
+1,bar_05.jpg,29,"Bottom shelf, Patron squat bottle","[727, 1378, 77, 259]",Patrón,Reposado,spirit,tequila,750.0,ml,clear,450.0,shape,True
+1,bar_05.jpg,30,"Bottom shelf, white ceramic Clase Azul with blue pattern","[784, 1403, 77, 233]",Clase Azul,Reposado,spirit,tequila,750.0,ml,opaque,,shape,False
+1,bar_05.jpg,31,"Bottom shelf, copper-topped Patron","[842, 1378, 70, 259]",Patrón,Añejo,spirit,tequila,750.0,ml,clear,400.0,shape,True
