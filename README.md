@@ -8,8 +8,8 @@ Camera-based stock tracking for restaurant bars. From a photo: what bottle, what
 
 ## Data
 - `data/raw/` original photos, untouched
-- `data/labels.csv` one row per photo: ground truth for eval
-- `data/labelled/` exported annotations (if we fine-tune)
+- `data/labelled/inventory.csv` ground truth: the 12 items in the set
+
 
 ## Setup
 Keys go in `.env`, never committed.

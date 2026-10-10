@@ -1,4 +1,4 @@
-"""Identify every bottle in each photo with Claude vision. This is the baseline to beat.
+"""Identify every stock bottle in each photo with Claude vision. This is the baseline to beat.
 
 Usage: python src/identify.py data/raw            -> writes data/predictions.csv
 """
@@ -21,11 +21,11 @@ load_dotenv()
 MODEL = "claude-opus-5-5"
 EXTS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 
-PROMPT = """You are cataloguing bar stock from a photo of a group of bottles. List every bottle you can see,
+PROMPT = """You are cataloguing bar stock from a photo of a group of bottles. List every stock bottle or container of food or drink you can see (ignore reusable water bottles, shakers, cups and glasses),
 ordered left to right (front row before back row if there are rows). For each bottle:
 - position: 1-based index in that order, plus a short visual description so a human can match it (e.g. "tall green, red cap").
 - brand and product: read them off the label; if unreadable, give your best guess and lower confidence.
-- size_ml: from the label if printed, else infer from bottle shape and typical sizes (50, 200, 350, 500, 700, 750, 1000, 1750).
+- size and unit: from the label if printed (ml for liquids, g where the label gives weight), else infer from bottle shape and typical sizes (50, 350, 500, 700, 750, 1000, 1500, 2000 ml).
 - liquid: what is inside (e.g. vodka, gin, whisky, red wine, olive oil, syrup).
 - glass: clear, green, amber, frosted or opaque.
 - confidence: 0 to 1, your overall confidence in brand + size + liquid."""
@@ -36,8 +36,9 @@ class Bottle(BaseModel):
     description: str
     brand: str
     product: str
-    bottle_type: Literal["spirit", "wine", "beer", "liqueur", "soft_drink", "syrup", "oil", "other"]
-    size_ml: int
+    category: Literal["spirit", "liqueur", "wine", "beer", "mixer", "soft_drink", "syrup", "sauce", "dairy", "oil", "other"]
+    size: float
+    unit: Literal["ml", "g", "pint"]
     liquid: str
     glass: Literal["clear", "green", "amber", "frosted", "opaque"]
     confidence: float
@@ -90,7 +91,7 @@ def main(folder: str) -> None:
             print(f"{path.name}: {len(bottles)} bottles")
             for b in bottles:
                 writer.writerow({"image": path.name, **b.model_dump()})
-                print(f"  {b.position}. {b.brand} {b.product}, {b.size_ml}ml, {b.liquid} ({b.confidence:.2f})")
+                print(f"  {b.position}. {b.brand} {b.product}, {b.size:g}{b.unit}, {b.liquid} ({b.confidence:.2f})")
     print(f"\n{len(images)} images -> {out}")
 
 
