@@ -1,6 +1,6 @@
 """Identify every stock bottle in each photo with Claude vision. This is the baseline to beat.
 
-Usage: python src/identify.py data/raw [runs]     -> writes data/predictions.csv
+Usage: python src/identify.py data/raw [runs] [out.csv]   -> writes data/predictions.csv by default
 """
 import base64
 import csv
@@ -87,10 +87,10 @@ def identify(client: anthropic.Anthropic, path: Path) -> list[Bottle]:
     return bottles
 
 
-def main(folder: str, runs: int) -> None:
+def main(folder: str, runs: int, out: str = "data/predictions.csv") -> None:
     client = anthropic.Anthropic()
     images = sorted(p for p in Path(folder).iterdir() if p.suffix.lower() in EXTS)
-    out = Path("data/predictions.csv")
+    out = Path(out)
     with out.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["run", "image", *Bottle.model_fields])
         writer.writeheader()
@@ -109,4 +109,5 @@ def main(folder: str, runs: int) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw", int(sys.argv[2]) if len(sys.argv) > 2 else 1)
+    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw", int(sys.argv[2]) if len(sys.argv) > 2 else 1,
+         sys.argv[3] if len(sys.argv) > 3 else "data/predictions.csv")
