@@ -1,6 +1,6 @@
 """Identify every stock bottle in each photo with Claude vision. This is the baseline to beat.
 
-Usage: python src/identify.py data/raw            -> writes data/predictions.csv
+Usage: python src/identify.py data/raw [runs]     -> writes data/predictions.csv
 """
 import base64
 import csv
@@ -75,25 +75,25 @@ def identify(client: anthropic.Anthropic, path: Path) -> list[Bottle]:
     return response.parsed_output.bottles
 
 
-def main(folder: str) -> None:
+def main(folder: str, runs: int) -> None:
     client = anthropic.Anthropic()
     images = sorted(p for p in Path(folder).iterdir() if p.suffix.lower() in EXTS)
     out = Path("data/predictions.csv")
     with out.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["image", *Bottle.model_fields])
+        writer = csv.DictWriter(f, fieldnames=["run", "image", *Bottle.model_fields])
         writer.writeheader()
-        for path in images:
+        for run, path in ((r, p) for r in range(1, runs + 1) for p in images):
             try:
                 bottles = identify(client, path)
             except (anthropic.APIStatusError, anthropic.APIConnectionError, RuntimeError) as e:
                 print(f"FAIL {path.name}: {e}", file=sys.stderr)
                 continue
-            print(f"{path.name}: {len(bottles)} bottles")
+            print(f"run {run} {path.name}: {len(bottles)} bottles")
             for b in bottles:
-                writer.writerow({"image": path.name, **b.model_dump()})
+                writer.writerow({"run": run, "image": path.name, **b.model_dump()})
                 print(f"  {b.position}. {b.brand} {b.product}, {b.size:g}{b.unit}, {b.liquid} ({b.confidence:.2f})")
-    print(f"\n{len(images)} images -> {out}")
+    print(f"\n{len(images)} images x {runs} runs -> {out}")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw")
+    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw", int(sys.argv[2]) if len(sys.argv) > 2 else 1)

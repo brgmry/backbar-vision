@@ -3,3 +3,6 @@ pydantic
 pillow
 pillow-heif
 python-dotenv
+rapidfuzz
+scipy
+numpy
