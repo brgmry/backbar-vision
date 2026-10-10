@@ -43,6 +43,8 @@ def overlay(crop: Image.Image, debug: dict, label: str) -> Image.Image:
     if "mask" in debug:
         tint = np.asarray(img).copy()
         tint[debug["mask"]] = (0.6 * tint[debug["mask"]] + [0, 100, 0]).astype(np.uint8)
+        if debug.get("liquid") is not None:  # liquid found by the line finder, in red
+            tint[debug["liquid"]] = (0.5 * tint[debug["liquid"]] + [120, 0, 0]).astype(np.uint8)
         img = Image.fromarray(tint)
     draw = ImageDraw.Draw(img)
     for key, colour in (("full_y", "blue"), ("line_y", "red"), ("base_y", "cyan")):

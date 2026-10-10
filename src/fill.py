@@ -4,6 +4,7 @@ Pick one with a spec string, so experiments swap them from the command line:
   vlm:<model>        the VLM looks at the crop and estimates ml left (the baseline to beat)
   geometry:edge      SAM 2.1 bottle mask, liquid line at the strongest horizontal colour change, volume from the mask
   geometry:labpics   same geometry, liquid segmented by sagieppel's LabPics-trained SAM2 (src/liquid_labpics.py, local)
+  geometry:sam3      same geometry, liquid segmented by SAM 3 from the text prompt "liquid" (local, gated HF model)
   geometry:<model>   same geometry, but the VLM points at the liquid line
 <model> is any name vlm.get_vlm accepts (opus, sonnet, haiku).
 
@@ -29,6 +30,8 @@ from scipy import ndimage
 from vlm import MAX_PIXELS, MAX_SIDE, get_vlm
 
 SAM = "facebook/sam2.1-hiera-large"
+SAM3 = "facebook/sam3"
+SAM3_SIDE = 1200  # long side of the crop fed to SAM 3; bigger is slower and no sharper
 DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
 SHOULDER_WIN = 0.03  # of bottle height: span over which width change is measured to find the shoulder
 NECK_FLAT = 0.1  # neck starts where, above the shoulder, width shrinks by less than 10% per SHOULDER_WIN
@@ -102,7 +105,8 @@ class Geometry:
         full_y = neck_start(width, top, bottom)
         base_y, elevation = base_level(width, top, bottom)
         line_y = self.line.find(crop, mask, full_y, base_y, item)
-        debug = {"mask": mask, "full_y": full_y, "base_y": base_y, "line_y": line_y, "elevation": elevation}
+        debug = {"mask": mask, "full_y": full_y, "base_y": base_y, "line_y": line_y, "elevation": elevation,
+                 **getattr(self.line, "debug", {})}
         if line_y is None:
             return Fill(None, False, debug)
         line_y = int(np.clip(line_y, full_y, base_y))
@@ -217,6 +221,48 @@ class VLMLine:
         return round(ans.y / scale) if ans.visible and ans.y is not None else None
 
 
+@cache
+def sam3():
+    from transformers import Sam3Model, Sam3Processor
+    return Sam3Processor.from_pretrained(SAM3), Sam3Model.from_pretrained(SAM3).to(DEVICE).eval()
+
+
+def sam3_masks(crop: Image.Image, text: str) -> list[np.ndarray]:
+    """Every instance SAM 3 finds for the text prompt, as bool masks at the crop's size."""
+    processor, model = sam3()
+    scale = min(1.0, SAM3_SIDE / max(crop.size))
+    small = crop.resize((round(crop.width * scale), round(crop.height * scale))) if scale < 1 else crop
+    inputs = processor(images=small, text=text, return_tensors="pt").to(DEVICE)
+    with torch.no_grad():
+        out = model(**inputs)
+    res = processor.post_process_instance_segmentation(out, threshold=0.3, mask_threshold=0.5,
+                                                       target_sizes=inputs.get("original_sizes").tolist())[0]
+    return [np.asarray(Image.fromarray(m.cpu().numpy().astype(np.uint8) * 255).resize(crop.size, Image.NEAREST)) > 0
+            for m in res["masks"]]
+
+
+class SAM3Line:
+    """Liquid = every SAM 3 "liquid" instance inside the bottle mask; level where it meets the walls."""
+    name = "sam3"
+
+    def __init__(self):
+        self.debug: dict = {}
+
+    def find(self, crop, mask, full_y, bottom_y, item):
+        from liquid_labpics import MIN_LIQUID, wall_level
+        liquid = np.zeros_like(mask)
+        for m in sam3_masks(crop, "liquid"):
+            liquid |= m & mask
+        labels, n = ndimage.label(liquid)
+        if n > 1:  # drop specks (reflections); keep pieces split by a label
+            sizes = np.bincount(labels.ravel())[1:]
+            liquid = np.isin(labels, np.flatnonzero(sizes >= 0.05 * sizes.sum()) + 1)
+        self.debug = {"liquid": liquid}
+        if liquid.sum() < MIN_LIQUID * mask.sum():
+            return None
+        return wall_level(liquid, mask, full_y)
+
+
 def fit(crop: Image.Image) -> tuple[Image.Image, float]:
     """The crop resized for the VLM (up to VLM_UPSCALE, within its size limit), and the factor used."""
     scale = min(VLM_UPSCALE, MAX_SIDE / max(crop.size), (MAX_PIXELS / (crop.width * crop.height)) ** 0.5)
@@ -227,9 +273,11 @@ def get_estimator(spec: str) -> FillEstimator:
     kind, _, arg = spec.partition(":")
     if kind == "vlm":
         return VLMFill(arg)
+    if kind == "geometry" and arg == "sam3":
+        return Geometry(SAM3Line())
     if kind == "geometry" and arg == "labpics":
         from liquid_labpics import LabPicsLine  # needs the vendored model, see that file
         return Geometry(LabPicsLine())
     if kind == "geometry":
         return Geometry(EdgeLine() if arg == "edge" else VLMLine(arg))
-    raise ValueError(f"unknown fill estimator {spec!r}: use vlm:<model>, geometry:edge, geometry:labpics or geometry:<model>")
+    raise ValueError(f"unknown fill estimator {spec!r}: use vlm:<model>, geometry:edge, geometry:labpics, geometry:sam3 or geometry:<model>")
