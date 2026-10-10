@@ -1,0 +1,254 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"short clear bottle, red cap","[896, 2164, 142, 280]",Tequila,Reserva,spirit,tequila,375.0,ml,clear,350.0,label,True
+1,IMG_6339.HEIC,2,large white opaque bottle,"[1009, 1847, 288, 597]",S.P. Glen,White Rum,spirit,rum,750.0,ml,opaque,,label,False
+1,IMG_6339.HEIC,3,"tall clear bottle, black cap","[1264, 1843, 131, 423]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,650.0,label,True
+1,IMG_6339.HEIC,4,"tall amber bottle, black cap","[1366, 1872, 120, 415]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,600.0,label,True
+1,IMG_6339.HEIC,5,"tall amber bottle, black cap","[1468, 1865, 120, 415]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,600.0,label,True
+1,IMG_6339.HEIC,6,"short amber bottle, black cap","[1581, 1920, 135, 339]",Jack Daniel's,Old No. 7,spirit,whisky,700.0,ml,amber,600.0,label,True
+1,IMG_6339.HEIC,7,"tall clear bottle, silver cap","[1734, 1862, 168, 579]",Bacardi,Superior,spirit,rum,750.0,ml,clear,700.0,label,True
+1,IMG_6339.HEIC,8,"short amber bottle, gold cap","[1872, 1993, 193, 463]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,9,"short amber bottle, gold cap","[2080, 1949, 182, 484]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,10,"tall amber bottle, dark cap","[2197, 1953, 164, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,600.0,label,True
+1,IMG_6339.HEIC,11,"short amber bottle, gold cap","[2335, 1912, 149, 495]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,12,"tall amber bottle, gold cap","[2495, 1847, 146, 597]",Jameson,Irish Whiskey,spirit,whisky,750.0,ml,amber,700.0,label,True
+1,IMG_6339.HEIC,13,"short amber bottle, gold cap","[2652, 1905, 168, 514]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,14,"short amber bottle, gold cap","[2852, 1949, 168, 477]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,15,"short amber bottle, gold cap","[3031, 1934, 146, 492]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,16,"short amber bottle, gold cap","[3224, 1934, 157, 484]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,17,"short amber bottle, red cap","[3413, 1912, 153, 499]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,18,"short amber bottle, red cap","[3581, 1912, 138, 492]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,19,"short amber bottle, red cap","[3759, 1912, 146, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,20,"short amber bottle, red cap","[3931, 1909, 146, 492]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,21,"short amber bottle, red cap","[4102, 1909, 138, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,22,"short amber bottle, red cap","[4266, 1909, 135, 484]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,23,"short amber bottle, red cap","[4459, 1909, 131, 484]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,24,"short amber bottle, red cap","[4648, 1912, 124, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,25,"short amber bottle, red cap","[4816, 1912, 120, 484]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,26,"short amber bottle, red cap","[5009, 1912, 113, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,27,"short amber bottle, red cap","[5176, 1909, 109, 492]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,28,"short amber bottle, red cap","[5370, 1909, 106, 492]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6339.HEIC,29,"short amber bottle, red cap","[5548, 1909, 98, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,650.0,label,True
+1,IMG_6340.HEIC,1,"small cylindrical, white/red cap","[1180, 2014, 146, 175]",St. George,Spiced Rum,spirit,rum,750.0,ml,clear,600.0,label,True
+1,IMG_6340.HEIC,2,large white plastic jug,"[1337, 1927, 310, 648]",unknown,milk,dairy,milk,1000.0,ml,opaque,,shape,False
+1,IMG_6340.HEIC,3,"small clear, black cap","[1650, 1971, 128, 270]",unknown,unknown,other,unknown,750.0,ml,clear,400.0,shape,True
+1,IMG_6340.HEIC,4,"clear, red cap","[1705, 1931, 157, 368]",Smirnoff,Red,spirit,vodka,750.0,ml,clear,500.0,label,True
+1,IMG_6340.HEIC,5,"clear, blue/yellow label","[1858, 1792, 219, 419]",Tanqueray,No. 10,spirit,gin,750.0,ml,clear,550.0,label,True
+1,IMG_6340.HEIC,6,"small clear, white cap","[1960, 1869, 113, 233]",unknown,unknown,other,unknown,750.0,ml,clear,150.0,shape,True
+1,IMG_6340.HEIC,7,"tall clear, green label","[2033, 2084, 182, 448]",Tanqueray,London Dry,spirit,gin,750.0,ml,clear,400.0,label,True
+1,IMG_6340.HEIC,8,"tall clear, white label","[2102, 1985, 164, 404]",unknown,unknown,other,unknown,750.0,ml,clear,600.0,shape,True
+1,IMG_6340.HEIC,9,"amber, black label","[2280, 1989, 204, 401]",Johnnie Walker,Black Label,spirit,whisky,750.0,ml,amber,500.0,label,True
+1,IMG_6340.HEIC,10,"clear, red cap","[2470, 1974, 149, 361]",unknown,unknown,other,unknown,750.0,ml,clear,300.0,shape,True
+1,IMG_6341.HEIC,1,Large white jug with blue label,"[1308, 1763, 302, 430]",Unknown,Milk,dairy,milk,2000.0,ml,opaque,,shape,False
+1,IMG_6341.HEIC,2,Small clear bottle with white label,"[1450, 1588, 120, 230]",Unknown,Unknown,other,unknown,500.0,ml,clear,400.0,shape,True
+1,IMG_6341.HEIC,3,Clear bottle with white and red label,"[1519, 1778, 149, 306]",Smirnoff,Red,spirit,vodka,750.0,ml,clear,600.0,label,True
+1,IMG_6341.HEIC,4,Small clear bottle with white label,"[1661, 1858, 135, 248]",Unknown,Unknown,other,unknown,500.0,ml,clear,300.0,shape,True
+1,IMG_6341.HEIC,5,Clear bottle with white and red label,"[1781, 1847, 164, 266]",Smirnoff,Red,spirit,vodka,750.0,ml,clear,500.0,label,True
+1,IMG_6341.HEIC,6,Clear bottle with white and gold label,"[1778, 1993, 175, 386]",Johnnie Walker,Red Label,spirit,whisky,750.0,ml,clear,550.0,label,True
+1,IMG_6341.HEIC,7,Small clear bottle with black label,"[1964, 1964, 157, 219]",Unknown,Unknown,other,unknown,350.0,ml,clear,200.0,shape,True
+1,IMG_6341.HEIC,8,Clear bottle with gold and blue label,"[1982, 2124, 266, 350]",Johnnie Walker,Gold Label,spirit,whisky,750.0,ml,clear,600.0,label,True
+1,IMG_6341.HEIC,9,Tall clear bottle with white label,"[1658, 1352, 171, 426]",Unknown,Unknown,other,unknown,1000.0,ml,clear,800.0,shape,True
+1,IMG_6341.HEIC,10,Tall clear bottle with blue and white label,"[1847, 1359, 186, 474]",Unknown,Unknown,other,unknown,1000.0,ml,clear,700.0,shape,True
+1,IMG_6341.HEIC,11,Tall green bottle with silver cap,"[1869, 1490, 171, 430]",Unknown,Unknown,other,unknown,1000.0,ml,green,,shape,False
+1,IMG_6341.HEIC,12,Tall clear bottle with dark label,"[1953, 1541, 175, 419]",Unknown,Unknown,other,unknown,1000.0,ml,clear,600.0,shape,True
+1,IMG_6341.HEIC,13,Tall clear bottle with white label,"[2007, 1581, 182, 423]",Unknown,Unknown,other,unknown,1000.0,ml,clear,600.0,shape,True
+1,IMG_6342.HEIC,1,white plastic jug,"[1290, 1610, 382, 663]",unknown,unknown,mixer,milk,2000.0,ml,opaque,1600.0,shape,True
+1,IMG_6342.HEIC,2,clear bottle with red label,"[1581, 1760, 219, 379]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+1,IMG_6342.HEIC,3,amber bottle with red/white label,"[1727, 1836, 186, 353]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,350.0,label,True
+1,IMG_6342.HEIC,4,amber bottle with dark label,"[1912, 1814, 193, 339]",unknown,unknown,spirit,whisky,700.0,ml,amber,300.0,shape,True
+1,IMG_6342.HEIC,5,clear bottle with yellow/blue label,"[2142, 1734, 255, 543]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,450.0,label,True
+1,IMG_6342.HEIC,6,clear bottle with white/blue label,"[1392, 1381, 138, 255]",unknown,unknown,spirit,vodka,700.0,ml,clear,200.0,shape,True
+1,IMG_6342.HEIC,7,clear bottle with dark label,"[1526, 1311, 153, 364]",unknown,unknown,spirit,liquor,700.0,ml,clear,300.0,shape,True
+1,IMG_6342.HEIC,8,clear bottle with blue/white label,"[1548, 1311, 219, 619]",unknown,unknown,spirit,vodka,750.0,ml,clear,500.0,shape,True
+1,IMG_6342.HEIC,9,clear bottle with red/white label,"[1803, 1118, 204, 521]",unknown,unknown,spirit,vodka,750.0,ml,clear,400.0,shape,True
+1,IMG_6342.HEIC,10,clear bottle with white label,"[1854, 1151, 157, 393]",unknown,unknown,spirit,vodka,750.0,ml,clear,400.0,shape,True
+1,IMG_6342.HEIC,11,clear bottle with red/gold label,"[1956, 1104, 120, 484]",unknown,unknown,spirit,liquor,700.0,ml,clear,350.0,shape,True
+1,IMG_6342.HEIC,12,clear bottle with gold/red label,"[1989, 1107, 131, 510]",unknown,unknown,spirit,liquor,750.0,ml,clear,400.0,shape,True
+1,IMG_6342.HEIC,13,amber bottle with black label,"[2124, 1093, 117, 481]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,400.0,label,True
+1,IMG_6343.HEIC,1,large white gallon jug,"[1293, 2033, 273, 616]",unknown,unknown,other,milk,3785.0,ml,opaque,3785.0,shape,True
+1,IMG_6343.HEIC,2,clear bottle with blue/orange label,"[1566, 1770, 193, 510]",S.P. Glen,Single Malt Scotch,spirit,whisky,700.0,ml,clear,500.0,label,True
+1,IMG_6343.HEIC,3,small dark bottle with black/red label,"[1723, 2189, 186, 313]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,250.0,label,True
+1,IMG_6343.HEIC,4,small clear bottle with red label,"[1858, 2157, 175, 284]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+1,IMG_6343.HEIC,5,clear bottle with white/red label,"[1869, 2138, 215, 306]",Smirnoff,Red,spirit,vodka,700.0,ml,clear,300.0,label,True
+1,IMG_6343.HEIC,6,clear bottle with orange/white label,"[2091, 2120, 273, 350]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,550.0,label,True
+1,IMG_6343.HEIC,7,large clear bottle with green/gold label,"[1996, 1552, 200, 561]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,300.0,label,True
+1,IMG_6343.HEIC,8,clear bottle with red label,"[1770, 1694, 189, 310]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+1,IMG_6343.HEIC,9,clear bottle with red/blue label,"[1942, 1552, 197, 401]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+1,IMG_6343.HEIC,10,clear bottle with red/white label,"[1858, 1548, 197, 364]",unknown,unknown,spirit,vodka,700.0,ml,clear,300.0,shape,True
+1,IMG_6343.HEIC,11,dark bottle with white label,"[2033, 1548, 200, 368]",unknown,unknown,spirit,whisky,700.0,ml,amber,400.0,shape,True
+1,IMG_6343.HEIC,12,clear bottle with red label,"[2106, 1552, 197, 364]",unknown,unknown,spirit,vodka,700.0,ml,clear,300.0,shape,True
+1,IMG_6345.HEIC,1,large white opaque jug,"[1381, 1920, 291, 463]",unknown,unknown,mixer,water,2000.0,ml,opaque,,shape,False
+1,IMG_6345.HEIC,2,"clear tall bottle, blue label","[1643, 1643, 204, 430]",Bombay Sapphire,Sapphire,spirit,gin,700.0,ml,clear,450.0,label,True
+1,IMG_6345.HEIC,3,"clear bottle, red label","[1840, 1854, 186, 375]",unknown,unknown,spirit,vodka,700.0,ml,clear,300.0,shape,True
+1,IMG_6345.HEIC,4,small dark bottle,"[1778, 2087, 160, 259]",unknown,unknown,liqueur,liqueur,200.0,ml,amber,,shape,False
+1,IMG_6345.HEIC,5,"clear bottle, white label","[1923, 1883, 168, 390]",Smirnoff,Red,spirit,vodka,700.0,ml,clear,500.0,label,True
+1,IMG_6345.HEIC,6,"clear bottle, blue/yellow label","[2076, 1887, 211, 437]",Smirnoff,Ice,spirit,vodka,700.0,ml,clear,400.0,label,True
+1,IMG_6345.HEIC,7,"clear bottle, green cap","[1858, 1450, 149, 375]",unknown,unknown,spirit,gin,700.0,ml,clear,400.0,shape,True
+1,IMG_6345.HEIC,8,"clear bottle, light green label","[1938, 1457, 157, 364]",unknown,unknown,spirit,vodka,700.0,ml,clear,500.0,shape,True
+1,IMG_6345.HEIC,9,"clear bottle, green label","[2025, 1457, 138, 379]",unknown,unknown,spirit,gin,700.0,ml,clear,450.0,shape,True
+1,IMG_6345.HEIC,10,"dark bottle, yellow label","[2087, 1432, 186, 393]",unknown,unknown,spirit,whisky,700.0,ml,opaque,,shape,False
+1,IMG_6345.HEIC,11,"clear bottle, blue label","[2186, 1468, 138, 368]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+1,IMG_6346.HEIC,1,large white plastic jug,"[1341, 1887, 240, 681]",unknown,milk,dairy,milk,4000.0,ml,opaque,3600.0,shape,True
+1,IMG_6346.HEIC,2,clear bottle with red/white label,"[1614, 1883, 160, 484]",Tequila,Espolòn,spirit,tequila,750.0,ml,clear,650.0,label,True
+1,IMG_6346.HEIC,3,clear bottle with brown liquid,"[1763, 1949, 153, 401]",Jack Daniel's,Old No. 7,spirit,whisky,750.0,ml,clear,500.0,label,True
+1,IMG_6346.HEIC,4,clear bottle with gold/brown liquid,"[1872, 2066, 175, 401]",Jack Daniel's,<audio|>,spirit,whisky,750.0,ml,clear,400.0,label,True
+1,IMG_6346.HEIC,5,clear bottle with gold/yellow liquid,"[2095, 1934, 200, 506]",unknown,unknown,spirit,whisky,750.0,ml,clear,600.0,shape,True
+1,IMG_6346.HEIC,6,clear bottle with blue/white label,"[1621, 1606, 178, 572]",Bacardi,Carta Blanca,spirit,rum,750.0,ml,clear,600.0,label,True
+1,IMG_6346.HEIC,7,clear bottle with green/white label,"[1803, 1745, 168, 488]",Beefeater,London Dry Gin,spirit,gin,750.0,ml,clear,550.0,label,True
+1,IMG_6346.HEIC,8,clear bottle with red/white label,"[1894, 1778, 157, 426]",Bombay,Sapphire,spirit,gin,750.0,ml,clear,400.0,label,True
+1,IMG_6346.HEIC,9,clear bottle with white/black label,"[1934, 1741, 153, 426]",Tanqueray,London Dry Gin,spirit,gin,750.0,ml,clear,500.0,label,True
+1,IMG_6346.HEIC,10,amber glass bottle with dark label,"[2058, 1770, 160, 423]",unknown,unknown,spirit,whisky,750.0,ml,amber,400.0,shape,True
+2,IMG_6339.HEIC,1,small clear bottle with red label,"[903, 2178, 164, 284]",Carlsberg,Pilsner,beer,beer,330.0,ml,clear,,label,False
+2,IMG_6339.HEIC,2,large white opaque bottle,"[1020, 1854, 288, 601]",unknown,unknown,other,milk,1000.0,ml,opaque,,shape,False
+2,IMG_6339.HEIC,3,medium clear bottle with white/blue label,"[1264, 1851, 149, 379]",unknown,unknown,soft_drink,water,750.0,ml,clear,600.0,label,True
+2,IMG_6339.HEIC,4,medium clear bottle with dark label,"[1381, 1854, 128, 408]",unknown,unknown,spirit,whisky,700.0,ml,clear,500.0,label,True
+2,IMG_6339.HEIC,5,medium clear bottle with orange/brown label,"[1461, 1865, 128, 415]",unknown,unknown,spirit,whisky,700.0,ml,clear,450.0,label,True
+2,IMG_6339.HEIC,6,medium clear bottle with white label,"[1585, 1858, 135, 434]",unknown,unknown,spirit,vodka,700.0,ml,clear,550.0,label,True
+2,IMG_6339.HEIC,7,medium clear bottle with blue/white label,"[1738, 1862, 153, 434]",unknown,unknown,soft_drink,water,750.0,ml,clear,650.0,label,True
+2,IMG_6339.HEIC,8,medium clear bottle with yellow/blue label,"[1872, 1876, 200, 419]",unknown,unknown,liqueur,liquor,700.0,ml,clear,500.0,label,True
+2,IMG_6339.HEIC,9,medium clear bottle with dark label,"[2055, 1862, 157, 426]",unknown,unknown,spirit,whisky,700.0,ml,clear,400.0,label,True
+2,IMG_6339.HEIC,10,medium clear bottle with green label,"[2160, 1858, 153, 434]",unknown,unknown,spirit,gin,700.0,ml,clear,450.0,label,True
+2,IMG_6339.HEIC,11,medium clear bottle with red label,"[2280, 1854, 157, 430]",unknown,unknown,spirit,whisky,700.0,ml,clear,300.0,label,True
+2,IMG_6339.HEIC,12,medium amber bottle with no label,"[1118, 1129, 135, 346]",unknown,unknown,spirit,whisky,700.0,ml,amber,500.0,shape,True
+2,IMG_6340.HEIC,1,"small clear, red and white label","[1166, 1996, 128, 168]",San Pellegrino,Lemon,soft_drink,sparkling water,330.0,ml,clear,330.0,label,True
+2,IMG_6340.HEIC,2,large white plastic jug,"[1330, 1931, 284, 667]",unknown,milk,dairy,milk,2000.0,ml,opaque,,shape,False
+2,IMG_6340.HEIC,3,"small amber bottle, red cap","[1650, 1978, 138, 342]",unknown,unknown,spirit,whisky,700.0,ml,amber,600.0,shape,True
+2,IMG_6340.HEIC,4,"clear bottle, white and blue label","[1701, 1923, 171, 408]",Smirnoff,Red,spirit,vodka,700.0,ml,clear,650.0,label,True
+2,IMG_6340.HEIC,5,"clear bottle, blue and white label","[1825, 1770, 189, 568]",Smirnoff,Ice,spirit,vodka,1000.0,ml,clear,900.0,label,True
+2,IMG_6340.HEIC,6,"clear bottle, blue label","[2040, 1912, 135, 401]",unknown,unknown,mixer,tonic water,700.0,ml,clear,600.0,shape,True
+2,IMG_6340.HEIC,7,"clear bottle, green label","[2058, 2106, 128, 594]",unknown,unknown,spirit,gin,700.0,ml,clear,650.0,shape,True
+2,IMG_6340.HEIC,8,"dark amber bottle, black label","[2273, 1982, 193, 608]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,600.0,label,True
+2,IMG_6340.HEIC,9,"small amber bottle, red cap","[2448, 1978, 138, 408]",unknown,unknown,spirit,liqueur,700.0,ml,amber,600.0,shape,True
+2,IMG_6341.HEIC,1,large white plastic jug with blue label,"[1308, 1760, 372, 546]",unknown,unknown,dairy,milk,2000.0,ml,opaque,,shape,False
+2,IMG_6341.HEIC,2,small clear bottle with red/white label,"[1450, 1577, 128, 321]",unknown,unknown,other,unknown,200.0,ml,clear,100.0,shape,True
+2,IMG_6341.HEIC,3,small clear bottle with red/white label,"[1519, 1756, 109, 397]",unknown,unknown,other,unknown,350.0,ml,clear,150.0,shape,True
+2,IMG_6341.HEIC,4,small clear bottle with dark label,"[1767, 1814, 135, 426]",Johnnie Walker,Red Label,spirit,whisky,700.0,ml,clear,350.0,label,True
+2,IMG_6341.HEIC,5,small clear bottle with dark label,"[1872, 1883, 120, 423]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,300.0,label,True
+2,IMG_6341.HEIC,6,small clear bottle with dark label,"[1982, 1971, 120, 412]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,300.0,label,True
+2,IMG_6341.HEIC,7,small clear bottle with yellow label,"[2146, 1832, 160, 401]",Johnnie Walker,Golden Reserve,spirit,whisky,700.0,ml,clear,350.0,label,True
+2,IMG_6341.HEIC,8,tall clear bottle with blue label,"[1658, 1344, 131, 550]",unknown,unknown,other,unknown,1000.0,ml,clear,500.0,shape,True
+2,IMG_6341.HEIC,9,tall clear bottle with dark label,"[1854, 1384, 120, 528]",unknown,unknown,spirit,whisky,700.0,ml,clear,350.0,shape,True
+2,IMG_6341.HEIC,10,tall green bottle with white label,"[1934, 1399, 120, 437]",unknown,unknown,spirit,gin,700.0,ml,green,350.0,shape,True
+2,IMG_6341.HEIC,11,tall clear bottle with dark label,"[2051, 1370, 109, 503]",unknown,unknown,spirit,whisky,700.0,ml,clear,350.0,shape,True
+2,IMG_6341.HEIC,12,tall clear bottle with dark label,"[2197, 1366, 109, 546]",unknown,unknown,spirit,whisky,700.0,ml,clear,350.0,shape,True
+2,IMG_6342.HEIC,1,large white plastic jug,"[1286, 1617, 379, 696]",unknown,milk,dairy,milk,3000.0,ml,opaque,1800.0,shape,True
+2,IMG_6342.HEIC,2,"clear bottle, blue/white label","[1585, 1654, 168, 448]",unknown,unknown,spirit,vodka,700.0,ml,clear,450.0,shape,True
+2,IMG_6342.HEIC,3,"clear bottle, red/white label","[1621, 1752, 142, 430]",unknown,unknown,spirit,vodka,700.0,ml,clear,300.0,shape,True
+2,IMG_6342.HEIC,4,"amber bottle, white label","[1730, 1872, 175, 441]",Johnnie Walker,Red Label,spirit,whisky,700.0,ml,amber,350.0,label,True
+2,IMG_6342.HEIC,5,"amber bottle, black label","[1923, 1883, 168, 448]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,300.0,label,True
+2,IMG_6342.HEIC,6,"clear bottle, yellow/white label","[2146, 1734, 171, 586]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,400.0,label,True
+2,IMG_6342.HEIC,7,"clear bottle, red/white label","[1388, 1362, 117, 434]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+2,IMG_6342.HEIC,8,"clear bottle, red label","[1836, 1144, 120, 441]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+2,IMG_6342.HEIC,9,"clear bottle, white/red label","[1964, 1067, 128, 506]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+2,IMG_6342.HEIC,10,"clear bottle, black label","[1978, 1042, 128, 525]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+2,IMG_6342.HEIC,11,"amber bottle, black/white label","[2095, 1031, 138, 525]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,400.0,label,True
+2,IMG_6343.HEIC,1,large white plastic jug,"[1293, 2051, 273, 597]",unknown,unknown,other,milk,4000.0,ml,opaque,,shape,False
+2,IMG_6343.HEIC,2,clear bottle with blue label,"[1574, 1767, 149, 546]",Smirnoff,Vodka,spirit,vodka,750.0,ml,clear,500.0,label,True
+2,IMG_6343.HEIC,3,clear bottle with red/black label,"[1712, 2200, 153, 488]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,600.0,label,True
+2,IMG_6343.HEIC,4,clear bottle with black label,"[1858, 2146, 146, 506]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,650.0,label,True
+2,IMG_6343.HEIC,5,clear bottle with black/gold label,"[1872, 2080, 138, 499]",Johnnie Walker,Old Label,spirit,whisky,700.0,ml,clear,680.0,label,True
+2,IMG_6343.HEIC,6,clear bottle with yellow/blue label,"[2102, 2087, 164, 488]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,680.0,label,True
+2,IMG_6343.HEIC,7,clear bottle with red label,"[1781, 1581, 135, 452]",Baileys,Irish Cream,liqueur,liqueur,700.0,ml,clear,600.0,label,True
+2,IMG_6343.HEIC,8,clear bottle with red label,"[1912, 1559, 131, 448]",Baileys,Irish Cream,liqueur,liqueur,700.0,ml,clear,600.0,label,True
+2,IMG_6343.HEIC,9,clear bottle with red/white label,"[1993, 1526, 146, 419]",Baileys,Irish Cream,liqueur,liqueur,700.0,ml,clear,650.0,label,True
+2,IMG_6343.HEIC,10,clear bottle with dark label,"[2018, 1610, 149, 437]",Baileys,Irish Cream,liqueur,liqueur,700.0,ml,clear,650.0,label,True
+2,IMG_6345.HEIC,1,large white bottle with blue and red label,"[1388, 1971, 262, 404]",Smirnoff,Vodka,spirit,vodka,1000.0,ml,opaque,650.0,label,True
+2,IMG_6345.HEIC,2,tall clear bottle with blue label,"[1658, 1515, 186, 415]",Hendrick's,Gin,spirit,gin,700.0,ml,clear,550.0,label,True
+2,IMG_6345.HEIC,3,clear bottle with white and blue label,"[1760, 1825, 153, 346]",Bombay,Sapphire,spirit,gin,700.0,ml,clear,450.0,label,True
+2,IMG_6345.HEIC,4,small dark brown bottle,"[1774, 2106, 146, 259]",unknown,unknown,spirit,liquor,200.0,ml,amber,100.0,shape,True
+2,IMG_6345.HEIC,5,clear bottle with red and white label,"[1916, 1953, 153, 328]",Beefeater,London Dry Gin,spirit,gin,700.0,ml,clear,400.0,label,True
+2,IMG_6345.HEIC,6,clear bottle with blue label,"[2058, 1883, 149, 379]",Smirnoff,Vodka,spirit,vodka,700.0,ml,clear,450.0,label,True
+2,IMG_6345.HEIC,7,clear bottle with yellow and blue label,"[2164, 1898, 164, 342]",Smirnoff,Ice,spirit,vodka,700.0,ml,clear,350.0,label,True
+2,IMG_6345.HEIC,8,clear bottle with white label,"[1887, 1581, 138, 244]",unknown,unknown,spirit,liquor,500.0,ml,clear,250.0,shape,True
+2,IMG_6345.HEIC,9,clear bottle with green label,"[1909, 1464, 131, 255]",unknown,unknown,spirit,liquor,500.0,ml,clear,200.0,shape,True
+2,IMG_6345.HEIC,10,dark bottle with white label,"[2080, 1432, 124, 230]",unknown,unknown,spirit,liquor,500.0,ml,opaque,,shape,False
+2,IMG_6345.HEIC,11,small dark bottle with gold cap,"[2095, 1432, 113, 219]",unknown,unknown,spirit,liquor,350.0,ml,amber,150.0,shape,True
+2,IMG_6345.HEIC,12,small dark bottle,"[2131, 1439, 102, 215]",unknown,unknown,spirit,liquor,350.0,ml,amber,100.0,shape,True
+2,IMG_6346.HEIC,1,"blue/white jug, white cap","[1355, 1887, 280, 681]",unknown,unknown,other,milk,2000.0,ml,opaque,,shape,False
+2,IMG_6346.HEIC,2,"clear bottle, red/white label","[1606, 1614, 204, 561]",Baileys,Irish Cream,liqueur,liqueur,750.0,ml,clear,300.0,label,True
+2,IMG_6346.HEIC,3,"clear bottle, red/black label","[1708, 1865, 171, 477]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,150.0,label,True
+2,IMG_6346.HEIC,4,"clear bottle, black/gold label","[1781, 1912, 164, 459]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,300.0,label,True
+2,IMG_6346.HEIC,5,"clear bottle, white/red label","[1872, 1905, 146, 448]",Smirnoff,Vodka,spirit,vodka,700.0,ml,clear,400.0,label,True
+2,IMG_6346.HEIC,6,"clear bottle, gold/black label","[2007, 1741, 186, 546]",Bacardi,Carta Blanca,spirit,rum,750.0,ml,clear,350.0,label,True
+2,IMG_6346.HEIC,7,"clear bottle, white/gray label","[1832, 1606, 197, 514]",Tanqueray,London Dry Gin,spirit,gin,700.0,ml,clear,200.0,label,True
+2,IMG_6346.HEIC,8,"clear bottle, white label","[1894, 1570, 182, 550]",Smirnoff,Vodka,spirit,vodka,750.0,ml,clear,300.0,label,True
+2,IMG_6346.HEIC,9,"clear bottle, green/gold label","[2025, 1614, 175, 517]",Jameson,Irish Whiskey,spirit,whisky,750.0,ml,clear,250.0,label,True
+2,IMG_6346.HEIC,10,"clear bottle, yellow label","[2098, 1898, 182, 561]",Johnnie Walker,Red Label,spirit,whisky,750.0,ml,clear,400.0,label,True
+3,IMG_6339.HEIC,1,"small clear bottle, white and red label","[900, 2197, 171, 295]",S.P. Glen,Single Malt,spirit,whisky,700.0,ml,clear,550.0,label,True
+3,IMG_6339.HEIC,2,large white and blue bottle,"[1016, 1832, 350, 634]",Smirnoff,Vodka,spirit,vodka,1000.0,ml,opaque,,label,False
+3,IMG_6339.HEIC,3,"tall clear bottle, white label","[1264, 1862, 128, 495]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,600.0,label,True
+3,IMG_6339.HEIC,4,"amber bottle, white label","[1402, 1872, 128, 481]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,600.0,label,True
+3,IMG_6339.HEIC,5,"amber bottle, gold/black label","[1519, 1887, 138, 474]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,550.0,label,True
+3,IMG_6339.HEIC,6,"clear bottle, white/gold label","[1661, 1865, 128, 495]",Glenfiddich,12 Year Old,spirit,whisky,700.0,ml,clear,500.0,label,True
+3,IMG_6339.HEIC,7,"blue/clear bottle, blue label","[1741, 1887, 128, 521]",Smirnoff,Vodka,spirit,vodka,700.0,ml,clear,600.0,label,True
+3,IMG_6339.HEIC,8,"amber bottle, yellow/blue label","[1891, 1898, 193, 492]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,550.0,label,True
+3,IMG_6339.HEIC,9,"amber bottle, black/gold label","[2018, 1931, 149, 466]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,500.0,label,True
+3,IMG_6339.HEIC,10,"clear bottle, blue/red label","[2182, 1912, 117, 474]",Smirnoff,Vodka,spirit,vodka,700.0,ml,clear,600.0,label,True
+3,IMG_6339.HEIC,11,"clear bottle, red/gold label","[2302, 1869, 131, 495]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,550.0,label,True
+3,IMG_6340.HEIC,1,"short clear bottle, white cap","[1169, 2011, 146, 288]",S.P.R.,Spirit,spirit,spirit,100.0,ml,clear,70.0,label,True
+3,IMG_6340.HEIC,2,"white opaque bottle, blue/white label","[1341, 1942, 306, 670]",unknown,milk,dairy,milk,1000.0,ml,opaque,,shape,False
+3,IMG_6340.HEIC,3,"clear bottle, red/white cap","[1650, 1909, 109, 364]",unknown,spirit,spirit,spirit,700.0,ml,clear,350.0,shape,True
+3,IMG_6340.HEIC,4,"clear bottle, red/white label","[1716, 1934, 182, 517]",unknown,spirit,spirit,spirit,700.0,ml,clear,300.0,label,True
+3,IMG_6340.HEIC,5,"clear bottle, blue/white label","[1865, 1752, 270, 546]",unknown,mixer,mixer,mixer,750.0,ml,clear,400.0,label,True
+3,IMG_6340.HEIC,6,"clear bottle, blue/white label","[2062, 1964, 291, 430]",unknown,spirit,spirit,spirit,700.0,ml,clear,350.0,label,True
+3,IMG_6340.HEIC,7,"clear bottle, white cap","[2091, 2087, 237, 332]",unknown,spirit,spirit,spirit,700.0,ml,clear,300.0,shape,True
+3,IMG_6340.HEIC,8,"clear bottle, black cap","[2280, 1967, 211, 539]",unknown,spirit,spirit,spirit,700.0,ml,clear,350.0,shape,True
+3,IMG_6340.HEIC,9,"clear bottle, red cap","[2466, 1964, 164, 495]",unknown,spirit,spirit,spirit,700.0,ml,clear,400.0,shape,True
+3,IMG_6340.HEIC,10,"clear bottle, red cap","[2018, 1829, 208, 426]",unknown,spirit,spirit,spirit,700.0,ml,clear,350.0,shape,True
+3,IMG_6341.HEIC,1,"tall, slender, turquoise blue bottle","[0, 1577, 270, 623]",unknown,unknown,spirit,vodka,750.0,ml,clear,,shape,False
+3,IMG_6341.HEIC,2,"tall, clear bottle with white and blue label","[1304, 1781, 204, 648]",unknown,unknown,spirit,vodka,750.0,ml,clear,400.0,shape,True
+3,IMG_6341.HEIC,3,small clear bottle with red cap,"[1457, 1548, 120, 379]",unknown,unknown,spirit,vodka,350.0,ml,clear,150.0,shape,True
+3,IMG_6341.HEIC,4,"short, clear bottle with red cap and white label","[1494, 1752, 200, 437]",unknown,unknown,spirit,vodka,350.0,ml,clear,100.0,shape,True
+3,IMG_6341.HEIC,5,"large, clear bottle with white and blue label","[1311, 1796, 372, 852]",unknown,unknown,spirit,vodka,1000.0,ml,clear,500.0,shape,True
+3,IMG_6341.HEIC,6,"tall, clear bottle with red cap and white label","[1658, 1443, 186, 470]",unknown,unknown,spirit,vodka,750.0,ml,clear,300.0,shape,True
+3,IMG_6341.HEIC,7,"short, clear bottle with green cap and white/red label","[1687, 1494, 273, 539]",unknown,unknown,spirit,vodka,750.0,ml,clear,450.0,shape,True
+3,IMG_6341.HEIC,8,"tall, clear bottle with green cap and white label","[1862, 1399, 208, 484]",unknown,unknown,spirit,vodka,750.0,ml,clear,400.0,shape,True
+3,IMG_6341.HEIC,9,"tall, clear bottle with black cap and white label","[2004, 1352, 208, 506]",unknown,unknown,spirit,vodka,750.0,ml,clear,350.0,shape,True
+3,IMG_6341.HEIC,10,"tall, clear bottle with black cap and white label","[2131, 1359, 157, 492]",unknown,unknown,spirit,vodka,750.0,ml,clear,300.0,shape,True
+3,IMG_6341.HEIC,11,"tall, clear bottle with black cap and white label","[2200, 1402, 200, 514]",unknown,unknown,spirit,vodka,750.0,ml,clear,400.0,shape,True
+3,IMG_6341.HEIC,12,"short, clear bottle with black cap and white label","[1836, 1807, 397, 630]",Johnnie Walker,Red Label,spirit,whisky,750.0,ml,clear,400.0,label,True
+3,IMG_6341.HEIC,13,"short, clear bottle with black cap and white label","[1993, 1960, 233, 404]",Johnnie Walker,Black Label,spirit,whisky,750.0,ml,clear,300.0,label,True
+3,IMG_6341.HEIC,14,"short, clear bottle with silver cap and yellow label","[2178, 1825, 430, 638]",Johnnie Walker,Gold Label,spirit,whisky,750.0,ml,clear,350.0,label,True
+3,IMG_6341.HEIC,15,"large, clear carton with white and blue label","[1304, 1796, 372, 852]",unknown,milk,dairy,milk,1000.0,ml,opaque,800.0,shape,True
+3,IMG_6342.HEIC,1,large white plastic jug,"[1279, 1610, 685, 714]",unknown,unknown,mixer,milk,2000.0,ml,opaque,1600.0,shape,True
+3,IMG_6342.HEIC,2,clear bottle with red/white label,"[1577, 1818, 215, 328]",unknown,unknown,spirit,vodka,700.0,ml,clear,250.0,shape,True
+3,IMG_6342.HEIC,3,amber bottle with red label,"[1727, 1836, 211, 364]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,amber,400.0,label,True
+3,IMG_6342.HEIC,4,amber bottle with black label,"[1945, 1836, 193, 364]",unknown,unknown,spirit,whisky,700.0,ml,amber,300.0,shape,True
+3,IMG_6342.HEIC,5,clear bottle with yellow/blue label,"[2138, 1738, 262, 525]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,500.0,label,True
+3,IMG_6342.HEIC,6,clear bottle with light blue label,"[1388, 1377, 197, 423]",unknown,unknown,spirit,vodka,700.0,ml,clear,600.0,shape,True
+3,IMG_6342.HEIC,7,clear bottle with red/white label,"[1650, 1370, 178, 368]",unknown,unknown,spirit,vodka,700.0,ml,clear,400.0,shape,True
+3,IMG_6342.HEIC,8,clear bottle with red/blue label,"[1767, 1399, 193, 419]",unknown,unknown,spirit,vodka,700.0,ml,clear,300.0,shape,True
+3,IMG_6342.HEIC,9,clear bottle with red/blue label,"[1843, 1377, 168, 426]",unknown,unknown,spirit,vodka,700.0,ml,clear,200.0,shape,True
+3,IMG_6342.HEIC,10,clear bottle with white/red label,"[1967, 1093, 208, 408]",unknown,unknown,spirit,gin,700.0,ml,clear,400.0,shape,True
+3,IMG_6342.HEIC,11,clear bottle with red label,"[1843, 1158, 182, 434]",unknown,unknown,spirit,vodka,700.0,ml,clear,350.0,shape,True
+3,IMG_6342.HEIC,12,clear bottle with white label,"[1985, 1104, 186, 434]",unknown,unknown,spirit,vodka,700.0,ml,clear,450.0,shape,True
+3,IMG_6342.HEIC,13,amber bottle with black label,"[2087, 1096, 164, 430]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,amber,300.0,label,True
+3,IMG_6342.HEIC,14,amber bottle with red label,"[2186, 1078, 164, 408]",unknown,unknown,spirit,whisky,700.0,ml,amber,200.0,shape,True
+3,IMG_6343.HEIC,1,large white plastic jug,"[1286, 2044, 266, 612]",unknown,unknown,other,milk,2000.0,ml,opaque,,shape,False
+3,IMG_6343.HEIC,2,clear bottle with blue and white label,"[1559, 1778, 200, 525]",Smirnoff,Red,spirit,vodka,700.0,ml,clear,600.0,label,True
+3,IMG_6343.HEIC,3,clear bottle with black and white label,"[1694, 2204, 178, 455]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,500.0,label,True
+3,IMG_6343.HEIC,4,clear bottle with black label,"[1734, 2357, 197, 419]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,450.0,label,True
+3,IMG_6343.HEIC,5,clear bottle with white/blue label,"[1836, 2306, 160, 339]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,550.0,label,True
+3,IMG_6343.HEIC,6,clear bottle with white/red label,"[1872, 2127, 157, 408]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,500.0,label,True
+3,IMG_6343.HEIC,7,clear bottle with yellow/green label,"[2098, 2116, 226, 401]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,400.0,label,True
+3,IMG_6343.HEIC,8,dark glass bottle with red/white label,"[1792, 1658, 135, 335]",Johnnie Walker,Red Label,spirit,whisky,700.0,ml,amber,,label,False
+3,IMG_6343.HEIC,9,dark glass bottle with gold label,"[1934, 1545, 204, 419]",Johnnie Walker,Gold Label,spirit,whisky,700.0,ml,amber,,label,False
+3,IMG_6343.HEIC,10,brown glass bottle with white label,"[2014, 1570, 160, 382]",unknown,unknown,spirit,whisky,700.0,ml,amber,,shape,False
+3,IMG_6343.HEIC,11,small bottle with green cap,"[1399, 1778, 62, 248]",unknown,unknown,spirit,unknown,200.0,ml,clear,,shape,False
+3,IMG_6345.HEIC,1,large white plastic jug,"[1388, 2062, 280, 474]",unknown,unknown,mixer,water,5000.0,ml,opaque,4500.0,shape,True
+3,IMG_6345.HEIC,2,clear bottle with blue/red label,"[1658, 1836, 124, 481]",Smirnoff,Red,spirit,vodka,750.0,ml,clear,600.0,label,True
+3,IMG_6345.HEIC,3,clear bottle with black/white label,"[1796, 1847, 131, 415]",unknown,unknown,spirit,vodka,750.0,ml,clear,300.0,shape,True
+3,IMG_6345.HEIC,4,dark amber bottle with red/white label,"[1916, 1942, 124, 390]",Tequila,Reposado,spirit,tequila,750.0,ml,amber,400.0,label,True
+3,IMG_6345.HEIC,5,clear bottle with white/red label,"[1942, 1934, 131, 419]",Tequila,Blanco,spirit,tequila,750.0,ml,clear,500.0,label,True
+3,IMG_6345.HEIC,6,light blue bottle with yellow/white label,"[2055, 1894, 178, 430]",unknown,unknown,spirit,vodka,750.0,ml,clear,400.0,label,True
+3,IMG_6345.HEIC,7,small clear bottle with white label,"[1851, 1504, 98, 277]",unknown,unknown,spirit,vodka,375.0,ml,clear,200.0,shape,True
+3,IMG_6345.HEIC,8,clear bottle with green label,"[1887, 1592, 131, 288]",unknown,unknown,spirit,gin,750.0,ml,clear,400.0,label,True
+3,IMG_6345.HEIC,9,clear bottle with blue label,"[2007, 1494, 117, 284]",unknown,unknown,spirit,vodka,750.0,ml,clear,300.0,label,True
+3,IMG_6345.HEIC,10,dark brown bottle with white label,"[2131, 1424, 160, 299]",unknown,unknown,spirit,whisky,750.0,ml,amber,500.0,label,True
+3,IMG_6346.HEIC,1,large white plastic container with blue label,"[1344, 1887, 266, 528]",unreadable,milk,dairy,milk,2000.0,ml,opaque,1500.0,label,True
+3,IMG_6346.HEIC,2,clear bottle with red and white label,"[1606, 1862, 171, 306]",unreadable,unreadable,spirit,vodka,700.0,ml,clear,300.0,label,True
+3,IMG_6346.HEIC,3,clear bottle with black and gold label,"[1778, 1847, 153, 273]",Smirnoff,No. 21,spirit,vodka,700.0,ml,clear,300.0,label,True
+3,IMG_6346.HEIC,4,clear bottle with red and white label,"[1869, 2051, 164, 404]",unreadable,unreadable,spirit,whisky,700.0,ml,clear,250.0,label,True
+3,IMG_6346.HEIC,5,clear bottle with white and red label,"[1898, 1778, 153, 386]",Jameson,Irish Whiskey,spirit,whisky,700.0,ml,clear,400.0,label,True
+3,IMG_6346.HEIC,6,clear bottle with yellow and blue label,"[2098, 1770, 168, 426]",unreadable,unreadable,spirit,gin,700.0,ml,clear,450.0,label,True
+3,IMG_6346.HEIC,7,clear bottle with black label,"[1887, 1577, 146, 321]",unreadable,unreadable,spirit,whisky,700.0,ml,clear,200.0,label,True
+3,IMG_6346.HEIC,8,clear bottle with blue and white label,"[1843, 1406, 164, 284]",unreadable,unreadable,spirit,vodka,700.0,ml,clear,400.0,label,True

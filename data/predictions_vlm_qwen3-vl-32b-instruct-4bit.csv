@@ -1,0 +1,84 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"small round container with red and white label, possibly a yogurt or dessert cup","[1388, 2399, 251, 437]",Essential Waitrose,Natural Yoghurt,dairy,yoghurt,150.0,g,opaque,,label,False
+1,IMG_6339.HEIC,2,large white plastic jug with blue label,"[1599, 2142, 383, 733]",Milk,Whole Milk,dairy,milk,1000.0,ml,opaque,,shape,False
+1,IMG_6339.HEIC,3,tall amber bottle with black cap and white label,"[1959, 2142, 211, 715]",Fever-Tree,Cinematic Caramel,syrup,caramel syrup,500.0,ml,amber,400.0,label,True
+1,IMG_6339.HEIC,4,dark bottle with black cap and white label,"[2159, 2206, 194, 651]",Fever-Tree,Cinematic Caramel,syrup,caramel syrup,500.0,ml,clear,400.0,label,True
+1,IMG_6339.HEIC,5,small clear bottle with black cap and orange liquid,"[2330, 2318, 223, 540]",Fever-Tree,Cinematic Caramel,syrup,caramel syrup,200.0,ml,clear,150.0,label,True
+1,IMG_6339.HEIC,6,tall amber bottle with black cap and label,"[2536, 2172, 211, 715]",Bassett's,Black Label,spirit,whisky,700.0,ml,amber,600.0,label,True
+1,IMG_6339.HEIC,7,large clear plastic bottle with blue label,"[2730, 2073, 280, 818]",SodaStream,Sparkling Water,mixer,sparkling water,1000.0,ml,clear,800.0,label,True
+1,IMG_6339.HEIC,8,small clear plastic bottle with yellow cap and label,"[2959, 2305, 297, 617]",Schweppes,Quadruple Strength Ginger Beer,mixer,ginger beer,500.0,ml,clear,450.0,label,True
+1,IMG_6339.HEIC,9,tiny green glass bottle,"[3199, 2570, 114, 317]",Fever-Tree,Cinematic Caramel,syrup,caramel syrup,50.0,ml,green,40.0,label,True
+1,IMG_6339.HEIC,10,dark bottle with black cap and label,"[3302, 2249, 211, 660]",Coffee & Co,Cold Brew Coffee,other,cold brew coffee,500.0,ml,clear,400.0,label,True
+1,IMG_6339.HEIC,11,clear bottle with white label and red cap,"[3501, 2172, 257, 754]",Bacardi,Carta Blanca,spirit,rum,750.0,ml,clear,650.0,label,True
+1,IMG_6339.HEIC,12,small red bottle with green cap,"[3667, 2386, 200, 536]",Frank's RedHot,Original,sauce,hot sauce,148.0,ml,clear,120.0,label,True
+1,IMG_6340.HEIC,1,"small white plastic bottle with red label, tomato ketchup","[1839, 2360, 257, 450]",Essential Waitrose,Tomato Ketchup,sauce,tomato ketchup,350.0,g,opaque,,label,False
+1,IMG_6340.HEIC,2,"large white plastic jug with blue label, milk","[2091, 2262, 428, 810]",Essential Waitrose,Semi-Skimmed Milk,dairy,milk,2000.0,ml,opaque,1900.0,label,True
+1,IMG_6340.HEIC,3,"small dark glass bottle with black cap, caramel syrup","[2308, 2112, 194, 351]",Safeway,Chocolate Caramel,syrup,caramel syrup,250.0,ml,amber,200.0,label,True
+1,IMG_6340.HEIC,4,"clear glass bottle with black cap, amber liquid","[2565, 2206, 206, 531]",Safeway,Amber Rum,spirit,rum,350.0,ml,clear,300.0,label,True
+1,IMG_6340.HEIC,5,"dark glass bottle with black cap, caramel liqueur","[2673, 2228, 234, 771]",Safeway,Chocolate Caramel Liqueur,liqueur,caramel liqueur,350.0,ml,amber,300.0,label,True
+1,IMG_6340.HEIC,6,"large clear plastic bottle with blue label, sparkling water","[2862, 1988, 314, 870]",SodaStream,Sparkling Water,soft_drink,sparkling water,1000.0,ml,clear,900.0,label,True
+1,IMG_6340.HEIC,7,"small clear glass bottle with black cap, brown liquid","[3102, 1979, 166, 707]",Safeway,Whiskey,spirit,whiskey,350.0,ml,clear,300.0,label,True
+1,IMG_6340.HEIC,8,"clear glass bottle with white cap, pale yellow liquid","[3267, 2301, 234, 895]",BAC,Vodka,spirit,vodka,500.0,ml,clear,400.0,label,True
+1,IMG_6340.HEIC,9,"clear glass bottle with yellow cap, pale yellow liquid","[3302, 2206, 297, 651]",Safeway,Lemonade,soft_drink,lemonade,500.0,ml,clear,450.0,label,True
+1,IMG_6340.HEIC,10,"dark glass bottle with black cap, dark liquid","[3581, 2301, 291, 763]",Safeway,Whiskey,spirit,whiskey,500.0,ml,amber,400.0,label,True
+1,IMG_6340.HEIC,11,"small red glass bottle with green cap, hot sauce","[3856, 2275, 228, 583]",Frank's RedHot,Original Formula,sauce,hot sauce,140.0,ml,clear,120.0,label,True
+1,IMG_6341.HEIC,1,white plastic milk jug with blue and red label,"[2039, 2013, 463, 831]",Milk,Whole Milk,dairy,milk,1000.0,ml,opaque,800.0,label,True
+1,IMG_6341.HEIC,2,"small clear glass bottle with red and white label, strawberry illustration","[2410, 2151, 234, 454]",Essential Waitrose,Strawberry & Raspberry,mixer,fruit juice,350.0,ml,clear,300.0,label,True
+1,IMG_6341.HEIC,3,small clear bottle with orange liquid and black cap,"[2616, 2095, 251, 600]",Soylent,Orange,soft_drink,soy drink,350.0,ml,clear,300.0,label,True
+1,IMG_6341.HEIC,4,"small amber glass bottle with brown label, 'Café de Oloca' visible","[2787, 2095, 251, 810]",Café de Oloca,Chocolate & Caramel,liqueur,chocolate caramel liqueur,200.0,ml,amber,180.0,label,True
+1,IMG_6341.HEIC,5,"small dark glass bottle with gold and black label, 'Johnnie Walker Black Label' visible","[3136, 2061, 257, 801]",Johnnie Walker,Black Label,spirit,blended Scotch whisky,200.0,ml,clear,180.0,label,True
+1,IMG_6341.HEIC,6,"plastic yellow bottle with blue label, 'Quadruple Strength' visible","[3439, 2142, 354, 728]",Hennings,Quadruple Strength,soft_drink,citrus soda,500.0,ml,opaque,400.0,label,True
+1,IMG_6341.HEIC,7,"small dark glass bottle with silver cap, possibly whiskey","[2296, 1829, 223, 390]",unknown,unknown,spirit,whisky,100.0,ml,clear,80.0,shape,True
+1,IMG_6341.HEIC,8,"tall clear plastic bottle with blue label, likely water","[2582, 1624, 314, 625]",Essential Waitrose,Still Water,mixer,water,1000.0,ml,clear,800.0,label,True
+1,IMG_6341.HEIC,9,"small green glass bottle with red label, possibly hot sauce","[3022, 1662, 200, 557]",Cholula,Original Hot Sauce,sauce,hot sauce,150.0,ml,green,120.0,label,True
+1,IMG_6341.HEIC,10,"small green glass bottle with black cap, possibly balsamic vinegar","[2936, 1932, 109, 287]",unknown,balsamic vinegar,sauce,balsamic vinegar,100.0,ml,green,80.0,shape,True
+1,IMG_6341.HEIC,11,"tall clear bottle with red and white label, 'Bacardi' visible","[3187, 1431, 246, 715]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,600.0,label,True
+1,IMG_6341.HEIC,12,"tall dark glass bottle with black label, 'Sazerac' visible","[3427, 1538, 240, 758]",Sazerac,Straight Rye Whiskey,spirit,rye whiskey,700.0,ml,clear,600.0,label,True
+1,IMG_6342.HEIC,1,"white plastic jug with blue and red label, handle on side","[1999, 1906, 497, 870]",Alpro,Soy Milk,dairy,soy milk,2000.0,ml,opaque,,label,False
+1,IMG_6342.HEIC,2,small clear bottle with black cap and red-orange liquid,"[2485, 1954, 274, 595]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,50.0,ml,clear,50.0,label,True
+1,IMG_6342.HEIC,3,"small dark brown bottle with black cap, white label with brown text","[2707, 1945, 280, 848]",Cafe-Per,Chocolate Caramel Syrup,syrup,chocolate caramel syrup,100.0,ml,amber,100.0,label,True
+1,IMG_6342.HEIC,4,"small dark bottle with black cap, label with '12' and 'Dark Rum'","[3062, 1906, 291, 831]",Bundaberg,Dark Rum,spirit,dark rum,100.0,ml,amber,100.0,label,True
+1,IMG_6342.HEIC,5,"plastic bottle with yellow liquid, clear body, white cap, label says 'Quadruple Strength'","[3376, 1992, 371, 750]",Lindt,Quadruple Strength Coffee,soft_drink,coffee,1000.0,ml,clear,1000.0,label,True
+1,IMG_6342.HEIC,6,"tall clear glass bottle with white cap, blue and yellow label, 'Schweppes' visible","[2445, 1457, 337, 707]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,1000.0,label,True
+1,IMG_6342.HEIC,7,"small green glass bottle with green cap, red and white label","[2919, 1469, 194, 638]",Tajin,Chile Lime Seasoning,sauce,chile lime seasoning,150.0,ml,green,150.0,label,True
+1,IMG_6342.HEIC,8,"clear bottle with white cap, label says 'Bacardi' with red and black design","[3102, 1225, 251, 853]",Bacardi,Carta Blanca Rum,spirit,white rum,750.0,ml,clear,750.0,label,True
+1,IMG_6342.HEIC,9,"dark glass bottle with black cap, label has 'Coyote' and 'Whiskey'","[3313, 1349, 297, 758]",Coyote,Whiskey,spirit,whiskey,750.0,ml,amber,750.0,label,True
+1,IMG_6342.HEIC,10,"small dark bottle with gold cap, label has '12' and 'Special Reserve'","[2839, 1769, 120, 394]",Bundaberg,Special Reserve Rum,spirit,dark rum,50.0,ml,amber,50.0,label,True
+1,IMG_6342.HEIC,11,"small dark bottle with silver cap, label partially visible, appears to be a beer","[2171, 1658, 211, 377]",Stella Artois,Premium Lager,beer,beer,330.0,ml,clear,330.0,label,True
+1,IMG_6342.HEIC,12,white paper towel roll on a black stand,"[2439, 810, 291, 394]",none,Paper Towel,other,none,275.0,g,opaque,,shape,False
+1,IMG_6343.HEIC,1,white plastic jug with blue and red label,"[2011, 2356, 411, 788]",Milk,Whole Milk,dairy,milk,1000.0,ml,opaque,900.0,label,True
+1,IMG_6343.HEIC,2,"clear glass bottle with black cap, red liquid inside","[2433, 2416, 263, 561]",Sobieski,Vodka,spirit,vodka,500.0,ml,clear,400.0,label,True
+1,IMG_6343.HEIC,3,"dark brown glass bottle with black cap, labeled 'Sobieski'","[2679, 2390, 228, 767]",Sobieski,Black Label,spirit,vodka,500.0,ml,amber,450.0,label,True
+1,IMG_6343.HEIC,4,"dark brown glass bottle with black cap, labeled 'Espi' and 'Caramel' with orange label","[2930, 2403, 234, 741]",Espi,Caramel,liqueur,caramel liqueur,500.0,ml,amber,400.0,label,True
+1,IMG_6343.HEIC,5,"clear plastic bottle with yellow label and white cap, labeled 'Ginger Beer'","[3279, 2476, 326, 685]",Fentimans,Ginger Beer,mixer,ginger beer,500.0,ml,clear,450.0,label,True
+1,IMG_6343.HEIC,6,"clear glass bottle with black cap, labeled 'Bacardi'","[2987, 1829, 228, 720]",Bacardi,Original,spirit,rum,750.0,ml,clear,600.0,label,True
+1,IMG_6343.HEIC,7,"dark brown glass bottle with black cap, labeled 'Coffee & Cream'","[3204, 1936, 223, 655]",Coffee & Cream,Coffee Liqueur,liqueur,coffee liqueur,500.0,ml,amber,400.0,label,True
+1,IMG_6343.HEIC,8,"clear glass bottle with green cap, labeled 'Tabasco'","[2839, 2073, 183, 476]",Tabasco,Original Red Sauce,sauce,hot sauce,50.0,ml,clear,45.0,label,True
+1,IMG_6343.HEIC,9,"clear glass bottle with green cap, labeled 'Spiral'","[2782, 2262, 86, 257]",Spiral,Vodka,spirit,vodka,200.0,ml,clear,150.0,label,True
+1,IMG_6343.HEIC,10,"dark brown glass bottle with black cap, labeled 'Sobieski' with red label","[2182, 2176, 183, 373]",Sobieski,Vodka,spirit,vodka,500.0,ml,amber,300.0,label,True
+1,IMG_6343.HEIC,11,"clear plastic bottle with white cap, labeled 'Still Water'","[2433, 1988, 274, 604]",Still,Water,mixer,water,500.0,ml,clear,450.0,label,True
+1,IMG_6345.HEIC,1,"white plastic jug with blue label, milk container","[2159, 2082, 400, 741]",unknown,milk,dairy,milk,1000.0,ml,opaque,900.0,label,True
+1,IMG_6345.HEIC,2,"clear glass bottle with silver cap, small size","[2330, 1902, 166, 304]",unknown,unknown,spirit,spirit,50.0,ml,clear,30.0,shape,True
+1,IMG_6345.HEIC,3,"clear glass bottle with blue label, large, possibly soda or water","[2570, 1739, 274, 947]",unknown,sparkling water or soda,soft_drink,carbonated water,1000.0,ml,clear,800.0,label,True
+1,IMG_6345.HEIC,4,"clear glass bottle with black cap, medium size","[2622, 2146, 206, 527]",unknown,spirit,spirit,spirit,50.0,ml,clear,30.0,shape,True
+1,IMG_6345.HEIC,5,"clear glass bottle with black cap, medium size","[2810, 2121, 194, 724]",Jack Daniel's,Old No. 7 Brand Tennessee Whiskey,spirit,whiskey,50.0,ml,clear,40.0,label,True
+1,IMG_6345.HEIC,6,"green glass bottle with red cap, medium size","[2942, 1786, 183, 514]",Cholula,Hot Sauce,sauce,hot sauce,290.0,ml,green,200.0,label,True
+1,IMG_6345.HEIC,7,"clear glass bottle with black cap, medium size","[3033, 2026, 103, 287]",unknown,unknown,spirit,spirit,50.0,ml,clear,40.0,shape,True
+1,IMG_6345.HEIC,8,"clear glass bottle with black cap, medium size","[3039, 2121, 223, 724]",Cafe Alt,Spiced Rum,spirit,rum,50.0,ml,clear,40.0,label,True
+1,IMG_6345.HEIC,9,"clear glass bottle with silver cap, medium size","[3119, 1564, 206, 737]",Bacardi,Carta Blanca Rum,spirit,rum,750.0,ml,clear,600.0,label,True
+1,IMG_6345.HEIC,10,"dark glass bottle with black cap, medium size","[3313, 1666, 228, 634]",Hawker's,Dark Rum,spirit,rum,750.0,ml,clear,600.0,label,True
+1,IMG_6345.HEIC,11,"clear plastic bottle with yellow label, medium size","[3364, 2198, 326, 647]",Galliano,Liqueur,liqueur,liqueur,700.0,ml,clear,500.0,label,True
+1,IMG_6345.HEIC,12,"clear glass bottle with black cap, small size","[2496, 2193, 103, 377]",unknown,unknown,spirit,spirit,50.0,ml,clear,30.0,shape,True
+1,IMG_6345.HEIC,13,"white paper roll on wooden table, not a bottle","[2730, 1204, 171, 338]",unknown,paper towels,other,none,0.0,ml,clear,,label,False
+1,IMG_6346.HEIC,1,"large white plastic jug with blue label, milk or cream","[2102, 2292, 400, 741]",Milk,Whole Milk,dairy,milk,2000.0,ml,opaque,1800.0,label,True
+1,IMG_6346.HEIC,2,"small dark glass bottle with red and white label, likely liqueur","[2256, 2099, 171, 313]",Triple Sec,Orange Liqueur,liqueur,orange liqueur,50.0,ml,clear,25.0,shape,True
+1,IMG_6346.HEIC,3,"clear glass bottle with blue label, possibly soda or mixer","[2496, 1936, 257, 565]",Schweppes,Club Soda,mixer,club soda,500.0,ml,clear,400.0,label,True
+1,IMG_6346.HEIC,4,"small clear glass bottle with black cap, possibly liqueur","[2508, 2335, 234, 536]",Kahlúa,Coffee Liqueur,liqueur,coffee liqueur,50.0,ml,clear,25.0,shape,True
+1,IMG_6346.HEIC,5,"small dark glass bottle with white label, possibly liqueur","[2747, 2301, 206, 728]",Baileys,Irish Cream,liqueur,Irish cream liqueur,50.0,ml,clear,25.0,shape,True
+1,IMG_6346.HEIC,6,"small dark glass bottle with white label, possibly liqueur","[2993, 2318, 211, 711]",Godiva,Chocolate Liqueur,liqueur,chocolate liqueur,50.0,ml,clear,25.0,shape,True
+1,IMG_6346.HEIC,7,"clear glass bottle with green cap, possibly liqueur","[2896, 1979, 166, 480]",Grand Marnier,Orange Liqueur,liqueur,orange liqueur,50.0,ml,clear,25.0,shape,True
+1,IMG_6346.HEIC,8,"clear glass bottle with white label, Bacardi rum","[3039, 1765, 200, 668]",Bacardi,Carta Blanca Rum,spirit,white rum,750.0,ml,clear,700.0,label,True
+1,IMG_6346.HEIC,9,"dark glass bottle with gold label, possibly coffee liqueur","[3233, 1864, 211, 621]",Kahlúa,Coffee Liqueur,liqueur,coffee liqueur,750.0,ml,clear,500.0,label,True
+1,IMG_6346.HEIC,10,"clear plastic bottle with yellow label, orange juice","[3313, 2390, 314, 638]",Tropicana,Orange Juice,soft_drink,orange juice,1000.0,ml,clear,800.0,label,True
+1,IMG_6346.HEIC,11,"clear glass bottle with black cap, possibly liqueur","[2787, 2198, 109, 236]",Cointreau,Orange Liqueur,liqueur,orange liqueur,50.0,ml,clear,25.0,shape,True
+1,IMG_6346.HEIC,12,"small blue bottle, possibly mouthwash or cleaner, not drink","[3033, 1161, 109, 313]",Listerine,Mouthwash,other,mouthwash,250.0,ml,clear,150.0,label,True

@@ -1,0 +1,108 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.151","[1401, 2408, 205, 423]",,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.120","[1597, 2155, 385, 676]",Oatly,Oat Drink Barista,dairy,oat milk,1136.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.097","[1977, 2199, 205, 637]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.135","[2179, 2293, 182, 566]",Angostura,Aromatic Bitters,liqueur,bitters,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.117","[2351, 2401, 207, 452]",Lyle's,Golden Syrup,syrup,golden syrup,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.116","[2541, 2468, 187, 415]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.141","[2565, 2184, 181, 334]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.135","[2728, 2504, 161, 358]",Sprite,Lemon Lime,soft_drink,lemonade,500.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.157","[2750, 2152, 193, 299]",Schweppes,Soda Water,mixer,soda water,500.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.141","[2823, 2494, 171, 384]",Schweppes,Soda Water,mixer,soda water,500.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.139","[2832, 2072, 192, 494]",Schweppes,Soda Water,mixer,soda water,500.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.079","[2968, 2357, 292, 556]",Havana Club,3 Anos,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,13,"OWLv2 crop, SigLIP2 sim 0.126","[3213, 2593, 106, 278]",Angostura,Aromatic Bitters,liqueur,bitters,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,14,"OWLv2 crop, SigLIP2 sim 0.136","[3298, 2421, 234, 494]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,15,"OWLv2 crop, SigLIP2 sim 0.130","[3337, 2286, 206, 343]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,16,"OWLv2 crop, SigLIP2 sim 0.102","[3482, 2414, 251, 521]",Sambuca,Molinari,liqueur,sambuca,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,17,"OWLv2 crop, SigLIP2 sim 0.130","[3536, 2235, 200, 367]",Smirnoff,No. 21 Vodka,spirit,vodka,700.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,18,"OWLv2 crop, SigLIP2 sim 0.120","[3673, 2491, 198, 429]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6339.HEIC,19,"OWLv2 crop, SigLIP2 sim 0.129","[3763, 2413, 85, 112]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.148","[1851, 2368, 242, 439]",,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.132","[2101, 2320, 430, 747]",Cravendale,Milk,dairy,milk,1136.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.103","[2342, 2111, 171, 400]",Monin,Vanilla Syrup,syrup,vanilla syrup,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.117","[2576, 2230, 174, 270]",Beefeater,London Dry Gin,spirit,gin,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.073","[2689, 2491, 173, 523]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.115","[2744, 2232, 106, 224]",Kikkoman,Soy Sauce,sauce,soy sauce,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.091","[2805, 2708, 100, 251]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.160","[2883, 2266, 223, 586]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.147","[2894, 2003, 262, 559]",Schweppes,Soda Water,mixer,soda water,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.132","[3124, 1986, 142, 473]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.114","[3143, 2340, 104, 322]",Famous Grouse,Blended Scotch Whisky,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.117","[3261, 2298, 240, 825]",Captain Morgan,Original Spiced Gold,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,13,"OWLv2 crop, SigLIP2 sim 0.136","[3297, 2210, 306, 273]",Sambuca,Molinari,liqueur,sambuca,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,14,"OWLv2 crop, SigLIP2 sim 0.100","[3430, 2302, 163, 563]",Tropicana,Orange Juice,soft_drink,orange juice,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,15,"OWLv2 crop, SigLIP2 sim 0.131","[3586, 2426, 292, 653]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,16,"OWLv2 crop, SigLIP2 sim 0.128","[3676, 2400, 57, 85]",Monin,Vanilla Syrup,syrup,vanilla syrup,700.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,17,"OWLv2 crop, SigLIP2 sim 0.117","[3865, 2437, 236, 421]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6340.HEIC,18,"OWLv2 crop, SigLIP2 sim 0.124","[3975, 2299, 109, 144]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.119","[2058, 2014, 431, 772]",Oatly,Oat Drink Barista,dairy,oat milk,1136.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.119","[2313, 1832, 191, 419]",Archers,Peach Schnapps,liqueur,schnapps,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.150","[2404, 2151, 230, 350]",,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.139","[2605, 2110, 219, 456]",Hendrick's,Gin,spirit,gin,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.147","[2612, 1637, 245, 743]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.073","[2808, 2248, 241, 541]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.122","[2835, 2096, 135, 279]",Lea & Perrins,Worcestershire Sauce,sauce,worcestershire sauce,500.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.142","[2941, 1937, 92, 318]",Diplomatico,Reserva Exclusiva,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.127","[2971, 2050, 185, 567]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.127","[3034, 1664, 179, 573]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.140","[3154, 2060, 238, 437]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.105","[3201, 1437, 218, 822]",Bacardi,Carta Blanca Rum,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,13,"OWLv2 crop, SigLIP2 sim 0.130","[3411, 1548, 253, 722]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,14,"OWLv2 crop, SigLIP2 sim 0.092","[3450, 2146, 349, 641]",Robinsons,Orange Squash,soft_drink,squash,500.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.123","[2021, 1890, 453, 694]",Oatly,Oat Drink Barista,dairy,oat milk,1136.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.113","[2181, 1666, 199, 357]",Monin,Vanilla Syrup,syrup,vanilla syrup,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.160","[2368, 2012, 162, 454]",,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.147","[2483, 1455, 288, 725]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.137","[2507, 1958, 257, 583]",Beefeater,London Dry Gin,spirit,gin,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.103","[2713, 1933, 241, 646]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.146","[2850, 1770, 94, 299]",Midori,Melon Liqueur,liqueur,liqueur,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.119","[2941, 1476, 184, 603]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.110","[3094, 1903, 249, 686]",Monkey Shoulder,Blended Malt,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.107","[3113, 1234, 232, 868]",Bacardi,Carta Blanca Rum,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.136","[3332, 1355, 268, 759]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.098","[3389, 1998, 362, 578]",Robinsons,Orange Squash,soft_drink,squash,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.133","[2040, 2368, 377, 578]",Oatly,Oat Drink Barista,dairy,oat milk,1136.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.119","[2216, 2190, 143, 290]",Angostura,Aromatic Bitters,liqueur,bitters,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.156","[2348, 2498, 134, 404]",Heinz,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.147","[2455, 1997, 255, 536]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.130","[2461, 2527, 239, 456]",Beefeater,London Dry Gin,spirit,gin,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.140","[2619, 2295, 125, 341]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.117","[2662, 2398, 179, 751]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.126","[2749, 2483, 135, 311]",Don Julio,Blanco Tequila,spirit,tequila,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.161","[2774, 2300, 88, 207]",Glenfiddich,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.124","[2824, 1983, 117, 291]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.136","[2854, 2066, 133, 449]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.066","[2939, 2400, 217, 773]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,13,"OWLv2 crop, SigLIP2 sim 0.120","[3021, 1831, 192, 656]",Bacardi,Carta Blanca Rum,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,14,"OWLv2 crop, SigLIP2 sim 0.130","[3218, 2424, 180, 158]",Lea & Perrins,Worcestershire Sauce,sauce,worcestershire sauce,500.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,15,"OWLv2 crop, SigLIP2 sim 0.148","[3226, 1950, 202, 531]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,16,"OWLv2 crop, SigLIP2 sim 0.083","[3295, 2485, 321, 681]",Sailor Jerry,Spiced Rum,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.125","[2167, 2083, 388, 725]",Oatly,Oat Drink Barista,dairy,oat milk,1136.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.109","[2348, 1906, 145, 296]",Angostura,Aromatic Bitters,liqueur,bitters,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.148","[2481, 2202, 126, 307]",Heinz,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.149","[2585, 1743, 231, 654]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.134","[2593, 2152, 202, 487]",Beefeater,London Dry Gin,spirit,gin,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.118","[2823, 2203, 188, 630]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.127","[2895, 2004, 83, 269]",Filippo Berio,Extra Virgin Olive Oil,oil,olive oil,500.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.135","[2975, 1767, 154, 511]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.107","[3053, 2136, 212, 501]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.124","[3133, 1566, 191, 735]",Sambuca,Molinari,liqueur,sambuca,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.141","[3326, 1663, 211, 645]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6345.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.119","[3380, 2204, 306, 478]",Robinsons,Orange Squash,soft_drink,squash,500.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,1,"OWLv2 crop, SigLIP2 sim 0.120","[2116, 2303, 397, 707]",,Skimmed Milk,dairy,skimmed milk,1136.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,2,"OWLv2 crop, SigLIP2 sim 0.127","[2272, 2109, 151, 301]",Monin,Vanilla Syrup,syrup,vanilla syrup,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,3,"OWLv2 crop, SigLIP2 sim 0.140","[2447, 2428, 96, 240]",Heinz,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,4,"OWLv2 crop, SigLIP2 sim 0.090","[2468, 2592, 67, 212]",Heinz,Tomato Ketchup,sauce,tomato ketchup,500.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,5,"OWLv2 crop, SigLIP2 sim 0.147","[2512, 1942, 247, 554]",Schweppes,Indian Tonic Water,mixer,tonic water,500.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,6,"OWLv2 crop, SigLIP2 sim 0.131","[2530, 2461, 212, 256]",Sambuca,Molinari,liqueur,sambuca,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,7,"OWLv2 crop, SigLIP2 sim 0.127","[2768, 2459, 131, 286]",Famous Grouse,Blended Scotch Whisky,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,8,"OWLv2 crop, SigLIP2 sim 0.164","[2781, 2331, 121, 229]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,9,"OWLv2 crop, SigLIP2 sim 0.155","[2818, 2205, 93, 250]",Glenfiddich,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,10,"OWLv2 crop, SigLIP2 sim 0.120","[2826, 2501, 161, 530]",Chivas Regal,12 Year Old,spirit,whisky,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,11,"OWLv2 crop, SigLIP2 sim 0.126","[2917, 1965, 148, 486]",Huy Fong,Sriracha,sauce,chilli sauce,500.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,12,"OWLv2 crop, SigLIP2 sim 0.076","[2993, 2443, 209, 595]",Monin,Caramel Syrup,syrup,caramel syrup,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,13,"OWLv2 crop, SigLIP2 sim 0.116","[3054, 1771, 185, 675]",Bacardi,Carta Blanca Rum,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,14,"OWLv2 crop, SigLIP2 sim 0.110","[3054, 2306, 109, 207]",Lea & Perrins,Worcestershire Sauce,sauce,worcestershire sauce,500.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,15,"OWLv2 crop, SigLIP2 sim 0.142","[3255, 1867, 198, 613]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,16,"OWLv2 crop, SigLIP2 sim 0.101","[3316, 2426, 308, 604]",Robinsons,Orange Squash,soft_drink,squash,500.0,ml,clear,,shape,False
