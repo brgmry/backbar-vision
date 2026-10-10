@@ -54,3 +54,27 @@
 - Layout: `index.csv` (TTB ID, permit, serial, completed date, fanciful name, brand name, origin, class/type code + description), `images.csv` (ttb_id, file, original filename, which often says FRONT/BACK/NECK), `images/<ttbid>_<k>.<ext>`.
 - These are flat label artwork (front, back, neck), not photos of bottles. Good for label-text/logo embedding pre-training and synthetic compositing onto bottle renders.
 - Rate: the server is slow (~80 KB/s per connection), so ~10 COLAs/min with 8 workers and 0.5 s sleeps. It was still running at hand-off; rerun the same command to resume: `.venv/bin/python src/external/ttb_cola.py 3000`.
+
+## retail_<source>/ : retailer product catalogues (pre-training only)
+
+Collector: `src/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]`. Whole catalogues in seeded random order, never filtered by `data/labelled/`. Resume-safe (skips product_ids already in `products.csv`; re-run continues). Max 1 request/second per host, 3 worker threads, UA `bottle-vision-hackathon/0.1 (you@example.com)`. Logs in `retail_<source>.log`.
+
+Layout per source: `img/<product_id>/<n>.jpg` (RGB JPEG, transparent backgrounds flattened to white, n = gallery position) and `products.csv` (source, product_id, brand, name, category, volume_ml, abv, url, image_urls; image_urls space-separated). Images are clean studio packshots, mostly front-only: use as a domain-gap complement to bar photos, not a substitute.
+
+### retail_saq (SAQ, Quebec)
+- Source: public Magento storefront GraphQL `https://www.saq.com/graphql` (`products(search:"")`, 100 per page, header `Store: en`). ~30,000 products incl. delisted. Images `www.saq.com/media/catalog/product/...` at native res (~1000x1500).
+- Terms: robots.txt does not disallow /graphql or /media/catalog. Retailer imagery, copyright SAQ/producers: internal research only, never redistribute.
+- Counts (first 29 min run): 1,316 products, 1,401 images (94% one image, 80 with 2-5), 130 MB. brand, volume_ml, abv filled for all (from `nom_producteur`, `meta_description` "Size :", `pourcentage_alcool_par_volume`). Category = `identite_produit` (English). Wine-heavy (~80%) as the catalogue is.
+
+### retail_systembolaget (Systembolaget, Sweden)
+- Source: product sitemaps `https://www.systembolaget.se/sitemap-produkter-{ol,vin,sprit,cider-blanddrycker,alkoholfritt}.xml` (26,866 products), metadata from each product page's embedded JSON, image `product-cdn.systembolaget.se/productimages/<productId>/<productId>_800.png`. product_id = Systembolaget article number (URL), image id differs.
+- Terms: robots.txt allows /produkt/. Public open data was withdrawn; their API needs a subscription key, not used. Internal research only.
+- Counts: 1,102 products, 1,102 images (one each), 381 MB (800px, heavier JPEGs). Category is Swedish (`categoryLevel2`: Rött vin, Ale, Whisky...). Includes beer, cider, alcohol-free.
+
+### retail_drinkfinder (Drink Finder, UK, Shopify)
+- Source: `https://www.drinkfinder.co.uk/products.json?limit=250&page=N` (5,589 products), images from cdn.shopify.com at `?width=1000`.
+- Terms: Shopify robots.txt does not disallow products.json. Internal research only.
+- Counts: 1,720 products, 1,720 images (store has one image per product), 123 MB. volume_ml parsed from title (98%), abv rarely present (6%). Category = Shopify product_type (Red Wine, Single Malt Whisky, Rum, Beer, Liqueurs, Gin...).
+
+### Skipped
+The Whisky Exchange and Total Wine (403 to a polite UA), Master of Malt (429), Majestic and Drinks&Co (403). LCBO api.lcbo.dev returned INTERNAL_SERVER_ERROR on every product query after the first. Waitrose Cellar, Ocado, Tesco, Sainsbury's not attempted (time).
