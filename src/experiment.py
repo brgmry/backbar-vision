@@ -3,11 +3,13 @@
 The identification step is whatever wrote the predictions CSV (src/identify.py, src/match.py, ...), so
 identifiers and fill estimators swap independently.
 
-Usage: python src/experiment.py <predictions.csv> <fill spec> [<fill spec> ...] [--all]
+Usage: python src/experiment.py <predictions.csv> <fill spec> [<fill spec> ...] [--all] [--qc <spec>]
   --all: every category, not just alcohol (fill tests on any clear bottle)
+  --qc: crop check run before fill (src/qc.py: geometry, vlm:<model>, none); default geometry
   e.g. python src/experiment.py data/predictions_local_k3.csv geometry:edge geometry:opus vlm:opus
   -> data/predictions_fill_<ids>_<spec>.csv per spec (shared schema), overlays in runs/fill/<spec>/
-Crops listed in data/labelled/crop_exclude.csv (image + bbox, checked by eye) are skipped: fill stays null.
+Crops the check rejects keep fill null. The hand-made rejection list (data/labelled/crop_exclude.csv) is ground
+truth: it only scores the check (src/qc.py), it never decides which crops get a fill.
 Score: python src/score.py <that csv> --alcohol
 """
 import csv
@@ -20,12 +22,12 @@ from PIL import Image, ImageDraw
 from pillow_heif import register_heif_opener
 
 from fill import get_estimator
+from qc import get_qc
 
 register_heif_opener()
 
 ALCOHOL = {"spirit", "liqueur", "wine", "beer"}
 PAD = 0.15  # detector boxes clip caps and bases; SAM gets the box, the crop gets room around it
-EXCLUDE = Path("data/labelled/crop_exclude.csv")
 PHOTO_DIRS = [Path("data/raw"), Path("data/pour"), Path("data/reference")]
 NULLED = ["description", "brand", "product", "category", "liquid", "size", "unit", "glass", "fill_ml",
           "id_source", "fill_visible"]
@@ -56,10 +58,10 @@ def overlay(crop: Image.Image, debug: dict, label: str) -> Image.Image:
     return img
 
 
-def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL) -> None:
+def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL, qc_spec: str = "geometry") -> None:
     rows = list(csv.DictReader(open(ids_path)))
     estimators = [get_estimator(s) for s in specs]
-    excluded = {(r["image"], r["bbox"]) for r in csv.DictReader(open(EXCLUDE))} if EXCLUDE.exists() else set()
+    check = None if qc_spec == "none" else get_qc(qc_spec)
     results = {e.name: [] for e in estimators}
     photo_name, photo = None, None
     for row in rows:
@@ -67,13 +69,15 @@ def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL)
             for e in estimators:
                 results[e.name].append(row | {k: None for k in NULLED})
             continue
-        if (row["image"], row["bbox"]) in excluded:
-            for e in estimators:
-                results[e.name].append(row | {"fill_ml": None, "fill_visible": False})
-            continue
         if row["image"] != photo_name:
             photo_name, photo = row["image"], Image.open(next(d / row["image"] for d in PHOTO_DIRS if (d / row["image"]).exists())).convert("RGB")
         crop, box = padded_crop(photo, json.loads(row["bbox"]))
+        verdict = check.check(crop, box, row, None) if check else None
+        if verdict and not verdict.ok:
+            print(f"{'crop check':<16} {row['image']} {row['product'][:30]:<30} rejected: {verdict.reason}")
+            for e in estimators:
+                results[e.name].append(row | {"fill_ml": None, "fill_visible": False})
+            continue
         for e in estimators:
             try:
                 f = e.estimate(crop, box, row)
@@ -99,5 +103,11 @@ def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL)
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         sys.exit(__doc__)
-    args = [a for a in sys.argv[1:] if a != "--all"]
-    main(args[0], args[1:], None if "--all" in sys.argv else ALCOHOL)
+    args, qc_spec = sys.argv[1:], "geometry"
+    if "--qc" in args:
+        i = args.index("--qc")
+        qc_spec = args[i + 1]
+        del args[i:i + 2]
+    categories = None if "--all" in args else ALCOHOL
+    args = [a for a in args if a != "--all"]
+    main(args[0], args[1:], categories, qc_spec)

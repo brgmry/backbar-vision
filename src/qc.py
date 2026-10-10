@@ -25,6 +25,8 @@ from vlm import get_vlm
 
 register_heif_opener()
 
+EXCLUDE = Path("data/labelled/crop_exclude.csv")  # hand-rejected crops: ground truth for scoring the check only
+
 EDGE_PX = 3  # mask within this many px of the crop's top or bottom = bottle runs out of the crop
 MIN_FILL = 0.55  # mask area / box area; below this the bottle is hidden or the box is wrong
 MAX_SHAPE_DEV = 0.25  # height/width ratio vs the item's median across photos
@@ -104,7 +106,7 @@ def shape_refs(rows: list[dict], crops: dict) -> dict[str, float]:
 
 
 def main(ids_path: str, specs: list[str]) -> None:
-    from experiment import ALCOHOL, EXCLUDE, padded_crop
+    from experiment import ALCOHOL, padded_crop
     rows = [r for r in csv.DictReader(open(ids_path)) if r["category"] in ALCOHOL]
     bad = {(r["image"], r["bbox"]): r["reason"] for r in csv.DictReader(open(EXCLUDE))}
     photos = {img: Image.open(Path("data/raw") / img).convert("RGB") for img in {r["image"] for r in rows}}
