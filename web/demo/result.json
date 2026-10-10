@@ -22,7 +22,7 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": 593.8,
+   "fill_ml": 592.5,
    "id_source": "label",
    "fill_visible": true,
    "fill_note": null,
@@ -44,10 +44,10 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": null,
+   "fill_ml": 37.5,
    "id_source": "label",
-   "fill_visible": false,
-   "fill_note": "liquid line not visible",
+   "fill_visible": true,
+   "fill_note": null,
    "label_text": "Johnnle Wall | CineLabul"
   },
   {
@@ -88,7 +88,7 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": 553.6,
+   "fill_ml": 555.0,
    "id_source": "label",
    "fill_visible": true,
    "fill_note": null,
@@ -132,10 +132,10 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": null,
+   "fill_ml": 390.0,
    "id_source": "label",
-   "fill_visible": false,
-   "fill_note": "liquid line not visible",
+   "fill_visible": true,
+   "fill_note": null,
    "label_text": "AMESON | IRISH WHISKEY | Toole Iastillen"
   },
   {
@@ -154,10 +154,10 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": null,
+   "fill_ml": 337.5,
    "id_source": "label",
-   "fill_visible": false,
-   "fill_note": "crop rejected: mask fills too little of the box",
+   "fill_visible": true,
+   "fill_note": null,
    "label_text": "RIPLE | AHL | RUM | COFFEE"
   },
   {
@@ -176,10 +176,10 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": null,
+   "fill_ml": 735.0,
    "id_source": "label",
-   "fill_visible": false,
-   "fill_note": "liquid line not visible",
+   "fill_visible": true,
+   "fill_note": null,
    "label_text": "RUM | COFFEE | THE ORIGINAL"
   },
   {
@@ -198,7 +198,7 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": 553.6,
+   "fill_ml": 262.5,
    "id_source": "label",
    "fill_visible": true,
    "fill_note": null,
@@ -220,10 +220,10 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": null,
+   "fill_ml": 187.5,
    "id_source": "label",
-   "fill_visible": false,
-   "fill_note": "unsure: no sharp liquid line (9 < 15)",
+   "fill_visible": true,
+   "fill_note": null,
    "label_text": "LSKA | UM BLEND | ABLEN | ialtySp | BASIL | HAYDEN'S | rotacky straight | TUN BAUE HEAYDEN, S | UNIKCAT wa bat best peen"
   },
   {
@@ -242,10 +242,10 @@
    "size": 750,
    "unit": "ml",
    "glass": null,
-   "fill_ml": null,
+   "fill_ml": 750.0,
    "id_source": "none",
-   "fill_visible": false,
-   "fill_note": "unsure: no sharp liquid line (11 < 15)",
+   "fill_visible": true,
+   "fill_note": null,
    "label_text": null
   }
  ]
