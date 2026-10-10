@@ -11,8 +11,8 @@
 ## winesensed/ : WineSensed (Vivino user photos of wine labels), all 24 shards
 
 - Source: https://huggingface.co/datasets/christopher/winesensed (NeurIPS 2023 D&B, "Learning to Taste", Bender et al.). Licence **CC BY-NC-ND 4.0** (research only, no derivatives redistributed).
-- On disk: `data/wines/train-000NN-of-00024.parquet`, all 24 shards, ~36 GB, kept as parquet (images as bytes). The first 8 shards hold 338,214 rows, 336,568 unique images and 205,360 `vintage_id`s; the full set is ~897k images. Columns: image (bytes), review, wine, year, wine_alcohol, country, region, price, rating, grape, vintage_id, vintage_page_url, winery_id.
-- Class label for retrieval: `vintage_id` (or `winery_id` for coarser). Mostly one phone photo per vintage, so it is a long-tail, few-shot set: good for contrastive pre-training of label embeddings, not for classification.
+- On disk: `data/wines/train-000NN-of-00024.parquet`, all 24 shards, 33 GB, kept as parquet (images as bytes). 1,014,630 rows (one per review photo) across 421,672 `vintage_id`s. Columns: image (bytes), review, wine, year, wine_alcohol, country, region, price, rating, grape, vintage_id, vintage_page_url, winery_id.
+- Class label for retrieval: `vintage_id`. About 2.4 phone photos per vintage on average, so it is a long-tail, few-shot set: good for contrastive pre-training of label embeddings, not for classification.
 - `one-shot-benchmark/`: github.com/EdenHuang/winesensed-one-shot-benchmark (image-free split files and hashes for a 1,000-class one-shot wine label retrieval benchmark on WineSensed; companion to arXiv 2404.08820). No licence file.
 - Fetch: `set -a; . ./.env; set +a; hf download christopher/winesensed --repo-type dataset --local-dir data/external/winesensed --include "data/wines/*"`.
 
@@ -41,7 +41,8 @@
 
 - Source: https://huggingface.co/datasets/spacenship/whiskeyClassification (DGIST summer intern project, 2025). **No licence or card**: internal research only.
 - Repo is 81 GB of PNG. We take only `dataset/` (the YOLO-style split): 20 classes, 350 train / 100 val / 50 test images per class, 10,000 images with YOLO `labels/<split>/*.txt`, plus `labeling.py`. Skipped: the `labels/<name>/` raw-frame tree (12 classes, ~26k PNG, 58 GB), which duplicates the same videos.
-- PNGs (22.6 GB) are converted in place to JPEG q95 (`src/external/png_to_jpg.py`) to stay under ~20 GB.
+- PNGs (22.6 GB) converted in place to JPEG q95 (`src/external/png_to_jpg.py`): 10,000 images, 3.9 GB on disk. Layout `dataset/images/{train,val,test}/<classid>_NNNN.jpg`, `dataset/labels/<split>/<same>.txt`.
+- The YOLO `.txt` files are **not identity labels**: each line is `39 0 cx cy w h` (COCO class 39 = bottle, apparently detector output), one box per bottle. Identity comes only from the filename prefix via `classes.csv`. Use the boxes to crop.
 - **Class mapping** `classes.csv`: file prefix `N_` is `whiskey_list.index(name) + 1` from the repo's `makeDataset.py`. I verified it for 12 of 20 classes by matching LFS sha256 of `dataset/images` files against the named `labels/<name>/` tree (all 500 images per class matched). The other 8 (ardbeg 5, ardbeg 10, balvenie 12/14, glendronach 12/15, glenfiddich 12/15) rely on the script only.
 - `makeDataset.py` keeps every 5th of each class's sequentially numbered captures, so near-duplicates within a class are common: split by class or video, not by frame, for any eval.
 - Fetch: `set -a; . ./.env; set +a; hf download spacenship/whiskeyClassification --repo-type dataset --local-dir data/external/whiskey-classification --include "dataset/*" --include "labeling.py"`, then `python src/external/png_to_jpg.py data/external/whiskey-classification/dataset`.
@@ -78,3 +79,32 @@ Layout per source: `img/<product_id>/<n>.jpg` (RGB JPEG, transparent backgrounds
 
 ### Skipped
 The Whisky Exchange and Total Wine (403 to a polite UA), Master of Malt (429), Majestic and Drinks&Co (403). LCBO api.lcbo.dev returned INTERNAL_SERVER_ERROR on every product query after the first. Waitrose Cellar, Ocado, Tesco, Sainsbury's not attempted (time).
+
+## rp2k/ : RP2K retail product dataset (Pinlan, NeurIPS-era, arXiv 2006.12634)
+
+- Source: original Huawei OBS zip `https://blob-nips2020-rp2k-dataset.obs.cn-east-3.myhuaweicloud.com/rp2k_dataset.zip` (6.33 GB, still live Oct 2026; pinlandata.com page returns 429). Paper: https://arxiv.org/abs/2006.12634.
+- Licence: research use, as stated by the authors on pinlandata.com; no formal open licence shipped in the zip. Do not redistribute.
+- Images: 384,311 (train 344,854, test 39,457). Classes: 2,388 SKUs (same folder names in train and test). Shelf crops from Chinese supermarkets, one product per image. 6.6 GB extracted; zip deleted.
+- Layout: `all/{train,test}/<SKU name in Chinese>/<n>.jpg` (a few png/jpeg).
+- `alcohol_classes.csv`: keyword match on class names (啤酒, 白酒, 黄酒, 酒 and so on, cooking wine, vinegar and cigarettes excluded). 265 classes, 40,209 images: beer 192 classes / 34,866 images, baijiu 43 / 3,498, rice wine 11 / 1,331, other alcohol 19 / 514. No western spirits (no whisky, vodka, gin, rum). Heuristic, not an official category map.
+- The HF repo `mteb/rp2k` is only the 39,457-image test split as a retrieval benchmark, no class names. Not downloaded.
+
+## beverages-stperez/ : branded beverage bottles and cans
+
+- Source: https://huggingface.co/datasets/stperez/beverages. Licence: MIT (dataset card).
+- Images: 4,428 (train 2,271, test 2,157), mostly png, a few webp/gif. Classes: 29 brands (beer: Budweiser, Corona, Stella Artois, Modelo, Michelob Ultra, Castle Lite, Balashi; water: Evian, Perrier, San Pellegrino, Nestle Pure Life; soft drinks and teas: Coca-Cola, Fanta, Sprite, Pepsi, Mountain Dew, Gatorade, Monster, Tropicana and others). 2.7 GB.
+- Layout: `<Category>/<Company>/<brand>/{train,test}/<file>`; Balashi is `Beer/Balashi Brewery/{train,test}/` with no brand level. One stray `pepsi119.zip` in a test folder.
+- Mostly web packshots and product photos.
+
+## wine-images-126k/ : wine bottle packshots
+
+- Source: https://huggingface.co/datasets/cipher982/wine-images-126k. Licence: CC BY 4.0 (`LICENSE`). Scraped from wine retailer sites.
+- Images: 107,821 in 24 parquet shards `data/train-*.parquet`, columns `image_id, image (bytes), wine_name`. 5.8 GB. The duplicate tar `shards/` folder was deleted.
+- Classes: every `wine_name` is unique, so one image per wine: an instance-retrieval / contrastive set, not a multi-shot classifier set. Companion text (producer, region, price) at `cipher982/wine-text-126k`, keyed by `image_id`, not downloaded.
+
+## openimages-bottles/ : Open Images V7 images with Bottle, Wine or Beer boxes
+
+- Source: Open Images (https://storage.googleapis.com/openimages/web/index.html). Box CSVs from `storage.googleapis.com/openimages/v5|v6/*-annotations-bbox.csv`, images from the public bucket `open-images-dataset.s3.amazonaws.com/<split>/<id>.jpg`. Licence: annotations CC BY 4.0, images listed by Google as CC BY 2.0 (Flickr, per-image attribution).
+- Classes: 3 box labels, `Bottle` (/m/04dr76w), `Wine` (/m/081qc), `Beer` (/m/01599). Every image with at least one such box in validation, test and train.
+- Layout: `images/{validation,test,train}/<ImageID>.jpg`; `boxes.csv` = split, label, plus the original Open Images columns (normalised XMin/XMax/YMin/YMax, IsOccluded, IsTruncated, IsGroupOf, IsDepiction, IsInside), only for images on disk. `meta/bb-*.csv` are the filtered source CSVs, `meta/fetch.py` re-runs the resumable download.
+- Use: generic bottle detection/crops and negatives (c). No brand labels.
