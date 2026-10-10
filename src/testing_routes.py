@@ -100,6 +100,8 @@ def leaderboard():
         f = DATA / Path(r.get("predictions_file", "")).name
         row["bottles_found"] = bottles_found(f, truth) if f.is_file() and f.suffix == ".csv" else None
         out.append(row)
+    import judge_routes  # noqa: PLC0415  human-judged bar accuracy, live from data/test_bars/judgements.csv
+    out += judge_routes.leaderboard_rows()
     key = lambda x: (x["brand_recall"] is None, -(x["brand_recall"] or 0))
     return {"valid": sorted((r for r in out if r["valid"]), key=key),
             "invalid": sorted((r for r in out if not r["valid"]), key=key)}

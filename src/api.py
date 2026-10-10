@@ -42,6 +42,8 @@ import testing_routes  # noqa: E402  Testing tab: /testing and /api/test (read-o
 app.include_router(testing_routes.router)
 import data_routes  # noqa: E402  Data tab: /data and /api/data (read-only)
 app.include_router(data_routes.router)
+import judge_routes  # noqa: E402  Judge tab: /judge and /api/judge (one append-only POST)
+app.include_router(judge_routes.router)
 _local_lock = threading.Lock()  # one torch inference at a time
 
 
