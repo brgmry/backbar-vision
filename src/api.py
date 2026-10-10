@@ -2,7 +2,10 @@
 
 Usage (from the repo root, data/ paths are relative):
     .venv/bin/uvicorn api:app --app-dir src
-    curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local'
+    curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:opus'
+
+Fill runs on alcohol bottles only (other rows keep fill null): crop clearing (qc.GeometryQC) first, then the
+fill estimator named by `fill` (see fill.py; `none` skips it).
 """
 import io
 import os
@@ -31,6 +34,7 @@ _local_lock = threading.Lock()  # one torch inference at a time
 class BottleOut(identify.Bottle):
     glass: Literal["clear", "green", "amber", "frosted", "opaque"] | None  # the local pipeline doesn't read glass
     id_source: Literal["label", "shape", "reference"]
+    fill_note: str | None = None  # why fill is null: crop rejected, not alcohol, line not visible
 
 
 class PhotoOut(BaseModel):
@@ -132,9 +136,39 @@ def preview(image: UploadFile) -> Response:
     return Response(buf.getvalue(), media_type="image/jpeg", headers={"X-Width": str(width), "X-Height": str(height)})
 
 
+def add_fill(path: Path, bottles: list[BottleOut], spec: str) -> None:
+    """Fill level for each alcohol bottle, in place: re-crop at full resolution, clear the crop, estimate."""
+    from experiment import ALCOHOL, padded_crop
+    from fill import get_estimator
+    from qc import GeometryQC
+
+    estimator = get_estimator(spec)
+    photo = Image.open(path).convert("RGB")
+    for b in bottles:
+        if b.category not in ALCOHOL:
+            b.fill_note = "not alcohol"
+            continue
+        crop, box = padded_crop(photo, b.bbox)
+        item = b.model_dump()
+        with _local_lock:
+            verdict = GeometryQC().check(crop, box, item, None)
+            if not verdict.ok:
+                b.fill_ml, b.fill_visible, b.fill_note = None, False, f"crop rejected: {verdict.reason}"
+                continue
+            try:
+                f = estimator.estimate(crop, box, item)
+            except (anthropic.APIStatusError, anthropic.APIConnectionError, RuntimeError) as e:
+                b.fill_note = f"fill failed: {e}"
+                continue
+        b.fill_ml, b.fill_visible = f.fill_ml, f.visible
+        b.fill_note = None if f.visible else "liquid line not visible"
+
+
 @app.post("/identify", response_model=PhotoOut)
-def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "local") -> PhotoOut:
-    """One photo of bottles -> every stock bottle, left to right. pipeline=local needs no API key."""
+def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "local",
+                   fill: str = "geometry:opus") -> PhotoOut:
+    """One photo of bottles -> every stock bottle, left to right, with fill level for alcohol bottles.
+    pipeline=local needs no API key; fill=none skips fill, which then needs no API key either."""
     name = Path(image.filename or "").name or "upload"
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / name
@@ -144,4 +178,9 @@ def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "lo
         except UnidentifiedImageError:
             raise HTTPException(400, f"{name} is not an image")
         bottles = identify_local(path) if pipeline == "local" else identify_claude(path)
+        if fill != "none":
+            try:
+                add_fill(path, bottles, fill)
+            except ValueError as e:  # unknown fill spec
+                raise HTTPException(400, str(e))
     return PhotoOut(image=name, pipeline=pipeline, bottles=bottles)
