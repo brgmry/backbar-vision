@@ -8,13 +8,13 @@
 - Dedup: pHash, Hamming <= 6 within a brand, <= 2 across brands. Images within distance 6 of `data/test_bars/phashes.txt` are removed (no train/test overlap).
 - Labels are **weak**: brand = the search query. Many images show several brands on a shelf, some are packshots or watermarked stock. Use for contrastive pre-training or with a detector crop + filter, not as clean classification labels. Licence "unknown" (DDG) images are for internal research use only, never redistribute.
 
-## winesensed/ : WineSensed (Vivino user photos of wine labels), 8 of 24 shards
+## winesensed/ : WineSensed (Vivino user photos of wine labels), all 24 shards
 
 - Source: https://huggingface.co/datasets/christopher/winesensed (NeurIPS 2023 D&B, "Learning to Taste", Bender et al.). Licence **CC BY-NC-ND 4.0** (research only, no derivatives redistributed).
-- On disk: `data/wines/train-0000{0..7}-of-00024.parquet` (shards picked by index, not content), 12 GB. 338,214 rows, 336,568 unique images, 205,360 `vintage_id`s. Columns: image (bytes), review, wine, year, wine_alcohol, country, region, price, rating, grape, vintage_id, vintage_page_url, winery_id.
+- On disk: `data/wines/train-000NN-of-00024.parquet`, all 24 shards, ~36 GB, kept as parquet (images as bytes). The first 8 shards hold 338,214 rows, 336,568 unique images and 205,360 `vintage_id`s; the full set is ~897k images. Columns: image (bytes), review, wine, year, wine_alcohol, country, region, price, rating, grape, vintage_id, vintage_page_url, winery_id.
 - Class label for retrieval: `vintage_id` (or `winery_id` for coarser). Mostly one phone photo per vintage, so it is a long-tail, few-shot set: good for contrastive pre-training of label embeddings, not for classification.
-- `one-shot-benchmark/`: github.com/EdenHuang/winesensed-one-shot-benchmark (image-free split files and hashes for a 1,000-class one-shot wine label retrieval benchmark on WineSensed; companion to arXiv 2404.08820). No licence file. Its splits reference the full 24-shard set, so some classes are missing from our 8 shards.
-- Rest of the shards: `hf download christopher/winesensed data/wines/train-000NN-of-00024.parquet --repo-type dataset --local-dir winesensed` (~1.5 GB each).
+- `one-shot-benchmark/`: github.com/EdenHuang/winesensed-one-shot-benchmark (image-free split files and hashes for a 1,000-class one-shot wine label retrieval benchmark on WineSensed; companion to arXiv 2404.08820). No licence file.
+- Fetch: `set -a; . ./.env; set +a; hf download christopher/winesensed --repo-type dataset --local-dir data/external/winesensed --include "data/wines/*"`.
 
 ## beer-classification-ru/ : Russian retail beer bottles and cans
 
@@ -37,11 +37,14 @@
 - Source: https://huggingface.co/datasets/mlnomad/imnet1k_wine_bottle and `.../imnet1k_beer_bottle` (ImageNet-1k subsets). ImageNet terms: **non-commercial research only**.
 - 2,700 images (1,350 per class; train + validation 50 each). Layout `<class>/{train,validation}/NNNNN.jpg`. 312 MB. Generic in-the-wild bottles, no brand labels: negatives, detector or domain pre-training only.
 
-## whiskey-classification/ : Scotch whisky bottle photos (val + test splits only, download in progress)
+## whiskey-classification/ : Scotch whisky bottle photos (YOLO split, 20 classes)
 
 - Source: https://huggingface.co/datasets/spacenship/whiskeyClassification (DGIST summer intern project, 2025). **No licence or card**: internal research only.
-- Repo is 81 GB of PNG. `dataset/` is the YOLO-style split: 20 numeric classes, 350 train / 100 val / 50 test images per class (10,000 total, 22.6 GB) with `labels/*.txt`. A separate `labels/<name>/` tree has 12 named classes (benriach 12, benromach 10, dalmore 12/15, glenallachie 10cs/15, glengrant 15, glenlivet 12/15, kione tiger, macallan 12, monkey shoulder; ~26k PNG, 58 GB). Numeric id to name mapping is not published; `labeling.py` lists 57 candidate whisky names.
-- Taking only `dataset/images/{val,test}` + `dataset/labels/{val,test}` (3,000 images, ~6.8 GB): anonymous HF requests are rate-limited per IP (429 while other agents were downloading), so the 10k-file train split was skipped. Resume: `hf download spacenship/whiskeyClassification --repo-type dataset --local-dir whiskey-classification --include "dataset/images/val/*" --include "dataset/images/test/*" --include "dataset/labels/val/*" --include "dataset/labels/test/*" --max-workers 4`. With an `HF_TOKEN` the train split is feasible too.
+- Repo is 81 GB of PNG. We take only `dataset/` (the YOLO-style split): 20 classes, 350 train / 100 val / 50 test images per class, 10,000 images with YOLO `labels/<split>/*.txt`, plus `labeling.py`. Skipped: the `labels/<name>/` raw-frame tree (12 classes, ~26k PNG, 58 GB), which duplicates the same videos.
+- PNGs (22.6 GB) are converted in place to JPEG q95 (`src/external/png_to_jpg.py`) to stay under ~20 GB.
+- **Class mapping** `classes.csv`: file prefix `N_` is `whiskey_list.index(name) + 1` from the repo's `makeDataset.py`. I verified it for 12 of 20 classes by matching LFS sha256 of `dataset/images` files against the named `labels/<name>/` tree (all 500 images per class matched). The other 8 (ardbeg 5, ardbeg 10, balvenie 12/14, glendronach 12/15, glenfiddich 12/15) rely on the script only.
+- `makeDataset.py` keeps every 5th of each class's sequentially numbered captures, so near-duplicates within a class are common: split by class or video, not by frame, for any eval.
+- Fetch: `set -a; . ./.env; set +a; hf download spacenship/whiskeyClassification --repo-type dataset --local-dir data/external/whiskey-classification --include "dataset/*" --include "labeling.py"`, then `python src/external/png_to_jpg.py data/external/whiskey-classification/dataset`.
 - Brands chosen by the dataset author, not by us. Check overlap with our inventory only when scoring, never filter on it.
 
 ## ttb-cola-spirits/ : US TTB COLA public registry label images (spirits)
