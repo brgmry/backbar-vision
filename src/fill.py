@@ -20,6 +20,7 @@ height on the bottle axis is the ellipse's middle row, where it meets the side w
 taken where the surface meets the walls, and the base is the widest row near the bottom, not the lowest
 pixel (that is the front of the base ellipse). The base ellipse's depth also gives the camera elevation.
 """
+import hashlib
 import os
 from dataclasses import dataclass, field
 from functools import cache
@@ -64,7 +65,9 @@ def size_ml(item: dict) -> float:
 
 
 def describe(item: dict) -> str:
-    return f"{item['brand']} {item['product']}, {item['size']}{item['unit']}, {item['liquid']}".strip()
+    if not item.get("product"):
+        return "an unidentified bottle"
+    return f"{item['brand'] or ''} {item['product']}, {item['size']}{item['unit']}, {item['liquid']}".strip()
 
 
 # --- VLM estimates ml directly -------------------------------------------------------------------
@@ -145,8 +148,31 @@ def _segment(crop_bytes: bytes, size: tuple[int, int], box: tuple) -> np.ndarray
     return ndimage.binary_fill_holes(mask)
 
 
+_given: dict[tuple, np.ndarray] = {}  # outlines already found for a crop (find.py's whole-photo SAM 3 pass)
+
+
+def outline_key(crop: Image.Image, box) -> tuple:
+    return hashlib.md5(crop.convert("RGB").tobytes()).hexdigest(), tuple(round(v) for v in box)
+
+
+def give_outline(crop: Image.Image, box, mask: np.ndarray) -> tuple:
+    """Hand segment() an outline for this crop and box, so it doesn't run SAM again. Returns the key, for drop_outline."""
+    key = outline_key(crop, box)
+    _given[key] = mask
+    return key
+
+
+def drop_outline(key: tuple) -> None:
+    _given.pop(key, None)
+
+
 def segment(crop: Image.Image, box: tuple) -> np.ndarray:
-    """Bottle mask inside the crop: SAM 3 outline, else SAM 2.1 prompted with the box. Cached: estimators share it."""
+    """Bottle mask inside the crop: an outline given by give_outline(), else SAM 3, else SAM 2.1 prompted with the
+    box. Cached: estimators share it."""
+    if _given:
+        given = _given.get(outline_key(crop, box))
+        if given is not None:
+            return given
     crop = crop.convert("RGB")
     mask = _segment_sam3(crop.tobytes(), crop.size, box) if OUTLINE == "sam3" else None
     return mask if mask is not None else _segment(crop.tobytes(), crop.size, box)

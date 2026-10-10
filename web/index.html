@@ -142,7 +142,7 @@ body.dragging.viewing .dragmask { opacity: 1; }
     bottle <em>vision</em>
   </div>
   <div class="seg" id="seg" data-p="local" role="radiogroup" aria-label="Pipeline">
-    <button role="radio" aria-checked="true" data-p="local" title="OWLv2 + DINOv2 on this machine">Local</button>
+    <button role="radio" aria-checked="true" data-p="local" title="SAM 3 finds every bottle; not identified yet">Local</button>
     <button role="radio" aria-checked="false" data-p="claude" title="Claude vision baseline">Claude</button>
   </div>
 </header>
@@ -188,8 +188,8 @@ const el = { seg: $("seg"), drop: $("drop"), shelf: $("shelf"), hint: $("hint"),
 
 const COLORS = { spirit: "#f0a43a", liqueur: "#c38bff", wine: "#ef5d72", beer: "#f4d35e", mixer: "#4fd1c5", soft_drink: "#9be15d",
   syrup: "#e0915a", sauce: "#ff6b4a", dairy: "#ece6da", oil: "#c3c96b", other: "#9a9086" };
-const SOURCE = { label: "Read off the label", shape: "Guessed from shape", reference: "Matched to a reference" };
-const HINTS = { local: "Local runs OWLv2 and DINOv2 on this machine. Nothing leaves it.",
+const SOURCE = { label: "Read off the label", shape: "Guessed from shape", reference: "Matched to a reference", none: "Not identified yet" };
+const HINTS = { local: "Local finds every bottle with SAM 3 on this machine; names come later. Fill asks Claude where the liquid line is.",
   claude: "Claude reads every label. Needs ANTHROPIC_API_KEY in .env." };
 const TO_ML = { ml: 1, g: 1, pint: 568 };
 const BOTTLE = "M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z";
@@ -395,17 +395,17 @@ function card(b, i) {
   const known = b.fill_ml != null && ml > 0;
   const fill = known ? clamp(b.fill_ml / ml, 0, 1) : 0;
   const size = `${+b.size} ${b.unit === "pint" && +b.size !== 1 ? "pints" : b.unit}`;
-  const tags = [SOURCE[b.id_source] ?? b.id_source, known && `${Math.round(b.fill_ml)} ml left`].filter(Boolean);
+  const tags = [SOURCE[b.id_source] ?? b.id_source, known && `${Math.round(b.fill_ml)} ml left`, !known && b.fill_note].filter(Boolean);
   return `<li class="card" style="--i:${i};--c:${COLORS[b.category] ?? COLORS.other}">
     <span class="num">${b.position}</span>
     <div>
-      <div class="maker">${esc(b.brand || "Unknown brand")}</div>
-      <div class="product">${esc(b.product)}</div>
-      <div class="meta">${esc(b.category.replace("_", " "))} · ${esc(size)} · ${esc(b.liquid)}</div>
+      <div class="maker">${esc(b.brand || (b.product ? "Unknown brand" : "Not identified yet"))}</div>
+      <div class="product">${esc(b.product || "Bottle")}</div>
+      <div class="meta">${[b.category.replace("_", " "), size, b.liquid].filter(Boolean).map(esc).join(" · ")}</div>
       ${b.description ? `<div class="meta"><i>${esc(b.description)}</i></div>` : ""}
       <div class="tags">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
     </div>
-    <div class="gauge${known ? "" : " unknown"}" title="${known ? `${Math.round(b.fill_ml)} ml of ${esc(size)}` : "Liquid line not visible"}">
+    <div class="gauge${known ? "" : " unknown"}" title="${known ? `${Math.round(b.fill_ml)} ml of ${esc(size)}` : esc(b.fill_note || "Liquid line not visible")}">
       ${bottleSvg(BOTTLE, 14, fill, `gauge${i}`)}
       <span>${known ? `${Math.round(fill * 100)}%` : "?"}</span>
     </div>
