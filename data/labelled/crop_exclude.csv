@@ -1,0 +1,14 @@
+image,bbox,product,reason
+IMG_6339.HEIC,"[2539, 2468, 188, 414]",Black Label 12 Year Old,"neck outside the box, no 100% line"
+IMG_6339.HEIC,"[3537, 2235, 200, 367]",Carta Blanca Superior White Rum,box covers the top half only
+IMG_6340.HEIC,"[2575, 2230, 176, 269]",No. 18,box covers the top half only
+IMG_6340.HEIC,"[3123, 1985, 143, 474]",Black Label 12 Year Old,mostly hidden behind the Schweppes bottle
+IMG_6340.HEIC,"[3261, 2299, 240, 823]",Carta Blanca Superior White Rum,occluded by the squash bottle
+IMG_6340.HEIC,"[3675, 2399, 57, 86]",Vinho da Madeira Doce,box is the cap only
+IMG_6341.HEIC,"[2606, 2111, 217, 455]",Black Label 12 Year Old,wrong bottle: box holds No. 18 (matcher error)
+IMG_6341.HEIC,"[2970, 2049, 186, 566]",No. 18,"wrong region: box is a fragment, not the bottle (matcher error)"
+IMG_6343.HEIC,"[2663, 2399, 178, 750]",Black Label 12 Year Old,occluded by neighbouring bottles
+IMG_6343.HEIC,"[2775, 2299, 88, 209]",Vinho da Madeira Doce,lower half hidden behind the Johnnie Walker cap
+IMG_6345.HEIC,"[2894, 2004, 83, 269]",Vinho da Madeira Doce,lower half hidden behind the Johnnie Walker cap
+IMG_6346.HEIC,"[2530, 2461, 212, 255]",No. 18,box cuts off cap and base
+IMG_6346.HEIC,"[2818, 2206, 93, 250]",Vinho da Madeira Doce,lower half hidden behind the Johnnie Walker cap
