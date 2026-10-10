@@ -196,7 +196,7 @@ def add_fill(photo: Image.Image, bottles: list[BottleOut], estimator) -> None:
                 b.fill_note = f"fill failed: {e}"
                 return
         b.fill_ml, b.fill_visible = f.fill_ml, f.visible
-        b.fill_note = None if f.visible else "liquid line not visible"
+        b.fill_note = None if f.visible else (f.note or "liquid line not visible")
 
     given = []
     with ThreadPoolExecutor(max_workers=FILL_WORKERS) as pool:
