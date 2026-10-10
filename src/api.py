@@ -1,9 +1,10 @@
-"""HTTP API over both pipelines: one photo in, the shared output schema out.
+"""HTTP API over both pipelines: one photo in, the shared output schema out. Web UI at /.
 
 Usage (from the repo root, data/ paths are relative):
     .venv/bin/uvicorn api:app --app-dir src
     curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local'
 """
+import io
 import os
 import tempfile
 import threading
@@ -13,12 +14,15 @@ from typing import Literal
 
 import anthropic
 from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi.responses import FileResponse, Response
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel
 
 import identify  # also registers the HEIC opener and loads .env
 
 K = 3  # reference crops per item, the best k in match.py's eval
+WEB = Path(__file__).resolve().parent.parent / "web"
+PREVIEW_SIDE = 2400
 
 app = FastAPI(title="bottle-vision")
 _local_lock = threading.Lock()  # one torch inference at a time
@@ -79,7 +83,7 @@ def identify_local(path: Path) -> list[BottleOut]:
     for pos, (item, (s, (x1, y1, x2, y2))) in enumerate(sorted(best.items(), key=lambda kv: kv[1][1][0]), 1):
         inv = match.inventory[item]
         bottles.append(BottleOut(
-            position=pos, description=f"sim {s:.2f}", bbox=[round(v * scale) for v in (x1, y1, x2 - x1, y2 - y1)],
+            position=pos, description=f"{s:.0%} similar to a reference crop", bbox=[round(v * scale) for v in (x1, y1, x2 - x1, y2 - y1)],
             brand=inv["brand"], product=inv["product"], category=inv["category"], liquid=inv["liquid"],
             size=inv["size"], unit=inv["unit"], glass=None, fill_ml=None, id_source="reference", fill_visible=False,
         ))
@@ -103,9 +107,29 @@ def identify_claude(path: Path) -> list[BottleOut]:
     return [BottleOut(**b.model_dump()) for b in bottles]
 
 
+@app.get("/", include_in_schema=False)
+def index() -> FileResponse:
+    return FileResponse(WEB / "index.html")
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
+
+
+@app.post("/preview")
+def preview(image: UploadFile) -> Response:
+    """The photo as a JPEG any browser can show (HEIC included), plus the original size the bboxes refer to."""
+    try:
+        img = Image.open(image.file)
+        width, height = img.size
+        img = img.convert("RGB")
+    except UnidentifiedImageError:
+        raise HTTPException(400, f"{image.filename} is not an image")
+    img.thumbnail((PREVIEW_SIDE, PREVIEW_SIDE))
+    buf = io.BytesIO()
+    img.save(buf, "JPEG", quality=85)
+    return Response(buf.getvalue(), media_type="image/jpeg", headers={"X-Width": str(width), "X-Height": str(height)})
 
 
 @app.post("/identify", response_model=PhotoOut)
