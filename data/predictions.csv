@@ -1,0 +1,415 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"squeezy ketchup bottle, red label, white cap upside down","[1399, 2408, 222, 419]",Waitrose Essential,Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,150.0,label,True
+1,IMG_6339.HEIC,2,"large plastic milk jug, blue cap","[1606, 2157, 375, 707]",Waitrose,Semi Skimmed Milk,dairy,milk,4.0,pint,opaque,,shape,False
+1,IMG_6339.HEIC,3,"tall clear syrup bottle, brown liquid, black cap","[1978, 2153, 200, 696]",Sweetbird,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+1,IMG_6339.HEIC,4,"dark bottle, white label, black cap","[2178, 2222, 182, 627]",Fever-Tree,Espresso Martini Mixer,mixer,coffee cocktail mixer,500.0,ml,clear,350.0,label,True
+1,IMG_6339.HEIC,5,"flat clear bottle, pink liquid, black cap, tree label","[2353, 2328, 200, 517]",Unknown,Pink Gin,spirit,pink gin,500.0,ml,clear,120.0,shape,True
+1,IMG_6339.HEIC,6,"square whisky bottle, black label","[2543, 2186, 204, 692]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,250.0,label,True
+1,IMG_6339.HEIC,7,"large plastic water bottle, blue label","[2739, 2087, 277, 801]",Schweppes,Soda Water,mixer,soda water,1500.0,ml,clear,1300.0,label,True
+1,IMG_6339.HEIC,8,"plastic bottle, orange squash","[2980, 2310, 280, 612]",Lindhouse,Quadruple Strength Orange Squash,syrup,orange squash,1000.0,ml,clear,350.0,label,True
+1,IMG_6339.HEIC,9,tiny green miniature bottle,"[3220, 2594, 102, 277]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+1,IMG_6339.HEIC,10,"dark brown bottle, round coffee label","[3304, 2237, 233, 667]",Coffee Liqueur,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+1,IMG_6339.HEIC,11,"clear rum bottle, red cap, bat logo","[3486, 2182, 255, 747]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,400.0,label,True
+1,IMG_6339.HEIC,12,"sriracha squeeze bottle, green cap","[3668, 2393, 204, 514]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+1,IMG_6340.HEIC,1,"Waitrose squeezy tomato ketchup, upside-down, red cap","[1851, 2372, 255, 430]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,460.0,g,clear,120.0,label,True
+1,IMG_6340.HEIC,2,"White plastic milk jug, blue label","[2106, 2262, 415, 794]",Waitrose,British Milk,dairy,milk,4.0,pint,opaque,1800.0,shape,True
+1,IMG_6340.HEIC,3,"Small clear flask bottle with pink liquid, black cap, behind","[2576, 2211, 175, 528]",Unknown,Pink gin,spirit,gin,500.0,ml,clear,120.0,shape,True
+1,IMG_6340.HEIC,4,"Coffee syrup bottle, black cap, white label, chocolate caramel","[2688, 2229, 219, 761]",Coffee Prima,Chocolate Caramel Syrup,syrup,syrup,700.0,ml,clear,550.0,label,True
+1,IMG_6340.HEIC,5,"Large plastic Schweppes soda water bottle, light blue label","[2878, 1989, 284, 860]",Schweppes,Soda Water,mixer,soda water,1500.0,ml,clear,1300.0,label,True
+1,IMG_6340.HEIC,6,"Bacardi Carta Blanca white rum, clear bottle, red cap, front","[3238, 2317, 262, 871]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,400.0,label,True
+1,IMG_6340.HEIC,7,"Square whisky bottle, black label, behind","[3136, 1985, 131, 699]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,300.0,label,True
+1,IMG_6340.HEIC,8,"Plastic bottle, yellow cap, cloudy lemonade/tonic, behind Bacardi","[3402, 2215, 197, 627]",Unknown,Lemonade,soft_drink,lemonade,1000.0,ml,clear,700.0,shape,True
+1,IMG_6340.HEIC,9,Black Kahlua-style coffee liqueur bottle,"[3592, 2313, 291, 750]",Coffee Liqueur,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+1,IMG_6340.HEIC,10,"Sriracha hot chilli sauce, green cap","[3872, 2299, 233, 554]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,350.0,label,True
+1,IMG_6340.HEIC,11,"Dark rum bottle behind milk, black cap, amber liquid","[2342, 2113, 168, 401]",Unknown,Spiced Rum,spirit,rum,700.0,ml,clear,,shape,False
+1,IMG_6341.HEIC,1,"white plastic milk jug, blue cap label","[2058, 2022, 437, 820]",Waitrose,Essential Whole Milk,dairy,milk,2.0,pint,opaque,950.0,label,True
+1,IMG_6341.HEIC,2,"small squeezy ketchup bottle, red cap","[2404, 2157, 226, 437]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,150.0,label,True
+1,IMG_6341.HEIC,3,"small clear bottle with pink liquid, black cap","[2630, 2102, 211, 565]",Unknown,Pink syrup,syrup,syrup,200.0,ml,clear,70.0,shape,True
+1,IMG_6341.HEIC,4,"tall syrup bottle, brown liquid, white label, black cap","[2798, 2087, 240, 809]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,600.0,label,True
+1,IMG_6341.HEIC,5,"square whisky bottle, black label","[3155, 2058, 233, 794]",Johnnie Walker,Black Label 12,spirit,whisky,700.0,ml,clear,400.0,label,True
+1,IMG_6341.HEIC,6,"plastic bottle of orange squash, yellow cap","[3446, 2149, 346, 710]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,800.0,label,True
+1,IMG_6341.HEIC,7,"small dark bottle, white label, back left","[2313, 1832, 189, 382]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+1,IMG_6341.HEIC,8,"large plastic bottle, white cap, yellow label","[2594, 1639, 291, 619]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,800.0,label,True
+1,IMG_6341.HEIC,9,tiny green glass bottle,"[2943, 1931, 95, 291]",Unknown,Miniature,other,unknown,50.0,ml,green,,shape,False
+1,IMG_6341.HEIC,10,"sriracha bottle, green cap, red sauce","[3031, 1676, 182, 546]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+1,IMG_6341.HEIC,11,"clear rum bottle, white label, red bat logo","[3206, 1432, 211, 783]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,500.0,label,True
+1,IMG_6341.HEIC,12,"dark round bottle, gold coffee liqueur label","[3424, 1556, 237, 692]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+1,IMG_6342.HEIC,1,"large milk jug, white cap, blue label","[2029, 1902, 452, 849]",Unknown,Semi-skimmed milk,dairy,milk,2.0,pint,opaque,900.0,shape,True
+1,IMG_6342.HEIC,2,"small can behind milk, white with red","[2386, 2014, 146, 437]",Unknown,Can,soft_drink,soft drink,330.0,ml,opaque,,shape,False
+1,IMG_6342.HEIC,3,"clear square bottle, black cap, pink liquid","[2521, 1953, 233, 586]",Unknown,Pink gin,spirit,gin,700.0,ml,clear,150.0,shape,True
+1,IMG_6342.HEIC,4,"syrup bottle, brown liquid, Cafe Plus label","[2725, 1956, 244, 827]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+1,IMG_6342.HEIC,5,"square whisky bottle, black label","[3093, 1909, 244, 816]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,550.0,label,True
+1,IMG_6342.HEIC,6,"plastic squash bottle, yellow cap, orange liquid","[3392, 1996, 361, 729]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,550.0,label,True
+1,IMG_6342.HEIC,7,"dark bottle, gold cap, back left","[2189, 1668, 189, 339]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,clear,,shape,False
+1,IMG_6342.HEIC,8,"large plastic tonic bottle, Schweppes","[2481, 1457, 306, 674]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,400.0,label,True
+1,IMG_6342.HEIC,9,"sriracha bottle, green cap","[2932, 1486, 189, 583]",Huy Fong,Sriracha Hot Chilli Sauce,sauce,chilli sauce,481.0,g,clear,350.0,label,True
+1,IMG_6342.HEIC,10,small green miniature bottle,"[2841, 1767, 98, 291]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+1,IMG_6342.HEIC,11,"clear rum bottle, white label","[3115, 1239, 233, 820]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,250.0,label,True
+1,IMG_6342.HEIC,12,"dark bottle, black cap, coffee liqueur label","[3348, 1355, 251, 729]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+1,IMG_6343.HEIC,1,"white plastic milk jug, blue label","[2029, 2368, 390, 772]",Supermarket,Semi-Skimmed Milk 4 pint,dairy,milk,2272.0,ml,opaque,,shape,False
+1,IMG_6343.HEIC,2,"small clear flask bottle, pink liquid, black cap","[2470, 2430, 226, 539]",Unknown,Pink Gin,spirit,pink gin,200.0,ml,clear,60.0,shape,True
+1,IMG_6343.HEIC,3,"square amber whisky bottle, black label","[2699, 2404, 204, 750]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,,label,False
+1,IMG_6343.HEIC,4,"syrup bottle, brown, black cap, cream label","[2954, 2397, 222, 754]",Cafe Plus,Chocolate Caramel Cheesecake Syrup,syrup,syrup,1000.0,ml,clear,,label,False
+1,IMG_6343.HEIC,5,"plastic bottle of yellow squash, white cap","[3297, 2484, 313, 667]",Lindvalls,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,350.0,label,True
+1,IMG_6343.HEIC,6,small dark liqueur bottle behind milk,"[2215, 2182, 146, 299]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+1,IMG_6343.HEIC,7,red/white can behind milk,"[2361, 2484, 109, 401]",Unknown,Rose Lemonade,soft_drink,soft drink,330.0,ml,opaque,,shape,False
+1,IMG_6343.HEIC,8,"large plastic tonic bottle, yellow label, blue cap","[2455, 2004, 266, 601]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,600.0,label,True
+1,IMG_6343.HEIC,9,small green miniature bottle,"[2776, 2284, 95, 255]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+1,IMG_6343.HEIC,10,"sriracha squeeze bottle, green cap","[2852, 2051, 171, 510]",Huy Fong,Sriracha Hot Chilli Sauce,sauce,chilli sauce,481.0,g,clear,,label,False
+1,IMG_6343.HEIC,11,"clear rum bottle, white label, red bat logo","[3016, 1840, 197, 692]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,150.0,label,True
+1,IMG_6343.HEIC,12,"dark round bottle, white coffee liqueur label","[3224, 1942, 208, 619]",Mr Black,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+1,IMG_6345.HEIC,1,"White plastic milk jug, blue label","[2175, 2084, 364, 729]",Unknown,Semi-skimmed milk,dairy,milk,2.0,pint,opaque,,shape,False
+1,IMG_6345.HEIC,2,Pink/white can behind milk,"[2484, 2186, 117, 401]",Unknown,Rose tonic,mixer,tonic water,330.0,ml,opaque,,shape,False
+1,IMG_6345.HEIC,3,"Small clear flask bottle with orange liquid, black cap","[2594, 2149, 211, 510]",Unknown,Aperitivo,liqueur,orange aperitif,200.0,ml,clear,70.0,shape,True
+1,IMG_6345.HEIC,4,"Square dark bottle, black label, 12","[2812, 2113, 189, 721]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,amber,,label,False
+1,IMG_6345.HEIC,5,"Brown syrup bottle, cream label, black cap","[3053, 2113, 219, 721]",Café Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,opaque,,label,False
+1,IMG_6345.HEIC,6,"Plastic bottle orange squash, yellow label, white cap","[3388, 2186, 306, 663]",Robinsons,Quadruple Strength Orange,syrup,orange squash,1000.0,ml,clear,850.0,label,True
+1,IMG_6345.HEIC,7,Small dark bottle behind milk,"[2346, 1905, 153, 291]",Angostura,Aromatic Bitters,other,bitters,200.0,ml,opaque,,shape,False
+1,IMG_6345.HEIC,8,"Clear plastic bottle, yellow Schweppes label","[2579, 1741, 262, 590]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,900.0,label,True
+1,IMG_6345.HEIC,9,Small green glass bottle,"[2892, 2004, 87, 255]",Unknown,Olive oil,oil,olive oil,250.0,ml,green,,shape,False
+1,IMG_6345.HEIC,10,"Red sauce bottle, green cap","[2973, 1778, 160, 408]",Huy Fong,Sriracha,sauce,chilli sauce,435.0,ml,opaque,,label,False
+1,IMG_6345.HEIC,11,"Clear rum bottle, white label, bat logo","[3126, 1574, 204, 721]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+1,IMG_6345.HEIC,12,"Dark bottle, round coffee label","[3330, 1676, 204, 619]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+1,IMG_6346.HEIC,1,"white plastic milk jug, blue label","[2116, 2291, 375, 736]",Unknown,Semi-Skimmed Milk 2 Pints,dairy,milk,2.0,pint,opaque,,shape,False
+1,IMG_6346.HEIC,2,pink drink can behind milk,"[2419, 2393, 117, 364]",Unknown,Rosé spritz can,wine,rosé wine spritz,250.0,ml,opaque,,shape,False
+1,IMG_6346.HEIC,3,"small clear square bottle, pinkish-orange liquid","[2528, 2346, 219, 514]",Unknown,Spirit,liqueur,liqueur,350.0,ml,clear,120.0,shape,True
+1,IMG_6346.HEIC,4,"square dark bottle, black label, 12","[2747, 2320, 200, 710]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,350.0,ml,clear,300.0,label,True
+1,IMG_6346.HEIC,5,"tall syrup bottle, black cap, caramel label","[3002, 2317, 208, 710]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,700.0,ml,clear,600.0,label,True
+1,IMG_6346.HEIC,6,"plastic bottle orange squash, green label","[3322, 2390, 299, 638]",Lindavia,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,600.0,label,True
+1,IMG_6346.HEIC,7,"small dark bottle behind milk, red cap","[2280, 2113, 146, 291]",Angostura,Aromatic Bitters,other,bitters,200.0,ml,amber,,shape,False
+1,IMG_6346.HEIC,8,"large plastic bottle, blue/yellow Schweppes label","[2510, 1949, 255, 546]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,800.0,label,True
+1,IMG_6346.HEIC,9,small green bottle,"[2834, 2200, 80, 255]",Tabasco,Green Jalapeño Sauce,sauce,hot sauce,60.0,ml,clear,,shape,False
+1,IMG_6346.HEIC,10,"sriracha squeeze bottle, green cap, red sauce","[2896, 1978, 164, 492]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+1,IMG_6346.HEIC,11,"clear bottle, white Bacardi label","[3049, 1778, 189, 656]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,400.0,label,True
+1,IMG_6346.HEIC,12,"dark bottle, round gold coffee label","[3246, 1876, 208, 601]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+2,IMG_6339.HEIC,1,"squeezy ketchup bottle, red label, upside down","[1399, 2408, 222, 419]",Essential Waitrose,Tomato Ketchup,sauce,tomato ketchup,500.0,g,opaque,,label,False
+2,IMG_6339.HEIC,2,"large white plastic milk jug, blue cap","[1606, 2157, 375, 707]",Waitrose,Semi Skimmed Milk,dairy,milk,4.0,pint,opaque,,label,False
+2,IMG_6339.HEIC,3,"clear bottle of brown syrup, black pump cap, white label","[1978, 2149, 204, 699]",Sweetbird,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+2,IMG_6339.HEIC,4,"dark bottle, black cap, Fever-Tree label","[2178, 2218, 186, 627]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500.0,ml,clear,400.0,label,False
+2,IMG_6339.HEIC,5,"small flat clear bottle, pink liquid near bottom, black cap","[2357, 2324, 197, 521]",Unknown,Pink Gin,spirit,gin,500.0,ml,clear,100.0,shape,True
+2,IMG_6339.HEIC,6,"square bottle, amber whisky, black label","[2543, 2182, 204, 692]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,300.0,label,True
+2,IMG_6339.HEIC,7,"large clear plastic water bottle, blue label","[2739, 2087, 277, 801]",Schweppes,Soda Water,mixer,soda water,1500.0,ml,clear,1300.0,label,True
+2,IMG_6339.HEIC,8,"plastic bottle orange squash, white cap","[2980, 2310, 280, 612]",Lindhouse,Quadruple Strength Orange Squash,soft_drink,orange squash,1000.0,ml,clear,300.0,label,True
+2,IMG_6339.HEIC,9,tiny green glass bottle,"[3220, 2586, 102, 284]",Unknown,Miniature,other,unknown,50.0,ml,green,,shape,False
+2,IMG_6339.HEIC,10,"dark brown bottle, black cap, round gold label","[3304, 2233, 237, 670]",Coffee Liqueur,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+2,IMG_6339.HEIC,11,"clear rum bottle, red cap, Bacardi label","[3483, 2182, 262, 743]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,350.0,label,True
+2,IMG_6339.HEIC,12,"sriracha bottle, green cap, red sauce","[3668, 2393, 204, 514]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,250.0,label,True
+2,IMG_6340.HEIC,1,"small squeezy ketchup bottle, upside down, white cap","[1851, 2372, 255, 430]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,150.0,label,True
+2,IMG_6340.HEIC,2,"large plastic milk jug, red cap","[2106, 2262, 415, 794]",Waitrose,British Whole Milk,dairy,milk,4.0,pint,opaque,,shape,False
+2,IMG_6340.HEIC,3,"small clear bottle with pink liquid, black cap","[2579, 2211, 175, 528]",Unknown,Pink Gin,spirit,pink gin,700.0,ml,clear,250.0,shape,True
+2,IMG_6340.HEIC,4,"brown syrup bottle, black cap, white label","[2688, 2229, 226, 765]",Coffee Prince,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,600.0,label,True
+2,IMG_6340.HEIC,5,"large plastic water bottle, blue label","[2878, 1989, 284, 860]",Waitrose,Seltzer Sparkling Water,mixer,sparkling water,2000.0,ml,clear,1500.0,label,True
+2,IMG_6340.HEIC,6,"clear rum bottle, white cap","[3235, 2317, 262, 867]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+2,IMG_6340.HEIC,7,"black bottle, gold medallion label","[3592, 2310, 291, 754]",Coffee,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+2,IMG_6340.HEIC,8,"red sriracha squeeze bottle, green cap","[3869, 2299, 240, 554]",Flying Goose,Sriracha Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+2,IMG_6340.HEIC,9,"square whisky bottle behind milk, dark cap","[2339, 2113, 168, 401]",Unknown,Blended Whisky,spirit,whisky,700.0,ml,clear,300.0,shape,True
+2,IMG_6340.HEIC,10,"square whisky bottle, black label, behind water","[3133, 1982, 138, 707]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,250.0,label,True
+2,IMG_6340.HEIC,11,"plastic bottle with yellow cloudy liquid, behind Bacardi","[3388, 2215, 211, 627]",Unknown,Lemon Juice,mixer,lemon juice,1000.0,ml,clear,700.0,shape,True
+2,IMG_6341.HEIC,1,"white plastic milk jug, blue label","[2058, 2022, 430, 812]",Waitrose Essential,British Whole Milk,dairy,whole milk,2.0,pint,opaque,,label,False
+2,IMG_6341.HEIC,2,"squeezy ketchup bottle, red cap, white label","[2404, 2157, 226, 437]",Waitrose Essential,Tomato Ketchup,sauce,tomato ketchup,550.0,g,opaque,,label,False
+2,IMG_6341.HEIC,3,"small clear flask bottle with pink liquid, dark cap","[2630, 2102, 211, 565]",Unknown,Pink Gin,spirit,pink gin,350.0,ml,clear,120.0,shape,True
+2,IMG_6341.HEIC,4,"tall syrup bottle, black cap, white label chocolate caramel","[2798, 2091, 240, 809]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,650.0,label,True
+2,IMG_6341.HEIC,5,"square whisky bottle, black label, gold cap","[3147, 2062, 240, 787]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,600.0,label,True
+2,IMG_6341.HEIC,6,"plastic squash bottle with orange liquid, yellow cap","[3446, 2149, 346, 710]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,900.0,label,True
+2,IMG_6341.HEIC,7,"dark bottle with brown liquid, white cap, back row","[2313, 1832, 189, 382]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,350.0,shape,True
+2,IMG_6341.HEIC,8,"large clear plastic bottle, white cap, yellow label","[2594, 1639, 284, 546]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,700.0,label,True
+2,IMG_6341.HEIC,9,"small green glass bottle, back row","[2943, 1934, 91, 291]",Unknown,Miniature,other,unknown,50.0,ml,green,30.0,shape,True
+2,IMG_6341.HEIC,10,"sriracha bottle, green cap, red sauce","[3027, 1676, 182, 546]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+2,IMG_6341.HEIC,11,"clear rum bottle, red bat label, silver cap","[3206, 1432, 211, 783]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+2,IMG_6341.HEIC,12,"black bottle, round coffee liqueur label","[3424, 1548, 233, 692]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+2,IMG_6342.HEIC,1,"plastic milk jug, white cap, blue label","[2025, 1902, 459, 849]",Generic,Semi-Skimmed Milk,dairy,milk,2.0,pint,opaque,900.0,shape,True
+2,IMG_6342.HEIC,2,"small clear bottle with pink liquid, black cap","[2521, 1953, 226, 586]",Unknown,Pink Gin,spirit,gin,500.0,ml,clear,150.0,shape,True
+2,IMG_6342.HEIC,3,"tall clear bottle, brown syrup, cafe plus label","[2725, 1956, 244, 823]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,750.0,label,True
+2,IMG_6342.HEIC,4,"square amber whisky bottle, black label","[3089, 1909, 248, 816]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,500.0,label,True
+2,IMG_6342.HEIC,5,"plastic bottle orange squash, yellow cap","[3388, 1996, 364, 729]",Lindhouse,Quadruple Strength Orange Squash,syrup,orange squash,1000.0,ml,clear,600.0,label,True
+2,IMG_6342.HEIC,6,small red can behind milk,"[2379, 2011, 153, 437]",Fentimans,Rose Lemonade,soft_drink,rose lemonade,250.0,ml,opaque,,shape,False
+2,IMG_6342.HEIC,7,"small dark bottle with cream label, gold cap","[2197, 1665, 189, 335]",Unknown,Liqueur,liqueur,liqueur,350.0,ml,clear,200.0,shape,True
+2,IMG_6342.HEIC,8,"large plastic bottle tonic, blue label","[2481, 1457, 306, 663]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,350.0,label,True
+2,IMG_6342.HEIC,9,miniature green bottle,"[2841, 1767, 102, 219]",Unknown,Miniature,spirit,spirit,50.0,ml,green,40.0,shape,False
+2,IMG_6342.HEIC,10,"sriracha squeeze bottle, green cap","[2936, 1486, 189, 590]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,482.0,g,clear,300.0,label,True
+2,IMG_6342.HEIC,11,"clear rum bottle, white label","[3115, 1239, 233, 831]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,350.0,label,True
+2,IMG_6342.HEIC,12,"dark bottle, coffee liqueur label","[3348, 1355, 255, 729]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+2,IMG_6343.HEIC,1,"white plastic milk jug, blue label, front left","[2029, 2368, 390, 772]",Supermarket,Semi-Skimmed Milk,dairy,milk,2.272,ml,opaque,,shape,False
+2,IMG_6343.HEIC,2,"small flat clear bottle, pink/red liquid, behind milk","[2466, 2430, 230, 539]",Unknown,Pink Gin,spirit,gin,200.0,ml,clear,60.0,shape,True
+2,IMG_6343.HEIC,3,"dark square whisky bottle, black label","[2696, 2499, 208, 656]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,,label,False
+2,IMG_6343.HEIC,4,"brown syrup bottle, cafe plus label","[2954, 2401, 222, 750]",Cafe Plus,Chocolate Caramel & Cheesecake Syrup,syrup,syrup,1000.0,ml,clear,700.0,label,False
+2,IMG_6343.HEIC,5,"plastic orange juice squash bottle, yellow liquid","[3297, 2484, 313, 667]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,450.0,label,True
+2,IMG_6343.HEIC,6,"small dark liqueur bottle, back left","[2218, 2178, 146, 299]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+2,IMG_6343.HEIC,7,"pink can/bottle with label, behind milk","[2353, 2484, 117, 401]",Unknown,Rose Tonic,mixer,tonic,200.0,ml,opaque,,shape,False
+2,IMG_6343.HEIC,8,"large clear plastic bottle, yellow Schweppes label","[2455, 2004, 266, 601]",Schweppes,Lemonade,mixer,lemonade,2000.0,ml,clear,1300.0,label,True
+2,IMG_6343.HEIC,9,small green miniature bottle,"[2783, 2284, 80, 255]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+2,IMG_6343.HEIC,10,"sriracha squeeze bottle, red sauce, green cap","[2856, 2047, 168, 510]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,481.0,g,clear,250.0,label,True
+2,IMG_6343.HEIC,11,"clear rum bottle, white label, white cap","[3020, 1840, 193, 692]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+2,IMG_6343.HEIC,12,"dark brown bottle, round coffee label","[3224, 1942, 208, 619]",Coffee Liqueur,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+2,IMG_6345.HEIC,1,"white plastic milk jug, blue label","[2175, 2084, 375, 732]",Unknown,Semi-skimmed milk,dairy,milk,2.0,pint,opaque,850.0,shape,True
+2,IMG_6345.HEIC,2,small clear flask with orange-red liquid,"[2594, 2149, 219, 517]",Unknown,Unknown,liqueur,orange-red liqueur,200.0,ml,clear,90.0,shape,True
+2,IMG_6345.HEIC,3,"square dark bottle, black label, 12","[2805, 2120, 204, 718]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,opaque,,label,False
+2,IMG_6345.HEIC,4,"syrup bottle, black cap, cream label","[3053, 2120, 219, 718]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,amber,,label,False
+2,IMG_6345.HEIC,5,"plastic squash bottle, orange liquid, green cap","[3388, 2197, 306, 648]",Tesco,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,800.0,label,True
+2,IMG_6345.HEIC,6,"small dark bottle, cream label, behind milk","[2350, 1905, 153, 291]",Angostura,Aromatic Bitters,other,bitters,200.0,ml,opaque,,shape,False
+2,IMG_6345.HEIC,7,can with white/red label,"[2484, 2186, 117, 364]",Unknown,Rose tonic,mixer,tonic water,250.0,ml,opaque,,shape,False
+2,IMG_6345.HEIC,8,"large plastic bottle, white cap, yellow label","[2583, 1738, 255, 583]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,850.0,label,True
+2,IMG_6345.HEIC,9,small green glass bottle,"[2896, 2004, 87, 277]",Unknown,Unknown,other,unknown,250.0,ml,green,,shape,False
+2,IMG_6345.HEIC,10,"red chilli sauce, green cap","[2976, 1774, 160, 510]",Huy Fong,Sriracha Hot Chilli Sauce,sauce,chilli sauce,482.0,g,clear,300.0,label,True
+2,IMG_6345.HEIC,11,"clear bottle, white label, bat logo","[3129, 1570, 197, 721]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,600.0,label,True
+2,IMG_6345.HEIC,12,"dark bottle, round cream coffee label","[3333, 1672, 204, 619]",Conker,Cold Brew Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+2,IMG_6346.HEIC,1,"white plastic milk jug, blue label, front left","[2116, 2295, 375, 729]",Supermarket,Whole Milk,dairy,milk,4.0,pint,opaque,,label,False
+2,IMG_6346.HEIC,2,pink can partly hidden behind milk jug,"[2419, 2397, 117, 364]",Unknown,Rosé cocktail can,other,canned cocktail,250.0,ml,opaque,,shape,False
+2,IMG_6346.HEIC,3,"small flat clear bottle, orange-pink liquid, black cap","[2532, 2350, 211, 510]",Unknown,Spirit miniature,spirit,spirit,200.0,ml,clear,60.0,shape,True
+2,IMG_6346.HEIC,4,"square dark whisky bottle, black label","[2750, 2324, 193, 710]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,450.0,label,True
+2,IMG_6346.HEIC,5,"tall syrup bottle, black cap, cream label","[3002, 2317, 208, 710]",Café Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+2,IMG_6346.HEIC,6,"plastic bottle orange squash, green cap","[3322, 2390, 299, 638]",Unknown,Quadruple Strength Orange Squash,mixer,orange squash,1500.0,ml,clear,900.0,label,True
+2,IMG_6346.HEIC,7,"small dark bottle, red label, back left","[2280, 2113, 146, 291]",Kikkoman,Soy Sauce,sauce,soy sauce,150.0,ml,clear,,shape,False
+2,IMG_6346.HEIC,8,"clear plastic bottle, blue cap, yellow label","[2514, 1942, 248, 546]",Schweppes,Tonic Water,mixer,tonic water,1000.0,ml,clear,800.0,label,True
+2,IMG_6346.HEIC,9,"small green bottle, green cap","[2827, 2204, 91, 219]",Tabasco,Green Pepper Sauce,sauce,hot sauce,60.0,ml,clear,,shape,False
+2,IMG_6346.HEIC,10,"red squeeze bottle, green cap","[2896, 1978, 164, 492]",Flying Goose,Sriracha,sauce,hot sauce,455.0,ml,opaque,250.0,label,True
+2,IMG_6346.HEIC,11,"tall clear rum bottle, white label","[3053, 1774, 182, 692]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,400.0,label,True
+2,IMG_6346.HEIC,12,"dark brown bottle, round coffee label","[3249, 1872, 200, 601]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+3,IMG_6339.HEIC,1,"squeezy ketchup bottle, red, upside down","[1399, 2408, 222, 419]",Essential Waitrose,Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,200.0,label,True
+3,IMG_6339.HEIC,2,"large white plastic milk jug, blue cap","[1606, 2157, 375, 707]",Waitrose,Milk,dairy,milk,4.0,pint,opaque,,shape,False
+3,IMG_6339.HEIC,3,"syrup bottle with black pump-style cap, brown liquid","[1978, 2149, 204, 699]",Sweetbird,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+3,IMG_6339.HEIC,4,"dark bottle, Fever-Tree label, black cap","[2178, 2218, 186, 627]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500.0,ml,clear,450.0,label,True
+3,IMG_6339.HEIC,5,"flat clear bottle, pinkish liquid low","[2353, 2324, 200, 521]",Unknown,Gin,spirit,gin,500.0,ml,clear,100.0,shape,True
+3,IMG_6339.HEIC,6,"square whisky bottle, black label","[2543, 2182, 204, 692]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,200.0,label,True
+3,IMG_6339.HEIC,7,"large plastic bottle, blue Schweppes label","[2736, 2087, 284, 801]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,500.0,label,True
+3,IMG_6339.HEIC,8,"plastic bottle orange squash, white cap","[2980, 2306, 280, 612]",Lindhouse,Quadruple Strength Orange,syrup,orange squash,1000.0,ml,clear,300.0,label,True
+3,IMG_6339.HEIC,9,tiny green bottle,"[3220, 2586, 102, 291]",Unknown,Bitters,other,bitters,50.0,ml,green,,shape,False
+3,IMG_6339.HEIC,10,dark bottle with round Coffee Liqueur label,"[3300, 2233, 240, 670]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+3,IMG_6339.HEIC,11,"clear rum bottle, red cap, Bacardi label","[3483, 2182, 262, 747]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,400.0,label,True
+3,IMG_6339.HEIC,12,sriracha bottle green cap,"[3672, 2393, 200, 517]",Flying Goose,Sriracha,sauce,chilli sauce,455.0,ml,opaque,,shape,False
+3,IMG_6340.HEIC,1,"small squeezy ketchup bottle, upside down, white cap","[1851, 2372, 255, 430]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,120.0,label,True
+3,IMG_6340.HEIC,2,"large plastic milk jug, white","[2106, 2262, 415, 794]",Waitrose,British Milk,dairy,milk,4.0,pint,opaque,2000.0,shape,True
+3,IMG_6340.HEIC,3,"syrup bottle with brown liquid, black cap","[2688, 2229, 222, 761]",Coffee Prince,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,600.0,label,True
+3,IMG_6340.HEIC,4,"tall clear rum bottle, white label, red cap","[3238, 2310, 262, 874]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,500.0,label,True
+3,IMG_6340.HEIC,5,dark opaque coffee liqueur bottle,"[3592, 2310, 291, 754]",Coffee,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+3,IMG_6340.HEIC,6,"sriracha squeeze bottle, green cap","[3869, 2299, 237, 550]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,350.0,label,True
+3,IMG_6340.HEIC,7,"small flat bottle with pinkish liquid, behind syrup","[2579, 2215, 175, 521]",Unknown,Bitters,spirit,pink liquid,350.0,ml,clear,120.0,shape,True
+3,IMG_6340.HEIC,8,"amber whisky bottle back left, dark cap","[2335, 2116, 171, 393]",Unknown,Whisky,spirit,whisky,700.0,ml,clear,,shape,False
+3,IMG_6340.HEIC,9,"large plastic sparkling water bottle, blue label","[2878, 1993, 284, 852]",Waitrose,Seltzer Sparkling Water,mixer,sparkling water,2000.0,ml,clear,1500.0,label,True
+3,IMG_6340.HEIC,10,"square whisky bottle, black label","[3136, 1985, 131, 699]",Johnnie Walker,Black Label 12,spirit,whisky,700.0,ml,clear,300.0,label,True
+3,IMG_6340.HEIC,11,"plastic bottle yellow liquid, behind rum","[3406, 2218, 189, 616]",Unknown,Lemon Juice,mixer,lemon juice,1000.0,ml,clear,500.0,shape,True
+3,IMG_6341.HEIC,1,"white plastic milk jug, blue label","[2058, 2022, 430, 820]",Waitrose Essential,Whole Milk,dairy,whole milk,2.0,pint,opaque,900.0,label,True
+3,IMG_6341.HEIC,2,"squeeze bottle, red ketchup, white label","[2404, 2157, 226, 437]",Waitrose Essential,Tomato Ketchup,sauce,tomato ketchup,460.0,g,clear,200.0,label,True
+3,IMG_6341.HEIC,3,"small clear bottle, pink liquid, black cap","[2630, 2102, 211, 557]",Unknown,Pink Gin,spirit,pink gin,200.0,ml,clear,90.0,shape,True
+3,IMG_6341.HEIC,4,"brown syrup bottle, black cap, Cafe Plus label","[2798, 2087, 237, 809]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,600.0,label,True
+3,IMG_6341.HEIC,5,"square whisky bottle, black label","[3151, 2058, 237, 790]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,550.0,label,True
+3,IMG_6341.HEIC,6,"plastic bottle, orange squash, yellow cap","[3446, 2149, 342, 710]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,800.0,label,True
+3,IMG_6341.HEIC,7,"small dark glass bottle, white cap","[2310, 1832, 197, 382]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,500.0,ml,opaque,,shape,False
+3,IMG_6341.HEIC,8,"large plastic tonic bottle, white cap, yellow label","[2594, 1639, 284, 619]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,600.0,label,True
+3,IMG_6341.HEIC,9,tiny green glass bottle,"[2940, 1931, 95, 291]",Tabasco,Green Jalapeno Sauce,sauce,hot sauce,60.0,ml,green,,shape,False
+3,IMG_6341.HEIC,10,"sriracha bottle, green cap, red sauce","[3031, 1676, 182, 546]",Huy Fong,Sriracha Hot Chilli Sauce,sauce,chilli sauce,435.0,ml,clear,350.0,label,True
+3,IMG_6341.HEIC,11,"clear rum bottle, white label, bat logo","[3206, 1439, 211, 790]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,600.0,label,True
+3,IMG_6341.HEIC,12,"black bottle, round gold coffee liqueur label","[3424, 1556, 233, 685]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+3,IMG_6342.HEIC,1,"milk jug, white plastic, blue label","[2029, 1902, 452, 849]",Unknown,Semi-skimmed milk,dairy,milk,2272.0,ml,opaque,1800.0,shape,True
+3,IMG_6342.HEIC,2,small clear bottle with pink liquid,"[2524, 1953, 233, 586]",Unknown,Pink liqueur,liqueur,liqueur,350.0,ml,clear,120.0,shape,True
+3,IMG_6342.HEIC,3,"syrup bottle, brown with white label, black cap","[2725, 1956, 244, 823]",Cafe Plus,Chocolate Caramel,liqueur,chocolate caramel liqueur,700.0,ml,clear,500.0,label,True
+3,IMG_6342.HEIC,4,"square whisky bottle, black label","[3093, 1909, 244, 816]",Johnnie Walker,Black Label 12,spirit,whisky,700.0,ml,clear,550.0,label,True
+3,IMG_6342.HEIC,5,"plastic squash bottle, orange liquid, yellow cap","[3392, 1996, 361, 729]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,550.0,label,True
+3,IMG_6342.HEIC,6,"can behind milk, red/white","[2379, 2011, 153, 437]",Unknown,Rose lemonade,soft_drink,soda,330.0,ml,opaque,,shape,False
+3,IMG_6342.HEIC,7,dark bottle with gold cap behind milk,"[2197, 1668, 186, 335]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,clear,,shape,False
+3,IMG_6342.HEIC,8,"large plastic bottle, blue label, white cap","[2481, 1457, 306, 674]",Schweppes,Tonic Water,mixer,tonic water,1000.0,ml,clear,600.0,label,True
+3,IMG_6342.HEIC,9,small green miniature bottle,"[2845, 1767, 95, 299]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+3,IMG_6342.HEIC,10,"sriracha squeeze bottle, green cap","[2936, 1486, 189, 583]",Huy Fong,Sriracha,sauce,chilli sauce,435.0,ml,clear,300.0,label,True
+3,IMG_6342.HEIC,11,"clear rum bottle, white label","[3115, 1239, 230, 729]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,500.0,label,True
+3,IMG_6342.HEIC,12,"black bottle, coffee liqueur label","[3348, 1355, 251, 729]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+3,IMG_6343.HEIC,1,"white plastic milk jug, blue label","[2029, 2368, 393, 772]",Supermarket,Semi-Skimmed Milk,dairy,milk,2272.0,ml,opaque,,shape,False
+3,IMG_6343.HEIC,2,"small clear flat bottle with pink liquid, label partly hidden","[2466, 2433, 226, 539]",Unknown,Pink Gin,spirit,pink gin,200.0,ml,clear,60.0,shape,True
+3,IMG_6343.HEIC,3,"dark square whisky bottle, black label","[2699, 2397, 204, 758]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,amber,,label,False
+3,IMG_6343.HEIC,4,"syrup bottle, brown liquid, caramel label","[2954, 2397, 219, 754]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,600.0,label,True
+3,IMG_6343.HEIC,5,"plastic bottle orange squash, yellow cap","[3297, 2484, 313, 670]",Lindvalls,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,550.0,label,True
+3,IMG_6343.HEIC,6,"dark bottle behind milk, liqueur","[2211, 2178, 153, 299]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+3,IMG_6343.HEIC,7,small can/bottle with red label behind milk,"[2361, 2484, 109, 401]",Unknown,Rose Spritz,wine,rose wine,250.0,ml,opaque,,shape,False
+3,IMG_6343.HEIC,8,"large clear plastic bottle, yellow Schweppes label","[2455, 2004, 262, 583]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,800.0,label,True
+3,IMG_6343.HEIC,9,small green bottle behind,"[2772, 2280, 95, 291]",Unknown,Unknown,other,unknown,200.0,ml,green,,shape,False
+3,IMG_6343.HEIC,10,"sriracha squeeze bottle, green cap","[2852, 2040, 175, 510]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+3,IMG_6343.HEIC,11,clear rum bottle white label,"[3020, 1840, 197, 710]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,400.0,label,True
+3,IMG_6343.HEIC,12,"dark bottle coffee liqueur, round label","[3224, 1942, 204, 619]",Mr Black,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+3,IMG_6345.HEIC,1,"white plastic milk jug, blue label, front left","[2178, 2084, 364, 729]",Unknown supermarket,Semi-skimmed milk,dairy,milk,2.0,pint,opaque,700.0,shape,True
+3,IMG_6345.HEIC,2,small clear bottle with reddish-orange liquid,"[2594, 2149, 219, 510]",Unknown,Bitter aperitif,liqueur,aperitif liqueur,200.0,ml,clear,60.0,shape,True
+3,IMG_6345.HEIC,3,"square dark bottle, black label, 12","[2812, 2120, 189, 714]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,amber,,label,False
+3,IMG_6345.HEIC,4,"syrup bottle, black cap, chocolate caramel label","[3060, 2120, 208, 714]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,,label,False
+3,IMG_6345.HEIC,5,"plastic squash bottle, orange liquid, green cap","[3388, 2204, 302, 638]",Robinsons,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,600.0,label,True
+3,IMG_6345.HEIC,6,"small dark bottle, back row behind milk","[2350, 1905, 146, 291]",Angostura,Aromatic Bitters,mixer,bitters,200.0,ml,amber,,shape,False
+3,IMG_6345.HEIC,7,"slim can behind milk, rose label","[2477, 2186, 117, 364]",Fentimans,Rose Lemonade,soft_drink,rose lemonade,250.0,ml,opaque,,label,False
+3,IMG_6345.HEIC,8,"large plastic bottle, white cap, yellow Schweppes label","[2579, 1741, 255, 572]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,800.0,label,True
+3,IMG_6345.HEIC,9,small green glass bottle,"[2896, 2004, 84, 255]",Unknown,Small olive oil,oil,olive oil,250.0,ml,green,,shape,False
+3,IMG_6345.HEIC,10,"red squeeze bottle, green cap","[2976, 1785, 157, 503]",Huy Fong,Sriracha Hot Chilli Sauce,sauce,chilli sauce,435.0,ml,opaque,200.0,label,True
+3,IMG_6345.HEIC,11,"clear bottle, white label, bat logo","[3126, 1574, 197, 714]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,500.0,label,True
+3,IMG_6345.HEIC,12,"dark bottle, round coffee label","[3333, 1676, 200, 612]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+3,IMG_6346.HEIC,1,"white plastic milk jug with handle, blue label","[2116, 2291, 375, 732]",Unknown supermarket,Semi-Skimmed Milk,dairy,milk,2.0,pint,opaque,,shape,False
+3,IMG_6346.HEIC,2,small pink/red can behind milk jug,"[2422, 2393, 109, 382]",Unknown,Rosé spritz,wine,rosé wine spritz,250.0,ml,opaque,,shape,False
+3,IMG_6346.HEIC,3,small clear flask bottle with amber-pink liquid,"[2535, 2350, 211, 510]",Unknown,Liqueur,liqueur,liqueur,200.0,ml,clear,90.0,shape,True
+3,IMG_6346.HEIC,4,"square bottle, black label, dark whisky","[2743, 2320, 204, 714]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,500.0,label,True
+3,IMG_6346.HEIC,5,"syrup bottle, black cap, Cafe Plus label","[2998, 2317, 211, 710]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,600.0,label,True
+3,IMG_6346.HEIC,6,"plastic bottle, orange squash, green label","[3322, 2390, 299, 638]",Lindvale,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,800.0,label,True
+3,IMG_6346.HEIC,7,"dark glass bottle behind milk, gold neck label","[2280, 2113, 146, 291]",Kahlúa,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+3,IMG_6346.HEIC,8,"large clear plastic bottle, blue/yellow Schweppes label","[2514, 1942, 248, 546]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,700.0,label,True
+3,IMG_6346.HEIC,9,small green glass bottle,"[2823, 2204, 91, 219]",Tabasco,Green Pepper Sauce,sauce,hot sauce,60.0,ml,green,,shape,False
+3,IMG_6346.HEIC,10,"red sriracha squeeze bottle, green cap","[2896, 1978, 164, 492]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+3,IMG_6346.HEIC,11,"clear rum bottle, white label, bat logo","[3053, 1778, 189, 656]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+3,IMG_6346.HEIC,12,dark bottle with round coffee liqueur label,"[3249, 1872, 200, 605]",Conker,Cold Brew Coffee Liqueur,liqueur,coffee liqueur,500.0,ml,opaque,,label,False
+4,IMG_6339.HEIC,1,"squeezy ketchup bottle, white cap upside down","[1399, 2408, 222, 419]",Essential Waitrose,Tomato Ketchup,sauce,tomato ketchup,500.0,g,opaque,,label,False
+4,IMG_6339.HEIC,2,"large milk jug, blue cap","[1606, 2157, 375, 707]",Waitrose,Milk,dairy,milk,4.0,pint,opaque,,shape,False
+4,IMG_6339.HEIC,3,"syrup bottle, black cap, brown liquid","[1978, 2149, 200, 699]",Sweetbird,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+4,IMG_6339.HEIC,4,"dark bottle, cream label, Fever-Tree","[2178, 2218, 186, 627]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500.0,ml,clear,350.0,label,True
+4,IMG_6339.HEIC,5,"small flat clear bottle, black cap, pink liquid","[2357, 2328, 200, 514]",Unknown,Gin liqueur,liqueur,pink gin liqueur,500.0,ml,clear,120.0,shape,True
+4,IMG_6339.HEIC,6,"square whisky bottle, black label","[2546, 2182, 200, 692]",Johnnie Walker,Black Label 12,spirit,whisky,700.0,ml,clear,250.0,label,True
+4,IMG_6339.HEIC,7,"large plastic bottle, blue label, Schweppes","[2739, 2087, 277, 801]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,900.0,label,True
+4,IMG_6339.HEIC,8,"plastic bottle, orange squash, white cap","[2980, 2310, 280, 612]",Lindhouse,Quadruple Strength Orange Squash,soft_drink,orange squash,1000.0,ml,clear,300.0,label,True
+4,IMG_6339.HEIC,9,tiny green bottle,"[3220, 2586, 102, 284]",Unknown,Miniature,other,unknown,50.0,ml,green,,shape,False
+4,IMG_6339.HEIC,10,"dark bottle, round coffee label","[3304, 2237, 233, 667]",Mr Black,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+4,IMG_6339.HEIC,11,"clear rum bottle, red cap, Bacardi","[3486, 2182, 251, 743]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,400.0,label,True
+4,IMG_6339.HEIC,12,"sriracha squeeze bottle, green cap","[3672, 2393, 200, 517]",Flying Goose,Sriracha,sauce,chilli sauce,455.0,ml,opaque,,label,False
+4,IMG_6340.HEIC,1,"Waitrose squeezy tomato ketchup, red, upside-down white cap","[1851, 2372, 251, 430]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,460.0,g,clear,180.0,label,True
+4,IMG_6340.HEIC,2,"Large plastic milk jug, white with blue label","[2102, 2262, 423, 794]",Essential Waitrose,Whole Milk,dairy,milk,4.0,pint,opaque,,shape,False
+4,IMG_6340.HEIC,3,"Small clear bottle, dark cap, pinkish liquid, behind milk","[2339, 2116, 168, 364]",Unknown,Liqueur,liqueur,liqueur,700.0,ml,clear,,shape,False
+4,IMG_6340.HEIC,4,"Clear flask bottle, black cap, small amount of pink liquid","[2579, 2211, 171, 528]",Unknown,Pink Gin,spirit,gin,700.0,ml,clear,120.0,shape,True
+4,IMG_6340.HEIC,5,"Coffee syrup bottle, brown liquid, black cap, white label","[2692, 2233, 215, 758]",Coffee Prest,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,550.0,label,True
+4,IMG_6340.HEIC,6,"Large plastic Schweppes soda water, blue label","[2878, 1993, 288, 856]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,850.0,label,True
+4,IMG_6340.HEIC,7,"Johnnie Walker square bottle, amber whisky, black label","[3136, 1985, 131, 703]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,250.0,label,True
+4,IMG_6340.HEIC,8,"Bacardi Carta Blanca rum, clear bottle, red cap","[3238, 2317, 262, 867]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,300.0,label,True
+4,IMG_6340.HEIC,9,"Plastic bottle yellowish liquid, white cap, behind Bacardi","[3402, 2218, 197, 619]",Unknown,Lemon Juice,mixer,juice,1000.0,ml,clear,500.0,shape,True
+4,IMG_6340.HEIC,10,"Dark opaque coffee liqueur bottle, black cap","[3592, 2313, 291, 750]",Coffee Liqueur,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+4,IMG_6340.HEIC,11,"Sriracha bottle, red sauce, green cap","[3869, 2299, 237, 550]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,350.0,label,True
+4,IMG_6341.HEIC,1,"white plastic milk jug, blue label","[2058, 2022, 430, 812]",Waitrose,Essential British Whole Milk,dairy,whole milk,2.0,pint,opaque,900.0,label,True
+4,IMG_6341.HEIC,2,"red squeeze bottle, white label, ketchup","[2404, 2157, 226, 437]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,460.0,g,opaque,,label,False
+4,IMG_6341.HEIC,3,small clear bottle with pink liquid,"[2630, 2102, 204, 557]",Unknown,Pink syrup,syrup,syrup,200.0,ml,clear,60.0,shape,True
+4,IMG_6341.HEIC,4,"tall syrup bottle, dark brown liquid, black cap, white label","[2798, 2095, 237, 801]",Café Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,650.0,label,True
+4,IMG_6341.HEIC,5,"square amber whisky bottle, black label","[3155, 2058, 233, 790]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,500.0,label,True
+4,IMG_6341.HEIC,6,"plastic bottle of orange squash, yellow cap","[3446, 2149, 342, 710]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,800.0,label,True
+4,IMG_6341.HEIC,7,"dark bottle with white label, back row left","[2317, 1832, 189, 372]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+4,IMG_6341.HEIC,8,"large plastic tonic bottle, white cap, yellow label","[2597, 1639, 280, 619]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,700.0,label,True
+4,IMG_6341.HEIC,9,small green miniature bottle,"[2943, 1931, 91, 291]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+4,IMG_6341.HEIC,10,"sriracha squeeze bottle, green cap, red sauce","[3031, 1676, 182, 546]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+4,IMG_6341.HEIC,11,"clear rum bottle, red bat logo","[3206, 1439, 211, 783]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,600.0,label,True
+4,IMG_6341.HEIC,12,"black bottle with round white label, coffee liqueur","[3424, 1556, 237, 685]",Mr Black,Cold Brew Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+4,IMG_6342.HEIC,1,"plastic milk jug, white cap, blue label","[2029, 1902, 452, 849]",Unknown,Semi-Skimmed Milk,dairy,milk,2272.0,ml,opaque,1700.0,shape,True
+4,IMG_6342.HEIC,2,"small clear bottle with pink/orange liquid, behind milk","[2521, 1949, 240, 590]",Unknown,Pink Gin,spirit,gin,200.0,ml,clear,120.0,shape,True
+4,IMG_6342.HEIC,3,"tall syrup bottle, black cap, cafe plus label","[2725, 1956, 244, 827]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,700.0,ml,clear,550.0,label,True
+4,IMG_6342.HEIC,4,"square amber whisky bottle, black label","[3089, 1909, 248, 816]",Johnnie Walker,Black Label 12 Year,spirit,whisky,700.0,ml,clear,550.0,label,True
+4,IMG_6342.HEIC,5,"plastic bottle orange squash, yellow cap","[3392, 1996, 361, 729]",Lindhouse,Quadruple Strength Orange Squash,syrup,orange squash,1000.0,ml,clear,700.0,label,True
+4,IMG_6342.HEIC,6,"can behind milk, white with red","[2386, 2011, 146, 437]",Unknown,Soda,soft_drink,soft drink,330.0,ml,opaque,,shape,False
+4,IMG_6342.HEIC,7,"small dark bottle, back left","[2189, 1668, 189, 346]",Unknown,Liqueur,liqueur,liqueur,500.0,ml,clear,,shape,False
+4,IMG_6342.HEIC,8,"large plastic bottle, blue label, tonic","[2481, 1457, 306, 674]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,600.0,label,True
+4,IMG_6342.HEIC,9,tiny green miniature bottle,"[2841, 1767, 102, 219]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+4,IMG_6342.HEIC,10,"sriracha squeeze bottle, green cap","[2936, 1483, 189, 594]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,482.0,g,clear,250.0,label,True
+4,IMG_6342.HEIC,11,"clear rum bottle, white label","[3115, 1239, 230, 827]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,350.0,label,True
+4,IMG_6342.HEIC,12,"dark bottle, coffee liqueur label","[3351, 1355, 248, 729]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+4,IMG_6343.HEIC,1,"white plastic milk jug, blue label","[2029, 2368, 390, 772]",Supermarket,Semi-Skimmed Milk 2.272L,dairy,milk,4.0,pint,opaque,,label,False
+4,IMG_6343.HEIC,2,"small clear flat bottle, pink liquid, black cap","[2466, 2430, 230, 543]",Unknown,Pink Gin,spirit,pink gin,500.0,ml,clear,80.0,shape,True
+4,IMG_6343.HEIC,3,"square dark bottle, black label","[2696, 2404, 208, 754]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,300.0,label,True
+4,IMG_6343.HEIC,4,"brown syrup bottle, cream label","[2954, 2397, 222, 754]",Cafe Pur,Chocolate Caramel Syrup,syrup,syrup,250.0,ml,clear,200.0,label,True
+4,IMG_6343.HEIC,5,"plastic bottle, orange squash, green cap","[3297, 2484, 313, 670]",Lindvalls,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,400.0,label,True
+4,IMG_6343.HEIC,6,dark bottle behind milk,"[2211, 2178, 153, 299]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+4,IMG_6343.HEIC,7,"tall clear plastic bottle, blue label","[2455, 2004, 266, 510]",Schweppes,Tonic Water,mixer,tonic water,1000.0,ml,clear,600.0,label,True
+4,IMG_6343.HEIC,8,small green bottle behind,"[2780, 2284, 80, 219]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+4,IMG_6343.HEIC,9,"red sauce bottle, green cap","[2852, 2040, 171, 517]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,482.0,g,clear,250.0,label,True
+4,IMG_6343.HEIC,10,"clear rum bottle, white label","[3016, 1840, 197, 710]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+4,IMG_6343.HEIC,11,"dark bottle, round coffee label","[3224, 1942, 208, 619]",Mr Black,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
+4,IMG_6345.HEIC,1,"plastic milk jug, blue cap and label","[2178, 2084, 372, 729]",Supermarket,Semi-skimmed Milk,dairy,milk,2000.0,ml,opaque,1300.0,shape,True
+4,IMG_6345.HEIC,2,"small clear bottle, orange-red liquid, black cap","[2594, 2149, 219, 517]",Unknown,Bitter aperitif,liqueur,aperitif,350.0,ml,clear,120.0,shape,True
+4,IMG_6345.HEIC,3,"square dark bottle, black label, 12 year","[2812, 2120, 197, 714]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,250.0,label,True
+4,IMG_6345.HEIC,4,"brown syrup bottle, white label, black cap","[3060, 2120, 211, 714]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,550.0,label,True
+4,IMG_6345.HEIC,5,"plastic squash bottle, orange liquid, white cap","[3395, 2200, 299, 648]",Sainsbury's,Quadruple Strength Orange Squash,soft_drink,orange squash,1500.0,ml,clear,600.0,label,True
+4,IMG_6345.HEIC,6,"dark bottle behind milk, black cap","[2350, 1909, 146, 291]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,clear,,shape,False
+4,IMG_6345.HEIC,7,small bottle with pink label behind milk,"[2484, 2193, 117, 393]",Fentimans,Rose Lemonade,mixer,rose lemonade,275.0,ml,clear,,shape,False
+4,IMG_6345.HEIC,8,"large plastic clear bottle, yellow label, white cap","[2583, 1741, 255, 583]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,550.0,label,True
+4,IMG_6345.HEIC,9,small green bottle,"[2900, 2004, 87, 262]",Unknown,Olive Oil,oil,olive oil,250.0,ml,green,,shape,False
+4,IMG_6345.HEIC,10,"red sauce squeeze bottle, green cap","[2973, 1785, 160, 481]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,481.0,g,clear,300.0,label,True
+4,IMG_6345.HEIC,11,"clear rum bottle, white label, bat logo","[3133, 1574, 189, 714]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,250.0,label,True
+4,IMG_6345.HEIC,12,"tall dark bottle, round coffee label","[3333, 1676, 204, 619]",Mr Black,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+4,IMG_6346.HEIC,1,"white plastic milk jug, blue label","[2120, 2295, 372, 729]",Unknown supermarket,Fresh Milk,dairy,milk,2.0,pint,opaque,,label,False
+4,IMG_6346.HEIC,2,"small clear square flask, reddish liquid","[2532, 2350, 219, 510]",Unknown,Aperitif miniature,liqueur,bitter aperitif,200.0,ml,clear,110.0,shape,True
+4,IMG_6346.HEIC,3,"square whisky bottle, black label","[2750, 2324, 200, 710]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,350.0,ml,clear,300.0,label,True
+4,IMG_6346.HEIC,4,"clear bottle, brown syrup, black cap","[3005, 2317, 200, 710]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,700.0,ml,clear,600.0,label,True
+4,IMG_6346.HEIC,5,"plastic bottle, orange squash, white cap","[3322, 2390, 299, 638]",Lindhurst,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,500.0,label,True
+4,IMG_6346.HEIC,6,pink can behind milk,"[2426, 2397, 109, 364]",Unknown,Rose spritz can,soft_drink,rose drink,250.0,ml,opaque,,shape,False
+4,IMG_6346.HEIC,7,"dark bottle behind milk, red label","[2277, 2113, 146, 291]",Kahlua,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+4,IMG_6346.HEIC,8,"large plastic bottle, blue cap, yellow label","[2514, 1949, 255, 546]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,700.0,label,True
+4,IMG_6346.HEIC,9,small green bottle,"[2834, 2204, 73, 219]",Tabasco,Green Pepper Sauce,sauce,hot sauce,60.0,ml,clear,,shape,False
+4,IMG_6346.HEIC,10,"red squeeze bottle, green cap","[2896, 1967, 164, 492]",Flying Goose,Sriracha,sauce,hot sauce,455.0,ml,clear,300.0,label,True
+4,IMG_6346.HEIC,11,"clear rum bottle, white label","[3053, 1778, 182, 692]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,500.0,label,True
+4,IMG_6346.HEIC,12,"black bottle, round coffee label","[3253, 1876, 200, 601]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6339.HEIC,1,"small squeezy bottle, red ketchup, white cap","[1399, 2408, 222, 419]",Essential Waitrose,Tomato Ketchup,sauce,tomato ketchup,460.0,g,clear,250.0,label,True
+5,IMG_6339.HEIC,2,"large white plastic milk jug, blue cap","[1606, 2157, 375, 707]",Waitrose,Semi Skimmed Milk,dairy,milk,4.0,pint,opaque,,label,False
+5,IMG_6339.HEIC,3,"tall clear bottle, brown syrup, black cap, white label","[1978, 2149, 200, 699]",Sweetbird,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,650.0,label,True
+5,IMG_6339.HEIC,4,"dark bottle, dark brown liquid, white label","[2178, 2222, 182, 627]",Fever-Tree,Espresso Martini Mixer,mixer,coffee cocktail mixer,500.0,ml,clear,400.0,label,True
+5,IMG_6339.HEIC,5,"small clear flask, pink liquid at bottom, tree label","[2353, 2331, 197, 514]",Unknown,Pink Gin,spirit,pink gin,350.0,ml,clear,100.0,shape,True
+5,IMG_6339.HEIC,6,"square bottle, amber whisky, black label","[2546, 2186, 197, 692]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,500.0,label,True
+5,IMG_6339.HEIC,7,"tall plastic bottle, blue label, clear liquid","[2739, 2091, 277, 801]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,900.0,label,True
+5,IMG_6339.HEIC,8,"plastic bottle, orange squash, white cap","[2980, 2310, 280, 612]",Lindhouse,Quadruple Strength Orange Squash,soft_drink,orange squash,1000.0,ml,clear,500.0,label,True
+5,IMG_6339.HEIC,9,tiny green bottle,"[3220, 2586, 109, 291]",Unknown,Bitters,other,bitters,100.0,ml,green,,shape,False
+5,IMG_6339.HEIC,10,"dark bottle, round brown coffee label","[3308, 2237, 233, 670]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6339.HEIC,11,"clear bottle, red cap, white Bacardi label","[3483, 2178, 262, 750]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,650.0,label,True
+5,IMG_6339.HEIC,12,"red sriracha squeeze bottle, green cap","[3672, 2393, 197, 517]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+5,IMG_6340.HEIC,1,"small squeezy ketchup bottle, upside-down, red sauce","[1851, 2372, 255, 430]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,120.0,label,True
+5,IMG_6340.HEIC,2,"white plastic milk jug, blue label","[2102, 2262, 423, 794]",Waitrose,Semi-Skimmed Milk,dairy,milk,4.0,pint,opaque,,shape,False
+5,IMG_6340.HEIC,3,"dark syrup bottle, black cap, cream label","[2688, 2229, 222, 765]",Coffee Prices,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,600.0,label,False
+5,IMG_6340.HEIC,4,"clear rum bottle, white label, red cap","[3235, 2313, 262, 874]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,550.0,label,True
+5,IMG_6340.HEIC,5,"black bottle, round label","[3592, 2310, 291, 754]",Coffee Liqueur,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6340.HEIC,6,"sriracha squeeze bottle, green cap","[3869, 2299, 240, 554]",Flying Goose,Sriracha Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,300.0,label,True
+5,IMG_6340.HEIC,7,"tall brown whisky bottle, back left","[2339, 2113, 168, 401]",Unknown,Whisky,spirit,whisky,700.0,ml,clear,,shape,False
+5,IMG_6340.HEIC,8,small clear flask bottle with pink liquid,"[2579, 2211, 175, 528]",Unknown,Pink Gin,spirit,pink gin,700.0,ml,clear,250.0,shape,True
+5,IMG_6340.HEIC,9,"large plastic soda water bottle, blue label","[2878, 1993, 284, 856]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,900.0,label,True
+5,IMG_6340.HEIC,10,"square whisky bottle, black label, amber liquid","[3133, 1985, 135, 703]",Johnnie Walker,Black Label,spirit,whisky,700.0,ml,clear,400.0,label,True
+5,IMG_6340.HEIC,11,"plastic tonic/lemonade bottle, yellow label","[3406, 2218, 197, 619]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,700.0,shape,True
+5,IMG_6341.HEIC,1,"white plastic milk jug, blue label, white cap","[2058, 2022, 430, 812]",Waitrose,Essential British Whole Milk,dairy,whole milk,2.0,pint,opaque,900.0,label,True
+5,IMG_6341.HEIC,2,"squeeze bottle of red ketchup, white label","[2404, 2157, 226, 437]",Waitrose,Essential Tomato Ketchup,sauce,tomato ketchup,500.0,g,clear,300.0,label,True
+5,IMG_6341.HEIC,3,"small clear flask-shaped bottle with pink liquid, black cap","[2630, 2102, 211, 557]",Unknown,Pink Gin,spirit,pink gin,350.0,ml,clear,150.0,shape,True
+5,IMG_6341.HEIC,4,"tall syrup bottle with brown liquid, black cap, Café Plus label","[2798, 2087, 237, 809]",Café Plus,Chocolate Caramel Syrup,syrup,chocolate caramel syrup,1000.0,ml,clear,850.0,label,True
+5,IMG_6341.HEIC,5,"square bottle, amber whisky, black label, slanted label","[3155, 2051, 233, 798]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,600.0,label,True
+5,IMG_6341.HEIC,6,"plastic bottle of orange squash, yellow cap","[3446, 2149, 342, 710]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,850.0,label,True
+5,IMG_6341.HEIC,7,"dark bottle with cream label, black cap, back row left","[2306, 1832, 200, 390]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,shape,False
+5,IMG_6341.HEIC,8,"large clear plastic bottle, white cap, yellow Schweppes label","[2594, 1639, 284, 692]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,900.0,label,True
+5,IMG_6341.HEIC,9,"small green glass bottle, back row","[2936, 1931, 102, 291]",Unknown,Miniature,other,unknown,200.0,ml,green,,shape,False
+5,IMG_6341.HEIC,10,"sriracha squeeze bottle, red sauce, green cap","[3031, 1676, 182, 546]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,350.0,label,True
+5,IMG_6341.HEIC,11,"clear rum bottle, white label with bat logo, white cap","[3206, 1439, 211, 783]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,600.0,label,True
+5,IMG_6341.HEIC,12,"dark round-shouldered bottle, black cap, round Coffee Liqueur label","[3424, 1556, 237, 685]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6342.HEIC,1,"milk jug, white cap, blue label","[2029, 1902, 452, 849]",Supermarket,Semi-Skimmed Milk,dairy,milk,4.0,pint,opaque,1600.0,shape,True
+5,IMG_6342.HEIC,2,"small clear bottle with pink liquid, black cap","[2524, 1953, 233, 586]",Unknown,Pink Gin,spirit,pink gin,200.0,ml,clear,80.0,shape,True
+5,IMG_6342.HEIC,3,"Cafe Plus syrup bottle, brown liquid","[2725, 1956, 244, 827]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,750.0,ml,clear,600.0,label,True
+5,IMG_6342.HEIC,4,"Johnnie Walker square bottle, black label","[3093, 1909, 244, 816]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,550.0,label,True
+5,IMG_6342.HEIC,5,"Lindhouse squash, orange liquid, yellow cap","[3392, 1996, 361, 729]",Lindhouse,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,550.0,label,True
+5,IMG_6342.HEIC,6,"can/bottle behind milk, white label","[2375, 2011, 157, 437]",Unknown,Cocktail Mixer,mixer,mixer,330.0,ml,opaque,,shape,False
+5,IMG_6342.HEIC,7,"small dark bottle, gold cap, back left","[2197, 1668, 186, 335]",Unknown,Liqueur,liqueur,liqueur,500.0,ml,clear,,shape,False
+5,IMG_6342.HEIC,8,large plastic Schweppes tonic bottle,"[2481, 1457, 306, 674]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,600.0,label,True
+5,IMG_6342.HEIC,9,tiny green miniature bottle,"[2841, 1767, 98, 299]",Unknown,Miniature,spirit,spirit,50.0,ml,green,,shape,False
+5,IMG_6342.HEIC,10,"sriracha squeeze bottle, green cap","[2936, 1486, 189, 590]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,482.0,g,clear,250.0,label,True
+5,IMG_6342.HEIC,11,"Bacardi clear bottle, white label","[3115, 1239, 230, 845]",Bacardi,Carta Blanca,spirit,white rum,1000.0,ml,clear,400.0,label,True
+5,IMG_6342.HEIC,12,dark coffee liqueur bottle,"[3344, 1355, 255, 729]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6343.HEIC,1,"white plastic milk jug, blue label","[2029, 2368, 390, 772]",Generic,Semi Skimmed Milk,dairy,milk,4.0,pint,opaque,,label,False
+5,IMG_6343.HEIC,2,"small clear flat bottle, pink/orange label","[2470, 2430, 226, 539]",Unknown,Pink Gin,spirit,gin,200.0,ml,clear,170.0,shape,True
+5,IMG_6343.HEIC,3,"square amber bottle, black label, Johnnie Walker","[2699, 2404, 208, 754]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,400.0,label,True
+5,IMG_6343.HEIC,4,"brown syrup bottle, black cap, Cafe Plus label","[2954, 2401, 222, 754]",Cafe Plus,Chocolate Caramel & Cheesecake Syrup,syrup,syrup,700.0,ml,clear,600.0,label,True
+5,IMG_6343.HEIC,5,"plastic squash bottle, orange liquid, yellow cap","[3297, 2484, 313, 667]",Lindvahl,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,600.0,label,True
+5,IMG_6343.HEIC,6,"small can/bottle partly hidden behind milk, rose label","[2357, 2481, 117, 401]",Fentimans,Rose Lemonade,mixer,lemonade,250.0,ml,opaque,,shape,False
+5,IMG_6343.HEIC,7,small dark bottle with white label behind milk,"[2215, 2178, 146, 299]",Tia Maria,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,shape,False
+5,IMG_6343.HEIC,8,"large plastic bottle, yellow Schweppes label","[2452, 2011, 270, 583]",Schweppes,Lemonade,mixer,lemonade,1000.0,ml,clear,800.0,label,True
+5,IMG_6343.HEIC,9,small green bottle behind Johnnie Walker,"[2776, 2284, 80, 255]",Unknown,Miniature,spirit,unknown spirit,50.0,ml,green,,shape,False
+5,IMG_6343.HEIC,10,"red sriracha sauce bottle, green cap","[2852, 2040, 175, 510]",Flying Goose,Sriracha Hot Chilli Sauce,sauce,chilli sauce,455.0,ml,clear,350.0,label,True
+5,IMG_6343.HEIC,11,"clear Bacardi bottle, white label, bat logo","[3020, 1836, 189, 692]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,500.0,label,True
+5,IMG_6343.HEIC,12,dark bottle with round white coffee liqueur label,"[3220, 1942, 211, 638]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6345.HEIC,1,"white plastic milk jug, blue label","[2178, 2084, 364, 729]",Unknown,Semi-skimmed milk,dairy,milk,2.0,pint,opaque,,shape,False
+5,IMG_6345.HEIC,2,"small clear bottle, red liquid at bottom","[2594, 2149, 219, 517]",Unknown,Bitters/syrup,other,red liquid,200.0,ml,clear,60.0,shape,True
+5,IMG_6345.HEIC,3,"square dark bottle, black label, 12","[2812, 2120, 189, 714]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,,label,False
+5,IMG_6345.HEIC,4,"syrup bottle, black cap, chocolate caramel label","[3060, 2120, 211, 714]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,opaque,,label,False
+5,IMG_6345.HEIC,5,"plastic bottle orange squash, green cap","[3388, 2204, 306, 638]",Robinsons,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,700.0,label,True
+5,IMG_6345.HEIC,6,dark small bottle behind milk,"[2346, 1902, 146, 328]",Unknown,Dark liqueur,liqueur,liqueur,700.0,ml,amber,,shape,False
+5,IMG_6345.HEIC,7,pink can/bottle behind milk,"[2484, 2186, 109, 401]",Fentimans,Rose Lemonade,soft_drink,rose lemonade,250.0,ml,opaque,,shape,False
+5,IMG_6345.HEIC,8,"tall clear plastic bottle, white cap, yellow Schweppes label","[2579, 1741, 262, 583]",Schweppes,Indian Tonic Water,mixer,tonic water,1000.0,ml,clear,850.0,label,True
+5,IMG_6345.HEIC,9,"small green bottle, gold cap","[2896, 2004, 91, 255]",Unknown,Olive oil,oil,olive oil,250.0,ml,green,,shape,False
+5,IMG_6345.HEIC,10,"sriracha squeeze bottle, green cap","[2973, 1785, 168, 444]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,482.0,g,clear,300.0,label,True
+5,IMG_6345.HEIC,11,"clear rum bottle, white Bacardi label","[3126, 1566, 204, 692]",Bacardi,Carta Blanca,spirit,rum,700.0,ml,clear,550.0,label,True
+5,IMG_6345.HEIC,12,"dark bottle, round coffee label","[3330, 1676, 204, 619]",Conker,Cold Brew Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,opaque,,label,False
+5,IMG_6346.HEIC,1,"white plastic milk jug, blue label","[2116, 2295, 375, 729]",Unknown supermarket,Fresh Milk,dairy,milk,2.0,pint,opaque,,shape,False
+5,IMG_6346.HEIC,2,"small can behind milk jug, rosé label","[2422, 2397, 109, 364]",Unknown,Rosé spritz can,wine,rosé wine spritz,250.0,ml,opaque,,shape,False
+5,IMG_6346.HEIC,3,"small clear flat bottle, pink liquid at bottom","[2532, 2350, 211, 510]",Unknown,Pink syrup,syrup,syrup,200.0,ml,clear,60.0,shape,True
+5,IMG_6346.HEIC,4,"square bottle, black label, gold cap","[2750, 2324, 193, 710]",Johnnie Walker,Black Label 12 Year Old,spirit,whisky,700.0,ml,clear,550.0,label,True
+5,IMG_6346.HEIC,5,"tall clear bottle, brown syrup, black cap, caramel label","[2998, 2317, 211, 710]",Cafe Plus,Chocolate Caramel Syrup,syrup,syrup,1000.0,ml,clear,800.0,label,True
+5,IMG_6346.HEIC,6,"plastic bottle, orange liquid, white cap","[3322, 2390, 299, 638]",Lindvahl,Quadruple Strength Orange Squash,mixer,orange squash,1000.0,ml,clear,650.0,label,True
+5,IMG_6346.HEIC,7,"small dark bottle with gold neck label, behind milk","[2277, 2113, 153, 291]",Angostura,Aromatic Bitters,other,bitters,200.0,ml,amber,,shape,False
+5,IMG_6346.HEIC,8,"large clear plastic bottle, blue Schweppes label","[2514, 1949, 248, 546]",Schweppes,Soda Water,mixer,soda water,1000.0,ml,clear,600.0,label,True
+5,IMG_6346.HEIC,9,small green bottle,"[2830, 2204, 80, 219]",Tabasco,Green Pepper Sauce,sauce,hot sauce,60.0,ml,green,,shape,False
+5,IMG_6346.HEIC,10,"red squeeze bottle, rooster label, green cap","[2896, 1978, 164, 492]",Huy Fong,Sriracha Hot Chili Sauce,sauce,chili sauce,435.0,ml,clear,300.0,label,True
+5,IMG_6346.HEIC,11,"clear bottle, white label, bat logo","[3045, 1774, 189, 692]",Bacardi,Carta Blanca,spirit,white rum,700.0,ml,clear,450.0,label,True
+5,IMG_6346.HEIC,12,"dark bottle, round coffee liqueur label","[3249, 1869, 200, 619]",Unknown,Coffee Liqueur,liqueur,coffee liqueur,700.0,ml,amber,,label,False
