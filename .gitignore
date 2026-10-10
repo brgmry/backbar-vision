@@ -9,3 +9,5 @@ data/external/*
 !data/external/README.md
 vendor/
 data/train/
+data/crops_bars/
+data/crops_bars5/

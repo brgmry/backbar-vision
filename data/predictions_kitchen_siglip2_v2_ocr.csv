@@ -1,0 +1,112 @@
+run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
+1,IMG_6339.HEIC,1,"crop 1, sim 0.75","[0, 2373, 228, 583]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,2,"crop 2, sim 0.79","[0, 2920, 233, 590]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,3,"crop 3, sim 0.76","[205, 2235, 328, 697]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,4,"crop 4, sim 0.66","[1402, 2401, 224, 431]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,5,"crop 5, sim 0.75","[1611, 2149, 381, 719]",Saguaro,Saguaro lemon,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,6,"crop 6, sim 0.69","[1975, 2149, 205, 702]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,7,"crop 7, sim 0.71","[2173, 2237, 183, 614]",Martini,Martini Rouge,alcohol,,100 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,8,"crop 8, sim 0.76","[2351, 2275, 219, 576]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,9,"crop 9, sim 0.93","[2539, 2204, 202, 678]",Johnnie Walker Black Label,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,10,"crop 10, sim 0.64","[2727, 2504, 162, 359]",RECYCLEZ-MOI,Gini Lemon,mixer,,33cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,11,"crop 11, sim 0.73","[2749, 2137, 245, 635]",Schweppes,Slimline Lemonade,mixer,,2 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,12,"crop 12, sim 0.73","[2858, 1471, 202, 293]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,13,"crop 13, sim 0.72","[2996, 2297, 255, 609]",Tesco,Orange Quadruple strength,mixer,,1.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,14,"crop 14, sim 0.74","[3075, 1333, 133, 281]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,15,"crop 15, sim 0.81","[3213, 2601, 114, 271]",Modelo,Modelo Negra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,16,"crop 16, sim 0.75","[3308, 2249, 240, 652]",Baileys,Baileys with a hint of Coffee Flavour,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,17,"crop 17, sim 0.90","[3489, 2180, 257, 733]",Bacardi Carta Blanca,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6339.HEIC,18,"crop 18, sim 0.68","[3677, 2392, 198, 521]",Moutai,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,1,"crop 1, sim 0.80","[2, 2927, 286, 407]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,2,"crop 2, sim 0.77","[307, 2804, 426, 431]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,3,"crop 3, sim 0.75","[645, 2063, 336, 690]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,4,"crop 4, sim 0.63","[1859, 2361, 248, 443]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,5,"crop 5, sim 0.74","[2104, 2263, 414, 771]",Saguaro,Saguaro lemon,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,6,"crop 6, sim 0.72","[2344, 2132, 162, 371]",tursan,Secret d Eugénie,alcohol,,75cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,7,"crop 8, sim 0.69","[2687, 2244, 219, 754]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,8,"crop 9, sim 0.75","[2894, 2052, 276, 764]",Schweppes,"Schweppes Indian Tonic 1,5L",mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,9,"crop 10, sim 0.74","[2996, 1278, 169, 338]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,10,"crop 11, sim 0.81","[3096, 2078, 159, 612]",Jhonnie walker,Jhonnie walker red label 375ml,alcohol,,375ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,11,"crop 12, sim 0.83","[3261, 2299, 240, 823]",Bacardi,Bacardí Gold Rum,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,12,"crop 13, sim 0.77","[3303, 2235, 224, 293]",Brasserie Galibier,Snowball,alcohol,,33 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,13,"crop 14, sim 0.76","[3392, 1023, 117, 288]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,14,"crop 15, sim 0.75","[3392, 2216, 202, 624]",Gwoon,Orange Zero Sugar,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,15,"crop 16, sim 0.76","[3594, 2299, 286, 712]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6340.HEIC,16,"crop 17, sim 0.67","[3877, 2304, 233, 538]",Singha,"Singha, lager, 5%",alcohol,,320 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,1,"crop 2, sim 0.60","[2056, 2018, 414, 821]",Martini,Martini Extra Dry,alcohol,,100 cL,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,2,"crop 3, sim 0.75","[2311, 1821, 200, 438]",Ferreira,Ferreira Porto Ruby,alcohol,,75cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,3,"crop 4, sim 0.66","[2404, 2137, 214, 478]",Essential Waitrose,Indian tonic water,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,4,"crop 5, sim 0.54","[2592, 1637, 236, 631]",Pedras,Framboesa & Ginseng,mixer,,25 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,5,"crop 6, sim 0.72","[2616, 2099, 219, 559]",Elijah Craig,Elijah Craig Small Batch 1789 47% 70cl,American Whiskey,,700 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,6,"crop 8, sim 0.71","[2830, 2097, 233, 785]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,7,"crop 9, sim 0.81","[2908, 1004, 117, 276]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,8,"crop 10, sim 0.76","[2944, 1935, 95, 290]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,9,"crop 11, sim 0.72","[2970, 2049, 186, 566]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,10,"crop 12, sim 0.70","[3037, 1676, 176, 555]",Singha,"Singha, lager, 5%",alcohol,,320 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,11,"crop 13, sim 0.77","[3163, 809, 131, 317]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,12,"crop 14, sim 0.79","[3187, 2059, 198, 288]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,13,"crop 15, sim 0.90","[3211, 1457, 212, 740]",Bacardi Carta Blanca,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,14,"crop 16, sim 0.77","[3446, 1566, 221, 647]",Torino distillati,Liquore al caffè,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,15,"crop 17, sim 0.66","[3449, 2135, 345, 714]",Tesco,Orange Quadruple strength,mixer,,1.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6341.HEIC,16,"crop 18, sim 0.74","[4779, 952, 167, 176]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,1,"crop 1, sim 0.78","[2, 2116, 126, 395]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,2,"crop 2, sim 0.73","[2023, 1894, 445, 859]",Saguaro,Saguaro lemon,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,3,"crop 3, sim 0.75","[2192, 1666, 188, 352]",Martini,Litre Martini Rose 14ø4,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,4,"crop 5, sim 0.74","[2506, 1944, 221, 595]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,5,"crop 6, sim 0.75","[2520, 819, 183, 371]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,6,"crop 8, sim 0.71","[2706, 1956, 288, 816]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,7,"crop 9, sim 0.76","[2837, 1773, 102, 300]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,8,"crop 10, sim 0.70","[2942, 1488, 190, 590]",Singha,"Singha, lager, 5%",alcohol,,320 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,9,"crop 11, sim 0.77","[2975, 509, 133, 359]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,10,"crop 12, sim 0.93","[3118, 1959, 236, 769]",Johnnie Walker Black Label,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,11,"crop 13, sim 0.90","[3130, 1261, 221, 743]",Bacardi Carta Blanca,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,12,"crop 14, sim 0.75","[3365, 1366, 243, 700]",Torino distillati,Liquore al caffè,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,13,"crop 15, sim 0.52","[3387, 1992, 347, 735]",Appie,La limonade mona,mixer,,33cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6342.HEIC,14,"crop 16, sim 0.79","[4608, 681, 164, 186]",Orangina,Orangina,mixer,,33 cl e,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,1,"crop 1, sim 0.88","[0, 3096, 52, 281]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,2,"crop 2, sim 0.80","[0, 2649, 100, 274]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,3,"crop 6, sim 0.71","[2211, 2185, 164, 309]",Martini,Litre Martini Rose 14ø4,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,4,"crop 7, sim 0.67","[2347, 2473, 131, 364]",Gwoon,Orange Zero Sugar,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,5,"crop 9, sim 0.75","[2509, 2418, 205, 543]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,6,"crop 10, sim 0.75","[2580, 1497, 155, 319]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,7,"crop 11, sim 0.74","[2618, 2294, 126, 340]",Schweppes,Lemonade Flavoured Drink,mixer,,200 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,8,"crop 12, sim 0.89","[2704, 2380, 209, 593]",Johnnie Walker Black Label,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,9,"crop 13, sim 0.69","[2766, 1297, 186, 395]",Fernandes,Cream Ginger,mixer,,33 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,10,"crop 14, sim 0.80","[2775, 2299, 88, 209]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,11,"crop 15, sim 0.76","[2825, 1983, 117, 293]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,12,"crop 16, sim 0.69","[2851, 2063, 171, 524]",Singha,Singha - The original Thai Beer,alcohol,,490 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,13,"crop 17, sim 0.70","[2961, 2454, 202, 562]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,14,"crop 18, sim 0.77","[3004, 1257, 114, 271]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,15,"crop 19, sim 0.91","[3039, 1833, 181, 693]",Bacardi Carta Blanca,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,16,"crop 20, sim 0.77","[3227, 1956, 202, 585]",Torino distillati,Liquore al caffè,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6343.HEIC,17,"crop 21, sim 0.65","[3306, 2504, 295, 495]",Tesco,Orange Quadruple strength,mixer,,1.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,1,"crop 1, sim 0.72","[0, 2313, 376, 707]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,2,"crop 2, sim 0.79","[264, 2137, 90, 207]",Fernandes,Cream Ginger,mixer,,33 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,3,"crop 4, sim 0.74","[2173, 2080, 364, 735]",Saguaro,Saguaro lemon,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,4,"crop 5, sim 0.78","[2323, 1909, 176, 309]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,5,"crop 7, sim 0.81","[2578, 1749, 217, 578]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,6,"crop 8, sim 0.75","[2608, 2147, 207, 531]",Brasserie Galibier,Matchut IPA,alcohol,,33 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,7,"crop 9, sim 0.79","[2678, 1211, 129, 228]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,8,"crop 11, sim 0.89","[2813, 2123, 209, 600]",Johnnie Walker Black Label,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,9,"crop 12, sim 0.77","[2913, 2004, 90, 269]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,10,"crop 13, sim 0.69","[2975, 1768, 152, 521]",Singha,"Singha, lager, 5%",alcohol,,320 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,11,"crop 14, sim 0.71","[3058, 2128, 207, 719]",SANTA CRUZ,Ron Licor Caramelo,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,12,"crop 15, sim 0.91","[3144, 1568, 181, 678]",Bacardi Carta Blanca,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,13,"crop 17, sim 0.77","[3344, 1678, 195, 602]",Torino distillati,Liquore al caffè,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,14,"crop 18, sim 0.72","[3389, 2194, 300, 647]",Tesco,Orange Quadruple strength,mixer,,1.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6345.HEIC,15,"crop 19, sim 0.78","[4758, 1104, 152, 209]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,1,"crop 1, sim 0.85","[0, 2875, 269, 400]",Badger,Tangle Foot,alcohol,,500 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,2,"crop 4, sim 0.71","[2125, 2285, 402, 659]",Saguaro,Saguaro lemon,mixer,,"1,5l",,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,3,"crop 5, sim 0.74","[2268, 2106, 162, 298]",Coors,Coors Light,alcohol,,12 fl oz,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,4,"crop 6, sim 0.79","[2516, 1940, 236, 583]",Saskia,Mineralwasser Medium,mixer,,0.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,5,"crop 7, sim 0.74","[2530, 2461, 212, 255]",Samichlaus,Classic,alcohol,,0.75 l,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,6,"crop 8, sim 0.77","[2618, 1404, 159, 321]",Coca-Cola,Huevo,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,7,"crop 9, sim 0.90","[2742, 2323, 209, 555]",Johnnie Walker Black Label,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,8,"crop 11, sim 0.81","[2806, 2206, 105, 262]",alhambra,Alhambra,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,9,"crop 12, sim 0.70","[2899, 1956, 162, 524]",Singha,"Singha, lager, 5%",alcohol,,320 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,10,"crop 13, sim 0.71","[3008, 2335, 198, 664]",Stolichnaya,Stoli Stolichnaya Salted Karamel Flavoured Vodka 70cl,Vodka,,700 ml,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,11,"crop 15, sim 0.90","[3056, 1795, 176, 666]",Bacardi Carta Blanca,,,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,12,"crop 16, sim 0.77","[3265, 1878, 188, 576]",Torino distillati,Liquore al caffè,alcohol,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,13,"crop 17, sim 0.70","[3327, 2373, 288, 590]",Tesco,Orange Quadruple strength,mixer,,1.5l,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,14,"crop 18, sim 0.84","[3408, 2316, 157, 186]",Bruce Cost,Jasmine Tea Ginger Ale,mixer,,,,,,catalogue:siglip2:ocr,False
+1,IMG_6346.HEIC,15,"crop 19, sim 0.77","[4565, 1283, 150, 188]",Prince Hubert de Polignac,Cognac VS,alcohol,,70 cl,,,,catalogue:siglip2:ocr,False
