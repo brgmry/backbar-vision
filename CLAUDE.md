@@ -7,7 +7,7 @@ From one photo of a group of bottles, for each bottle (numbered left to right):
 1. Identify it: bottle type/brand, size (ml), liquid.
 2. Estimate fill level: % remaining and ml remaining.
 
-Output is JSON per bottle: `{bottle_type, brand, size_ml, liquid, fill_pct, fill_ml, confidence}`.
+Output is JSON per bottle: `{position, brand, product, category, size, unit, liquid, glass, confidence}` (fill_pct and fill_ml later).
 
 ## Layout
 - `data/raw/` original photos. Never edit, rename or overwrite.
