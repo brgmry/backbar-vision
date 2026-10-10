@@ -1,0 +1,26 @@
+# bottle-vision
+
+Saturday hack: cameras in restaurant bars that track stock from photos. Built by Bergen and Alan in one 5-hour session. Ship a working demo, not a platform.
+
+## What it does
+From one photo of a bottle:
+1. Identify it: bottle type/brand, size (ml), liquid.
+2. Estimate fill level: % remaining and ml remaining.
+
+Output is JSON per bottle: `{bottle_type, brand, size_ml, liquid, fill_pct, fill_ml, confidence}`.
+
+## Layout
+- `data/raw/` original photos. Never edit, rename or overwrite.
+- `data/labels.csv` ground truth, one row per photo. This is the eval set and the single source of truth.
+- `data/labelled/` exported annotations (bounding boxes, masks) if we fine-tune.
+- `src/` pipeline code.
+- `notebooks/` throwaway exploration only. Anything that works moves to `src/`.
+
+## Rules
+- **Eval first.** Every approach is scored against `labels.csv` before it's called working. Report identification accuracy and fill-level mean absolute error (percentage points).
+- **Hold out a test split** before any training. Never tune on it.
+- **Fill % is volume, not height.** Shaped bottles (necks, shoulders) need a height-to-volume profile per bottle type.
+- Opaque bottles have no visible liquid line. Flag them as low confidence, don't guess silently.
+- Secrets live in `.env` (gitignored). Never commit keys, weights (`*.pt`) or `runs/`.
+- Time-boxed: prefer the simplest thing that hits the eval bar. No infra, no auth, no database until the model works.
+- Small commits, pushed often. Two people work in this repo, so pull before you start.
