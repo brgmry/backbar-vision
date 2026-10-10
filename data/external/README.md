@@ -105,7 +105,8 @@ The Whisky Exchange and Total Wine (403 to a polite UA), Master of Malt (429), M
 ## openimages-bottles/ : Open Images V7 images with Bottle, Wine or Beer boxes
 
 - Source: Open Images (https://storage.googleapis.com/openimages/web/index.html). Box CSVs from `storage.googleapis.com/openimages/v5|v6/*-annotations-bbox.csv`, images from the public bucket `open-images-dataset.s3.amazonaws.com/<split>/<id>.jpg`. Licence: annotations CC BY 4.0, images listed by Google as CC BY 2.0 (Flickr, per-image attribution).
-- Classes: 3 box labels, `Bottle` (/m/04dr76w), `Wine` (/m/081qc), `Beer` (/m/01599). Every image with at least one such box in validation, test and train.
+- Images: 17,615 (validation 323, test 932, train 16,360), every Open Images image with at least one such box. 4.5 GB. Boxes: 69,068 (Bottle 42,166, Wine 16,839, Beer 10,063).
+- Classes: 3 box labels, `Bottle` (/m/04dr76w), `Wine` (/m/081qc), `Beer` (/m/01599).
 - Layout: `images/{validation,test,train}/<ImageID>.jpg`; `boxes.csv` = split, label, plus the original Open Images columns (normalised XMin/XMax/YMin/YMax, IsOccluded, IsTruncated, IsGroupOf, IsDepiction, IsInside), only for images on disk. `meta/bb-*.csv` are the filtered source CSVs, `meta/fetch.py` re-runs the resumable download.
 - Use: generic bottle detection/crops and negatives (c). No brand labels.
 
