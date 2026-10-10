@@ -5,7 +5,10 @@ Pick one with a spec string, so experiments swap them from the command line:
   geometry:edge      SAM 2.1 bottle mask, liquid line at the strongest horizontal colour change, volume from the mask
   geometry:labpics   same geometry, liquid segmented by sagieppel's LabPics-trained SAM2 (src/liquid_labpics.py, local)
   geometry:sam3      same geometry, liquid segmented by SAM 3 from the text prompt "liquid" (local, gated HF model)
-  geometry:<model>   same geometry, but the VLM points at the liquid line
+  geometry:<model>   same geometry, but the VLM points at the liquid line (a pixel row)
+  geometry:<model>-grid  same, but numbered ticks are drawn beside the bottle and the VLM names the nearest tick
+Bottle outline: SAM 3 ("bottle" prompt, the instance that best fills the detector's box), SAM 2.1 box prompt
+as fallback. OUTLINE=sam2 in the environment switches back to SAM 2.1 only.
 <model> is any name vlm.get_vlm accepts (opus, sonnet, haiku).
 
 Geometry: the bottle is round, so each pixel row of the mask is a disc of diameter = mask width.
@@ -17,6 +20,7 @@ height on the bottle axis is the ellipse's middle row, where it meets the side w
 taken where the surface meets the walls, and the base is the widest row near the bottom, not the lowest
 pixel (that is the front of the base ellipse). The base ellipse's depth also gives the camera elevation.
 """
+import os
 from dataclasses import dataclass, field
 from functools import cache
 from typing import Protocol
@@ -32,6 +36,8 @@ from vlm import MAX_PIXELS, MAX_SIDE, get_vlm
 SAM = "facebook/sam2.1-hiera-large"
 SAM3 = "facebook/sam3"
 SAM3_SIDE = 1200  # long side of the crop fed to SAM 3; bigger is slower and no sharper
+OUTLINE = os.environ.get("OUTLINE", "sam3")
+GRID_TICKS = 30  # numbered ticks from the neck (1) to the base (GRID_TICKS)
 DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
 SHOULDER_WIN = 0.03  # of bottle height: span over which width change is measured to find the shoulder
 NECK_FLAT = 0.1  # neck starts where, above the shoulder, width shrinks by less than 10% per SHOULDER_WIN
@@ -140,9 +146,30 @@ def _segment(crop_bytes: bytes, size: tuple[int, int], box: tuple) -> np.ndarray
 
 
 def segment(crop: Image.Image, box: tuple) -> np.ndarray:
-    """Bottle mask inside the crop, prompted with the detector's box. Cached: estimators share it."""
+    """Bottle mask inside the crop: SAM 3 outline, else SAM 2.1 prompted with the box. Cached: estimators share it."""
     crop = crop.convert("RGB")
-    return _segment(crop.tobytes(), crop.size, box)
+    mask = _segment_sam3(crop.tobytes(), crop.size, box) if OUTLINE == "sam3" else None
+    return mask if mask is not None else _segment(crop.tobytes(), crop.size, box)
+
+
+@cache
+def _segment_sam3(crop_bytes: bytes, size: tuple[int, int], box: tuple) -> np.ndarray | None:
+    """The SAM 3 "bottle" instance that best overlaps the detector's box, or None if none overlaps enough."""
+    crop = Image.frombytes("RGB", size, crop_bytes)
+    x1, y1, x2, y2 = (int(round(v)) for v in box)
+    inbox = np.zeros((size[1], size[0]), bool)
+    inbox[max(0, y1):y2, max(0, x1):x2] = True
+    best, best_iou = None, 0.3  # below this the instance is a neighbour, not our bottle
+    for m in sam3_masks(crop, "bottle"):
+        iou = (m & inbox).sum() / (m | inbox).sum()
+        if iou > best_iou:
+            best, best_iou = m, iou
+    if best is None:
+        return None
+    labels, n = ndimage.label(best)
+    if n > 1:
+        best = labels == np.argmax(np.bincount(labels.ravel())[1:]) + 1
+    return ndimage.binary_fill_holes(best)
 
 
 def row_widths(mask: np.ndarray) -> np.ndarray:
@@ -221,6 +248,47 @@ class VLMLine:
         return round(ans.y / scale) if ans.visible and ans.y is not None else None
 
 
+class Tick(BaseModel):
+    visible: bool
+    tick: int | None
+
+
+class VLMGridLine:
+    """Numbered ticks beside the bottle, neck to base; the VLM names the tick level with the liquid surface.
+    Naming a printed number is easier for a VLM than producing a pixel coordinate."""
+
+    def __init__(self, model: str):
+        self.vlm = get_vlm(model)
+        self.name = f"{model}-grid"
+
+    def find(self, crop, mask, full_y, bottom_y, item):
+        from PIL import ImageDraw, ImageFont
+        ys = np.linspace(full_y, bottom_y, GRID_TICKS).round().astype(int)
+        big, scale = fit(crop)
+        cols = np.flatnonzero(mask.any(axis=0))
+        left, right = cols[0] * scale, cols[-1] * scale
+        draw = ImageDraw.Draw(big)
+        font = ImageFont.load_default(size=max(10, int(big.height / 70)))
+        tick = max(8, int(big.width / 25))
+        for n, y in enumerate(ys, 1):
+            y = y * scale
+            colour = "red" if n % 2 else "yellow"
+            draw.line([(max(0, left - tick), y), (left - 2, y)], fill=colour, width=2)
+            draw.line([(right + 2, y), (min(big.width, right + tick), y)], fill=colour, width=2)
+            if n % 2 or GRID_TICKS <= 20:
+                draw.text((max(0, left - tick - font.size * 1.4), y - font.size / 2), str(n), fill=colour, font=font)
+        prompt = (f"This photo shows one bottle: {describe(item)}. Numbered ticks run down both sides of the "
+                  f"bottle, 1 at the neck (full) to {GRID_TICKS} at the base (empty); odd numbers are printed, even "
+                  "ticks sit between them. visible: can you see the top surface of the liquid through the container? "
+                  "tick: the tick level with where the liquid surface meets the side walls. If the camera looks down "
+                  "the surface is an ellipse: use its left and right ends, not its front or back edge. "
+                  "1 if the liquid reaches the neck. null when visible is false.")
+        ans = self.vlm.ask([big], prompt, Tick)
+        if not ans.visible or ans.tick is None:
+            return None
+        return int(ys[int(np.clip(ans.tick, 1, GRID_TICKS)) - 1])
+
+
 @cache
 def sam3():
     from transformers import Sam3Model, Sam3Processor
@@ -279,5 +347,7 @@ def get_estimator(spec: str) -> FillEstimator:
         from liquid_labpics import LabPicsLine  # needs the vendored model, see that file
         return Geometry(LabPicsLine())
     if kind == "geometry":
+        if arg.endswith("-grid"):
+            return Geometry(VLMGridLine(arg.removesuffix("-grid")))
         return Geometry(EdgeLine() if arg == "edge" else VLMLine(arg))
-    raise ValueError(f"unknown fill estimator {spec!r}: use vlm:<model>, geometry:edge, geometry:labpics, geometry:sam3 or geometry:<model>")
+    raise ValueError(f"unknown fill estimator {spec!r}: use vlm:<model>, geometry:edge, geometry:labpics, geometry:sam3, geometry:<model> or geometry:<model>-grid")

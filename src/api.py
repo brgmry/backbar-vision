@@ -96,6 +96,10 @@ def identify_local(path: Path) -> list[BottleOut]:
             brand=inv["brand"], product=inv["product"], category=inv["category"], liquid=inv["liquid"],
             size=inv["size"], unit=inv["unit"], glass=None, fill_ml=None, id_source="reference", fill_visible=False,
         ))
+    from refine import refine  # grow boxes to the SAM 3 bottle outline: clear bases and necks OWLv2 stops short of
+    with _local_lock:
+        for b, box in zip(bottles, refine(Image.open(path).convert("RGB"), [b.bbox for b in bottles])):
+            b.bbox = box
     return bottles
 
 
