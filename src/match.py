@@ -7,6 +7,7 @@ Writes one row per identified item in the shared output schema, so score.py scor
 Usage: python src/match.py [k ...]   -> data/predictions_local_k<k>.csv
 """
 import csv
+import os
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -23,13 +24,14 @@ FIELDS = ["run", "image", "position", "description", "bbox", "brand", "product",
           "size", "unit", "glass", "fill_ml", "id_source", "fill_visible"]
 
 inventory = {int(r["id"]): r for r in csv.DictReader(open("data/labelled/inventory.csv"))}
-boxes = {(b["photo"], b["crop"]): b for b in csv.DictReader(open("data/crops/boxes.csv"))}
-crops = [r | {"item_id": int(r["item_id"])} for r in csv.DictReader(open("data/crops/labels.csv"))]
+CROPS = Path(os.environ.get("CROPS", "data/crops"))  # data/crops_whole: whole-bottle re-cut (src/recut_crops.py)
+boxes = {(b["photo"], b["crop"]): b for b in csv.DictReader(open(CROPS / "boxes.csv"))}
+crops = [r | {"item_id": int(r["item_id"])} for r in csv.DictReader(open(CROPS / "labels.csv"))]
 for c in crops:
     b = boxes[(c["photo"], c["crop"])]
     c["box"] = [float(b[k]) for k in ("x1", "y1", "x2", "y2")]
     c["area"] = (c["box"][2] - c["box"][0]) * (c["box"][3] - c["box"][1])
-vecs = embed([Path(f"data/crops/{c['photo']}/{int(c['crop']):02d}.jpg") for c in crops])
+vecs = embed([CROPS / c["photo"] / f"{int(c['crop']):02d}.jpg" for c in crops])
 photos = sorted({c["photo"] for c in crops})
 scale = {p: Image.open(f"data/raw/{p}.HEIC").width / 2400 for p in photos}  # detect.py resized to 2400px
 
@@ -68,7 +70,8 @@ def run(k: int) -> None:
                          "product": inv["product"], "category": inv["category"], "liquid": inv["liquid"],
                          "size": inv["size"], "unit": inv["unit"], "glass": "", "fill_ml": None,
                          "id_source": "reference", "fill_visible": False})
-    out = Path(f"data/predictions_local_k{k}.csv")
+    suffix = "" if CROPS == Path("data/crops") else f"_{CROPS.name.removeprefix('crops_')}"
+    out = Path(f"data/predictions_local{suffix}_k{k}.csv")
     with out.open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
