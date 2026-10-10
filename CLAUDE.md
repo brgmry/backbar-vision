@@ -3,7 +3,7 @@
 Saturday hack: cameras in restaurant bars that track stock from photos. Built by Bergen and Alan in one 5-hour session. Ship a working demo, not a platform.
 
 ## What it does
-From one photo of a bottle:
+From one photo of a group of bottles, for each bottle (numbered left to right):
 1. Identify it: bottle type/brand, size (ml), liquid.
 2. Estimate fill level: % remaining and ml remaining.
 

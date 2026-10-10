@@ -20,4 +20,4 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 cp .env.example .env   # add your key
 .venv/bin/python src/identify.py data/raw
 ```
-Writes `data/predictions.csv`: brand, product, type, size, liquid, glass, confidence per photo.
+Writes `data/predictions.csv`: one row per bottle (photo, position left to right, brand, product, type, size, liquid, glass, confidence).

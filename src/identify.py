@@ -1,4 +1,4 @@
-"""Identify bottles in photos with Claude vision. This is the baseline to beat.
+"""Identify every bottle in each photo with Claude vision. This is the baseline to beat.
 
 Usage: python src/identify.py data/raw            -> writes data/predictions.csv
 """
@@ -21,7 +21,9 @@ load_dotenv()
 MODEL = "claude-opus-5-5"
 EXTS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 
-PROMPT = """You are cataloguing bar stock from a photo. Identify the main bottle in the image.
+PROMPT = """You are cataloguing bar stock from a photo of a group of bottles. List every bottle you can see,
+ordered left to right (front row before back row if there are rows). For each bottle:
+- position: 1-based index in that order, plus a short visual description so a human can match it (e.g. "tall green, red cap").
 - brand and product: read them off the label; if unreadable, give your best guess and lower confidence.
 - size_ml: from the label if printed, else infer from bottle shape and typical sizes (50, 200, 350, 500, 700, 750, 1000, 1750).
 - liquid: what is inside (e.g. vodka, gin, whisky, red wine, olive oil, syrup).
@@ -30,6 +32,8 @@ PROMPT = """You are cataloguing bar stock from a photo. Identify the main bottle
 
 
 class Bottle(BaseModel):
+    position: int
+    description: str
     brand: str
     product: str
     bottle_type: Literal["spirit", "wine", "beer", "liqueur", "soft_drink", "syrup", "oil", "other"]
@@ -37,6 +41,10 @@ class Bottle(BaseModel):
     liquid: str
     glass: Literal["clear", "green", "amber", "frosted", "opaque"]
     confidence: float
+
+
+class Photo(BaseModel):
+    bottles: list[Bottle]
 
 
 def load_image(path: Path) -> str:
@@ -47,7 +55,7 @@ def load_image(path: Path) -> str:
     return base64.standard_b64encode(buf.getvalue()).decode()
 
 
-def identify(client: anthropic.Anthropic, path: Path) -> Bottle:
+def identify(client: anthropic.Anthropic, path: Path) -> list[Bottle]:
     response = client.messages.parse(
         model=MODEL,
         max_tokens=16000,
@@ -59,11 +67,11 @@ def identify(client: anthropic.Anthropic, path: Path) -> Bottle:
                 {"type": "text", "text": PROMPT},
             ],
         }],
-        output_format=Bottle,
+        output_format=Photo,
     )
     if response.stop_reason == "refusal":
         raise RuntimeError(f"refused: {path.name}")
-    return response.parsed_output
+    return response.parsed_output.bottles
 
 
 def main(folder: str) -> None:
@@ -75,12 +83,14 @@ def main(folder: str) -> None:
         writer.writeheader()
         for path in images:
             try:
-                bottle = identify(client, path)
+                bottles = identify(client, path)
             except (anthropic.APIStatusError, anthropic.APIConnectionError, RuntimeError) as e:
                 print(f"FAIL {path.name}: {e}", file=sys.stderr)
                 continue
-            writer.writerow({"image": path.name, **bottle.model_dump()})
-            print(f"{path.name}: {bottle.brand} {bottle.product}, {bottle.size_ml}ml, {bottle.liquid} ({bottle.confidence:.2f})")
+            print(f"{path.name}: {len(bottles)} bottles")
+            for b in bottles:
+                writer.writerow({"image": path.name, **b.model_dump()})
+                print(f"  {b.position}. {b.brand} {b.product}, {b.size_ml}ml, {b.liquid} ({b.confidence:.2f})")
     print(f"\n{len(images)} images -> {out}")
 
 
