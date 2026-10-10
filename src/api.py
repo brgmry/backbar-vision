@@ -38,6 +38,8 @@ FILL_WORKERS = 16  # concurrent Claude calls per photo
 ASSUMED_SIZE_ML = 700  # unidentified bottles: UK standard spirit bottle, so fill_ml can be given
 
 app = FastAPI(title="bottle-vision")
+import testing_routes  # noqa: E402  Testing tab: /testing and /api/test (read-only)
+app.include_router(testing_routes.router)
 _local_lock = threading.Lock()  # one torch inference at a time
 
 

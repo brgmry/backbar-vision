@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>bottle-vision testing</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 100'%3E%3Cpath fill='%23f0a43a' d='M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z'/%3E%3C/svg%3E">
+<style>
+/* tokens copied from index.html so the two tabs read as one app */
+:root {
+  --bg: #0d0b09;
+  --panel: #161310;
+  --panel-2: #1f1b17;
+  --line: #2b2621;
+  --text: #f5eee4;
+  --muted: #9a9086;
+  --faint: #635a51;
+  --amber: #f0a43a;
+  --red: #ff8a76;
+  --green: #8fd694;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); }
+body { min-height: 100vh; color: var(--text); font: 15px/1.45 var(--sans); -webkit-font-smoothing: antialiased;
+  background: radial-gradient(900px 520px at 78% -140px, #3d260c66, transparent 70%), var(--bg); }
+button, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+header { display: flex; align-items: center; gap: 16px; padding: 20px 32px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; font-size: 16px; letter-spacing: -.01em; }
+.brand svg { width: 13px; height: 30px; }
+.brand em { font: italic 400 19px var(--serif); color: var(--muted); margin-left: -6px; }
+.tabs { display: flex; gap: 4px; margin-left: 18px; }
+.tabs a { padding: 6px 13px; border-radius: 999px; color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none; transition: color .2s, background .2s; }
+.tabs a:hover { color: var(--text); }
+.tabs a[aria-current] { color: var(--text); background: var(--panel-2); }
+
+main { padding: 6px 32px 60px; max-width: 1440px; margin: 0 auto; display: grid; gap: 56px; }
+@media (max-width: 960px) { header, main { padding-left: 16px; padding-right: 16px; } }
+section { animation: rise .6s var(--ease) backwards; }
+h2 { font: 400 32px/1.1 var(--serif); letter-spacing: -.02em; }
+h2 em { color: var(--amber); }
+.sub { margin: 6px 0 18px; color: var(--muted); font-size: 14px; max-width: 760px; }
+.err { color: var(--red); }
+.muted { color: var(--muted); }
+.faint { color: var(--faint); }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+tr:last-child > td { border-bottom: 0; }
+th { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; background: var(--panel-2); }
+th[title] { cursor: help; }
+th .i { margin-left: 4px; color: var(--faint); font-size: 12px; letter-spacing: 0; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+th.key { color: var(--amber); }
+td.key { font-weight: 650; font-size: 15px; color: var(--text); }
+.meter { display: block; height: 3px; margin-top: 5px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--amber); }
+.exp b { font-weight: 600; }
+.exp .model { color: var(--muted); font-size: 12px; }
+.exp .note { color: var(--faint); font-size: 12px; margin-top: 2px; max-width: 520px; }
+tr.base td { background: #f0a43a10; }
+tr.base td:first-child { box-shadow: inset 3px 0 0 var(--amber); }
+.pill { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; background: var(--amber); color: #1a1109; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px; }
+.miss { color: var(--red); font-size: 12px; white-space: nowrap; }
+.na { color: var(--faint); }
+.delta { display: block; color: var(--faint); font-size: 11.5px; font-weight: 400; }
+.legend { margin-top: 10px; color: var(--muted); font-size: 12.5px; }
+.legend b { color: var(--text); font-weight: 600; }
+
+details { margin-top: 14px; }
+summary { cursor: pointer; color: var(--muted); font-size: 13.5px; font-weight: 600; padding: 6px 0; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-block; width: 18px; color: var(--amber); }
+details[open] > summary::before { content: "\2212"; }
+details .tablewrap { margin-top: 8px; }
+
+.runs { display: grid; gap: 6px; margin-top: 18px; }
+.runs > details { margin: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 4px 14px; }
+.runs > details > summary { display: flex; gap: 12px; align-items: baseline; }
+.runs > details > summary span { color: var(--faint); font-weight: 400; }
+tr.photo { cursor: pointer; }
+tr.photo:hover td { background: var(--panel-2); }
+tr.photo td:first-child::before { content: "+"; display: inline-block; width: 16px; color: var(--amber); }
+tr.photo.open td:first-child::before { content: "\2212"; }
+tr.rows > td { padding: 0 0 10px 30px; background: #0d0b0980; }
+tr.rows table { font-size: 12.5px; }
+tr.rows td, tr.rows th { padding: 6px 10px; }
+.ok { color: var(--green); }
+.bad { color: var(--red); }
+a.link { color: var(--amber); text-decoration: none; cursor: pointer; }
+a.link:hover { text-decoration: underline; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 16px; }
+.controls label { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+select { padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 13px; max-width: 320px; cursor: pointer; }
+select:hover { border-color: #f0a43a70; }
+.inspect { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 28px; align-items: start; }
+@media (max-width: 960px) { .inspect { grid-template-columns: 1fr; } }
+.frame { position: relative; border-radius: 18px; overflow: hidden; background: var(--panel); box-shadow: 0 40px 90px -40px #000, 0 0 0 1px var(--line); }
+.frame svg { display: block; width: 100%; height: auto; }
+.side { display: grid; gap: 18px; }
+.side h3 { font: 400 22px var(--serif); margin-bottom: 8px; }
+.side h3 small { margin-left: 6px; font: 13px var(--sans); color: var(--muted); }
+.list { display: grid; gap: 6px; list-style: none; max-height: 60vh; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.list li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); font-size: 13.5px; }
+.list li.on { border-color: color-mix(in srgb, var(--c) 70%, transparent); background: color-mix(in srgb, var(--c) 8%, var(--panel)); }
+.num { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--c); color: #140e08; font-size: 11px; font-weight: 700; }
+.list .meta { color: var(--muted); font-size: 12px; }
+.empty { color: var(--muted); font-size: 13.5px; padding: 8px 2px; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 40 100" aria-hidden="true"><path fill="#f0a43a" d="M17 14h6v9c0 2 10 2 10 7v64a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V30c0-5 10-5 10-7z"/></svg>
+    bottle <em>vision</em>
+  </div>
+  <nav class="tabs" aria-label="Views"><a href="/">Identify</a><a href="/testing" aria-current="page">Testing</a></nav>
+</header>
+
+<main>
+  <section id="lb">
+    <h2>Leader<em>board</em></h2>
+    <p class="sub">Every logged experiment from data/results.csv, sorted by strict brand recall. Photos are the only input; ground truth only scores. The Claude baseline is the bar to beat.</p>
+    <div id="lbBody"><p class="empty">Loading...</p></div>
+  </section>
+
+  <section id="cr">
+    <h2>Claude <em>runs</em></h2>
+    <p class="sub">The baseline, run several times over the same photos. Each run sends every photo once; the headline is the mean of the run means. Open a run, then click a photo to see what Claude said and what it matched.</p>
+    <div id="crBody"><p class="empty">Loading...</p></div>
+  </section>
+
+  <section id="pi">
+    <h2>Photo <em>inspector</em></h2>
+    <p class="sub">Pick a photo and a predictions file to draw its boxes. Kitchen photos (data/raw) also show the 12 ground-truth items, ticked when a prediction matched them.</p>
+    <div class="controls">
+      <label>Photo <select id="selPhoto"></select></label>
+      <label>Predictions <select id="selFile"></select></label>
+      <label id="runWrap" hidden>Run <select id="selRun"></select></label>
+    </div>
+    <div id="piBody"></div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+const get = (u) => fetch(u, { cache: "no-store" }).then(async (r) => r.ok ? r.json() : Promise.reject(new Error(`${r.status} ${u}`)));
+const pct = (x) => x == null ? null : `${(100 * x).toFixed(1)}%`;
+const signed = (x) => x == null ? null : `${x > 0 ? "+" : ""}${x.toFixed(2)}`;
+const NA = '<span class="na">n/a</span>';
+const COLORS = ["#f0a43a", "#4fd1c5", "#c38bff", "#ef5d72", "#f4d35e", "#9be15d", "#e0915a", "#7aa8ff", "#ff6b4a", "#ece6da", "#c3c96b", "#ff9ecf"];
+
+// one place for metric names and their plain-English meaning
+const M = {
+  brand_recall: { name: "Brand recall", short: "strict", tip: "Share of items where the predicted brand is actually the right brand. \"Unknown\" and generic names never count. The headline number." },
+  recall: { name: "Item recall", short: "loose", tip: "Share of the ground-truth items that a prediction was matched to by name similarity. Generic names like \"Coffee Liqueur\" can count. Generous." },
+  bar_recall: { name: "Bar recall", tip: "Item recall on the bar items only (spirits, liqueurs, wine, beer, mixers)." },
+  bottles_found: { name: "Bottles found", tip: "Did the system put a box on the bottle at all (detection), regardless of naming it. Only where it can be computed (kitchen photos with boxes), else n/a." },
+  precision: { name: "Precision", tip: "Share of the system's predictions that match a real item. Low precision means shotgun guessing." },
+  count_error: { name: "Count error", tip: "Bottles predicted minus bottles actually there, per photo, averaged. Positive means overcounting." },
+};
+const th = (k, cls = "n") => `<th class="${cls}${k === "brand_recall" ? " key" : ""}" title="${esc(M[k].tip)}">${M[k].name}${M[k].short ? ` <span class="faint">(${M[k].short})</span>` : ""}<span class="i" aria-hidden="true">&#9432;</span></th>`;
+const LEGEND = `<p class="legend"><b>Brand recall</b> right brand, the headline. <b>Item recall</b> matched by name, generous. <b>Bar recall</b> item recall on bar bottles only. <b>Bottles found</b> boxed at all. <b>Precision</b> guesses that were real. <b>Count error</b> predicted minus actual, positive is overcounting. Hover a heading for more.</p>`;
+
+// 1. leaderboard
+async function leaderboard() {
+  const d = await get("/api/test/leaderboard");
+  const base = d.valid.find((r) => r.baseline);
+  const cols = ["brand_recall", "recall", "bar_recall", "bottles_found", "precision", "count_error"];
+  const cell = (r, k) => {
+    const v = r[k];
+    if (k === "precision" && v == null) return `<td class="n"><span class="miss">precision missing</span></td>`;
+    if (v == null) return `<td class="n">${NA}</td>`;
+    if (k === "count_error") return `<td class="n">${signed(v)}</td>`;
+    if (k === "recall") return `<td class="n">${pct(v)}${r.recall_sd ? `<span class="delta">&plusmn; ${(100 * r.recall_sd).toFixed(1)}</span>` : ""}</td>`;
+    if (k !== "brand_recall") return `<td class="n">${pct(v)}</td>`;
+    const dlt = base && !r.baseline && base.brand_recall != null ? `<span class="delta">${v >= base.brand_recall ? "+" : ""}${(100 * (v - base.brand_recall)).toFixed(1)} pts vs Claude</span>` : "";
+    return `<td class="n key">${pct(v)}<span class="meter"><i style="width:${Math.min(100, 100 * v)}%"></i></span>${dlt}</td>`;
+  };
+  const row = (r) => `<tr class="${r.baseline ? "base" : ""}"><td class="exp"><b>${esc(r.experiment)}</b>${r.baseline ? '<span class="pill">Bar to beat</span>' : ""}<div class="model">${esc(r.model)}</div>${r.notes ? `<div class="note">${esc(r.notes)}</div>` : ""}</td>${cols.map((k) => cell(r, k)).join("")}</tr>`;
+  const table = (rows) => `<div class="tablewrap"><table><tr><th>Experiment</th>${cols.map((k) => th(k)).join("")}</tr>${rows.map(row).join("")}</table></div>`;
+  $("lbBody").innerHTML = table(d.valid) + LEGEND +
+    (d.invalid.length ? `<details><summary>Invalid (kept as record) <span class="faint">${d.invalid.length} rows: ground truth was used as input</span></summary>${table(d.invalid)}</details>` : "");
+}
+
+// 2. Claude runs
+const RUN_COLS = ["recall", "brand_recall", "precision", "count_error"];
+const fmt = (k, v) => v == null ? NA : k === "count_error" ? signed(v) : pct(v);
+async function claudeRuns() {
+  const d = await get("/api/test/runs?file=predictions.csv");
+  if (!d.runs.length) { $("crBody").innerHTML = '<p class="empty">No runs in data/predictions.csv.</p>'; return; }
+  const mean = (k) => d.runs.reduce((a, r) => a + r.means[k], 0) / d.runs.length;
+  const head = `<tr><th>Run</th>${RUN_COLS.map((k) => th(k)).join("")}</tr>`;
+  let h = `<div class="tablewrap"><table>${head}${d.runs.map((r) => `<tr><td>Run ${esc(r.run)} <span class="faint">${r.photos.length} photos</span></td>${RUN_COLS.map((k) => `<td class="n${k === "brand_recall" ? " key" : ""}">${fmt(k, r.means[k])}</td>`).join("")}</tr>`).join("")}
+    <tr class="base"><td><b>Mean of ${d.runs.length} runs</b></td>${RUN_COLS.map((k) => `<td class="n${k === "brand_recall" ? " key" : ""}"><b>${fmt(k, mean(k))}</b></td>`).join("")}</tr></table></div><div class="runs">`;
+  for (const r of d.runs) {
+    h += `<details><summary>Run ${esc(r.run)} <span>brand recall ${pct(r.means.brand_recall)}, item recall ${pct(r.means.recall)}</span></summary>
+      <div class="tablewrap"><table><tr><th>Photo</th>${RUN_COLS.map((k) => th(k)).join("")}<th>Missed</th></tr>
+      ${r.photos.map((p, i) => `<tr class="photo" data-k="${esc(r.run)}-${i}"><td>${esc(p.image)}</td>${RUN_COLS.map((k) => `<td class="n">${fmt(k, p.scores[k])}</td>`).join("")}<td class="muted" style="font-size:12px">${esc(p.missed.join(", ")) || "none"}</td></tr>
+      <tr class="rows" hidden><td colspan="${RUN_COLS.length + 2}">
+        <p style="margin:8px 0"><a class="link" data-inspect="${esc(p.image)}" data-run="${esc(r.run)}">Open in the inspector</a></p>
+        <table><tr><th>#</th><th>Brand</th><th>Product</th><th>Category</th><th>Size</th><th>ID from</th><th>Matched to</th></tr>
+        ${p.rows.map((x) => `<tr><td>${esc(x.position)}</td><td>${esc(x.brand)}</td><td>${esc(x.product)}</td><td>${esc(x.category)}</td><td>${esc(x.size)} ${esc(x.unit)}</td><td>${esc(x.id_source)}</td><td>${x.matched ? `<span class="ok">${esc(x.matched)}</span>` : '<span class="bad">no match</span>'}</td></tr>`).join("")}</table>
+      </td></tr>`).join("")}</table></div></details>`;
+  }
+  $("crBody").innerHTML = h + "</div>";
+  $("crBody").addEventListener("click", (e) => {
+    const a = e.target.closest("[data-inspect]");
+    if (a) { openInspector(a.dataset.inspect, "predictions.csv", a.dataset.run); return; }
+    const tr = e.target.closest("tr.photo");
+    if (!tr) return;
+    tr.classList.toggle("open");
+    tr.nextElementSibling.hidden = !tr.classList.contains("open");
+  });
+}
+
+// 3. photo inspector
+const S = { photo: null, file: null, run: null, data: null };
+async function inspectorInit() {
+  const [photos, files] = await Promise.all([get("/api/test/photos"), get("/api/test/files")]);
+  const group = (set, label) => { const ps = photos.filter((p) => p.set === set); return ps.length ? `<optgroup label="${label}">${ps.map((p) => `<option>${esc(p.name)}</option>`).join("")}</optgroup>` : ""; };
+  $("selPhoto").innerHTML = group("raw", "Kitchen (data/raw, ground truth)") + group("bars", "Bars (data/test_bars)");
+  $("selFile").innerHTML = files.map((f) => `<option>${esc(f)}</option>`).join("");
+  S.photo = photos[0]?.name; S.file = files.includes("predictions.csv") ? "predictions.csv" : files[0];
+  $("selPhoto").onchange = () => { S.photo = $("selPhoto").value; S.run = null; inspect(); };
+  $("selFile").onchange = () => { S.file = $("selFile").value; S.run = null; inspect(); };
+  $("selRun").onchange = () => { S.run = $("selRun").value; draw(); };
+  if (S.photo && S.file) inspect(); else $("piBody").innerHTML = '<p class="empty">No photos or predictions files.</p>';
+}
+function openInspector(photo, file, run) {
+  S.photo = photo; S.file = file; S.run = run;
+  inspect();
+  $("pi").scrollIntoView({ behavior: "smooth" });
+}
+async function inspect() {
+  $("selPhoto").value = S.photo; $("selFile").value = S.file;
+  const want = `${S.photo}|${S.file}`;
+  try {
+    const d = await get(`/api/test/inspect?photo=${encodeURIComponent(S.photo)}&file=${encodeURIComponent(S.file)}`);
+    if (want !== `${S.photo}|${S.file}`) return;
+    S.data = d;
+    draw();
+  } catch (e) { $("piBody").innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+}
+function draw() {
+  const d = S.data, runs = Object.keys(d.runs);
+  if (!runs.includes(S.run)) S.run = runs[0] ?? null;
+  $("runWrap").hidden = runs.length < 2;
+  $("selRun").innerHTML = runs.map((r) => `<option ${r === S.run ? "selected" : ""}>${esc(r)}</option>`).join("");
+  const rows = d.runs[S.run] || [], W = d.width, H = d.height, lw = Math.max(W, H) / 350, fs = Math.max(W, H) / 55;
+  const color = (i) => COLORS[i % COLORS.length];
+  const boxes = rows.map((r, i) => {
+    if (!r.bbox) return "";
+    const [x, y, w, h] = r.bbox;
+    return `<g data-i="${i}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${lw * 2}" fill="${color(i)}" fill-opacity=".08" stroke="${color(i)}" stroke-width="${lw}"/><text x="${x + lw * 2}" y="${y + fs}" font-size="${fs}" font-weight="700" fill="${color(i)}" stroke="#0d0b09" stroke-width="${fs / 8}" paint-order="stroke" font-family="-apple-system, sans-serif">${esc(r.position)}</text></g>`;
+  }).join("");
+  const matched = new Set(rows.map((r) => r.matched).filter(Boolean));
+  const pred = rows.length ? rows.map((r, i) => `<li data-i="${i}" style="--c:${color(i)}"><span class="num">${esc(r.position)}</span><div><b>${esc(r.brand || "Unknown brand")}</b> ${esc(r.product)}<div class="meta">${[r.category, r.size && `${r.size} ${r.unit}`, r.id_source].filter(Boolean).map(esc).join(" · ")}${r.bbox ? "" : " · no box"}</div>${d.set === "raw" ? `<div class="meta">${r.matched ? `<span class="${r.brand_ok ? "ok" : "muted"}">matched ${esc(r.matched)}${r.brand_ok ? ", right brand" : ", brand wrong"}</span>` : '<span class="bad">no match</span>'}</div>` : ""}</div></li>`).join("")
+    : '<li class="empty" style="display:block">This file has no rows for this photo.</li>';
+  const truth = d.truth.length ? `<div><h3>Ground truth<small>${d.truth.filter((t) => matched.has(`${t.brand} ${t.product}`.trim())).length} of ${d.truth.length} matched</small></h3><ul class="list">${d.truth.map((t) => { const ok = matched.has(`${t.brand} ${t.product}`.trim()); return `<li style="--c:${ok ? "var(--green)" : "var(--line)"}"><span class="num">${ok ? "&#10003;" : ""}</span><div>${esc(t.brand)} ${esc(t.product)}<div class="meta">${esc(t.category)}</div></div></li>`; }).join("")}</ul></div>` : "";
+  $("piBody").innerHTML = `<div class="inspect"><div class="frame"><svg viewBox="0 0 ${W} ${H}"><image href="/api/test/photo/${encodeURIComponent(d.photo)}" width="${W}" height="${H}"/>${boxes}</svg></div>
+    <div class="side"><div><h3>Predicted<small>${rows.length} in ${esc(S.file)}${runs.length > 1 ? `, run ${esc(S.run)}` : ""}</small></h3><ul class="list" id="predList">${pred}</ul></div>${truth}</div></div>`;
+  const svg = $("piBody").querySelector("svg"), list = $("predList");
+  const link = (i, on) => {
+    list.querySelector(`li[data-i="${i}"]`)?.classList.toggle("on", on);
+    svg.querySelectorAll("g[data-i]").forEach((g) => g.style.opacity = on && g.dataset.i !== String(i) ? .2 : 1);
+  };
+  for (const el of [...svg.querySelectorAll("g[data-i]"), ...list.querySelectorAll("li[data-i]")]) {
+    el.addEventListener("mouseenter", () => link(el.dataset.i, true));
+    el.addEventListener("mouseleave", () => link(el.dataset.i, false));
+  }
+}
+
+const guard = (fn, box) => fn().catch((e) => { $(box).innerHTML = `<p class="err">${esc(e.message)}</p>`; });
+guard(leaderboard, "lbBody");
+guard(claudeRuns, "crBody");
+guard(inspectorInit, "piBody");
+</script>
+</body>
+</html>
