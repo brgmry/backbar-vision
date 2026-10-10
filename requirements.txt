@@ -6,3 +6,6 @@ python-dotenv
 rapidfuzz
 scipy
 numpy
+torch
+transformers
+accelerate

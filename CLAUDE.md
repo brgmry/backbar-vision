@@ -7,7 +7,7 @@ From one photo of a group of bottles, for each bottle (numbered left to right):
 1. Identify it: bottle type/brand, size (ml), liquid.
 2. Estimate fill level: % remaining and ml remaining.
 
-Output is JSON per bottle: `{position, description, bbox, brand, product, category, liquid, size, unit, glass, fill_ml, id_source, fill_visible}`. `bbox` is `[x, y, w, h]` in original-photo pixels. `fill_ml` is always ml and null when `fill_visible` is false. `id_source` is `label` (read off the bottle) or `shape` (guessed). Fill % is derived from `fill_ml` and `size`, never output.
+Output is JSON per bottle: `{position, description, bbox, brand, product, category, liquid, size, unit, glass, fill_ml, id_source, fill_visible}`. `bbox` is `[x, y, w, h]` in original-photo pixels. `fill_ml` is always ml and null when `fill_visible` is false. `id_source` is `label` (read off the bottle), `shape` (guessed) or `reference` (matched against our reference crops, local pipeline). Fill % is derived from `fill_ml` and `size`, never output.
 
 ## Layout
 - `data/raw/` original photos. Never edit, rename or overwrite.
@@ -15,6 +15,24 @@ Output is JSON per bottle: `{position, description, bbox, brand, product, catego
 
 - `src/` pipeline code.
 - `notebooks/` throwaway exploration only. Anything that works moves to `src/`.
+
+## Local pipeline (the challenger)
+Runs on the laptop, no API calls. Python 3.12 venv: `uv venv -p 3.12 .venv && uv pip install -p .venv -r requirements.txt`.
+1. **Find** `src/detect.py`: OWLv2 (`google/owlv2-base-patch16-ensemble`), prompts "a bottle / a jug / a sauce bottle", 3x3 overlapping tiles so small bottles keep their pixels, boxes cut by a tile edge dropped, NMS. Writes `data/crops/<photo>/NN.jpg` and `data/crops/boxes.csv` (coords in the 2400px-resized photo). `src/draw.py <dir>` overlays boxes for eyeballing.
+2. **Label** `data/crops/labels.csv`: every crop hand-labelled with its inventory `item_id`. 0 = clutter (water bottle, shaker, kitchen roll, mug), -1 = fragment too small to call, excluded from scoring. `src/propose_labels.py` pre-fills from the packshots; a human corrects it. This file is ground truth, edit by hand only.
+3. **Match** `src/match.py [k ...]`: DINOv2-base embeddings (`src/embed.py`), nearest neighbour against a gallery of the k largest crops per item **from the other photos only** (leave-one-photo-out) plus all clutter crops; similarity < 0.3 = clutter. One row per item per photo in the shared output schema -> `data/predictions_local_k<k>.csv`.
+4. **Score** `src/score.py <predictions.csv>`, same scorer as the baseline. Also report the crop accuracy match.py prints: score.py's precision is always 1.0 here because every inventory item is in every photo.
+
+Results, 7 photos x 12 items, leave-one-photo-out:
+
+| reference crops per item | crop accuracy | item recall |
+|---|---|---|
+| packshots only (retailer images) | 0.59 | n/a |
+| 1 | 0.81 | 0.88 |
+| 2 | 0.85 | 0.93 |
+| 3 | 0.87 | 0.98 |
+
+Caveat: one set of bottles, one room, one light. Reference crops come from the same session as the test photo, which flatters the numbers. New photos (different surface, light, extra bottles) are the next eval.
 
 ## Rules
 - **Eval first.** Every approach is scored against `data/labelled/inventory.csv` before it's called working. Report identification accuracy and fill-level mean absolute error (percentage points).
