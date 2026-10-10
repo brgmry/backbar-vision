@@ -11,6 +11,8 @@ import io
 import os
 import tempfile
 import threading
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import nullcontext
 from functools import cache
 from pathlib import Path
 from typing import Literal
@@ -26,6 +28,7 @@ import identify  # also registers the HEIC opener and loads .env
 K = 3  # reference crops per item, the best k in match.py's eval
 WEB = Path(__file__).resolve().parent.parent / "web"
 PREVIEW_SIDE = 2400
+FILL_WORKERS = 8  # concurrent Claude calls per photo
 
 app = FastAPI(title="bottle-vision")
 _local_lock = threading.Lock()  # one torch inference at a time
@@ -137,35 +140,51 @@ def preview(image: UploadFile) -> Response:
     return Response(buf.getvalue(), media_type="image/jpeg", headers={"X-Width": str(width), "X-Height": str(height)})
 
 
-def add_fill(path: Path, bottles: list[BottleOut], spec: str) -> None:
-    """Fill level for each alcohol bottle, in place: re-crop at full resolution, clear the crop, estimate."""
+def add_fill(photo: Image.Image, bottles: list[BottleOut], estimator) -> None:
+    """Fill level for each alcohol bottle, in place: re-crop at full resolution, clear the crop, estimate.
+
+    SAM (crop check) runs under _local_lock one bottle at a time; each cleared bottle's estimate is handed to a
+    thread pool straight away, so the Claude calls run in parallel with each other and with the next bottle's SAM.
+    The estimate's own SAM call is a cache hit (same crop and box as the check), so it never touches the GPU."""
     from experiment import ALCOHOL, padded_crop
-    from fill import get_estimator
     from qc import GeometryQC
 
-    estimator = get_estimator(spec)
-    photo = Image.open(path).convert("RGB")
-    for b in bottles:
-        if b.category not in ALCOHOL:
-            b.fill_note = "not alcohol"
-            continue
-        crop, box = padded_crop(photo, b.bbox)
-        item = b.model_dump()
-        with _local_lock:
-            verdict = GeometryQC().check(crop, box, item, None)
-            if not verdict.ok:
-                b.fill_ml, b.fill_visible, b.fill_note = None, False, f"crop rejected: {verdict.reason}"
-                continue
+    def estimate(b: BottleOut, crop: Image.Image, box: list[float], item: dict) -> None:
+        with nullcontext() if remote_only(estimator) else _local_lock:
             try:
                 f = estimator.estimate(crop, box, item)
             except (anthropic.APIStatusError, anthropic.APIConnectionError, RuntimeError) as e:
                 b.fill_note = f"fill failed: {e}"
-                continue
+                return
         b.fill_ml, b.fill_visible = f.fill_ml, f.visible
         b.fill_note = None if f.visible else "liquid line not visible"
 
+    with ThreadPoolExecutor(max_workers=FILL_WORKERS) as pool:
+        jobs = []
+        for b in bottles:
+            if b.category not in ALCOHOL:
+                b.fill_note = "not alcohol"
+                continue
+            crop, box = padded_crop(photo, b.bbox)
+            item = b.model_dump()
+            with _local_lock:
+                verdict = GeometryQC().check(crop, box, item, None)
+            if not verdict.ok:
+                b.fill_ml, b.fill_visible, b.fill_note = None, False, f"crop rejected: {verdict.reason}"
+                continue
+            jobs.append(pool.submit(estimate, b, crop, box, item))
+        for job in jobs:
+            job.result()
 
-def add_label_text(path: Path, bottles: list[BottleOut]) -> None:
+
+def remote_only(estimator) -> bool:
+    """True when estimate() does no torch work of its own: the VLM estimators (geometry's mask is already cached)."""
+    from fill import Geometry, VLMFill, VLMLine
+
+    return isinstance(estimator, VLMFill) or (isinstance(estimator, Geometry) and isinstance(estimator.line, VLMLine))
+
+
+def add_label_text(photo: Image.Image, bottles: list[BottleOut]) -> None:
     """OCR on each bottle's full-resolution crop (src/ocr.py), in place. Skipped off macOS."""
     try:
         from ocr import read_text
@@ -173,7 +192,6 @@ def add_label_text(path: Path, bottles: list[BottleOut]) -> None:
         return
     from experiment import padded_crop
 
-    photo = Image.open(path).convert("RGB")
     with tempfile.TemporaryDirectory() as tmp:
         for b in bottles:
             crop_path = Path(tmp) / f"{b.position}.jpg"
@@ -195,11 +213,20 @@ def identify_photo(image: UploadFile, pipeline: Literal["local", "claude"] = "lo
         except UnidentifiedImageError:
             raise HTTPException(400, f"{name} is not an image")
         bottles = identify_local(path) if pipeline == "local" else identify_claude(path)
-        if ocr:
-            add_label_text(path, bottles)
-        if fill != "none":
-            try:
-                add_fill(path, bottles, fill)
-            except ValueError as e:  # unknown fill spec
-                raise HTTPException(400, str(e))
+        from fill import get_estimator
+        try:
+            estimator = None if fill == "none" else get_estimator(fill)
+        except ValueError as e:  # unknown fill spec
+            raise HTTPException(400, str(e))
+        if ocr or estimator:
+            photo = Image.open(path).convert("RGB")
+            with ThreadPoolExecutor(max_workers=1) as pool:  # OCR (Apple Vision) runs alongside fill
+                ocr_job = pool.submit(add_label_text, photo, bottles) if ocr else None
+                if estimator:
+                    try:
+                        add_fill(photo, bottles, estimator)
+                    except ValueError as e:
+                        raise HTTPException(400, str(e))
+                if ocr_job:
+                    ocr_job.result()
     return PhotoOut(image=name, pipeline=pipeline, bottles=bottles)
