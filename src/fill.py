@@ -44,6 +44,8 @@ SHOULDER_WIN = 0.03  # of bottle height: span over which width change is measure
 NECK_FLAT = 0.1  # neck starts where, above the shoulder, width shrinks by less than 10% per SHOULDER_WIN
 MAX_ELEVATION = 60  # degrees; a deeper base ellipse means the base is hidden, not a steeper camera
 MIN_CONTRAST = 12.0  # Lab distance; a weaker edge means no visible liquid line
+MIN_LINE_CONTRAST = float(os.environ.get("MIN_LINE_CONTRAST", 15))  # a found line weaker than this -> "unsure"
+# 15: above the two weak, clearly wrong readings on our photos (contrast 11-12), below every reading measured right (21+)
 VLM_UPSCALE = 2  # small crops (~400px tall) are enlarged up to 2x for the VLM, big ones shrunk to fit its limit
 
 
@@ -52,6 +54,7 @@ class Fill:
     fill_ml: float | None
     visible: bool
     debug: dict = field(default_factory=dict)  # mask, line_y, full_y for overlays
+    note: str | None = None  # why fill_ml is null, when it is
 
 
 class FillEstimator(Protocol):
@@ -117,8 +120,11 @@ class Geometry:
         debug = {"mask": mask, "full_y": full_y, "base_y": base_y, "line_y": line_y, "elevation": elevation,
                  **getattr(self.line, "debug", {})}
         if line_y is None:
-            return Fill(None, False, debug)
+            return Fill(None, False, debug, "liquid line not visible")
         line_y = int(np.clip(line_y, full_y, base_y))
+        debug["contrast"] = contrast = line_contrast(crop, mask, line_y, full_y, base_y)
+        if contrast < MIN_LINE_CONTRAST:
+            return Fill(None, False, debug, f"unsure: no sharp liquid line ({contrast:.0f} < {MIN_LINE_CONTRAST:g})")
         disc = width.astype(float) ** 2
         frac = disc[line_y:base_y + 1].sum() / disc[full_y:base_y + 1].sum()
         return Fill(round(frac * size_ml(item), 1), True, debug)
@@ -228,6 +234,27 @@ def base_level(width: np.ndarray, top: int, bottom: int) -> tuple[int, float]:
     if elevation > MAX_ELEVATION:  # base hidden or ragged: fall back to the lowest pixel
         return bottom, None
     return base_y, round(elevation, 1)
+
+
+def line_contrast(crop: Image.Image, mask: np.ndarray, y: int, full_y: int, base_y: int) -> float:
+    """How sharp the liquid line is: the biggest colour change (Lab distance) between the band just above and the band
+    just below a row, down the middle of the bottle, within a few rows of y (a found line can be off by a little).
+    A line at the neck of a full bottle is measured the same way, against the air in the neck."""
+    lab = np.asarray(crop.convert("LAB"), dtype=float)
+    w = max(3, (base_y - full_y) // 30)
+    means = {}
+    for r in range(max(0, y - 2 * w), min(mask.shape[0], y + 2 * w + 1)):
+        xs = np.flatnonzero(mask[r])
+        if xs.size:
+            a, b = np.percentile(xs, [30, 70]).astype(int)
+            means[r] = lab[r, a:b + 1].mean(axis=0)
+    best = 0.0
+    for r in range(y - w, y + w + 1):
+        above = [means[i] for i in range(r - w, r) if i in means]
+        below = [means[i] for i in range(r, r + w) if i in means]
+        if above and below:
+            best = max(best, float(np.linalg.norm(np.mean(above, axis=0) - np.mean(below, axis=0))))
+    return best
 
 
 class EdgeLine:

@@ -1,83 +1,83 @@
 run,image,position,description,bbox,brand,product,category,liquid,size,unit,glass,fill_ml,id_source,fill_visible
 1,IMG_6339.HEIC,1,"crop 4, sim 0.79","[1402, 2409, 205, 424]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,158.8,reference,True
-1,IMG_6339.HEIC,2,"crop 5, sim 0.65","[1597, 2156, 386, 674]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1663.1,reference,True
+1,IMG_6339.HEIC,2,"crop 5, sim 0.65","[1597, 2156, 386, 674]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
 1,IMG_6339.HEIC,3,"crop 6, sim 0.86","[1978, 2199, 205, 638]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,715.5,reference,True
-1,IMG_6339.HEIC,4,"crop 8, sim 0.69","[2351, 2401, 207, 452]",Lag,No. 18,spirit,whisky,350,ml,,300.8,reference,True
+1,IMG_6339.HEIC,4,"crop 8, sim 0.69","[2351, 2401, 207, 452]",Lag,No. 18,spirit,whisky,350,ml,,,reference,False
 1,IMG_6339.HEIC,5,"crop 9, sim 0.77","[2539, 2468, 188, 414]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,,reference,False
 1,IMG_6339.HEIC,6,"crop 13, sim 0.66","[2823, 2494, 171, 383]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,,reference,False
 1,IMG_6339.HEIC,7,"crop 16, sim 0.83","[2968, 2356, 293, 557]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,,reference,False
 1,IMG_6339.HEIC,8,"crop 18, sim 0.62","[3213, 2592, 105, 278]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,46.8,reference,True
 1,IMG_6339.HEIC,9,"crop 19, sim 0.72","[3299, 2420, 233, 495]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
 1,IMG_6339.HEIC,10,"crop 22, sim 0.63","[3537, 2235, 200, 367]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,,reference,False
-1,IMG_6339.HEIC,11,"crop 23, sim 0.62","[3672, 2492, 198, 428]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,535.0,reference,True
+1,IMG_6339.HEIC,11,"crop 23, sim 0.62","[3672, 2492, 198, 428]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,,reference,False
 1,IMG_6340.HEIC,1,"crop 4, sim 0.79","[1852, 2368, 243, 440]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,114.9,reference,True
-1,IMG_6340.HEIC,2,"crop 5, sim 0.65","[2102, 2320, 428, 747]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1547.4,reference,True
-1,IMG_6340.HEIC,3,"crop 6, sim 0.74","[2342, 2111, 171, 400]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,315.1,reference,True
+1,IMG_6340.HEIC,2,"crop 5, sim 0.65","[2102, 2320, 428, 747]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
+1,IMG_6340.HEIC,3,"crop 6, sim 0.74","[2342, 2111, 171, 400]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,,reference,False
 1,IMG_6340.HEIC,4,"crop 7, sim 0.68","[2575, 2230, 176, 269]",Lag,No. 18,spirit,whisky,350,ml,,,reference,False
-1,IMG_6340.HEIC,5,"crop 9, sim 0.64","[2689, 2492, 171, 521]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,472.0,reference,True
-1,IMG_6340.HEIC,6,"crop 12, sim 0.61","[2882, 2266, 224, 585]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,302.1,reference,True
-1,IMG_6340.HEIC,7,"crop 13, sim 0.68","[2894, 2002, 262, 559]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,1602.3,reference,True
+1,IMG_6340.HEIC,5,"crop 9, sim 0.64","[2689, 2492, 171, 521]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,,reference,False
+1,IMG_6340.HEIC,6,"crop 12, sim 0.61","[2882, 2266, 224, 585]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,,reference,False
+1,IMG_6340.HEIC,7,"crop 13, sim 0.68","[2894, 2002, 262, 559]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,,reference,False
 1,IMG_6340.HEIC,8,"crop 15, sim 0.42","[3123, 1985, 143, 474]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,,reference,False
-1,IMG_6340.HEIC,9,"crop 17, sim 0.68","[3261, 2299, 240, 823]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,,reference,False
-1,IMG_6340.HEIC,10,"crop 18, sim 0.53","[3296, 2211, 307, 271]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,866.9,reference,True
+1,IMG_6340.HEIC,9,"crop 17, sim 0.68","[3261, 2299, 240, 823]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,573.8,reference,True
+1,IMG_6340.HEIC,10,"crop 18, sim 0.53","[3296, 2211, 307, 271]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,,reference,False
 1,IMG_6340.HEIC,11,"crop 21, sim 0.81","[3587, 2425, 290, 654]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
-1,IMG_6340.HEIC,12,"crop 24, sim 0.54","[3675, 2399, 57, 86]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,,reference,False
-1,IMG_6341.HEIC,1,"crop 2, sim 0.68","[2059, 2013, 431, 774]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1834.5,reference,True
-1,IMG_6341.HEIC,2,"crop 3, sim 0.78","[2313, 1833, 190, 419]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,449.2,reference,True
-1,IMG_6341.HEIC,3,"crop 4, sim 0.72","[2404, 2152, 231, 350]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,1.0,reference,True
+1,IMG_6340.HEIC,12,"crop 24, sim 0.54","[3675, 2399, 57, 86]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,23.5,reference,True
+1,IMG_6341.HEIC,1,"crop 2, sim 0.68","[2059, 2013, 431, 774]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
+1,IMG_6341.HEIC,2,"crop 3, sim 0.78","[2313, 1833, 190, 419]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,,reference,False
+1,IMG_6341.HEIC,3,"crop 4, sim 0.72","[2404, 2152, 231, 350]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,,reference,False
 1,IMG_6341.HEIC,4,"crop 5, sim 0.71","[2606, 2111, 217, 455]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,,reference,False
 1,IMG_6341.HEIC,5,"crop 6, sim 0.88","[2611, 1637, 245, 743]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,1423.4,reference,True
-1,IMG_6341.HEIC,6,"crop 8, sim 0.86","[2808, 2249, 240, 540]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,637.4,reference,True
+1,IMG_6341.HEIC,6,"crop 8, sim 0.86","[2808, 2249, 240, 540]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,,reference,False
 1,IMG_6341.HEIC,7,"crop 11, sim 0.77","[2942, 1937, 93, 319]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,7.3,reference,True
 1,IMG_6341.HEIC,8,"crop 12, sim 0.41","[2970, 2049, 186, 566]",Lag,No. 18,spirit,whisky,350,ml,,,reference,False
 1,IMG_6341.HEIC,9,"crop 13, sim 0.96","[3034, 1664, 178, 574]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,528.5,reference,True
 1,IMG_6341.HEIC,10,"crop 16, sim 0.96","[3201, 1438, 219, 821]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,591.2,reference,True
 1,IMG_6341.HEIC,11,"crop 17, sim 0.97","[3411, 1547, 255, 724]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
 1,IMG_6341.HEIC,12,"crop 18, sim 0.94","[3449, 2147, 350, 640]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,,reference,False
-1,IMG_6342.HEIC,1,"crop 2, sim 0.66","[2021, 1890, 452, 695]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1296.7,reference,True
-1,IMG_6342.HEIC,2,"crop 3, sim 0.78","[2180, 1666, 200, 357]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,281.1,reference,True
+1,IMG_6342.HEIC,1,"crop 2, sim 0.66","[2021, 1890, 452, 695]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
+1,IMG_6342.HEIC,2,"crop 3, sim 0.78","[2180, 1666, 200, 357]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,,reference,False
 1,IMG_6342.HEIC,3,"crop 4, sim 0.54","[2368, 2013, 162, 452]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,,reference,False
 1,IMG_6342.HEIC,4,"crop 5, sim 0.88","[2482, 1454, 288, 726]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,1476.3,reference,True
 1,IMG_6342.HEIC,5,"crop 6, sim 0.51","[2506, 1959, 257, 583]",Lag,No. 18,spirit,whisky,350,ml,,316.7,reference,True
-1,IMG_6342.HEIC,6,"crop 8, sim 0.55","[2713, 1933, 240, 647]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,582.1,reference,True
+1,IMG_6342.HEIC,6,"crop 8, sim 0.55","[2713, 1933, 240, 647]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,,reference,False
 1,IMG_6342.HEIC,7,"crop 9, sim 0.77","[2851, 1771, 93, 297]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,7.8,reference,True
 1,IMG_6342.HEIC,8,"crop 10, sim 0.96","[2942, 1476, 183, 605]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,535.0,reference,True
-1,IMG_6342.HEIC,9,"crop 12, sim 0.79","[3094, 1904, 250, 685]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,492.0,reference,True
+1,IMG_6342.HEIC,9,"crop 12, sim 0.79","[3094, 1904, 250, 685]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,,reference,False
 1,IMG_6342.HEIC,10,"crop 13, sim 0.96","[3113, 1235, 233, 866]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,590.1,reference,True
 1,IMG_6342.HEIC,11,"crop 14, sim 0.97","[3332, 1354, 269, 759]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
-1,IMG_6342.HEIC,12,"crop 15, sim 0.93","[3389, 1999, 362, 576]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,1149.8,reference,True
-1,IMG_6343.HEIC,1,"crop 4, sim 0.91","[2040, 2368, 378, 578]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1310.3,reference,True
-1,IMG_6343.HEIC,2,"crop 5, sim 0.85","[2216, 2190, 143, 290]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,229.3,reference,True
-1,IMG_6343.HEIC,3,"crop 6, sim 0.56","[2349, 2499, 133, 402]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,470.0,reference,True
-1,IMG_6343.HEIC,4,"crop 7, sim 0.72","[2456, 1997, 255, 535]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,1404.6,reference,True
-1,IMG_6343.HEIC,5,"crop 8, sim 0.69","[2461, 2528, 240, 455]",Lag,No. 18,spirit,whisky,350,ml,,320.8,reference,True
-1,IMG_6343.HEIC,6,"crop 11, sim 0.79","[2663, 2399, 178, 750]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,,reference,False
+1,IMG_6342.HEIC,12,"crop 15, sim 0.93","[3389, 1999, 362, 576]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,,reference,False
+1,IMG_6343.HEIC,1,"crop 4, sim 0.91","[2040, 2368, 378, 578]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
+1,IMG_6343.HEIC,2,"crop 5, sim 0.85","[2216, 2190, 143, 290]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,,reference,False
+1,IMG_6343.HEIC,3,"crop 6, sim 0.56","[2349, 2499, 133, 402]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,,reference,False
+1,IMG_6343.HEIC,4,"crop 7, sim 0.72","[2456, 1997, 255, 535]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,,reference,False
+1,IMG_6343.HEIC,5,"crop 8, sim 0.69","[2461, 2528, 240, 455]",Lag,No. 18,spirit,whisky,350,ml,,,reference,False
+1,IMG_6343.HEIC,6,"crop 11, sim 0.79","[2663, 2399, 178, 750]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,409.7,reference,True
 1,IMG_6343.HEIC,7,"crop 14, sim 0.67","[2775, 2299, 88, 209]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,,reference,False
 1,IMG_6343.HEIC,8,"crop 16, sim 0.91","[2854, 2066, 133, 450]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,535.0,reference,True
 1,IMG_6343.HEIC,9,"crop 17, sim 0.81","[2939, 2399, 217, 774]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,640.8,reference,True
 1,IMG_6343.HEIC,10,"crop 19, sim 0.85","[3020, 1830, 193, 657]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,594.8,reference,True
 1,IMG_6343.HEIC,11,"crop 21, sim 0.69","[3225, 1949, 205, 531]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
 1,IMG_6343.HEIC,12,"crop 22, sim 0.97","[3296, 2485, 319, 681]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,160.4,reference,True
-1,IMG_6345.HEIC,1,"crop 4, sim 0.63","[2168, 2082, 386, 726]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1378.2,reference,True
-1,IMG_6345.HEIC,2,"crop 5, sim 0.78","[2347, 1906, 145, 295]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,332.2,reference,True
+1,IMG_6345.HEIC,1,"crop 4, sim 0.63","[2168, 2082, 386, 726]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
+1,IMG_6345.HEIC,2,"crop 5, sim 0.78","[2347, 1906, 145, 295]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,,reference,False
 1,IMG_6345.HEIC,3,"crop 6, sim 0.61","[2482, 2202, 124, 307]",Essential Waitrose & Partners,Tomato Ketchup,sauce,tomato ketchup,470,g,,,reference,False
 1,IMG_6345.HEIC,4,"crop 7, sim 0.86","[2585, 1742, 231, 654]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,1403.4,reference,True
 1,IMG_6345.HEIC,5,"crop 8, sim 0.69","[2594, 2152, 200, 488]",Lag,No. 18,spirit,whisky,350,ml,,339.9,reference,True
 1,IMG_6345.HEIC,6,"crop 11, sim 0.72","[2823, 2202, 188, 631]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,424.6,reference,True
 1,IMG_6345.HEIC,7,"crop 12, sim 0.54","[2894, 2004, 83, 269]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,,reference,False
 1,IMG_6345.HEIC,8,"crop 13, sim 0.86","[2975, 1766, 155, 512]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,535.0,reference,True
-1,IMG_6345.HEIC,9,"crop 14, sim 0.75","[3054, 2135, 212, 502]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,614.5,reference,True
+1,IMG_6345.HEIC,9,"crop 14, sim 0.75","[3054, 2135, 212, 502]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,,reference,False
 1,IMG_6345.HEIC,10,"crop 15, sim 0.92","[3132, 1566, 193, 735]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,56.0,reference,True
 1,IMG_6345.HEIC,11,"crop 17, sim 0.85","[3327, 1664, 209, 645]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
 1,IMG_6345.HEIC,12,"crop 18, sim 0.85","[3380, 2204, 307, 478]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,,reference,False
-1,IMG_6346.HEIC,1,"crop 4, sim 0.68","[2116, 2301, 397, 709]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,1299.0,reference,True
-1,IMG_6346.HEIC,2,"crop 5, sim 0.85","[2273, 2109, 150, 300]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,202.1,reference,True
+1,IMG_6346.HEIC,1,"crop 4, sim 0.68","[2116, 2301, 397, 709]",Dairy Manor,Whole British Milk,dairy,whole milk,4,pint,,,reference,False
+1,IMG_6346.HEIC,2,"crop 5, sim 0.85","[2273, 2109, 150, 300]",Fever-Tree,Espresso Martini Mixer,mixer,espresso martini mixer,500,ml,,,reference,False
 1,IMG_6346.HEIC,3,"crop 8, sim 0.81","[2513, 1942, 245, 555]",Schweppes,Classic Lemonade Slimline,soft_drink,lemonade,2000,ml,,1481.4,reference,True
 1,IMG_6346.HEIC,4,"crop 9, sim 0.74","[2530, 2461, 212, 255]",Lag,No. 18,spirit,whisky,350,ml,,,reference,False
 1,IMG_6346.HEIC,5,"crop 14, sim 0.64","[2818, 2206, 93, 250]",,Vinho da Madeira Doce,wine,sweet Madeira (fortified wine),50,ml,,,reference,False
 1,IMG_6346.HEIC,6,"crop 15, sim 0.75","[2827, 2501, 159, 528]",Johnnie Walker,Black Label 12 Year Old,spirit,blended Scotch whisky,700,ml,,,reference,False
 1,IMG_6346.HEIC,7,"crop 16, sim 0.88","[2918, 1966, 148, 486]",Thai Dragon,Sriracha Hot Chilli Sauce,sauce,chilli sauce,535,g,,535.0,reference,True
-1,IMG_6346.HEIC,8,"crop 17, sim 0.77","[2992, 2444, 212, 595]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,581.7,reference,True
+1,IMG_6346.HEIC,8,"crop 17, sim 0.77","[2992, 2444, 212, 595]",Cafe Plus,Chocolate Caramel Sugar Free Syrup,syrup,flavouring syrup,750,ml,,,reference,False
 1,IMG_6346.HEIC,9,"crop 19, sim 0.91","[3054, 1771, 186, 676]",Bacardi,Carta Blanca Superior White Rum,spirit,white rum,700,ml,,674.7,reference,True
 1,IMG_6346.HEIC,10,"crop 21, sim 0.87","[3256, 1866, 198, 614]",M&S,Coffee Liqueur,liqueur,coffee liqueur,700,ml,,,reference,False
 1,IMG_6346.HEIC,11,"crop 22, sim 0.97","[3315, 2425, 309, 605]",Lindhouse,Quadruple Strength No Added Sugar Orange & Pineapple Squash,soft_drink,squash concentrate,1500,ml,,,reference,False
