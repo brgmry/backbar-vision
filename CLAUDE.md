@@ -41,6 +41,8 @@ photo -> OWLv2 tiled detector -> crop -> DINOv2 backbone -> trained projection h
 - Leaderboard rows: zero-shot retrieval, + trained head, + brand classifier, + OCR fusion.
 - Unknown threshold and hyperparameters tuned on a validation split of the external data, never on a test set.
 
+- **No distillation** (decided 10 Oct): Claude does not label training data. Training data comes from external sources, cleaned for free (e.g. OCR verification of in-the-wild brand photos).
+
 ## Ground truth is the answer, never an input
 The only input is photos. `data/labelled/` and `data/crops/labels.csv` are used by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The LOPO results above break this rule and are kept only as a record of what not to report.
 
