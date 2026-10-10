@@ -27,8 +27,10 @@ def main() -> None:
     labels = json.load(open(DEMO / "bar_03_labels.json"))
     fills = {}
     if (DEMO / "bar_03_fill.csv").exists():
-        fills = {int(r["position"]): float(r["fill_pct"]) for r in csv.DictReader(open(DEMO / "bar_03_fill.csv"))
-                 if r["fill_pct"].strip()}
+        text = (DEMO / "bar_03_fill.csv").read_text(encoding="utf-8-sig")  # Excel adds a BOM
+        rows = csv.DictReader(text.splitlines(), delimiter=";" if text.count(";") > text.count(",") else ",")
+        fills = {int(r["position"]): float(r["fill_pct"].replace(",", ".").rstrip("% "))  # European Excel: ; and 75,5
+                 for r in rows if (r.get("fill_pct") or "").strip()}
     bottles = []
     for b in live["bottles"]:
         n = b["position"]
