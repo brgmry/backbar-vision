@@ -34,6 +34,9 @@ Results, 7 photos x 12 items, leave-one-photo-out:
 
 **These numbers are optimistic, not a result.** The reference crops come from the other 6 photos of the same bottles, same room, same light, minutes apart. Size and category are copied from the inventory once the ID is right, so size_acc and category_acc just repeat ID accuracy. The honest no-help number is the packshot row (0.59).
 
+## Ground truth is the answer, never an input
+The only input is photos. `data/labelled/` and `data/crops/labels.csv` are used by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The LOPO results above break this rule and are kept only as a record of what not to report.
+
 ## Eval protocol (from here on)
 - **Enrolment photos** (`data/enrol/`): each bottle alone, 3 shots, plain surface. The only source of reference crops. Never scored.
 - **Test photos** (`data/test/`): new arrangements, a different surface and light, plus bottles not in the inventory. Labelled only for scoring, after predictions are written. Never used as references.
