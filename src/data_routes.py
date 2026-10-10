@@ -25,8 +25,9 @@ RETAIL = ("saq", "systembolaget", "drinkfinder")
 SIDES = {"thumb": 300, "full": 1000}
 # dropdown value -> display sources it covers
 GROUPS = {"all": None, "off": {"off"}, "retail": set(RETAIL), "wild_verified": {"wild_verified"},
-          "wild": {"wild"}, "beer_ru": {"beer_ru"}}
-FIELDS = ("path", "source", "brand", "brand_key", "product", "product_key", "size", "group", "gallery")
+          "wild": {"wild"}, "beer_ru": {"beer_ru"}, "whiskey": {"whiskey"}, "stperez": {"stperez"},
+          "beerbb": {"beerbb"}, "rp2k": {"rp2k"}, "ttb": {"ttb"}}
+FIELDS = ("path", "source", "brand", "brand_key", "product", "product_key", "size", "group", "category", "gallery")
 
 csv.field_size_limit(10**8)
 api = APIRouter(prefix="/api/data", tags=["data"])
@@ -57,7 +58,7 @@ def state() -> dict:
         rows = []
         for r in _read(INDEX):
             row = {k: r.get(k, "") for k in FIELDS}
-            if row["source"] == "wild" and row["path"] in ocr:
+            if row["source"] in ("wild", "wild_verified") and row["path"] in ocr:
                 row["source"] = "wild_verified"
                 row["ocr_text"] = ocr[row["path"]]
             row["id"] = len(rows)
@@ -71,6 +72,8 @@ def state() -> dict:
             for r in _read(EXT / f"retail_{src}" / "products.csv"):
                 r.pop("image_urls", None)
                 products[f"{src}:{r.get('product_id', '')}"] = r
+        for r in _read(EXT / "ttb-cola-spirits" / "index.csv"):
+            products[f"ttb:{r.get('TTB ID', '')}"] = r
         by_product = {}
         for row in rows:
             if row["product_key"]:

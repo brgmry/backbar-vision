@@ -126,7 +126,12 @@ a.link:hover { text-decoration: underline; }
       <option value="retail">Retailers</option>
       <option value="wild_verified">Verified real photos</option>
       <option value="wild">Unverified wild</option>
-      <option value="beer_ru">Beer</option>
+      <option value="beer_ru">Russian beer</option>
+      <option value="whiskey">Whisky videos</option>
+      <option value="stperez">Beverages (stperez)</option>
+      <option value="beerbb">BeerBB crops</option>
+      <option value="rp2k">RP2K shelf (China)</option>
+      <option value="ttb">TTB label art</option>
     </select></label>
     <input type="search" id="q" placeholder="Search brand or product" aria-label="Search brand or product">
     <a class="link" id="clearBrand" hidden></a>
@@ -149,7 +154,8 @@ const fmt = n => n.toLocaleString("en-GB");
 const SRC = {
   off: ["Open Food Facts", "var(--amber)"], saq: ["SAQ", "var(--blue)"], systembolaget: ["Systembolaget", "var(--blue)"],
   drinkfinder: ["Drinkfinder", "var(--blue)"], wild_verified: ["Verified", "var(--green)"], wild: ["Wild", "var(--faint)"],
-  beer_ru: ["Beer", "var(--violet)"],
+  beer_ru: ["Russian beer", "var(--violet)"], whiskey: ["Whisky", "var(--amber)"], stperez: ["Beverages", "var(--violet)"],
+  beerbb: ["BeerBB", "var(--violet)"], rp2k: ["RP2K", "var(--red)"], ttb: ["TTB label", "var(--faint)"],
 };
 const badge = s => `<span class="badge" style="--c:${(SRC[s] || [s, "var(--faint)"])[1]}">${esc((SRC[s] || [s])[0])}</span>`;
 
@@ -179,7 +185,7 @@ async function load() {
   } catch (e) { $("#grid").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
   if (my !== seq) return;
   st.page = d.page;
-  const order = ["off", "saq", "systembolaget", "drinkfinder", "wild_verified", "wild", "beer_ru"];
+  const order = ["off", "saq", "systembolaget", "drinkfinder", "wild_verified", "wild", "beer_ru", "whiskey", "stperez", "beerbb", "rp2k", "ttb"];
   $("#stats").innerHTML = `<span><b>${fmt(d.total)}</b> images match</span>` +
     order.filter(s => d.sources[s]).map(s => `<span>${esc(SRC[s][0])} ${fmt(d.sources[s])}</span>`).join("");
   const cb = $("#clearBrand");
@@ -197,7 +203,7 @@ function tile(it) {
 }
 
 const LABELS = {path: "Path", source: "Source", brand: "Brand", brand_key: "Brand key", product: "Product", product_key: "Product key",
-  size: "Size", group: "Group", gallery: "Gallery", ocr_text: "OCR text", id: "Row"};
+  size: "Size", group: "Group", category: "Category", gallery: "Gallery", ocr_text: "OCR text", id: "Row"};
 function dl(obj, labels = {}) {
   return `<dl>${Object.entries(obj).map(([k, v]) => {
     const val = /^https?:\/\//.test(v) ? `<a class="link" href="${esc(v)}" target="_blank" rel="noopener">${esc(v)}</a>` : esc(v === "" ? "-" : v);
