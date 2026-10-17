@@ -1,7 +1,8 @@
-"""Judge tab: blind A/B human judging of bottle IDs on bar photos (bar_01 to bar_05 for now), which have no ground truth.
+"""Judge tab: blind A/B human judging of bottle IDs on the bar photos the two prediction files share, which have no
+ground truth.
 
 Mounted in api.py with app.include_router(judge_routes.router). Page at /judge, JSON and images under /api/judge.
-Inputs are re-read on every request (they may still be being written). Change the pair in CLAUDE / OURS below
+Inputs are read again when they change (they may still be being written). Change the pair in CLAUDE / OURS below
 or with the JUDGE_CLAUDE / JUDGE_OURS env vars. Claude: run 1. Ours: lowest run present.
 Each photo's Claude and our bottles are paired by box IoU (Hungarian, IoU >= 0.3). An item is one physical bottle
 with one or two answers. A/B is a keyed hash of the item id, so it is stable across restarts and never sent
@@ -18,21 +19,22 @@ import re
 import threading
 import time
 from collections import defaultdict
-from datetime import datetime, timezone
+from contextlib import suppress
+from datetime import UTC, datetime
 from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse, Response
-from PIL import Image
 from pydantic import BaseModel
 from scipy.optimize import linear_sum_assignment
 
-import dashboard as dash
+import datafiles as df
+from boxes import iou, padded_crop
+from photos import open_photo
 
-WEB = Path(__file__).resolve().parent.parent / "web"
-DATA = dash.DATA
+DATA = df.DATA
 CLAUDE = Path(os.environ.get("JUDGE_CLAUDE", DATA / "predictions_bars5_claude.csv"))
 OURS = Path(os.environ.get("JUDGE_OURS", DATA / "predictions_bars5_siglip2_v2_ocr.csv"))
 OUT = Path(os.environ.get("JUDGE_OUT", DATA / "test_bars" / "judgements.csv"))
@@ -40,7 +42,8 @@ COLS = ("photo", "item_id", "box", "claude_answer", "ours_answer", "a_is", "verd
 VERDICTS = ("a", "b", "both", "neither", "cant_tell", "skip")
 SETTLED = 60  # seconds: a file untouched this long is finished, so its last photo is complete
 IOU_MIN = 0.3
-PAD = 0.15
+CROP_SIDE = 1100  # px: bigger crops are shrunk to this
+PHOTO_SIDE = 800  # the whole photo beside the crop, for context
 SALT = "bottle-vision-judge-v1"
 ITEM_ID = re.compile(r"^bar_\d{2,3}-c\d{0,3}-o\d{0,3}$")
 JUDGE = re.compile(r"^[A-Za-z][A-Za-z .'-]{0,29}$")
@@ -52,34 +55,38 @@ _write = threading.Lock()
 
 @router.get("/judge", include_in_schema=False)
 def judge_page() -> FileResponse:
-    return FileResponse(WEB / "judge.html")
+    return FileResponse(df.WEB / "judge.html")
 
 
-def _rows(path: Path, run: str | None) -> dict[str, list[dict]]:
+def _stamp(path: Path) -> tuple:
+    """What items() depends on in one file: its version, and whether it may still be being written."""
+    try:
+        st = path.stat()
+    except OSError:
+        return None, None, False
+    return st.st_mtime_ns, st.st_size, time.time() - st.st_mtime < SETTLED
+
+
+def _rows(path: Path, run: str | None, fresh: bool) -> dict[str, list[dict]]:
     """photo name -> rows with a box. Photos still being written (last photo of a fresh file) are dropped."""
-    rows = dash.read_csv(path)
+    rows = df.read_csv(path)
     if not rows:
         return {}
     if run is None:
-        runs = {r.get("run", "1") for r in rows}
-        run = min(runs, key=lambda x: int(x) if x.isdigit() else 10**9)
+        run = min({r.get("run", "1") for r in rows}, key=df.run_key)
     by = defaultdict(list)
     order = []
     for r in rows:
         if r.get("run", "1") != run:
             continue
         name = Path(r.get("image", "")).name
-        if not dash.BAR_NAME.match(name):
+        if not df.BAR_NAME.match(name):
             continue
         if name not in by:
             order.append(name)
-        box = dash.parse_bbox(r.get("bbox", ""))
+        box = df.parse_bbox(r.get("bbox", ""))
         if box and box[2] > 0 and box[3] > 0:
             by[name].append(r | {"_box": box})
-    try:
-        fresh = time.time() - path.stat().st_mtime < SETTLED
-    except OSError:
-        fresh = False
     if fresh and order:
         by.pop(order[-1], None)
     return by
@@ -90,21 +97,10 @@ def answer(r: dict | None) -> str:
         return ""
     size = f"{r.get('size', '')} {r.get('unit', '')}".strip()
     if size:
-        try:
+        with suppress(TypeError, ValueError, KeyError):  # free text such as "33 cl" stays as it is
             size = f"{float(r['size']):g} {r.get('unit', '')}".strip()
-        except (TypeError, ValueError, KeyError):
-            pass
     parts = [r.get("brand", "").strip() or "Unknown brand", r.get("product", "").strip(), size]
     return " | ".join(p for p in parts if p)
-
-
-def iou(a, b) -> float:
-    ax2, ay2, bx2, by2 = a[0] + a[2], a[1] + a[3], b[0] + b[2], b[1] + b[3]
-    iw = max(0.0, min(ax2, bx2) - max(a[0], b[0]))
-    ih = max(0.0, min(ay2, by2) - max(a[1], b[1]))
-    inter = iw * ih
-    union = a[2] * a[3] + b[2] * b[3] - inter
-    return inter / union if union > 0 else 0.0
 
 
 def union_box(a, b):
@@ -122,8 +118,14 @@ def a_is(item_id: str, single: str | None) -> str:
 
 
 def items() -> dict[str, dict]:
-    """Every judgeable item, keyed by id. Only photos present in both files, so ids don't shift later."""
-    claude, ours = _rows(CLAUDE, "1"), _rows(OURS, None)
+    """Every judgeable item, keyed by id. Only photos present in both files, so ids don't shift later. Built once
+    per version of the two files: every /item, /crop and /queue request needs it."""
+    return _items(_stamp(CLAUDE), _stamp(OURS))
+
+
+@lru_cache(maxsize=4)
+def _items(claude_stamp: tuple, ours_stamp: tuple) -> dict[str, dict]:
+    claude, ours = _rows(CLAUDE, "1", claude_stamp[2]), _rows(OURS, None, ours_stamp[2])
     out = {}
     for photo in sorted(set(claude) & set(ours)):
         cs, os_ = claude[photo], ours[photo]
@@ -131,7 +133,7 @@ def items() -> dict[str, dict]:
         if cs and os_:
             m = np.array([[iou(c["_box"], o["_box"]) for o in os_] for c in cs])
             ri, ci = linear_sum_assignment(-m)
-            pairs = [(i, j) for i, j in zip(ri, ci) if m[i, j] >= IOU_MIN]
+            pairs = [(i, j) for i, j in zip(ri, ci, strict=True) if m[i, j] >= IOU_MIN]
         used_c, used_o = {i for i, _ in pairs}, {j for _, j in pairs}
         groups = pairs + [(i, None) for i in range(len(cs)) if i not in used_c] + [(None, j) for j in range(len(os_)) if j not in used_o]
         for i, j in groups:
@@ -146,7 +148,7 @@ def items() -> dict[str, dict]:
 
 
 def judgements() -> list[dict]:
-    return dash.read_csv(OUT)
+    return df.read_csv(OUT)
 
 
 def queue_ids(all_items: dict[str, dict]) -> list[str]:
@@ -165,19 +167,9 @@ def queue_ids(all_items: dict[str, dict]) -> list[str]:
 def public(it: dict) -> dict:
     """What the page may see before judging: no system names."""
     a, b = ("claude", "ours") if it["a_is"] == "claude" else ("ours", "claude")
-    w, h = size(it["photo"])
+    w, h = df.image_size(df.bar_photo(it["photo"]))
     return {"id": it["id"], "photo": it["photo"], "box": [round(v) for v in it["box"]], "width": w, "height": h,
             "single": bool(it["single"]), "a": it[a], "b": None if it["single"] else it[b]}
-
-
-@lru_cache(maxsize=256)
-def _size(name: str, mtime: float) -> tuple[int, int]:
-    return Image.open(dash.BARS_IMG / name).size
-
-
-def size(name: str) -> tuple[int, int]:
-    p = dash.bar_path(name)
-    return _size(p.name, p.stat().st_mtime)
 
 
 @api.get("/queue")
@@ -206,16 +198,10 @@ def item(item_id: str):
     return public(it)
 
 
-@lru_cache(maxsize=512)
-def _crop(name: str, box: tuple, mtime: float) -> bytes:
-    im = Image.open(dash.BARS_IMG / name).convert("RGB")
-    x, y, w, h = box
-    px, py = w * PAD, h * PAD
-    x1, y1 = max(0, int(x - px)), max(0, int(y - py))
-    x2, y2 = min(im.width, int(x + w + px)), min(im.height, int(y + h + py))
-    c = im.crop((x1, y1, max(x2, x1 + 1), max(y2, y1 + 1)))
-    if max(c.size) > 1100:
-        c.thumbnail((1100, 1100))
+@lru_cache(maxsize=512)  # crops are under 200 KB
+def _crop(path: str, box: tuple, mtime_ns: int) -> bytes:
+    c, _ = padded_crop(open_photo(path), box)
+    c.thumbnail((CROP_SIDE, CROP_SIDE))
     buf = io.BytesIO()
     c.save(buf, "JPEG", quality=88)
     return buf.getvalue()
@@ -226,14 +212,14 @@ def crop(item_id: str):
     it = items().get(item_id)
     if it is None:
         raise HTTPException(404, "no such item")
-    p = dash.bar_path(it["photo"])
-    data = _crop(p.name, tuple(round(v) for v in it["box"]), p.stat().st_mtime)
+    p = df.bar_photo(it["photo"])
+    data = _crop(str(p), tuple(round(v) for v in it["box"]), p.stat().st_mtime_ns)
     return Response(data, media_type="image/jpeg", headers={"Cache-Control": "max-age=3600"})
 
 
 @api.get("/photo/{name}")
 def photo(name: str):
-    return dash.bar_jpeg(dash.bar_path(name).name, side=800)
+    return Response(df.jpeg(df.bar_photo(name), PHOTO_SIDE), media_type="image/jpeg")
 
 
 class Judgement(BaseModel):
@@ -259,7 +245,7 @@ def post_judgement(body: Judgement):
         raise HTTPException(400, "this item has only answer A")
     row = {"photo": it["photo"], "item_id": it["id"], "box": "[" + ", ".join(str(round(v)) for v in it["box"]) + "]",
            "claude_answer": it["claude"], "ours_answer": it["ours"], "a_is": it["a_is"], "verdict": body.verdict,
-           "judge": judge, "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+           "judge": judge, "timestamp": datetime.now(UTC).isoformat(timespec="seconds")}
     with _write:
         new = not OUT.is_file() or OUT.stat().st_size == 0
         OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -357,7 +343,9 @@ def leaderboard_rows() -> list[dict]:
     """Two Testing-leaderboard rows (human-judged brand accuracy), or none when nothing is judged yet."""
     s = stats()
     rows = []
-    names = {"claude": ("Claude baseline, open-ended", CLAUDE.name), "ours": ("Ours: SigLIP2 v2 + OCR", OURS.name)}
+    # named after the files, since JUDGE_CLAUDE / JUDGE_OURS can point anywhere
+    names = {"claude": (f"Claude baseline, open-ended ({CLAUDE.stem.removeprefix('predictions_')})", CLAUDE.name),
+             "ours": (f"Ours: {OURS.stem.removeprefix('predictions_')}", OURS.name)}
     for k, (model, f) in names.items():
         m = s["systems"][k]
         if not m["scored"]:

@@ -6,30 +6,28 @@ shown as source "wild_verified"), plus the per-source products.csv files joined 
 Images are served only for paths listed in the index, never arbitrary paths.
 """
 import csv
-import io
 import threading
 from collections import Counter
-from functools import lru_cache
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse, Response
-from PIL import Image, ImageOps
 
-ROOT = Path(__file__).resolve().parent.parent
-WEB = ROOT / "web"
+from datafiles import ROOT, WEB, jpeg, read_rows
+
 INDEX = ROOT / "data" / "train" / "index.csv"
 WILD = ROOT / "data" / "external" / "wild"
 EXT = ROOT / "data" / "external"
 RETAIL = ("saq", "systembolaget", "drinkfinder")
 SIDES = {"thumb": 300, "full": 1000}
+QUALITY = 82
 # dropdown value -> display sources it covers
 GROUPS = {"all": None, "off": {"off"}, "retail": set(RETAIL), "wild_verified": {"wild_verified"},
           "wild": {"wild"}, "beer_ru": {"beer_ru"}, "whiskey": {"whiskey"}, "stperez": {"stperez"},
           "beerbb": {"beerbb"}, "rp2k": {"rp2k"}, "ttb": {"ttb"}}
 FIELDS = ("path", "source", "brand", "brand_key", "product", "product_key", "size", "group", "category", "gallery")
 
-csv.field_size_limit(10**8)
+csv.field_size_limit(10**8)  # products.csv rows hold every image id or URL in one field
 api = APIRouter(prefix="/api/data", tags=["data"])
 router = APIRouter()
 _lock = threading.Lock()
@@ -41,22 +39,15 @@ def data_page() -> FileResponse:
     return FileResponse(WEB / "data.html")
 
 
-def _read(p: Path) -> list[dict]:
-    if not p.is_file():
-        return []
-    with p.open(newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
-
-
 def state() -> dict:
     """Load every CSV once, on first use, and keep it in memory."""
     global _state
     with _lock:
         if _state is not None:
             return _state
-        ocr = {f"data/external/wild/{r['file']}": r.get("text", "") for r in _read(WILD / "verified.csv")}
+        ocr = {f"data/external/wild/{r['file']}": r.get("text", "") for r in read_rows(WILD / "verified.csv")}
         rows = []
-        for r in _read(INDEX):
+        for r in read_rows(INDEX):
             row = {k: r.get(k, "") for k in FIELDS}
             if row["source"] in ("wild", "wild_verified") and row["path"] in ocr:
                 row["source"] = "wild_verified"
@@ -65,14 +56,14 @@ def state() -> dict:
             row["_q"] = f"{row['brand']} {row['product']}".lower()
             rows.append(row)
         products = {}
-        for r in _read(EXT / "off_alcohol" / "products.csv"):
+        for r in read_rows(EXT / "off_alcohol" / "products.csv"):
             r.pop("image_ids", None)
             products[f"off:{r.get('code', '')}"] = r
         for src in RETAIL:
-            for r in _read(EXT / f"retail_{src}" / "products.csv"):
+            for r in read_rows(EXT / f"retail_{src}" / "products.csv"):
                 r.pop("image_urls", None)
                 products[f"{src}:{r.get('product_id', '')}"] = r
-        for r in _read(EXT / "ttb-cola-spirits" / "index.csv"):
+        for r in read_rows(EXT / "ttb-cola-spirits" / "index.csv"):
             products[f"ttb:{r.get('TTB ID', '')}"] = r
         by_product = {}
         for row in rows:
@@ -125,25 +116,6 @@ def item(item_id: int):
             "brand_total": brand_n}
 
 
-@lru_cache(maxsize=4000)
-def _jpeg(path: str, side: int) -> bytes | None:
-    try:
-        with Image.open(ROOT / path) as im:
-            im = ImageOps.exif_transpose(im)
-            if im.mode in ("RGBA", "LA", "P"):
-                im = im.convert("RGBA")
-                bg = Image.new("RGB", im.size, (255, 255, 255))
-                bg.paste(im, mask=im.getchannel("A"))
-                im = bg
-            im = im.convert("RGB")
-            im.thumbnail((side, side))
-            buf = io.BytesIO()
-            im.save(buf, "JPEG", quality=82)
-            return buf.getvalue()
-    except (OSError, ValueError):
-        return None
-
-
 @api.get("/img")
 def img(path: str, size: str = "thumb"):
     """JPEG of an indexed training image. Only paths present in the index are served; anything else is 404."""
@@ -152,9 +124,10 @@ def img(path: str, size: str = "thumb"):
     full = (ROOT / path).resolve()
     if not full.is_relative_to(ROOT / "data") or not full.is_file():
         raise HTTPException(404, "not found")
-    data = _jpeg(path, SIDES[size])
-    if data is None:
-        raise HTTPException(404, "unreadable image")
+    try:
+        data = jpeg(full, SIDES[size], QUALITY)
+    except (OSError, ValueError) as e:
+        raise HTTPException(404, "unreadable image") from e
     return Response(data, media_type="image/jpeg", headers={"Cache-Control": "max-age=86400"})
 
 
