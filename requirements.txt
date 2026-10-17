@@ -1,19 +1,28 @@
-anthropic
-pydantic
-pillow
-pillow-heif
-python-dotenv
-rapidfuzz
-scipy
-numpy
-torch
-transformers
-accelerate
-fastapi
-uvicorn
-python-multipart
-torchvision
-pyobjc-framework-Vision; sys_platform == 'darwin'
-pyobjc-framework-Quartz; sys_platform == 'darwin'
-imagehash
-ddgs
+# Pinned to the versions in our working environment. Python 3.12.
+
+anthropic==1.13.0
+pydantic==2.14.0
+pillow==12.3.0
+pillow-heif==1.8.0
+python-dotenv==1.2.4
+rapidfuzz==3.14.6
+scipy==1.18.1
+numpy==2.5.3
+torch==2.14.1
+torchvision==0.29.1
+transformers==5.19.0
+accelerate==1.15.0
+huggingface-hub==2.2.0
+fastapi==0.143.0
+uvicorn==0.54.0
+python-multipart==0.0.32
+pyyaml==6.0.3
+imagehash==4.3.2
+ddgs==9.16.0
+requests==2.34.2
+duckdb==1.5.6
+pyobjc-framework-Vision==12.2.2; sys_platform == 'darwin'  # Apple Vision OCR
+pyobjc-framework-Quartz==12.2.2; sys_platform == 'darwin'  # Apple Vision OCR
+
+# Not installed by default: mlx-vlm for the local VLM rows (src/identify_vlm.py, Apple silicon only);
+# src/synth/render.py runs inside Blender (bpy).
