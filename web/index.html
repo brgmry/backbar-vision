@@ -305,7 +305,7 @@ async function identify() {
       const t0 = performance.now();
       let data;
       const saved = DEMO && await fetch("/demo/result.json").then((r) => r.json()).catch(() => null);
-      if (saved && f.name === saved.image) {
+      if (saved && f.name === saved.image && saved.pipeline === p) {  // the other toggle runs for real
         data = saved;
         await ready.catch(() => {});  // the photo is on screen before the clock can stop
         await new Promise((r) => setTimeout(r, Math.max(0, data.seconds * 1000 - (performance.now() - t0))));
@@ -350,7 +350,7 @@ function setScanning(on, p) {
   clearInterval(timer);
   if (!on) return;
   const t0 = performance.now();
-  const label = p === "local" ? "Finding and matching bottles" : "Claude is reading the labels";
+  const label = p === "local" ? "Finding bottles" : "Claude is reading the labels";
   const tick = () => {
     const s = (performance.now() - t0) / 1000;
     const slow = p === "local" && s > 6 && !DEMO ? `<span class="faint">The first run loads the models, up to a minute.</span>` : "";
