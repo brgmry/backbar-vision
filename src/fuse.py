@@ -16,9 +16,10 @@ import torch.nn.functional as F
 from transformers import AutoModel, AutoProcessor
 
 from backbones import BACKBONES
-from catalogue_match import brand_names, full_res_crops, keep_best, ocr_texts, read_brand, read_rows, write_predictions
+from catalogue_match import brand_names, full_res_crops, keep_best, ocr_texts, read_brand, write_predictions
 from compare_backbones import embed_paths, gallery
 from models import DEVICE
+from schema import read_csv
 
 BB = "siglip2"
 W_IMAGE = 1.0
@@ -51,7 +52,7 @@ def main(photos_dir, crops_dir, tag):
         boxes, photos, paths = full_res_crops(photos_dir, crops_dir, Path(tmp))
         Q, _ = embed_paths(BB, paths, workers=0)
         texts = ocr_texts(crops_dir, boxes, paths)
-    names = brand_names(read_rows("data/train/index.csv"))
+    names = brand_names(read_csv("data/train/index.csv"))
 
     # brand universe = catalogue brands; per-brand max image similarity
     brands = sorted({r["brand_key"] for r in rows if r["brand_key"]})

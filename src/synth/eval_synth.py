@@ -8,7 +8,6 @@ Score: top-1 brand among the rendered brands (max cosine per brand), SigLIP2.
 Usage: python src/synth/eval_synth.py crops   (once: OWLv2 crops of the queries)
        python src/synth/eval_synth.py         -> table, appended to data/synth/results.txt
 """
-import csv
 import sys
 from functools import cache
 from pathlib import Path
@@ -22,25 +21,21 @@ from catalogue_match import CROP_PAD  # noqa: E402
 from compare_backbones import embed_paths  # noqa: E402
 from models import DEVICE  # noqa: E402
 from photos import open_photo  # noqa: E402
+from schema import read_csv  # noqa: E402
 
 CROPS = Path("data/synth/query_crops")  # <slug>/<n>.jpg, mirroring data/external/wild
 WILD = Path("data/external/wild")
 QUERY_THRESHOLD = 0.1  # OWLv2 score for "a bottle"; the best box is kept, so a low bar only matters when unsure
 
 
-def read_rows(path) -> list[dict]:
-    with open(path, newline="") as f:
-        return list(csv.DictReader(f))
-
-
 @cache
 def brands() -> list[str]:
-    return sorted({r["brand_key"] for r in read_rows("data/synth/labels.csv")})
+    return sorted({r["brand_key"] for r in read_csv("data/synth/labels.csv")})
 
 
 def queries() -> list[tuple[str, str]]:
     """(file under data/external/wild, brand key) of every verified photo of a rendered brand still on disk."""
-    return [(r["file"], r["brand_key"]) for r in read_rows(WILD / "verified.csv")
+    return [(r["file"], r["brand_key"]) for r in read_csv(WILD / "verified.csv")
             if r["brand_key"] in brands() and (WILD / r["file"]).is_file()]
 
 
@@ -68,10 +63,10 @@ def make_crops():
 
 
 def galleries():
-    idx = read_rows("data/train/index.csv")
+    idx = read_csv("data/train/index.csv")
     cat = [(r["path"], r["brand_key"]) for r in idx if r["brand_key"] in brands() and r["gallery"] == "1"
            and not r["source"].startswith("wild") and r["source"] != "ttb"]
-    flat = [(r["label"], r["brand_key"]) for r in read_rows("data/synth/labels.csv")]
+    flat = [(r["label"], r["brand_key"]) for r in read_csv("data/synth/labels.csv")]
     renders = []
     for p in sorted(Path("data/synth/renders").glob("*.jpg")):
         b = p.stem.split("__")[0].replace("_", " ")

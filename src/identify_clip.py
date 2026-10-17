@@ -16,7 +16,7 @@ from PIL import Image
 from transformers import AutoModel, AutoProcessor
 
 import detect
-from boxes import resized_scale
+from boxes import DETECT_SIDE, resized_scale
 from identify import PRED_FIELDS, Bottle
 from photos import EXTS
 from products_generic import CLUTTER, products
@@ -73,7 +73,7 @@ def main() -> None:
         for path in images:
             t0 = time.time()
             with Image.open(path) as full:
-                scale = resized_scale(full.size, detect.MAX_SIDE)
+                scale = resized_scale(full.size, DETECT_SIDE)
             img = detect.load(path)
             dets = sorted(detect.detect(owl, owl_proc, img), key=lambda d: d[1][0])
             boxes = [[max(0, x1), max(0, y1), min(img.width, x2), min(img.height, y2)] for _, (x1, y1, x2, y2) in dets]

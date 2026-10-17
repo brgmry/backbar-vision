@@ -1,7 +1,6 @@
 """File readers and image helpers shared by the dashboard (dashboard.py) and the Testing, Data and Judge tabs.
 
-Read-only. CSVs and thumbnails are cached by file modification time, so a file that is still being written shows
-up on the next request without reading every file again on every request.
+Read-only. CSVs and thumbnails are cached until the file changes.
 """
 import csv
 import io
@@ -17,7 +16,7 @@ from fastapi.responses import FileResponse
 from PIL import Image, ImageOps
 
 import score
-from boxes import resized_scale
+from boxes import DETECT_SIDE, resized_scale
 from photos import EXTS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -38,7 +37,7 @@ def common_js() -> FileResponse:
     return FileResponse(WEB / "common.js", media_type="text/javascript")
 
 
-def read_rows(path: Path) -> list[dict]:
+def read_lenient(path: Path) -> list[dict]:
     """Rows of a CSV, tolerating a missing file or a half-written last line."""
     try:
         with open(path, newline="", encoding="utf-8") as f:
@@ -47,8 +46,8 @@ def read_rows(path: Path) -> list[dict]:
         return []
 
 
-def read_csv(path: Path) -> list[dict]:
-    """read_rows, cached until the file changes. Each call gets its own copies, so callers may edit them."""
+def cached_csv(path: Path) -> list[dict]:
+    """read_lenient, cached until the file changes. Each call gets its own copies, so callers may edit them."""
     try:
         st = path.stat()
     except OSError:
@@ -58,7 +57,7 @@ def read_csv(path: Path) -> list[dict]:
 
 @lru_cache(maxsize=64)
 def _read_cached(path: str, mtime_ns: int, size: int) -> tuple[dict, ...]:
-    return tuple(read_rows(Path(path)))
+    return tuple(read_lenient(Path(path)))
 
 
 def kitchen_photos() -> list[Path]:
@@ -84,7 +83,7 @@ def bar_photo(name: str) -> Path:
 
 
 def inventory() -> list[dict]:
-    return read_csv(DATA / "labelled" / "inventory.csv")
+    return cached_csv(DATA / "labelled" / "inventory.csv")
 
 
 def prediction_files() -> list[Path]:
@@ -106,8 +105,7 @@ def run_key(run: str) -> tuple:
 
 def detector_scale(size: tuple[int, int]) -> float:
     """boxes.csv is in the photo detect.py shrank: this scales its boxes back to photo pixels."""
-    from detect import MAX_SIDE  # imports torch, so only once a page needs detector boxes
-    return resized_scale(size, MAX_SIDE)
+    return resized_scale(size, DETECT_SIDE)
 
 
 def image_size(path: Path) -> tuple[int, int]:
@@ -149,10 +147,9 @@ def scored_runs(f: Path) -> list[dict]:
     scores, and each row with the item it matched."""
     inv = inventory()
     names = [f"{i['brand']} {i['product']}".strip() for i in inv]
-    by_run = defaultdict(lambda: defaultdict(list))
-    for r in read_csv(f):
-        if r.get("image"):
-            by_run[r.get("run", "1")][r["image"]].append(r)
+    by_run = defaultdict(dict)
+    for (run, image), rows in score.by_photo(cached_csv(f)).items():
+        by_run[run][image] = rows
     runs = []
     for run, photos in sorted(by_run.items(), key=lambda kv: run_key(kv[0])):
         per_photo = []

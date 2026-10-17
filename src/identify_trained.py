@@ -24,10 +24,10 @@ from catalogue_match import (
     keep_best,
     ocr_text,
     read_brand,
-    read_rows,
     write_predictions,
 )
 from embed import embed
+from schema import read_csv
 from train_head import Head
 
 MODES = ("raw", "head", "cls", "ocr")
@@ -41,7 +41,7 @@ def load_head() -> tuple[Head, list[str]]:
 
 
 def main(mode: str, photos_dir: str, crops_dir: str, out: str) -> None:
-    rows = read_rows("data/train/index.csv")
+    rows = read_csv("data/train/index.csv")
     feats = np.load("data/train/feats.npy").astype(np.float32)
     ok = np.load("data/train/feats_ok.npy")
     gal = [i for i, r in enumerate(rows) if r["gallery"] == "1" and ok[i]]

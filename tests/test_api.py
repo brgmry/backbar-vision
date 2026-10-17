@@ -1,4 +1,4 @@
-"""The API's error paths. None of these load a model or call Claude."""
+"""API checks that load no model and call no Claude."""
 import io
 
 import pytest

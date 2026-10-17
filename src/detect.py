@@ -1,7 +1,7 @@
-"""Step 1: find every bottle in each photo with OWLv2 and save the crops.
+"""Find bottles with OWLv2 and save the crops, for the catalogue experiments (the API uses find.py).
 
 Usage: python src/detect.py [photos_dir] [out_dir]   (defaults: data/raw, data/crops)
-  -> <out_dir>/<photo>/<n>.jpg and <out_dir>/boxes.csv, boxes in the photo shrunk to MAX_SIDE
+  -> <out_dir>/<photo>/<n>.jpg and <out_dir>/boxes.csv, boxes in the photo shrunk to boxes.DETECT_SIDE
 """
 import argparse
 import csv
@@ -11,7 +11,7 @@ import torch
 from PIL import Image
 from transformers import Owlv2ForObjectDetection, Owlv2Processor
 
-from boxes import iou_xyxy, overlap_xyxy
+from boxes import DETECT_SIDE, iou_xyxy, overlap_xyxy
 from models import DEVICE
 from photos import EXTS, open_photo
 
@@ -23,12 +23,11 @@ OVERLAP = 0.4
 EDGE = 4  # px
 NMS_IOU = 0.3
 NMS_CONTAINED = 0.7  # a box this much inside a kept box is a part of that bottle (cap, label)
-MAX_SIDE = 2400
 
 
 def load(path: Path) -> Image.Image:
     img = open_photo(path)
-    img.thumbnail((MAX_SIDE, MAX_SIDE))
+    img.thumbnail((DETECT_SIDE, DETECT_SIDE))
     return img
 
 

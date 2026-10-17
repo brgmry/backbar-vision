@@ -55,9 +55,9 @@ def api_photo(name: str):
     path = df.kitchen_photo(name)
     w, h = df.image_size(path)
     scale = df.detector_scale((w, h))
-    labels = {(r["photo"], r["crop"]): r for r in df.read_csv(DATA / "crops" / "labels.csv")}
+    labels = {(r["photo"], r["crop"]): r for r in df.cached_csv(DATA / "crops" / "labels.csv")}
     detector = []
-    for b in df.read_csv(DATA / "crops" / "boxes.csv"):
+    for b in df.cached_csv(DATA / "crops" / "boxes.csv"):
         if b["photo"] != path.stem:
             continue
         try:
@@ -71,7 +71,7 @@ def api_photo(name: str):
     sources = {}
     for f in df.prediction_files():
         runs = defaultdict(list)
-        for r in df.read_csv(f):
+        for r in df.cached_csv(f):
             if r.get("image") in (path.name, path.stem):
                 runs[r.get("run", "1")].append(r | {"bbox": df.parse_bbox(r.get("bbox", ""))})
         sources[f.stem] = dict(sorted(runs.items(), key=lambda kv: df.run_key(kv[0])))
@@ -83,10 +83,7 @@ def api_scores():
     inv = df.inventory()
     files = []
     for f in df.prediction_files():
-        by_photo = defaultdict(list)
-        for r in df.read_csv(f):
-            if r.get("image"):
-                by_photo[(r.get("run", "1"), r["image"])].append(r)
+        by_photo = score.by_photo(df.cached_csv(f))
         if not by_photo or not inv:
             files.append({"file": f.name, "error": "no rows" if inv else "no inventory"})
             continue
@@ -117,9 +114,9 @@ def api_status():
         "counts": {
             "data/raw photos": len(df.kitchen_photos()),
             "data/crops images": count_files(DATA / "crops", "*.jpg"),
-            "data/predictions.csv rows": len(df.read_csv(preds)) if preds.exists() else None,
+            "data/predictions.csv rows": len(df.cached_csv(preds)) if preds.exists() else None,
         },
-        "prediction_files": [{"file": f.name, "rows": len(df.read_csv(f))} for f in df.prediction_files()],
+        "prediction_files": [{"file": f.name, "rows": len(df.cached_csv(f))} for f in df.prediction_files()],
     }
 
 
@@ -134,7 +131,7 @@ def api_runs(name: str):
 
 @app.get("/api/results")
 def api_results():
-    return df.read_csv(DATA / "results.csv")
+    return df.cached_csv(DATA / "results.csv")
 
 
 def bar_label_path(name: str) -> Path:
@@ -221,7 +218,7 @@ pre{background:#fff;border:1px solid #ddd;padding:8px;font-size:12px;overflow-x:
 .barimg.zoom{overflow:auto;max-height:85vh}.barimg.zoom img{width:auto;max-width:none;cursor:zoom-out}
 button{font-size:14px;padding:6px 16px;cursor:pointer}
 </style></head><body>
-<h1>bottle-vision</h1><div class="muted">Read-only except Label bars. Every view re-reads the files. <span id="when"></span></div>
+<h1>bottle-vision</h1><div class="muted">Read-only except Label bars. Every view shows the files as they are on disk. <span id="when"></span></div>
 <nav style="margin:12px 0"><a onclick="show('results')">Leaderboard</a><a onclick="show('claude')">Claude runs</a><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a><a onclick="show('bars')">Label bars</a></nav>
 <div id="main"></div>
 <script src="/common.js"></script>

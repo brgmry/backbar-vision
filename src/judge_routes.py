@@ -76,7 +76,7 @@ def _stamp(path: Path) -> tuple:
 
 def _rows(path: Path, run: str | None, fresh: bool) -> dict[str, list[dict]]:
     """photo name -> rows with a box. Photos still being written (last photo of a fresh file) are dropped."""
-    rows = df.read_csv(path)
+    rows = df.cached_csv(path)
     if not rows:
         return {}
     if run is None:
@@ -112,9 +112,8 @@ def answer(r: dict | None) -> str:
 
 
 def shown(r: dict | None) -> str:
-    """The answer as the judge sees it: brand and product only, in one format for both systems. Sizes (Claude
-    always gives one, as "700 ml"), its "Unknown" brand and our product names that repeat the brand would each
-    tell the systems apart, and the verdict is about the brand anyway."""
+    """Brand and product only, one format for both systems: sizes, Claude's "Unknown" and product names that repeat
+    the brand would give a system away."""
     if r is None:
         return ""
     brand = r.get("brand", "").strip()
@@ -197,7 +196,7 @@ def _items(claude_stamp: tuple, ours_stamp: tuple) -> dict[str, dict]:
 
 
 def judgements() -> list[dict]:
-    return df.read_csv(OUT)
+    return df.cached_csv(OUT)
 
 
 def queue_ids(all_items: dict[str, dict]) -> list[str]:

@@ -10,7 +10,6 @@ in percentage points of bottle size, over matched bottles whose fill was visible
 Usage: python src/score.py [data/predictions.csv] [--alcohol]
 """
 import argparse
-import csv
 import statistics
 from collections import defaultdict
 from pathlib import Path
@@ -20,7 +19,7 @@ from rapidfuzz import fuzz
 from scipy.optimize import linear_sum_assignment
 
 from photos import EXTS
-from schema import ALCOHOL, BAR, size_ml
+from schema import ALCOHOL, BAR, read_csv, size_ml
 
 BRAND_THRESHOLD = 80  # brand_recall: the brands must match, not just product words
 MATCH_THRESHOLD = 60  # token_set_ratio below this counts as a wrong identification
@@ -29,11 +28,6 @@ ROOT = Path(__file__).resolve().parent.parent
 INVENTORY = ROOT / "data/labelled/inventory.csv"
 FILL_TRUTH = ROOT / "data/labelled/fill.csv"
 PHOTOS = ROOT / "data/raw"
-
-
-def read_csv(path) -> list[dict]:
-    with open(path, newline="") as f:
-        return list(csv.DictReader(f))
 
 
 def norm(row: dict) -> str:
@@ -88,6 +82,21 @@ def score_photo(preds: list[dict], inventory: list[dict]) -> dict[str, float]:
     return score_matched(preds, inventory, matched_pairs(preds, inventory))
 
 
+def by_photo(rows: list[dict]) -> dict[tuple[str, str], list[dict]]:
+    """Prediction rows grouped by (run, image). In a run on the kitchen set, a photo of data/raw with no rows is
+    added empty, so it scores as a miss instead of being left out of the means."""
+    groups = defaultdict(list)
+    for row in rows:
+        if row.get("image"):
+            groups[(row.get("run") or "1", row["image"])].append(row)
+    kitchen = {p.name for p in PHOTOS.iterdir() if p.suffix.lower() in EXTS}
+    if kitchen & {image for _, image in groups}:
+        for run in {run for run, _ in groups}:
+            for image in kitchen:
+                groups.setdefault((run, image), [])
+    return groups
+
+
 def fill_truth(truth: dict, image: str, item_id: str) -> float | None:
     return truth.get((image, item_id), truth.get(("", item_id)))
 
@@ -103,19 +112,11 @@ def main(path: str, alcohol: bool = False) -> None:
     inventory = read_csv(INVENTORY)
     if alcohol:
         inventory = [i for i in inventory if i["category"] in ALCOHOL]
-    by_photo = defaultdict(list)
-    for row in read_csv(path):
-        if not alcohol or row["category"] in ALCOHOL:
-            by_photo[(row.get("run") or "1", row["image"])].append(row)
-    kitchen = {p.name for p in PHOTOS.iterdir() if p.suffix.lower() in EXTS}
-    if kitchen & {image for _, image in by_photo}:  # a kitchen-set run: photos with no predictions count as misses
-        for run in {run for run, _ in by_photo}:
-            for image in kitchen:
-                by_photo.setdefault((run, image), [])
+    photos = by_photo([row for row in read_csv(path) if not alcohol or row["category"] in ALCOHOL])
 
     truth = {(r.get("image", ""), r["id"]): float(r["fill_ml"]) for r in read_csv(FILL_TRUTH)} if FILL_TRUTH.exists() else {}
     scores, errors, measured = {}, [], 0
-    for key, preds in sorted(by_photo.items()):
+    for key, preds in sorted(photos.items()):
         matched = matched_pairs(preds, inventory)
         scores[key] = score_matched(preds, inventory, matched)
         errors += fill_errors(matched, truth)

@@ -38,10 +38,10 @@ def _num(s):
 def truth_boxes() -> dict[str, list[tuple[int, list[float]]]]:
     """Per data/raw photo: (item_id, [x, y, w, h]) of the largest hand-labelled detector crop of each item,
     in original-photo pixels. The only ground-truth boxes we have."""
-    labels = {(r["photo"], r["crop"]): r["item_id"] for r in df.read_csv(DATA / "crops" / "labels.csv")}
+    labels = {(r["photo"], r["crop"]): r["item_id"] for r in df.cached_csv(DATA / "crops" / "labels.csv")}
     scales = {p.stem: df.detector_scale(df.image_size(p)) for p in df.kitchen_photos()}
     best = defaultdict(dict)
-    for b in df.read_csv(DATA / "crops" / "boxes.csv"):
+    for b in df.cached_csv(DATA / "crops" / "boxes.csv"):
         item = labels.get((b["photo"], b["crop"]), "")
         if b["photo"] not in scales or not item.isdigit() or int(item) <= 0:
             continue
@@ -63,7 +63,7 @@ def bottles_found(f: Path, truth) -> float | None:
     """Share of ground-truth items whose box centre falls inside any predicted box, mean per run then across
     runs. Only for data/raw photos with predicted bboxes; None when that can't be computed."""
     runs = defaultdict(lambda: defaultdict(list))
-    for r in df.read_csv(f):
+    for r in df.cached_csv(f):
         stem = Path(r.get("image", "")).stem
         box = df.parse_bbox(r.get("bbox", ""))
         if stem in truth and box:
@@ -90,7 +90,7 @@ def leaderboard():
     """data/results.csv, numbers parsed, plus bottles_found computed from the predictions file where possible."""
     truth = truth_boxes()
     out = []
-    for r in df.read_csv(DATA / "results.csv"):
+    for r in df.cached_csv(DATA / "results.csv"):
         row = {k: r.get(k, "") for k in ("date", "experiment", "model", "predictions_file", "inputs", "notes")}
         row |= {k: _num(r.get(k)) for k in FLOATS}
         row["valid"] = r.get("follows_rule") == "yes"
@@ -151,7 +151,7 @@ def inspect(photo: str, file: str):
     w, h = df.image_size(p)
     inv = df.inventory() if kind == "raw" else []
     by_run = defaultdict(list)
-    for r in df.read_csv(f):
+    for r in df.cached_csv(f):
         if r.get("image") in (p.name, p.stem):
             by_run[r.get("run", "1")].append(r)
     out = {}

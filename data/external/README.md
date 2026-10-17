@@ -43,7 +43,7 @@
 - Repo is 81 GB of PNG. We take only `dataset/` (the YOLO-style split): 20 classes, 350 train / 100 val / 50 test images per class, 10,000 images with YOLO `labels/<split>/*.txt`, plus `labeling.py`. Skipped: the `labels/<name>/` raw-frame tree (12 classes, ~26k PNG, 58 GB), which duplicates the same videos.
 - PNGs (22.6 GB) converted in place to JPEG q95 (`src/external/png_to_jpg.py`): 10,000 images, 3.9 GB on disk. Layout `dataset/images/{train,val,test}/<classid>_NNNN.jpg`, `dataset/labels/<split>/<same>.txt`.
 - The YOLO `.txt` files are **not identity labels**: each line is `39 0 cx cy w h` (COCO class 39 = bottle, apparently detector output), one box per bottle. Identity comes only from the filename prefix via `classes.csv`. Use the boxes to crop.
-- **Class mapping** `classes.csv`: file prefix `N_` is `whiskey_list.index(name) + 1` from the repo's `makeDataset.py`. I verified it for 12 of 20 classes by matching LFS sha256 of `dataset/images` files against the named `labels/<name>/` tree (all 500 images per class matched). The other 8 (ardbeg 5, ardbeg 10, balvenie 12/14, glendronach 12/15, glenfiddich 12/15) rely on the script only.
+- **Class mapping** `classes.csv`: file prefix `N_` is `whiskey_list.index(name) + 1` from the repo's `makeDataset.py`. Verified for 12 of 20 classes by matching LFS sha256 of `dataset/images` files against the named `labels/<name>/` tree (all 500 images per class matched). The other 8 (ardbeg 5, ardbeg 10, balvenie 12/14, glendronach 12/15, glenfiddich 12/15) rely on the script only.
 - `makeDataset.py` keeps every 5th of each class's sequentially numbered captures, so near-duplicates within a class are common: split by class or video, not by frame, for any eval.
 - Fetch: `set -a; . ./.env; set +a; hf download spacenship/whiskeyClassification --repo-type dataset --local-dir data/external/whiskey-classification --include "dataset/*" --include "labeling.py"`, then `python src/external/png_to_jpg.py data/external/whiskey-classification/dataset`.
 - Brands chosen by the dataset author, not by us. Check overlap with our inventory only when scoring, never filter on it.
@@ -58,7 +58,7 @@
 
 ## retail_<source>/ : retailer product catalogues (pre-training only)
 
-Collector: `src/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]`. Whole catalogues in seeded random order, never filtered by `data/labelled/`. Resume-safe (skips product_ids already in `products.csv`; re-run continues). Max 1 request/second per host, 3 worker threads, UA `bottle-vision-hackathon/0.1 (you@example.com)`. Logs in `retail_<source>.log`.
+Collector: `src/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]`. Whole catalogues in seeded random order, never filtered by `data/labelled/`. Resume-safe (skips product_ids already in `products.csv`; re-run continues). Max 1 request/second per host, 3 worker threads, UA `bottle-vision-hackathon/0.1 (<CONTACT_EMAIL from .env>)`. Logs in `retail_<source>.log`.
 
 Layout per source: `img/<product_id>/<n>.jpg` (RGB JPEG, transparent backgrounds flattened to white, n = gallery position) and `products.csv` (source, product_id, brand, name, category, volume_ml, abv, url, image_urls; image_urls space-separated). Images are clean studio packshots, mostly front-only: use as a domain-gap complement to bar photos, not a substitute.
 

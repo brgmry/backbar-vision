@@ -17,7 +17,7 @@ Identification, on our kitchen set (7 photos of the same 12 products, from spiri
 
 Our first local pipeline scored 97.6%, but it matched each crop against crops of the same bottles from the other photos, which come from our labels. Ground truth was an input, so the result does not count. The full leaderboard, with that row marked invalid, is in `data/results.csv`.
 
-Fill level, on four photos of one 50 ml miniature after pouring in 7.5 ml and then 15 ml of water:
+Fill level, on four photos of one 50 ml miniature holding 7.5 ml, then 15 ml, of water (two photos at each level):
 
 | Method | Mean error (points of bottle size) | Answered |
 |---|---|---|
@@ -66,7 +66,7 @@ Open http://localhost:8000 and drop a photo. The first call loads the models, wh
 curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:opus-grid'
 ```
 
-Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fill=none`. Interactive API docs are at http://localhost:8000/docs. The Testing, Data and Judge tabs show the leaderboard, the training data and blind A/B judging of two prediction files.
+Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fill=none`. Interactive API docs are at http://localhost:8000/docs. The Testing and Judge tabs show the leaderboard and blind A/B judging of two prediction files; the Data tab shows the training data once `src/train_index.py` has built its index.
 
 /demo replays a frozen run on `bar_12.jpg`. Its labels were checked by hand, its fill levels are our eye estimates and its scan time is staged, so it shows the interface and is not a measured result.
 
@@ -78,7 +78,7 @@ Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fil
 .venv/bin/python src/experiment.py data/predictions_pour_oracle.csv geometry:edge vlm:opus
 ```
 
-`score.py` only reads committed prediction files. `experiment.py` reruns fill estimators; the ones that ask Claude cost API credits, and answers are cached in `runs/vlm_cache/` so a second run is free.
+`score.py` runs no model; it only reads files. `experiment.py` reruns fill estimators; the ones that ask Claude cost API credits, and answers are cached in `runs/vlm_cache/` so a second run is free.
 
 Tests run offline in a couple of seconds:
 

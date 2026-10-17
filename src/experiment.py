@@ -21,9 +21,9 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from boxes import padded_crop
-from fill import get_estimator, segment
+from fill import Geometry, get_estimator, segment
 from photos import open_photo
-from qc import get_qc
+from qc import GeometryQC, get_qc
 from schema import ALCOHOL
 from vlm import ERRORS as VLM_ERRORS
 
@@ -65,6 +65,7 @@ def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL,
     estimators = [get_estimator(s) for s in specs]
     check = None if qc_spec == "none" else get_qc(qc_spec)
     results = {e.name: [] for e in estimators}
+    needs_outline = isinstance(check, GeometryQC) or any(isinstance(e, Geometry) for e in estimators)
     photo_name, photo = None, None
     for row in rows:
         if categories and row["category"] not in categories:
@@ -74,7 +75,7 @@ def main(ids_path: str, specs: list[str], categories: set[str] | None = ALCOHOL,
         if row["image"] != photo_name:
             photo_name, photo = row["image"], open_photo(find_photo(row["image"]))
         crop, box = padded_crop(photo, json.loads(row["bbox"]))
-        mask = segment(crop, box)
+        mask = segment(crop, box) if needs_outline else None  # vlm:<model> on its own never looks at it
         verdict = check.check(crop, box, row, None, mask) if check else None
         if verdict and not verdict.ok:
             print(f"{'crop check':<16} {row['image']} {row['product'][:30]:<30} rejected: {verdict.reason}")

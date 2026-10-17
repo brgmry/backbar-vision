@@ -15,19 +15,14 @@ from pathlib import Path
 from PIL import Image
 
 import photos  # noqa: F401  registers the HEIC opener
-from boxes import area_xyxy, resized_scale
-from detect import MAX_SIDE
+from boxes import DETECT_SIDE, area_xyxy, resized_scale
 from embed import embed
 from identify import PRED_FIELDS
+from schema import read_csv
 
 ROOT = Path(__file__).resolve().parent.parent
 MIN_SIM = 0.3  # below this the crop is treated as clutter
 CROPS = Path(os.environ.get("CROPS", ROOT / "data/crops"))  # data/crops_whole: whole-bottle re-cut (src/recut_crops.py)
-
-
-def read_csv(path: Path) -> list[dict]:
-    with open(path, newline="") as f:
-        return list(csv.DictReader(f))
 
 
 def load_crops() -> list[dict]:
@@ -89,7 +84,7 @@ def main(ks: list[int]) -> None:
     inventory = {int(r["id"]): r for r in read_csv(ROOT / "data/labelled/inventory.csv")}
     crops = load_crops()
     vecs = embed([CROPS / c["photo"] / f"{int(c['crop']):02d}.jpg" for c in crops])
-    scale = {p: resized_scale(Image.open(ROOT / f"data/raw/{p}.HEIC").size, MAX_SIDE)
+    scale = {p: resized_scale(Image.open(ROOT / f"data/raw/{p}.HEIC").size, DETECT_SIDE)
              for p in {c["photo"] for c in crops}}
     for k in ks:
         run(k, crops, vecs, inventory, scale)

@@ -13,7 +13,7 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse, Response
 
-from datafiles import ROOT, WEB, jpeg, read_rows
+from datafiles import ROOT, WEB, jpeg, read_lenient
 
 INDEX = ROOT / "data" / "train" / "index.csv"
 WILD = ROOT / "data" / "external" / "wild"
@@ -45,9 +45,9 @@ def state() -> dict:
     with _lock:
         if _state is not None:
             return _state
-        ocr = {f"data/external/wild/{r['file']}": r.get("text", "") for r in read_rows(WILD / "verified.csv")}
+        ocr = {f"data/external/wild/{r['file']}": r.get("text", "") for r in read_lenient(WILD / "verified.csv")}
         rows = []
-        for r in read_rows(INDEX):
+        for r in read_lenient(INDEX):
             row = {k: r.get(k, "") for k in FIELDS}
             if row["source"] in ("wild", "wild_verified") and row["path"] in ocr:
                 row["source"] = "wild_verified"
@@ -56,14 +56,14 @@ def state() -> dict:
             row["_q"] = f"{row['brand']} {row['product']}".lower()
             rows.append(row)
         products = {}
-        for r in read_rows(EXT / "off_alcohol" / "products.csv"):
+        for r in read_lenient(EXT / "off_alcohol" / "products.csv"):
             r.pop("image_ids", None)
             products[f"off:{r.get('code', '')}"] = r
         for src in RETAIL:
-            for r in read_rows(EXT / f"retail_{src}" / "products.csv"):
+            for r in read_lenient(EXT / f"retail_{src}" / "products.csv"):
                 r.pop("image_urls", None)
                 products[f"{src}:{r.get('product_id', '')}"] = r
-        for r in read_rows(EXT / "ttb-cola-spirits" / "index.csv"):
+        for r in read_lenient(EXT / "ttb-cola-spirits" / "index.csv"):
             products[f"ttb:{r.get('TTB ID', '')}"] = r
         by_product = {}
         for row in rows:

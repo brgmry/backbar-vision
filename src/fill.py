@@ -73,10 +73,16 @@ class Fill:
 
 class FillEstimator(Protocol):
     name: str
-    uses_torch: bool  # runs a local model in estimate(), so callers serialise it with other GPU work
+    uses_torch: bool  # runs a local model even when given the outline, so callers serialise it with other GPU work
     uses_api: bool  # calls a hosted model, so it needs an API key
 
-    def estimate(self, crop: Image.Image, box: list[float], item: dict, mask: np.ndarray | None = None) -> Fill: ...
+    def estimate(self, crop: Image.Image, box: list[float], item: dict, mask: np.ndarray | None = None) -> Fill:
+        """mask: the bottle outline over the crop. Geometry estimators segment the crop (SAM, on the GPU) when it is
+        None, so callers that hold the GPU lock pass it in."""
+        ...
+
+
+UNKNOWN_SIZE = "bottle size unknown"
 
 
 def describe(item: dict) -> str:
@@ -101,6 +107,8 @@ class VLMFill:
         self.name = f"vlm:{model}"
 
     def estimate(self, crop, box, item, mask=None):
+        if size_ml(item) is None:
+            return Fill(None, False, note=UNKNOWN_SIZE)
         prompt = (f"This photo shows one bottle: {describe(item)}, holding {size_ml(item):g} ml when full. "
                   "visible: can you see the top surface of the liquid through the container? "
                   "fill_ml: ml of liquid left, from the liquid line and the bottle's shape (a neck holds less than "
@@ -127,6 +135,9 @@ class Geometry:
         self.uses_api = line.uses_api
 
     def estimate(self, crop, box, item, mask=None):
+        size = size_ml(item)
+        if size is None:
+            return Fill(None, False, note=UNKNOWN_SIZE)
         mask = segment(crop, box) if mask is None else mask
         width = row_widths(mask)
         rows = np.flatnonzero(width)
@@ -146,7 +157,7 @@ class Geometry:
             return Fill(None, False, debug, f"unsure: no sharp liquid line ({contrast:.0f} < {MIN_LINE_CONTRAST:g})")
         disc = width.astype(float) ** 2
         frac = disc[line_y:base_y + 1].sum() / disc[full_y:base_y + 1].sum()
-        return Fill(round(frac * size_ml(item), 1), True, debug)
+        return Fill(round(frac * size, 1), True, debug)
 
 
 def segment(crop: Image.Image, box) -> np.ndarray:

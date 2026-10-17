@@ -4,6 +4,7 @@ from PIL import Image
 from scipy import ndimage
 
 PAD = 0.15  # room around a box when cropping: detector boxes tend to clip caps and bases
+DETECT_SIDE = 2400  # detect.py shrinks photos to this long side, so boxes.csv coordinates are at that size
 
 
 def xyxy(box) -> list[float]:

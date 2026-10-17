@@ -9,10 +9,10 @@ from pathlib import Path
 from PIL import Image
 from rapidfuzz import fuzz
 
-from boxes import padded_crop, resized_scale
-from detect import MAX_SIDE
+from boxes import DETECT_SIDE, padded_crop, resized_scale
 from identify import PRED_FIELDS
 from photos import EXTS, open_photo
+from schema import read_csv
 from train_index import key
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -22,21 +22,16 @@ BRAND_MATCH = 90  # fuzzy partial_ratio a brand name needs inside the label text
 MIN_TEXT_SHARE = 0.6  # label text shorter than this share of a brand name can't hold it
 
 
-def read_rows(path) -> list[dict]:
-    with open(path, newline="") as f:
-        return list(csv.DictReader(f))
-
-
 def full_res_crops(photos_dir, crops_dir, out_dir: Path) -> tuple[list[dict], dict[str, Path], list[Path]]:
     """Each box in <crops_dir>/boxes.csv cut again from the full-resolution photo into out_dir/<k>.jpg: the saved
     crops come from the copy detect.py shrank. Returns the boxes, the photos by stem and the crop paths."""
-    boxes = read_rows(Path(crops_dir) / "boxes.csv")
+    boxes = read_csv(Path(crops_dir) / "boxes.csv")
     photos = {p.stem: p for p in Path(photos_dir).iterdir() if p.suffix.lower() in EXTS}
     paths, name, photo = [], None, None
     for k, b in enumerate(boxes):
         if b["photo"] != name:
             name, photo = b["photo"], open_photo(photos[b["photo"]])
-        sc = resized_scale(photo.size, MAX_SIDE)
+        sc = resized_scale(photo.size, DETECT_SIDE)
         x1, y1, x2, y2 = (float(b[c]) * sc for c in ("x1", "y1", "x2", "y2"))
         paths.append(out_dir / f"{k}.jpg")
         padded_crop(photo, [x1, y1, x2 - x1, y2 - y1], CROP_PAD)[0].save(paths[-1], quality=95)
@@ -56,7 +51,7 @@ def ocr_texts(crops_dir, boxes: list[dict], paths: list[Path]) -> list[str]:
     cache = Path(crops_dir) / "ocr_fullres.csv"
     want = [(b["photo"], b["crop"]) for b in boxes]
     if cache.exists():
-        rows = read_rows(cache)
+        rows = read_csv(cache)
         if [(r.get("photo"), r.get("crop")) for r in rows] == want:
             return [r["text"] for r in rows]
         print(f"{cache} does not match {crops_dir}/boxes.csv: reading the labels again")
@@ -71,7 +66,7 @@ def ocr_texts(crops_dir, boxes: list[dict], paths: list[Path]) -> list[str]:
 def brand_names(rows: list[dict]) -> dict[str, str]:
     """brand_key -> display name, from the catalogue gallery and the top-brands list."""
     names = {r["brand_key"]: r["brand"] for r in rows if r["gallery"] == "1"}
-    for r in read_rows(ROOT / "data/external/brands.csv"):
+    for r in read_csv(ROOT / "data/external/brands.csv"):
         names.setdefault(key(r["brand"]), r["brand"])
     return {k: v for k, v in names.items() if len(k.replace(" ", "")) >= MIN_BRAND_KEY}
 
@@ -102,7 +97,7 @@ def write_predictions(path, boxes: list[dict], photos: dict[str, Path], best: di
     out = []
     for photo, items in best.items():
         with Image.open(photos[photo]) as im:
-            sc = resized_scale(im.size, MAX_SIDE)
+            sc = resized_scale(im.size, DETECT_SIDE)
         for pos, (s, k, r) in enumerate(sorted(items.values(), key=lambda t: float(boxes[t[1]]["x1"])), 1):
             x1, y1, x2, y2 = (float(boxes[k][c]) * sc for c in ("x1", "y1", "x2", "y2"))
             out.append({"run": 1, "image": photos[photo].name, "position": pos,

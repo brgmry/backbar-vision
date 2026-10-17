@@ -27,9 +27,9 @@ from catalogue_match import (
     keep_best,
     ocr_texts,
     read_brand,
-    read_rows,
     write_predictions,
 )
+from schema import read_csv
 from train_index import key
 
 # GALLERY=v2 adds the OCR-verified real-world brand photos (brand-level entries) to the catalogue gallery
@@ -47,19 +47,19 @@ def write_rows(path: Path, rows: list[dict]) -> None:
 
 def gallery_rows():
     if V == "v2" and not GAL.exists():
-        base = read_rows("data/train/gallery.csv")
-        for r in read_rows("data/external/wild/verified.csv"):
+        base = read_csv("data/train/gallery.csv")
+        for r in read_csv("data/external/wild/verified.csv"):
             base.append({**dict.fromkeys(base[0], ""), "path": f"data/external/wild/{r['file']}", "source": "wild_verified",
                          "brand": r["brand"], "brand_key": key(r["brand"]), "product_key": f"wild:{key(r['brand'])}", "gallery": "1"})
         write_rows(GAL, base)
     if not GAL.exists():
         seen, out = set(), []
-        for r in read_rows("data/train/index.csv"):
+        for r in read_csv("data/train/index.csv"):
             if r["gallery"] == "1" and r["product_key"] not in seen:
                 seen.add(r["product_key"])
                 out.append(r)
         write_rows(GAL, out)
-    return read_rows(GAL)
+    return read_csv(GAL)
 
 
 def embed_paths(bb, paths, workers=4) -> tuple[torch.Tensor, np.ndarray]:
@@ -92,7 +92,7 @@ def predict(bb, photos_dir, crops_dir, tag):
         Q, _ = embed_paths(bb, paths, workers=0)
         texts = ocr_texts(crops_dir, boxes, paths)
     sims = Q @ G.T
-    names = brand_names(read_rows("data/train/index.csv"))
+    names = brand_names(read_csv("data/train/index.csv"))
     by_brand = defaultdict(list)
     for j, r in enumerate(rows):
         by_brand[r["brand_key"]].append(j)

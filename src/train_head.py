@@ -122,7 +122,7 @@ def evaluate(model, X, rows, train, val, yc) -> str:
     """Val brand accuracy by nearest catalogue neighbour (raw vs head) and by classifier."""
     model.eval()
     gal = [i for i in train if rows[i]["gallery"] == "1" and not rows[i]["source"].startswith("wild")]
-    q = [i for i in val if rows[i]["source"].startswith("wild")][:VAL_QUERIES]  # real photos vs catalogue: the hard way
+    q = [i for i in val if rows[i]["source"].startswith("wild")][:VAL_QUERIES]  # real photos against catalogue images: the harder direction
     gb = [rows[i]["brand_key"] for i in gal]
     out = []
     for name, f in (("raw", lambda t: t), ("head", model.embed)):

@@ -1,4 +1,5 @@
-"""Categories and sizes shared by the pipeline, the scorer and the API."""
+"""Categories, sizes and the CSV reader shared by the pipeline, the scorer and the API."""
+import csv
 import re
 
 ALCOHOL = {"spirit", "liqueur", "wine", "beer"}
@@ -23,3 +24,9 @@ def size_ml(row: dict) -> float | None:
         return float(m.group(1).replace(",", ".")) * TO_ML.get(m.group(2) or "ml", 1)
     except ValueError:
         return None
+
+
+def read_csv(path) -> list[dict]:
+    """Every row of a CSV. A missing file is an error; the dashboard has its own lenient reader (datafiles.py)."""
+    with open(path, newline="") as f:
+        return list(csv.DictReader(f))

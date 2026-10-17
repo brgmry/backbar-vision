@@ -72,3 +72,10 @@ def test_get_estimator():
     for bad in ("bogus", "vlm:gpt-4", "geometry:nonsense"):
         with pytest.raises(UnknownEstimator):
             get_estimator(bad)
+
+
+def test_unknown_size_gives_null_fill():
+    crop, mask = bottle()
+    for estimator in (Geometry(Stub(LINE)), get_estimator("vlm:opus")):  # returns before any model call
+        f = estimator.estimate(crop, [50, 40, 150, 380], ITEM | {"size": "", "unit": ""}, mask)
+        assert f.fill_ml is None and f.note == "bottle size unknown"
