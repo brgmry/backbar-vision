@@ -3,8 +3,9 @@ names the brand it was searched for. Turns search-query labels into verified rea
 
 Usage: python src/verify_wild.py [workers]   -> data/external/wild/verified.csv (file, brand, brand_key, text)
 """
+import argparse
 import csv
-import sys
+from collections import Counter
 from multiprocessing import Pool
 from pathlib import Path
 
@@ -13,24 +14,28 @@ from rapidfuzz import fuzz
 from train_index import key
 
 WILD = Path("data/external/wild")
+MIN_CONFIDENCE = 0.4  # OCR lines Apple Vision is less sure of are ignored
+MIN_WORD = 4  # brand words shorter than this ("the", "de") prove nothing
+FUZZY_WORD = 6  # words this long may match fuzzily (OCR slips); shorter ones must appear as a whole word
+BRAND_MATCH = 90  # fuzzy partial_ratio a long brand word needs inside the label text
+TEXT_KEPT = 200  # characters of label text written to verified.csv
 
 
 def check(row):
-    from ocr import read_text
-    try:
-        text = key(" ".join(t for t, _ in read_text(WILD / row["file"], min_confidence=0.4)))
-    except Exception:
-        return None
+    from ocr import read_text  # macOS only; unreadable files come back with no text
+    text = key(" ".join(t for t, _ in read_text(WILD / row["file"], min_confidence=MIN_CONFIDENCE)))
     b = key(row["brand"])
     # the brand's main word(s) must appear; short brands need an exact word to avoid false hits
-    words = [w for w in b.split() if len(w) >= 4] or [b]
-    ok = any((fuzz.partial_ratio(w, text) >= 90 if len(w) >= 6 else w in text.split()) for w in words)
-    return {"file": row["file"], "brand": row["brand"], "brand_key": b, "text": text[:200]} if ok else None
+    words = [w for w in b.split() if len(w) >= MIN_WORD] or [b]
+    ok = any((fuzz.partial_ratio(w, text) >= BRAND_MATCH if len(w) >= FUZZY_WORD else w in text.split())
+             for w in words)
+    return {"file": row["file"], "brand": row["brand"], "brand_key": b, "text": text[:TEXT_KEPT]} if ok else None
 
 
-if __name__ == "__main__":
-    rows = list(csv.DictReader(open(WILD / "manifest.csv")))
-    with Pool(int(sys.argv[1]) if len(sys.argv) > 1 else 8) as pool:
+def main(workers: int):
+    with open(WILD / "manifest.csv", newline="") as f:
+        rows = list(csv.DictReader(f))
+    with Pool(workers) as pool:
         kept = []
         for n, r in enumerate(pool.imap_unordered(check, rows, chunksize=16), 1):
             if r:
@@ -41,6 +46,12 @@ if __name__ == "__main__":
         w = csv.DictWriter(f, fieldnames=["file", "brand", "brand_key", "text"])
         w.writeheader()
         w.writerows(kept)
-    from collections import Counter
     c = Counter(r["brand_key"] for r in kept)
-    print(f"verified {len(kept)}/{len(rows)} photos, {len(c)} brands, median {sorted(c.values())[len(c)//2] if c else 0} per brand")
+    print(f"verified {len(kept)}/{len(rows)} photos, {len(c)} brands, "
+          f"median {sorted(c.values())[len(c) // 2] if c else 0} per brand")
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("workers", nargs="?", type=int, default=8)
+    main(ap.parse_args().workers)

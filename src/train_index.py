@@ -7,6 +7,8 @@ wine-images-126k (images live only as bytes inside parquet, nothing on disk to p
 
 Columns: group is the coarse bar category (spirit, liqueur, wine, beer, mixer, other); category is the source's own
 finer category text. gallery 1 = usable as a reference image of a known product, 0 = training only.
+Every image within pHash distance holdout.MAX_PHASH_DIST of a bar test photo is left out, whatever its source;
+the ones left out are listed in data/train/test_overlap.csv.
 Usage: python src/train_index.py   -> data/train/index.csv (writes beerbb crops on first run)
 """
 import csv
@@ -14,11 +16,14 @@ import json
 import re
 import unicodedata
 from collections import Counter
+from multiprocessing import Pool
 from pathlib import Path
+
+from holdout import MAX_PHASH_DIST, image_phash, test_distance, test_hashes
 
 EXT = Path("data/external")
 OUT = Path("data/train")
-IMG = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+IMG = {".jpg", ".jpeg", ".png", ".webp", ".gif"}  # what the external sources ship; TTB labels include GIFs
 GROUPS = ("spirit", "liqueur", "wine", "beer", "mixer", "other")
 FIELDS = ["path", "source", "brand", "brand_key", "product", "product_key", "size", "group", "category", "gallery"]
 
@@ -59,6 +64,11 @@ def first_brand(brands: str) -> str:
     return (brands or "").split(",")[0].strip()
 
 
+def read_rows(path: Path) -> list[dict]:
+    with open(path, newline="") as f:
+        return list(csv.DictReader(f))
+
+
 def images(d: Path):
     return [f for f in sorted(d.iterdir()) if f.is_file() and f.suffix.lower() in IMG] if d.is_dir() else []
 
@@ -70,7 +80,7 @@ def off_tags() -> dict:
         return {}
     import duckdb
     con = duckdb.connect()
-    codes = [(p["code"],) for p in csv.DictReader(open(EXT / "off_alcohol/products.csv"))]
+    codes = [(p["code"],) for p in read_rows(EXT / "off_alcohol/products.csv")]
     con.execute("create table c(code varchar)")
     con.executemany("insert into c values (?)", codes)
     return dict(con.sql(f"select p.code, array_to_string(p.categories_tags, ' ') from read_parquet('{raw}') p "
@@ -79,7 +89,7 @@ def off_tags() -> dict:
 
 def off():
     tags = off_tags()
-    for p in csv.DictReader(open(EXT / "off_alcohol/products.csv")):
+    for p in read_rows(EXT / "off_alcohol/products.csv"):
         brand = first_brand(p["brands"])
         if not brand:
             continue
@@ -93,7 +103,7 @@ def off():
 
 def retail():
     for src in ("saq", "systembolaget", "drinkfinder"):
-        for p in csv.DictReader(open(EXT / f"retail_{src}/products.csv")):
+        for p in read_rows(EXT / f"retail_{src}/products.csv"):
             if not p["brand"]:
                 continue
             for f in images(EXT / f"retail_{src}/img" / p["product_id"]):
@@ -105,12 +115,12 @@ def retail():
 def wild():
     """Brand-only weak labels. Photos whose label text OCR confirmed (verified.csv) become wild_verified, gallery 1,
     with a brand-level product_key wild:<brand_key> (same convention as compare_backbones.py)."""
-    verified = {r["file"] for r in csv.DictReader(open(EXT / "wild/verified.csv"))} \
+    verified = {r["file"] for r in read_rows(EXT / "wild/verified.csv")} \
         if (EXT / "wild/verified.csv").exists() else set()
-    cats = {r["brand"]: r["category"] for r in csv.DictReader(open(EXT / "brands.csv"))}
-    for p in csv.DictReader(open(EXT / "wild/manifest.csv")):
+    cats = {r["brand"]: r["category"] for r in read_rows(EXT / "brands.csv")}
+    for p in read_rows(EXT / "wild/manifest.csv"):
         f = EXT / "wild" / p["file"]
-        if f.exists():
+        if f.is_file():
             v = p["file"] in verified
             yield {"path": f, "source": "wild_verified" if v else "wild", "brand": p["brand"], "product": "",
                    "product_key": f"wild:{key(p['brand'])}" if v else "", "size": "",
@@ -135,7 +145,7 @@ WHISKEY_BRANDS = {"glenallachie": "GlenAllachie", "glengrant": "Glen Grant", "gl
 def whiskey():
     """Scotch whisky video frames; identity from the filename prefix via classes.csv."""
     root = EXT / "whiskey-classification"
-    classes = {r["class_id"]: r["name"] for r in csv.DictReader(open(root / "classes.csv"))}
+    classes = {r["class_id"]: r["name"] for r in read_rows(root / "classes.csv")}
     for split in ("train", "val", "test"):
         for f in images(root / "dataset/images" / split):
             cid = f.name.split("_")[0]
@@ -182,7 +192,8 @@ def beerbb():
     crops = root / "crops"
     crops.mkdir(exist_ok=True)
     for js in sorted((root / "BeerBB-1K").glob("*.json")):
-        boxes = json.load(open(js))
+        with open(js) as f:
+            boxes = json.load(f)
         im = None
         for k, b in enumerate(boxes):
             brand = (b.get("brand") or "").strip()
@@ -191,7 +202,8 @@ def beerbb():
             out = crops / f"{js.stem}_{k}.jpg"
             if not out.exists():
                 if im is None:
-                    im = Image.open(js.with_suffix(".jpg")).convert("RGB")
+                    with Image.open(js.with_suffix(".jpg")) as raw:
+                        im = raw.convert("RGB")
                 x0, y0 = max(0, b["x"]), max(0, b["y"])
                 x1, y1 = min(im.width, b["x"] + b["w"]), min(im.height, b["y"] + b["h"])
                 im.crop((x0, y0, x1, y1)).save(out, "JPEG", quality=95)
@@ -207,7 +219,7 @@ def rp2k():
     """Alcohol SKUs only (alcohol_classes.csv). Brand = the Chinese class name. Cooking wine that slipped the
     keyword filter (烹饪, 厨用) is dropped."""
     root = EXT / "rp2k"
-    for p in csv.DictReader(open(root / "alcohol_classes.csv")):
+    for p in read_rows(root / "alcohol_classes.csv"):
         c = p["class"]
         if "烹饪" in c or "厨用" in c:
             continue
@@ -221,10 +233,10 @@ def rp2k():
 def ttb():
     """US TTB COLA label artwork (front/back/neck), flat art not photos: training only."""
     root = EXT / "ttb-cola-spirits"
-    meta = {r["TTB ID"]: r for r in csv.DictReader(open(root / "index.csv"))}
-    for r in csv.DictReader(open(root / "images.csv")):
+    meta = {r["TTB ID"]: r for r in read_rows(root / "index.csv")}
+    for r in read_rows(root / "images.csv"):
         m, f = meta.get(r["ttb_id"]), root / r["file"]
-        if not m or not m["Brand Name"].strip() or not f.exists():
+        if not r["file"] or not m or not m["Brand Name"].strip() or not f.is_file():  # no file: COLA without labels
             continue
         desc = m["Class/Type Desc"]
         yield {"path": f, "source": "ttb", "brand": m["Brand Name"].strip().title(),
@@ -233,6 +245,28 @@ def ttb():
 
 
 SOURCES = [off, retail, wild, beer_ru, whiskey, stperez, beerbb, rp2k, ttb]
+
+
+def without_test_overlap(rows: list[dict]) -> list[dict]:
+    """The rows whose image is not a near copy of a bar test photo. The rest go to OUT/test_overlap.csv."""
+    test = test_hashes()
+    with Pool() as pool:
+        hashes = pool.map(image_phash, [r["path"] for r in rows], chunksize=64)
+    keep, dropped = [], []
+    for r, h in zip(rows, hashes, strict=True):
+        dist = test_distance(h, test) if h is not None else None  # an unreadable file is caught by embed_all
+        if dist is not None and dist <= MAX_PHASH_DIST:
+            dropped.append({"path": r["path"], "source": r["source"], "distance": dist})
+        else:
+            keep.append(r)
+    with open(OUT / "test_overlap.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["path", "source", "distance"])
+        w.writeheader()
+        w.writerows(dropped)
+    per_source = ", ".join(f"{s} {n}" for s, n in Counter(d["source"] for d in dropped).most_common())
+    print(f"left out {len(dropped)} images within pHash distance {MAX_PHASH_DIST} of a test photo"
+          f"{': ' + per_source if per_source else ''}", flush=True)
+    return keep
 
 
 def main():
@@ -245,6 +279,7 @@ def main():
     for r in out:
         r["path"] = str(r["path"])
         r["brand_key"] = key(r["brand"])
+    out = without_test_overlap(out)
     with open(OUT / "index.csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
