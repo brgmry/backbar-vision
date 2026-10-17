@@ -25,7 +25,7 @@ Output per bottle: `{position, description, bbox, brand, product, category, liqu
 - `src/experiment.py` runs any fill estimator on any predictions CSV, so identification and fill swap independently. `src/api.py` serves the pipeline and the web UI.
 
 ## Identification design (agreed 10 Oct)
-- Crop, then a backbone (DINOv2 or SigLIP2) with a trained projection head, then a brand classifier for brands with 100+ training images and nearest-neighbour retrieval against the catalogue for the exact product, or "unknown". OCR on each crop (Apple Vision) is fused with the image score and reported as its own leaderboard row.
+- Crop, then a backbone (DINOv2 or SigLIP2) with a trained projection head, then a brand classifier for brands with at least `MIN_PER_BRAND` training images (30 in src/train_head.py; the 10 Oct plan said 100) and nearest-neighbour retrieval against the catalogue for the exact product, or "unknown". OCR on each crop (Apple Vision) is fused with the image score and reported as its own leaderboard row.
 - No distillation: Claude never labels training data. Training data comes from external sources, cleaned without a model where possible (for example OCR checks on in-the-wild brand photos).
 - Unknown thresholds and hyperparameters are tuned on a validation split of the external data, never on a test set.
 

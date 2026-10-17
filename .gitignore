@@ -12,3 +12,6 @@ data/train/
 data/crops_bars/
 data/crops_bars5/
 data/synth/
+
+# Agent worktrees
+.claude/worktrees/

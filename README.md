@@ -66,7 +66,7 @@ Open http://localhost:8000 and drop a photo. The first call loads the models, wh
 curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:opus-grid'
 ```
 
-Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fill=none`. Interactive API docs are at http://localhost:8000/docs.
+Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fill=none`. Interactive API docs are at http://localhost:8000/docs. The Testing, Data and Judge tabs show the leaderboard, the training data and blind A/B judging of two prediction files.
 
 /demo replays a frozen run on `bar_12.jpg`. Its labels were checked by hand, its fill levels are our eye estimates and its scan time is staged, so it shows the interface and is not a measured result.
 
@@ -91,7 +91,8 @@ uv pip install -p .venv -r requirements-dev.txt && .venv/bin/python -m pytest
 - `src/api.py` the HTTP API and web UI; `src/find.py` SAM 3 bottle finder; `src/identify.py` the Claude baseline; `src/fill.py` fill estimators; `src/qc.py` crop check; `src/vlm.py` one cached `ask()` for Claude
 - `src/score.py` the scorer; `src/experiment.py` runs fill estimators on any predictions file
 - `src/photos.py`, `boxes.py`, `models.py`, `schema.py` helpers shared by the rest
-- the identification experiments: catalogue collection (`src/collect_*.py`, `src/external/`, see `data/external/README.md`), embedding and training (`src/backbones.py`, `train_index.py`, `train_head.py`), local pipelines (`identify_trained.py`, `fuse.py`, `identify_clip.py`, `identify_vlm.py`)
+- the identification experiments: catalogue collection (`src/collect_*.py`, `src/external/`, see `data/external/README.md`; collectors need `CONTACT_EMAIL` in `.env`), test-set hold-out (`src/holdout.py`, `drop_test_overlap.py`), embedding and training (`src/backbones.py`, `train_index.py`, `train_head.py`), local pipelines (`catalogue_match.py`, `identify_trained.py`, `fuse.py`, `identify_clip.py`, `identify_vlm.py`)
+- the web tabs: `src/testing_routes.py`, `data_routes.py`, `judge_routes.py`, sharing `src/datafiles.py`; pages in `web/`
 - `data/raw/` the kitchen photos; `data/labelled/` ground truth; `data/pour/` the pour test; `data/test_bars/` the bar test set; `data/predictions_*.csv` every run; `data/results.csv` the leaderboard
 - `docs/` research notes on datasets and open-set methods
 

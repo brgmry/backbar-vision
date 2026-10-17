@@ -2,10 +2,10 @@
 ## wild/ : in-the-wild bottle photos by brand (pre-training only)
 
 - `brands.csv`: ~400 spirits/liqueur brands with source citations (Drinks International Millionaires' Club and Brands Report, The Spirits Business Brand Champions, IWSR, CGA UK on-trade lists). Compiled from those rankings, **not** from `data/labelled/`. Our ground truth was never opened to build it. Citations are list-level, compiled from memory of 2023-2025 editions, not scraped tables.
-- `wild/<slug>/<n>.jpg`: up to 60 photos per brand for the 300 most-cited brands. Longest side <= 1024px, min side >= 200px. Collector: `src/collect_wild.py [max_brands] [per_brand]` (resumable, `_done` marker per brand; `merge` rebuilds the manifest).
+- `wild/<slug>/<n>.jpg`: up to 60 photos per brand for the 300 most-cited brands. Longest side <= 1024px, min side >= 200px. Collector: `src/collect_wild.py [max_brands] [per_brand]`, which needs `CONTACT_EMAIL` in `.env` (resumable, `_done` marker per brand; `merge` rebuilds the manifest).
 - Sources in priority order: Wikimedia Commons (search API, free licences), Openverse (CC, anon limit 200 req/day so roughly the first 180 brands only), DuckDuckGo image search via `ddgs` (queries `<brand> bottle bar|cocktail|hand`, licence unknown). No Flickr key in env, so Flickr direct was skipped (Openverse returns Flickr CC images anyway).
 - `wild/manifest.csv`: brand, slug, file, source, url, page, licence, w, h, phash.
-- Dedup: pHash, Hamming <= 6 within a brand, <= 2 across brands. Images within distance 6 of `data/test_bars/phashes.txt` are removed (no train/test overlap).
+- Dedup: pHash, Hamming <= 6 within a brand, <= 2 across brands. Images within distance 6 of `data/test_bars/phashes.txt` are moved to `wild/_test_overlap/` by `src/drop_test_overlap.py`, and `src/train_index.py` drops any training image from any source within that distance (listed in `data/train/test_overlap.csv`).
 - Labels are **weak**: brand = the search query. Many images show several brands on a shelf, some are packshots or watermarked stock. Use for contrastive pre-training or with a detector crop + filter, not as clean classification labels. Licence "unknown" (DDG) images are for internal research use only, never redistribute.
 
 ## winesensed/ : WineSensed (Vivino user photos of wine labels), all 24 shards
