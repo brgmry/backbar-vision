@@ -25,13 +25,14 @@ import numpy as np
 import torch
 import yaml
 from PIL import Image
-from scipy import ndimage
+
+from boxes import largest_blob
+from models import DEVICE
 
 VENDOR = Path(__file__).resolve().parent.parent / "vendor"
 REPO = VENDOR / "sam2_vessel"
 WEIGHTS = {"large": (VENDOR / "weights/model_large.torch", "sam2_hiera_l.yaml"),
            "small": (VENDOR / "weights/model_small.torch", "sam2_hiera_s.yaml")}
-DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
 RES = 1024  # the net sees a 1024x1024 canvas; training padded smaller images with black at bottom/right
 MIN_LIQUID = 0.03  # share of the bottle mask below which there is no liquid to speak of
 WALL = 0.15  # share of the bottle's width on each side used to find where the surface meets the walls
@@ -124,17 +125,16 @@ def wall_level(liquid: np.ndarray, bottle: np.ndarray, full_y: int = 0) -> int |
 
 class LabPicsLine:
     name = "labpics"
+    uses_torch = True
+    uses_api = False
 
     def __init__(self, size: str = "large", upscale: bool = False):  # upscaling to 1024 hurt on JW IMG_6345
         self.size, self.upscale = size, upscale
         self.debug: dict = {}
 
     def liquid(self, crop: Image.Image, mask: np.ndarray) -> np.ndarray:
-        liquid = segment_classes(crop, self.size, self.upscale)[1] & mask
-        labels, n = ndimage.label(liquid)
-        if n > 1:  # the liquid is one body; drop specks (reflections, labels)
-            liquid = labels == np.argmax(np.bincount(labels.ravel())[1:]) + 1
-        return liquid
+        # the liquid is one body: the other blobs are reflections and labels
+        return largest_blob(segment_classes(crop, self.size, self.upscale)[1] & mask)
 
     def find(self, crop, mask, full_y, bottom_y, item):
         liquid = self.liquid(crop, mask)

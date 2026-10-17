@@ -18,7 +18,7 @@ from pathlib import Path
 
 from PIL import Image
 
-DEMO = Path("web/demo")
+DEMO = Path(__file__).resolve().parent.parent / "web/demo"
 NAME = "bar_12"
 DROP: set[int] = set()  # positions of duplicate detections to leave out (none on bar_12)
 ASSUMED_ML = 700  # what the live run assumed for every bottle
@@ -26,8 +26,8 @@ SECONDS = 11.2  # staged scan time on the demo, chosen for it (a real run on bar
 
 
 def main() -> None:
-    live = json.load(open(DEMO / f"{NAME}_live.json"))
-    labels = json.load(open(DEMO / f"{NAME}_labels.json"))
+    live = json.loads((DEMO / f"{NAME}_live.json").read_text())
+    labels = json.loads((DEMO / f"{NAME}_labels.json").read_text())
     fills = {}
     if (DEMO / f"{NAME}_fill.csv").exists():
         text = (DEMO / f"{NAME}_fill.csv").read_text(encoding="utf-8-sig")  # Excel adds a BOM
@@ -58,7 +58,7 @@ def main() -> None:
     width, height = Image.open(DEMO / f"{NAME}.jpg").size
     result = {"image": f"{NAME}.jpg", "pipeline": "local", "photo": f"{NAME}.jpg", "width": width, "height": height,
               "seconds": SECONDS, "bottles": bottles}
-    json.dump(result, open(DEMO / "result.json", "w"), indent=1, ensure_ascii=False)
+    (DEMO / "result.json").write_text(json.dumps(result, indent=1, ensure_ascii=False))
     print(f"{len(bottles)} bottles, {sum(b['id_source'] == 'label' for b in bottles)} named, "
           f"{sum(b['fill_ml'] is not None for b in bottles)} with fill ({len(fills)} by eye) -> {DEMO / 'result.json'}")
 

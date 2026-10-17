@@ -12,52 +12,48 @@ import csv
 from collections import defaultdict
 from pathlib import Path
 
-from PIL import Image, ImageDraw
-from transformers import Owlv2ForObjectDetection, Owlv2Processor
+from PIL import ImageDraw
 
 import detect
+from boxes import area_xyxy, intersection_xyxy
 
-OLD, OUT = Path("data/crops"), Path("data/crops_whole")
+ROOT = Path(__file__).resolve().parent.parent
+OLD, OUT = ROOT / "data/crops", ROOT / "data/crops_whole"
 INSIDE = 0.6  # share of a box's area that must lie inside the other box
-
-
-def area(b):
-    return max(0.0, b[2] - b[0]) * max(0.0, b[3] - b[1])
-
-
-def inter(a, b):
-    return area([max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])])
+AMBIGUOUS = 0.25  # a second item holding this share of the top item's overlap makes the label ambiguous
 
 
 def transfer(new, olds):
     """Item id for a new box from the labelled old boxes of the same photo, plus a short reason."""
-    inside = [(inter(new, o), lab) for o, lab in olds if lab >= 0 and inter(new, o) >= INSIDE * area(o)]
+    overlaps = [(intersection_xyxy(new, o), o, lab) for o, lab in olds if lab >= 0]
+    inside = [(w, lab) for w, o, lab in overlaps if w >= INSIDE * area_xyxy(o)]
     if not inside:
-        inside = [(inter(new, o), lab) for o, lab in olds if lab >= 0 and inter(new, o) >= INSIDE * area(new)]
+        inside = [(w, lab) for w, o, lab in overlaps if w >= INSIDE * area_xyxy(new)]
     weight = defaultdict(float)
     for w, lab in inside:
         weight[lab] += w
     if not weight:
         return -1, "no labelled box overlaps"
     items = sorted(weight.items(), key=lambda kv: -kv[1])
-    if len(items) > 1 and items[0][0] > 0 and items[1][0] > 0 and items[1][1] > 0.25 * items[0][1]:
+    if len(items) > 1 and items[0][0] > 0 and items[1][0] > 0 and items[1][1] > AMBIGUOUS * items[0][1]:
         return -1, f"ambiguous: items {items[0][0]} and {items[1][0]}"
     return items[0][0], "transferred"
 
 
 def main() -> None:
-    old_boxes = {(b["photo"], int(b["crop"])): [float(b[k]) for k in ("x1", "y1", "x2", "y2")]
-                 for b in csv.DictReader(open(OLD / "boxes.csv"))}
+    with open(OLD / "boxes.csv", newline="") as f:
+        old_boxes = {(b["photo"], int(b["crop"])): [float(b[k]) for k in ("x1", "y1", "x2", "y2")]
+                     for b in csv.DictReader(f)}
     old = defaultdict(list)
-    for r in csv.DictReader(open(OLD / "labels.csv")):
-        old[r["photo"]].append((old_boxes[(r["photo"], int(r["crop"]))], int(r["item_id"])))
+    with open(OLD / "labels.csv", newline="") as f:
+        for r in csv.DictReader(f):
+            old[r["photo"]].append((old_boxes[(r["photo"], int(r["crop"]))], int(r["item_id"])))
 
-    processor = Owlv2Processor.from_pretrained(detect.MODEL)
-    model = Owlv2ForObjectDetection.from_pretrained(detect.MODEL).to(detect.DEVICE).eval()
+    model, processor = detect.load_model()
     boxes, labels = [], []
     (OUT / "sheets").mkdir(parents=True, exist_ok=True)
     for photo in sorted(old):
-        img = detect.load(Path("data/raw") / f"{photo}.HEIC")
+        img = detect.load(ROOT / "data/raw" / f"{photo}.HEIC")
         dets = sorted(detect.detect(model, processor, img, prefer_whole=True), key=lambda d: d[1][0])
         (OUT / photo).mkdir(exist_ok=True)
         sheet = img.copy()
@@ -67,12 +63,12 @@ def main() -> None:
             img.crop(box).save(OUT / photo / f"{n:02d}.jpg", quality=92)  # same encoding as data/crops
             item, why = transfer(box, old[photo])
             boxes.append({"photo": photo, "crop": n, "score": round(score, 3),
-                          **{k: round(v) for k, v in zip(("x1", "y1", "x2", "y2"), box)}})
+                          **{k: round(v) for k, v in zip(("x1", "y1", "x2", "y2"), box, strict=True)}})
             labels.append({"photo": photo, "crop": n, "item_id": item, "how": why})
             draw.rectangle(box, outline="red" if item < 0 else "lime", width=4)
             draw.text((box[0] + 4, box[1] + 4), f"{n}:{item}", fill="yellow")
         sheet.save(OUT / "sheets" / f"{photo}.jpg", quality=85)
-        print(f"{photo}: {len(dets)} boxes, {sum(l['item_id'] > 0 for l in labels if l['photo'] == photo)} labelled items")
+        print(f"{photo}: {len(dets)} boxes, {sum(r['item_id'] > 0 for r in labels if r['photo'] == photo)} labelled items")
     for name, rows in (("boxes.csv", boxes), ("labels.csv", labels)):
         with (OUT / name).open("w", newline="") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0]))

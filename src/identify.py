@@ -1,7 +1,8 @@
 """Identify every stock bottle in each photo with Claude vision. This is the baseline to beat.
 
-Usage: python src/identify.py data/raw [runs] [out.csv]   -> writes data/predictions.csv by default
+Usage: python src/identify.py [photos_dir] [--runs N] [--out predictions.csv]   (defaults: data/raw, 1, data/predictions.csv)
 """
+import argparse
 import base64
 import csv
 import io
@@ -10,16 +11,13 @@ from pathlib import Path
 from typing import Literal
 
 import anthropic
-from dotenv import load_dotenv
-from PIL import Image
-from pillow_heif import register_heif_opener
 from pydantic import BaseModel
 
-register_heif_opener()
-load_dotenv()
+from photos import EXTS, open_photo
+from vlm import ALIASES, MAX_TOKENS, Refusal
 
-MODEL = "claude-opus-5-5"
-EXTS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
+MODEL = ALIASES["opus"]
+SEND_SIDE = 1568  # long side of the photo sent; the baseline was measured at this size, so keep it
 
 PROMPT = """You are cataloguing bar stock from a photo of a group of bottles. List every stock bottle or container of food or drink you can see (ignore reusable water bottles, shakers, cups and glasses),
 ordered left to right (front row before back row if there are rows). For each bottle:
@@ -54,11 +52,14 @@ class Photo(BaseModel):
     bottles: list[Bottle]
 
 
+PRED_FIELDS = ["run", "image", *Bottle.model_fields]  # the predictions CSV every pipeline writes
+
+
 def load_image(path: Path) -> tuple[str, float]:
     """JPEG base64 for the API, plus the factor that scales its pixels back to the original photo."""
-    img = Image.open(path).convert("RGB")
+    img = open_photo(path)
     width = img.width
-    img.thumbnail((1568, 1568))
+    img.thumbnail((SEND_SIDE, SEND_SIDE))
     buf = io.BytesIO()
     img.save(buf, "JPEG", quality=90)
     return base64.standard_b64encode(buf.getvalue()).decode(), width / img.width
@@ -68,7 +69,7 @@ def identify(client: anthropic.Anthropic, path: Path) -> list[Bottle]:
     data, scale = load_image(path)
     response = client.messages.parse(
         model=MODEL,
-        max_tokens=16000,
+        max_tokens=MAX_TOKENS,
         output_config={"effort": "medium"},
         messages=[{
             "role": "user",
@@ -80,7 +81,7 @@ def identify(client: anthropic.Anthropic, path: Path) -> list[Bottle]:
         output_format=Photo,
     )
     if response.stop_reason == "refusal":
-        raise RuntimeError(f"refused: {path.name}")
+        raise Refusal(f"declined to answer for {path.name}")
     bottles = response.parsed_output.bottles
     for b in bottles:
         b.bbox = [round(v * scale) for v in b.bbox]
@@ -92,12 +93,12 @@ def main(folder: str, runs: int, out: str = "data/predictions.csv") -> None:
     images = sorted(p for p in Path(folder).iterdir() if p.suffix.lower() in EXTS)
     out = Path(out)
     with out.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["run", "image", *Bottle.model_fields])
+        writer = csv.DictWriter(f, fieldnames=PRED_FIELDS)
         writer.writeheader()
         for run, path in ((r, p) for r in range(1, runs + 1) for p in images):
             try:
                 bottles = identify(client, path)
-            except (anthropic.APIStatusError, anthropic.APIConnectionError, RuntimeError) as e:
+            except (anthropic.APIError, Refusal) as e:
                 print(f"FAIL {path.name}: {e}", file=sys.stderr)
                 continue
             print(f"run {run} {path.name}: {len(bottles)} bottles")
@@ -109,5 +110,9 @@ def main(folder: str, runs: int, out: str = "data/predictions.csv") -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw", int(sys.argv[2]) if len(sys.argv) > 2 else 1,
-         sys.argv[3] if len(sys.argv) > 3 else "data/predictions.csv")
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("photos", nargs="?", default="data/raw")
+    ap.add_argument("--runs", type=int, default=1, help="repeat runs, to measure the spread")
+    ap.add_argument("--out", default="data/predictions.csv")
+    args = ap.parse_args()
+    main(args.photos, args.runs, args.out)

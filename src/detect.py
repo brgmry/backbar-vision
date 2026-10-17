@@ -1,17 +1,19 @@
 """Step 1: find every bottle in each photo with OWLv2 and save the crops.
 
-Usage: python src/detect.py [photos_dir] [out_dir]   -> <out_dir>/<photo>/<n>.jpg + <out_dir>/boxes.csv (default data/raw -> data/crops)
+Usage: python src/detect.py [photos_dir] [out_dir]   (defaults: data/raw, data/crops)
+  -> <out_dir>/<photo>/<n>.jpg and <out_dir>/boxes.csv, boxes in the photo shrunk to MAX_SIDE
 """
+import argparse
 import csv
-import sys
 from pathlib import Path
 
 import torch
 from PIL import Image
-from pillow_heif import register_heif_opener
 from transformers import Owlv2ForObjectDetection, Owlv2Processor
 
-register_heif_opener()
+from boxes import iou_xyxy, overlap_xyxy
+from models import DEVICE
+from photos import EXTS, open_photo
 
 MODEL = "google/owlv2-base-patch16-ensemble"
 QUERIES = ["a bottle", "a jug", "a sauce bottle"]
@@ -20,15 +22,18 @@ TILES = 3  # OWLv2 sees 960px; tile the photo so small bottles keep enough pixel
 OVERLAP = 0.4
 EDGE = 4  # px
 NMS_IOU = 0.3
+NMS_CONTAINED = 0.7  # a box this much inside a kept box is a part of that bottle (cap, label)
 MAX_SIDE = 2400
-EXTS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
-DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
 
 
 def load(path: Path) -> Image.Image:
-    img = Image.open(path).convert("RGB")
+    img = open_photo(path)
     img.thumbnail((MAX_SIDE, MAX_SIDE))
     return img
+
+
+def load_model() -> tuple[Owlv2ForObjectDetection, Owlv2Processor]:
+    return Owlv2ForObjectDetection.from_pretrained(MODEL).to(DEVICE).eval(), Owlv2Processor.from_pretrained(MODEL)
 
 
 def detect(model, processor, img: Image.Image, prefer_whole: bool = False) -> list[tuple[float, list[float]]]:
@@ -54,8 +59,7 @@ def detect(model, processor, img: Image.Image, prefer_whole: bool = False) -> li
     if not boxes:
         return []
     rank = [s + (1.0 if prefer_whole and i >= n_tiles else 0.0) for i, s in enumerate(scores)]  # scores are < 1
-    boxes_t, rank_t = torch.tensor(boxes), torch.tensor(rank)
-    return [(scores[i], boxes[i]) for i in nms(boxes_t, rank_t)]
+    return [(scores[i], boxes[i]) for i in nms(boxes, rank)]
 
 
 def detect_tile(model, processor, img: Image.Image) -> list[tuple[float, list[float]]]:
@@ -67,35 +71,21 @@ def detect_tile(model, processor, img: Image.Image) -> list[tuple[float, list[fl
     result = processor.post_process_grounded_object_detection(
         outputs, threshold=SCORE_THRESHOLD, target_sizes=torch.tensor([[side, side]])
     )[0]
-    return [(float(s), b.tolist()) for s, b in zip(result["scores"].cpu(), result["boxes"].cpu())]
+    return [(float(s), b.tolist()) for s, b in zip(result["scores"].cpu(), result["boxes"].cpu(), strict=True)]
 
 
-def nms(boxes: torch.Tensor, scores: torch.Tensor) -> list[int]:
-    order, keep = scores.argsort(descending=True).tolist(), []
-    for i in order:
-        if all(iou(boxes[i], boxes[j]) < NMS_IOU and overlap(boxes[i], boxes[j]) < 0.7 for j in keep):
+def nms(boxes: list[list[float]], rank: list[float]) -> list[int]:
+    """Indices of the boxes kept, best rank first: a box goes if it overlaps or sits inside one already kept."""
+    keep = []
+    for i in sorted(range(len(boxes)), key=lambda i: -rank[i]):
+        if all(iou_xyxy(boxes[i], boxes[j]) < NMS_IOU and overlap_xyxy(boxes[i], boxes[j]) < NMS_CONTAINED
+               for j in keep):
             keep.append(i)
     return keep
 
 
-def overlap(a, b) -> float:
-    """Intersection over the smaller box."""
-    x1, y1, x2, y2 = max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])
-    inter = max(0, x2 - x1) * max(0, y2 - y1)
-    smaller = min((a[2] - a[0]) * (a[3] - a[1]), (b[2] - b[0]) * (b[3] - b[1]))
-    return float(inter / smaller) if smaller else 0.0
-
-
-def iou(a, b) -> float:
-    x1, y1, x2, y2 = max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])
-    inter = max(0, x2 - x1) * max(0, y2 - y1)
-    union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
-    return float(inter / union) if union else 0.0
-
-
-def main(folder: str, out_dir: str = "data/crops") -> None:
-    processor = Owlv2Processor.from_pretrained(MODEL)
-    model = Owlv2ForObjectDetection.from_pretrained(MODEL).to(DEVICE).eval()
+def main(folder: str, out_dir: str) -> None:
+    model, processor = load_model()
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -116,4 +106,8 @@ def main(folder: str, out_dir: str = "data/crops") -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/raw", sys.argv[2] if len(sys.argv) > 2 else "data/crops")
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("photos", nargs="?", default="data/raw")
+    ap.add_argument("out", nargs="?", default="data/crops")
+    args = ap.parse_args()
+    main(args.photos, args.out)
