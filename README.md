@@ -1,93 +1,109 @@
 # bottle-vision
 
-Camera-based stock tracking for restaurant bars. From a photo: what bottle, what size, what liquid, how much is left.
+Stock tracking for bars from one photo: which bottles are on the shelf, and how much is left in each.
 
-## Tasks
-1. Identify bottle type, size and liquid.
-2. Estimate fill level (% and ml).
+It started as a Saturday hack by Bergen and Allen with a clear target: beat Claude Opus 5.5 by 10 points of item recall, running locally at zero API cost per photo. We did not. This repo holds the pipeline, every prediction file behind the numbers below, and the experiments that explain the gap.
 
-**Objective:** beat the Claude baseline by 10+ points of item recall on the human-labelled bar test set, at zero API cost per photo. Photos are the only input; ground truth is only ever used to score.
+## Results so far
 
-## The system
+Identification, on our kitchen set (7 photos of the same 12 products, from spirits to milk and ketchup, with the photo as the only input):
 
-### 1. Inference: photo in, stock list out
+| System | Item recall | Brand recall | Runs locally |
+|---|---|---|---|
+| Claude Opus 5.5, open-ended (`src/identify.py`) | 59.5% | 38.7% | no |
+| Qwen3-VL-32B, 4-bit MLX | 38.1% | 15.6% | yes |
+| Qwen3.5-9B, 4-bit MLX | 37.7% | 20.3% | yes |
+| SigLIP2 retrieval over an external product catalogue, plus OCR | 29.8% | 23.4% | yes |
+
+Our first local pipeline scored 97.6%, but it matched each crop against crops of the same bottles from the other photos, which come from our labels. Ground truth was an input, so the result does not count. The full leaderboard, with that row marked invalid, is in `data/results.csv`.
+
+Fill level, on four photos of one 50 ml miniature after pouring in 7.5 ml and then 15 ml of water:
+
+| Method | Mean error (points of bottle size) | Answered |
+|---|---|---|
+| Outline + Claude points at the liquid line (`geometry:opus-grid`) | 2.1 | 2 of 4 |
+| Claude estimates the ml directly (`vlm:opus`) | 19.0 | 4 of 4 |
+| Outline + colour edge (`geometry:edge`) | 38.6 | 4 of 4 |
+| Outline + LabPics liquid segmentation (`geometry:labpics`) | 73.0 | 4 of 4 |
+| Outline + SAM 3 "liquid" (`geometry:sam3`) | 76.8 | 4 of 4 |
+
+That is far too small a sample to publish as a finding. A measured pour series and human labels for the 82-photo bar test set (`data/test_bars/`) come next.
+
+## How it works
+
 ```mermaid
 flowchart LR
-    P[Bar photo] --> D["Detect<br/>OWLv2, 3x3 tiles<br/>prompt: 'a bottle'"]
-    D --> C[Crop each bottle]
-    C --> B["Backbone<br/>DINOv2, frozen<br/>768 numbers per crop"]
-    B --> H["Projection head<br/>trained by us<br/>768 to 256"]
-    H --> K["Brand classifier<br/>softmax over brands<br/>with 100+ images"]
-    H --> R["Retrieval<br/>nearest neighbours in<br/>the catalogue gallery"]
-    C --> O["OCR<br/>Apple Vision reads<br/>the label text"]
-    O --> F
-    K --> F["Fuse scores<br/>image + text"]
-    R --> F
-    F --> Out["Per bottle: brand, product, size,<br/>box in the photo, or 'unknown'"]
-```
-- **Detect** finds every bottle-shaped object. Tiling keeps small bottles big enough to see.
-- **Backbone** turns each crop into a fingerprint. Same product, similar fingerprint, measured by cosine similarity (the angle between them).
-- **Projection head** is the part we train: it reshapes the fingerprint space so photos of the same bottle sit close together under bar lighting.
-- **Brand classifier** answers "which brand" for brands with enough training photos. **Retrieval** answers "which exact product" by finding the closest catalogue images, and handles new products by just adding their photos.
-- **OCR** reads any legible label text and matches it to catalogue names. Logos and blurry labels fall back to the image side.
-
-### 2. Training: external data only
-```mermaid
-flowchart LR
-    subgraph External["External data (data/external, never our test photos)"]
-        OFF["Open Food Facts<br/>alcohol + mixers"]
-        RET["Retailer catalogues<br/>multi-angle packshots"]
-        WILD["Real-world brand photos<br/>top ~300 bar brands"]
-        DS["Public datasets<br/>RP2K, wine and beer labels"]
-    end
-    External --> DD["Dedupe against test sets<br/>phash distance &le; 6 dropped"]
-    DD --> AUG["Bar-style augmentation<br/>dim and coloured light, blur,<br/>small in frame, occlusion"]
-    AUG --> TR["Train head + brand classifier<br/>contrastive loss on same-product pairs"]
-    DD --> GAL[Catalogue gallery]
-    TR --> M[Trained model]
-    DD --> VAL["Validation split<br/>tunes thresholds"]
+    P[Photo] --> F["Find bottles<br/>SAM 3, prompt 'bottle'"]
+    P --> C["Read labels<br/>Claude (pipeline=claude)"]
+    F --> Q["Crop check<br/>cut off, hidden, no neck"]
+    C --> Q
+    Q --> O["Outline<br/>neck = 100%, base row,<br/>camera angle"]
+    O --> L["Liquid line<br/>Claude picks a numbered tick"]
+    L --> V["Volume of revolution<br/>ml left"]
 ```
 
-### 3. Evaluation: ground truth only scores
-```mermaid
-flowchart LR
-    T1["Test set A<br/>7 kitchen photos, 12 items"] --> S
-    T2["Test set B<br/>~30 real bar photos<br/>labelled by humans"] --> S
-    CL["Claude baseline<br/>claude-opus-5-5"] --> S
-    OPEN["Other baselines<br/>local VLMs, zero-shot"] --> S
-    OURS["Our model<br/>each stage as its own row"] --> S
-    GT[("Ground truth<br/>labels")] -. scoring only .-> S
-    S["score.py<br/>item recall, bar recall,<br/>precision, count error"] --> LB["Leaderboard<br/>data/results.csv + dashboard"]
+- `pipeline=local` finds every bottle with SAM 3 and does not identify it: brand and product stay null and the size is assumed to be a 700 ml spirit bottle. `pipeline=claude` asks Claude for every bottle's brand, product, size and box.
+- The crop check (`src/qc.py`) drops bottles that run out of the crop, have no visible neck, or are mostly hidden.
+- Fill is volume, not height. The outline's width per row gives a volume of revolution, from the neck (full) down to the base. Only the liquid line comes from Claude: a grid of numbered ticks is drawn on the crop and Claude names the tick at the line. A line with little colour change above and below it is reported as unsure instead of guessed.
+- Opaque bottles, upside-down optics and unsure lines come back with `fill_ml: null` and a `fill_note` saying why.
+
+Every bottle comes back as `{position, description, bbox, brand, product, category, liquid, size, unit, glass, fill_ml, id_source, fill_visible, fill_note, label_text}`, with `bbox` as `[x, y, w, h]` in photo pixels and bottles in reading order (shelf rows top to bottom, then left to right).
+
+## Run it
+
+Python 3.12 and [uv](https://docs.astral.sh/uv/):
+
 ```
-Leaderboard rows for our model, so each stage's contribution is measured: zero-shot retrieval, then + trained head, then + brand classifier, then + OCR fusion.
-
-**Rules:** test photos are never training data; thresholds are tuned on the external validation split, never a test set; a result that used ground truth as input is logged as invalid.
-
-## Data
-- `data/raw/` original photos, untouched
-- `data/labelled/inventory.csv` ground truth: the 12 items in the set
-
-
-## Setup
-Keys go in `.env`, never committed.
-
-## Run the baseline
+uv venv -p 3.12 .venv && uv pip install -p .venv -r requirements.txt
+cp .env.example .env     # add ANTHROPIC_API_KEY
+hf auth login            # SAM 3 is gated: accept Meta's licence on huggingface.co/facebook/sam3 first
+.venv/bin/uvicorn api:app --app-dir src
 ```
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env   # add your key
-.venv/bin/python src/identify.py data/raw
-```
-Writes `data/predictions.csv`: one row per bottle (run, photo, position left to right, description, bbox, brand, product, category, liquid, size, unit, glass, fill_ml, id_source, fill_visible).
 
-## Run the API
-```
-uv pip install -p .venv -r requirements.txt
-.venv/bin/uvicorn api:app --app-dir src     # from the repo root
-curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local'
-```
-Open http://localhost:8000 for the web UI: drop, paste or browse a photo, every bottle comes back boxed and listed, and the Local/Claude toggle compares the two pipelines on the same photo. `POST /identify` takes one photo and returns `{image, pipeline, bottles: [...]}` in the shared output schema. `pipeline=local` (default) runs the local pipeline with k=3 reference crops per item from every photo in `data/crops`, so photos from `data/raw` score themselves; test with new photos. The first local call loads the models (about a minute), later calls take a few seconds. `pipeline=claude` runs the baseline and needs the key in `.env`. Interactive docs at `localhost:8000/docs`.
+Open http://localhost:8000 and drop a photo. The first call loads the models, which takes about a minute.
 
-## Dashboard
-The testing view now lives in the main app: open the **Testing** tab at http://localhost:8000/testing (leaderboard, Claude runs, photo inspector). The old dashboard below still works.
+```
+curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:opus-grid'
+```
 
-`.venv/bin/python src/dashboard.py` then open http://localhost:8501 (read-only view of photos, boxes, predictions, scores and pipeline status).
+Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fill=none`. Interactive API docs are at http://localhost:8000/docs.
+
+/demo replays a frozen run on `bar_12.jpg`. Its labels were checked by hand, its fill levels are our eye estimates and its scan time is staged, so it shows the interface and is not a measured result.
+
+## Reproduce the numbers
+
+```
+.venv/bin/python src/score.py data/predictions.csv                       # Claude baseline
+.venv/bin/python src/score.py data/predictions_fill_pour_oracle_geometry_opus-grid.csv --alcohol
+.venv/bin/python src/experiment.py data/predictions_pour_oracle.csv geometry:edge vlm:opus
+```
+
+`score.py` only reads committed prediction files. `experiment.py` reruns fill estimators; the ones that ask Claude cost API credits, and answers are cached in `runs/vlm_cache/` so a second run is free.
+
+Tests run offline in a couple of seconds:
+
+```
+uv pip install -p .venv -r requirements-dev.txt && .venv/bin/python -m pytest
+```
+
+## Layout
+
+- `src/api.py` the HTTP API and web UI; `src/find.py` SAM 3 bottle finder; `src/identify.py` the Claude baseline; `src/fill.py` fill estimators; `src/qc.py` crop check; `src/vlm.py` one cached `ask()` for Claude
+- `src/score.py` the scorer; `src/experiment.py` runs fill estimators on any predictions file
+- `src/photos.py`, `boxes.py`, `models.py`, `schema.py` helpers shared by the rest
+- the identification experiments: catalogue collection (`src/collect_*.py`, `src/external/`, see `data/external/README.md`), embedding and training (`src/backbones.py`, `train_index.py`, `train_head.py`), local pipelines (`identify_trained.py`, `fuse.py`, `identify_clip.py`, `identify_vlm.py`)
+- `data/raw/` the kitchen photos; `data/labelled/` ground truth; `data/pour/` the pour test; `data/test_bars/` the bar test set; `data/predictions_*.csv` every run; `data/results.csv` the leaderboard
+- `docs/` research notes on datasets and open-set methods
+
+## Rules we held ourselves to
+
+- Ground truth is the answer, never an input: labels are read by the scorer and nothing else.
+- Test photos are never training data. Training images within perceptual-hash distance 6 of a bar test photo are dropped.
+- Bar test labels are made by people, never by a model, since the baseline is a model. Fill labels are measured by pouring or weighing.
+- A result that broke a rule stays in the leaderboard, marked invalid.
+
+## Licence and credits
+
+Code under Apache-2.0 (`LICENSE`). Our photos, labels and predictions under CC BY 4.0 (`DATA_LICENSE.md`). The bar test photos keep their own licences, listed in `data/test_bars/ATTRIBUTION.md`; photos without a known licence are not redistributed, and `scripts/download_bars.py` fetches them for local use.
+
+Models: [SAM 3](https://huggingface.co/facebook/sam3) and SAM 2.1 (Meta), [OWLv2](https://huggingface.co/google/owlv2-base-patch16-ensemble), DINOv2 and SigLIP2, and Sagi Eppel's [LabPics vessel model](https://github.com/sagieppel/Segment_Anything2_Trained_for_Semantic_Seg_Vessell_Fill_level). None are shipped here; each downloads under its own licence.

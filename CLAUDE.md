@@ -1,64 +1,49 @@
 # bottle-vision
 
-Saturday hack: cameras in restaurant bars that track stock from photos. Built by Bergen and Alan in one 5-hour session. Ship a working demo, not a platform.
+Cameras in restaurant bars that track stock from photos. Started as a Saturday hack by Bergen and Allen; now being cleaned up and written up for open source. README.md has the results and how to run everything.
 
 ## What it does
-From one photo of a group of bottles, for each bottle (numbered left to right):
-1. Identify it: bottle type/brand, size (ml), liquid.
-2. Estimate fill level: % remaining and ml remaining.
+From one photo, for each bottle in reading order (shelf rows top to bottom, then left to right):
+1. Identify it: brand, product, size, liquid.
+2. Estimate how much is left, in ml.
 
-Output is JSON per bottle: `{position, description, bbox, brand, product, category, liquid, size, unit, glass, fill_ml, id_source, fill_visible}`. `bbox` is `[x, y, w, h]` in original-photo pixels. `fill_ml` is always ml and null when `fill_visible` is false. `id_source` is `label` (read off the bottle), `shape` (guessed) or `reference` (matched against our reference crops, local pipeline). Fill % is derived from `fill_ml` and `size`, never output.
+Objective (agreed 10 Oct): beat the Claude baseline (`src/identify.py`, open-ended, claude-opus-5-5) by 10+ points of item recall on the human-labelled bar test set, at zero API cost per photo.
+
+Output per bottle: `{position, description, bbox, brand, product, category, liquid, size, unit, glass, fill_ml, id_source, fill_visible}`, plus `fill_note` and `label_text` from the API. `bbox` is `[x, y, w, h]` in original-photo pixels. `fill_ml` is always ml, and null when `fill_visible` is false. `id_source` is `label` (read off the bottle), `shape` (guessed) or `none` (not identified). Fill % is derived from `fill_ml` and `size`, never output.
 
 ## Layout
-- `data/raw/` original photos. Never edit, rename or overwrite.
-- `data/labelled/inventory.csv` ground truth: the 12 items in the photo set. Every photo in `data/raw/` shows all 12. Single source of truth.
+- `data/raw/` the kitchen photos. Never edit, rename or overwrite.
+- `data/labelled/` ground truth: `inventory.csv` (the 12 items in every kitchen photo), `fill.csv` (measured fill levels), `crop_exclude.csv` (crops rejected by hand, scores the crop check).
+- `data/pour/` the pour test; `data/test_bars/` the bar test set; `data/predictions_*.csv` every run; `data/results.csv` the leaderboard.
+- `src/` code. Shared helpers live in `photos.py`, `boxes.py`, `models.py`, `schema.py`; use them instead of copying HEIC loading, box maths, devices or unit tables.
+- `tests/` fast offline tests: `.venv/bin/python -m pytest`.
 
-- `src/` pipeline code.
-- `notebooks/` throwaway exploration only. Anything that works moves to `src/`.
+## Pipeline
+- Find: `src/find.py`, SAM 3 with the text prompt "bottle" on the whole photo.
+- Identify: `src/identify.py`, Claude reading the labels, is the baseline to beat. The local identification experiments (catalogue retrieval, trained head, OCR fusion, local VLMs) are in `data/results.csv`.
+- Crop check: `src/qc.py`. Fill: `src/fill.py`, outline from SAM, liquid line from Claude picking a numbered tick, volume of revolution.
+- `src/experiment.py` runs any fill estimator on any predictions CSV, so identification and fill swap independently. `src/api.py` serves the pipeline and the web UI.
 
-## Local pipeline (the challenger)
-Runs on the laptop, no API calls. Python 3.12 venv: `uv venv -p 3.12 .venv && uv pip install -p .venv -r requirements.txt`.
-1. **Find** `src/detect.py`: OWLv2 (`google/owlv2-base-patch16-ensemble`), prompts "a bottle / a jug / a sauce bottle", 3x3 overlapping tiles so small bottles keep their pixels, boxes cut by a tile edge dropped, NMS. Writes `data/crops/<photo>/NN.jpg` and `data/crops/boxes.csv` (coords in the 2400px-resized photo). `src/draw.py <dir>` overlays boxes for eyeballing.
-2. **Label** `data/crops/labels.csv`: every crop hand-labelled with its inventory `item_id`. 0 = clutter (water bottle, shaker, kitchen roll, mug), -1 = fragment too small to call, excluded from scoring. `src/propose_labels.py` pre-fills from the packshots; a human corrects it. This file is ground truth, edit by hand only.
-3. **Match** `src/match.py [k ...]`: DINOv2-base embeddings (`src/embed.py`), nearest neighbour against a gallery of the k largest crops per item **from the other photos only** (leave-one-photo-out) plus all clutter crops; similarity < 0.3 = clutter. One row per item per photo in the shared output schema -> `data/predictions_local_k<k>.csv`.
-4. **Score** `src/score.py <predictions.csv>`, same scorer as the baseline. Also report the crop accuracy match.py prints: score.py's precision is always 1.0 here because every inventory item is in every photo.
-
-Results, 7 photos x 12 items, leave-one-photo-out:
-
-| reference crops per item | crop accuracy | item recall |
-|---|---|---|
-| packshots only (retailer images) | 0.59 | n/a |
-| 1 | 0.81 | 0.88 |
-| 2 | 0.85 | 0.93 |
-| 3 | 0.87 | 0.98 |
-
-**These numbers are optimistic, not a result.** The reference crops come from the other 6 photos of the same bottles, same room, same light, minutes apart. Size and category are copied from the inventory once the ID is right, so size_acc and category_acc just repeat ID accuracy. The honest no-help number is the packshot row (0.59).
-
-## Model design (agreed 10 Oct)
-photo -> OWLv2 tiled detector -> crop -> DINOv2 backbone -> trained projection head -> (a) brand classifier (softmax, brands with 100+ training images) and (b) nearest-neighbour retrieval against the catalogue gallery for exact product -> product or "unknown". OCR on each crop (Apple Vision) matched against catalogue names, fused with the image score, reported as a separate ablation.
-- Order: frozen backbone + head first, fine-tune the backbone only if time is left.
-- Score both brand recall and product recall.
-- Leaderboard rows: zero-shot retrieval, + trained head, + brand classifier, + OCR fusion.
-- Unknown threshold and hyperparameters tuned on a validation split of the external data, never on a test set.
-
-- **No distillation** (decided 10 Oct): Claude does not label training data. Training data comes from external sources, cleaned for free (e.g. OCR verification of in-the-wild brand photos).
+## Identification design (agreed 10 Oct)
+- Crop, then a backbone (DINOv2 or SigLIP2) with a trained projection head, then a brand classifier for brands with 100+ training images and nearest-neighbour retrieval against the catalogue for the exact product, or "unknown". OCR on each crop (Apple Vision) is fused with the image score and reported as its own leaderboard row.
+- No distillation: Claude never labels training data. Training data comes from external sources, cleaned without a model where possible (for example OCR checks on in-the-wild brand photos).
+- Unknown thresholds and hyperparameters are tuned on a validation split of the external data, never on a test set.
 
 ## Ground truth is the answer, never an input
-The only input is photos. `data/labelled/` and `data/crops/labels.csv` are used by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The LOPO results above break this rule and are kept only as a record of what not to report.
+The only input is photos. `data/labelled/`, `data/crops/labels.csv` and the bar test labels are read by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The leave-one-photo-out matcher (`src/match.py`, 97.6% recall) breaks this rule and is kept only as a record of what not to report.
 
-## Eval protocol (from here on)
-- **Enrolment photos** (`data/enrol/`): each bottle alone, 3 shots, plain surface. The only source of reference crops. Never scored.
-- **Test photos** (`data/test/`): new arrangements, a different surface and light, plus bottles not in the inventory. Labelled only for scoring, after predictions are written. Never used as references.
-- **Bar test set** (`data/test_bars/`): 82 real bar photos from web search (bar_01-34 DuckDuckGo, bar_35-82 Wikimedia Commons with license, author and easy/medium/hard tier in manifest.csv), labelled by humans only (never by a model, since the baseline is a model). Never used for training: any training image within phash distance 6 of `data/test_bars/phashes.txt` is dropped.
-- Report ID accuracy (crop accuracy and item recall), plus `bar_recall` (spirits, liqueurs, wine, beer, mixers only). Size, category and liquid only count when something actually predicts them.
-- A fair comparison gives both systems the same information: local vs Claude open-ended, and local vs Claude given the stock list and reference images.
+## Eval protocol
+- Kitchen set (`data/raw/`): 7 photos, 12 items, scored by `src/score.py`.
+- Bar test set (`data/test_bars/`): 82 real bar photos from web search (bar_01 to bar_34 from DuckDuckGo, bar_35 to bar_82 from Wikimedia Commons with licence, author and an easy/medium/hard tier in `manifest.csv`). Labelled by people only, never by a model, since the baseline is a model. Never used for training: any training image within phash distance 6 of `data/test_bars/phashes.txt` is dropped.
+- Fill: measured labels only (poured or weighed), never model-made. Report the error in points of bottle size and the share of bottles answered.
+- Report item recall, brand recall and bar recall (spirits, liqueurs, wine, beer, mixers). Size, category and liquid only count when something actually predicts them.
+- Thresholds and prompts are tuned on our own kitchen and pour photos, never on a test set.
 
 ## Rules
-- **Eval first.** Every approach is scored against `data/labelled/inventory.csv` before it's called working. Report identification accuracy and fill-level mean absolute error (percentage points).
-- **Hold out a test split** before any training. Never tune on it.
-- **Objective (agreed 10 Oct): beat the Claude baseline (`src/identify.py`, open-ended, claude-opus-5-5, no Fable) by 10+ points of item recall on the human-labelled bar test set (`data/test_bars/`), at zero API cost per photo. Ground truth never an input. Fill level comes after.** For fill level later: The test set's fill labels must be measured (weighed or poured), never generated by a model. The baseline may produce training labels, never test labels.
-- **Fill % is volume, not height.** Shaped bottles (necks, shoulders) need a height-to-volume profile per bottle type.
-- Opaque bottles have no visible liquid line. Set `fill_visible` false and `fill_ml` null, don't guess silently.
-- Secrets live in `.env` (gitignored). Never commit keys, weights (`*.pt`) or `runs/`.
-- Time-boxed: prefer the simplest thing that hits the eval bar. No infra, no auth, no database until the model works.
+- Eval first: score every approach before calling it working.
+- Fill % is volume, not height. Shaped bottles need the outline's width per row.
+- Opaque bottles have no visible liquid line: `fill_visible` false and `fill_ml` null, never a silent guess.
+- Secrets live in `.env` (gitignored). Never commit keys, weights (`*.pt`, `*.torch`), `runs/` or `vendor/`.
+- Claude calls cost money. Prefer the answer cache in `runs/vlm_cache/` and single runs; keep prompts byte-identical when refactoring so cached answers still hit.
+- Prefer the simplest thing that hits the eval bar.
 - Small commits, pushed often. Two people work in this repo, so pull before you start.
