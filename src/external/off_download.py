@@ -1,68 +1,89 @@
 """Download OFF images listed in data/external/off_alcohol/images.csv.
 
 Resume-safe: skips files already on disk. UK products first. Non-image responses skipped.
-Usage: off_download.py [workers]
+Needs CONTACT_EMAIL in .env (it goes in the User-Agent).
+Usage: python src/external/off_download.py [workers]
 """
-import csv, sys, time, threading
+import argparse
+import csv
+import sys
+import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from pathlib import Path
+
 import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for contact.py
+from contact import user_agent  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2] / "data/external/off_alcohol"
-UA = "bottle-vision-hackathon/0.1 (you@example.com)"
-WORKERS = int(sys.argv[1]) if len(sys.argv) > 1 else 12
+JPEG_MAGIC = b"\xff\xd8\xff"
 local = threading.local()
 stats = {"ok": 0, "skip": 0, "bad": 0, "err": 0, "bytes": 0}
 lock = threading.Lock()
 
 
-def session():
+def session(ua: str):
     if not hasattr(local, "s"):
         local.s = requests.Session()
-        local.s.headers["User-Agent"] = UA
+        local.s.headers["User-Agent"] = ua
     return local.s
 
 
-def fetch(row):
+def count(key, n=1):
+    with lock:
+        stats[key] += n
+
+
+def fetch(row, ua: str):
     code, name, url = row
     out = ROOT / "img" / code / name
     if out.exists():
-        with lock: stats["skip"] += 1
+        count("skip")
         return
     for attempt in range(4):
         try:
-            r = session().get(url, timeout=30)
+            r = session(ua).get(url, timeout=30)
             if r.status_code == 429 or r.status_code >= 500:
-                time.sleep(2 ** attempt * 2); continue
+                time.sleep(2 ** attempt * 2)
+                continue
             ok = r.status_code == 200 and r.headers.get("content-type", "").startswith("image/") \
-                and r.content[:3] == b"\xff\xd8\xff"
+                and r.content[:3] == JPEG_MAGIC
             if not ok:
-                with lock: stats["bad"] += 1
+                count("bad")
                 return
             out.parent.mkdir(parents=True, exist_ok=True)
             tmp = out.with_suffix(".part")
-            tmp.write_bytes(r.content); tmp.rename(out)
-            with lock:
-                stats["ok"] += 1; stats["bytes"] += len(r.content)
+            tmp.write_bytes(r.content)
+            tmp.rename(out)
+            count("ok")
+            count("bytes", len(r.content))
             return
         except requests.RequestException:
             time.sleep(2 ** attempt)
-    with lock: stats["err"] += 1
+    count("err")
 
 
-def main():
-    uk = {r["code"] for r in csv.DictReader(open(ROOT / "products.csv")) if r["uk"] == "1"}
-    rows = [(r["code"], r["name"], r["url"]) for r in csv.DictReader(open(ROOT / "images.csv"))]
+def main(workers: int):
+    ua = user_agent()
+    with open(ROOT / "products.csv", newline="") as f:
+        uk = {r["code"] for r in csv.DictReader(f) if r["uk"] == "1"}
+    with open(ROOT / "images.csv", newline="") as f:
+        rows = [(r["code"], r["name"], r["url"]) for r in csv.DictReader(f)]
     rows.sort(key=lambda r: (r[0] not in uk, not r[1].startswith("front_")))
     total, t0 = len(rows), time.time()
-    print(f"{total} images, {WORKERS} workers", flush=True)
-    with ThreadPoolExecutor(WORKERS) as ex:
-        for i, _ in enumerate(ex.map(fetch, rows), 1):
+    print(f"{total} images, {workers} workers", flush=True)
+    with ThreadPoolExecutor(workers) as ex:
+        for i, _ in enumerate(ex.map(partial(fetch, ua=ua), rows), 1):
             if i % 5000 == 0:
                 el = time.time() - t0
-                print(f"{i}/{total} {stats} {i/el:.0f}/s {stats['bytes']/1e9:.2f}GB", flush=True)
-    print("done", stats, f"{time.time()-t0:.0f}s", flush=True)
+                print(f"{i}/{total} {stats} {i / el:.0f}/s {stats['bytes'] / 1e9:.2f}GB", flush=True)
+    print("done", stats, f"{time.time() - t0:.0f}s", flush=True)
 
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("workers", nargs="?", type=int, default=12)
+    main(ap.parse_args().workers)

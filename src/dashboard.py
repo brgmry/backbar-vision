@@ -23,7 +23,6 @@ register_heif_opener()
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-LOG_DIR = Path("runs/judge_logs")
 DETECT_SIDE = 2400  # detect.py resizes so the longest side is 2400px
 VIEW_SIDE = 1200
 IMG_EXT = {".heic", ".jpg", ".jpeg", ".png"}
@@ -176,14 +175,6 @@ def count_files(d: Path, pattern: str = "*") -> int | None:
 @app.get("/api/status")
 def api_status():
     preds = DATA / "predictions.csv"
-    logs = []
-    if LOG_DIR.exists():
-        for p in sorted(LOG_DIR.glob("*.log")):
-            try:
-                lines = p.read_text(errors="replace").splitlines()
-            except OSError:
-                lines = []
-            logs.append({"name": p.name, "lines": len(lines), "tail": "\n".join(lines[-20:])})
     return {
         "counts": {
             "data/raw photos": len(photos()),
@@ -192,7 +183,6 @@ def api_status():
             "data/predictions.csv rows": len(read_csv(preds)) if preds.exists() else None,
         },
         "prediction_files": [{"file": f.name, "rows": len(read_csv(f))} for f in prediction_files()],
-        "logs": logs,
     }
 
 
@@ -411,8 +401,7 @@ async function viewClaude(){
 }
 async function viewStatus(){
   const s=await get('/api/status');
-  $('main').innerHTML=`<h2>Counts</h2><table>${Object.entries(s.counts).map(([k,v])=>`<tr><td>${esc(k)}</td><td class=n>${v??'<span class=muted>missing</span>'}</td></tr>`).join('')}${s.prediction_files.map(f=>`<tr><td>data/${esc(f.file)} rows</td><td class=n>${f.rows}</td></tr>`).join('')}</table>
-  <h2>Logs</h2>${s.logs.length?s.logs.map(l=>`<div><b>${esc(l.name)}</b> <span class=muted>${l.lines} lines, last 20</span><pre>${esc(l.tail)}</pre></div>`).join(''):'<p class=muted>No logs.</p>'}`;
+  $('main').innerHTML=`<h2>Counts</h2><table>${Object.entries(s.counts).map(([k,v])=>`<tr><td>${esc(k)}</td><td class=n>${v??'<span class=muted>missing</span>'}</td></tr>`).join('')}${s.prediction_files.map(f=>`<tr><td>data/${esc(f.file)} rows</td><td class=n>${f.rows}</td></tr>`).join('')}</table>`;
 }
 const BAR_HELP='Label bars: type every bottle you can identify, one per line; skip bottles you cannot identify yourself.';
 async function viewBars(){

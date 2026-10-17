@@ -4,21 +4,33 @@ Usage: python src/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N
 
 Whole categories only, never selected by data/labelled/. Resume-safe: products
 whose image dir is complete are skipped, metadata pages are cached in meta.jsonl.
-Polite: at most 1 request/second per host, identifying User-Agent.
+Polite: at most 1 request/second per host, User-Agent with CONTACT_EMAIL from .env.
 """
-import csv, html, io, json, random, re, sys, threading, time
+import argparse
+import csv
+import html
+import io
+import json
+import random
+import re
+import threading
+import time
 from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
 from PIL import Image
 
-UA = "bottle-vision-hackathon/0.1 (you@example.com)"
+from contact import user_agent
+from schema import TO_ML
+
 ROOT = Path(__file__).resolve().parent.parent / "data" / "external"
 FIELDS = ["source", "product_id", "brand", "name", "category", "volume_ml", "abv", "url", "image_urls"]
+IMAGE_ERRORS = (OSError, ValueError, Image.DecompressionBombError)  # what a bad image download raises in PIL
+PRODUCT_ERRORS = (requests.RequestException, KeyError, *IMAGE_ERRORS)  # one product fails, the run goes on
+WORKERS = 3
 
 S = requests.Session()
-S.headers["User-Agent"] = UA
 _last, _lock = {}, threading.Lock()
 
 
@@ -40,12 +52,20 @@ def get(url, **kw):
     return None
 
 
+def get_meta(url, **kw):
+    """get() for a catalogue page. A failure stops the run, so a short catalogue is never taken for the whole."""
+    r = get(url, **kw)
+    if r is None or r.status_code != 200:
+        raise RuntimeError(f"metadata request failed ({r.status_code if r is not None else 'no answer'}): {url}")
+    return r
+
+
 def vol_from(text):
     m = re.search(r"(\d+(?:\.\d+)?)\s*(ml|cl|l)\b", text or "", re.I)
     if not m:
         return ""
     v, u = float(m.group(1)), m.group(2).lower()
-    return int(round(v * {"ml": 1, "cl": 10, "l": 1000}[u]))
+    return round(v * TO_ML[u])
 
 
 # ---------- SAQ (Magento storefront GraphQL, public) ----------
@@ -55,10 +75,7 @@ SAQ_Q = """{products(search:"",pageSize:%d,currentPage:%d){total_count items{__t
 
 
 def saq_page(page, size=100):
-    r = get("https://www.saq.com/graphql", params={"query": SAQ_Q % (size, page)}, headers={"Store": "en"})
-    if r is None or r.status_code != 200:
-        print("saq meta fail", page, r and r.status_code, flush=True)
-        return None, []
+    r = get_meta("https://www.saq.com/graphql", params={"query": SAQ_Q % (size, page)}, headers={"Store": "en"})
     data = (r.json().get("data") or {}).get("products") or {}
     rows = []
     for it in [i for i in data.get("items") or [] if i]:
@@ -67,22 +84,26 @@ def saq_page(page, size=100):
         imgs = [m["url"] for m in sorted(it.get("media_gallery") or [], key=lambda m: m.get("position") or 0)
                 if not m.get("disabled")]
         abv = a.get("pourcentage_alcool_par_volume") or ""
-        rows.append(dict(source="saq", product_id=it["sku"], brand=html.unescape(a.get("nom_producteur") or ""),
-                         name=it["name"], category=a.get("identite_produit") or desc.split(".")[0],
-                         volume_ml=vol_from(desc.split("Size :")[-1]) if "Size :" in desc else "",
-                         abv=f"{float(abv):g}" if abv else "", url=f"https://www.saq.com/en/{it['sku']}",
-                         image_urls=imgs))
+        rows.append({"source": "saq", "product_id": it["sku"], "brand": html.unescape(a.get("nom_producteur") or ""),
+                     "name": it["name"], "category": a.get("identite_produit") or desc.split(".")[0],
+                     "volume_ml": vol_from(desc.split("Size :")[-1]) if "Size :" in desc else "",
+                     "abv": f"{float(abv):g}" if abv else "", "url": f"https://www.saq.com/en/{it['sku']}",
+                     "image_urls": imgs})
     return data.get("total_count"), rows
 
 
 def saq_meta(out):
-    """Generator: pages in shuffled order so a partial run spans the catalogue."""
+    """Generator: pages in shuffled order so a partial run spans the catalogue. Nothing is cached, so a page that
+    fails is skipped here and picked up by the next run."""
     total, first = saq_page(1)
     pages = list(range(2, (total + 99) // 100 + 1))
     random.Random(0).shuffle(pages)
     yield from first
     for p in pages:
-        yield from saq_page(p)[1]
+        try:
+            yield from saq_page(p)[1]
+        except RuntimeError as e:
+            print("saq meta fail", p, e, flush=True)
 
 
 # ---------- Systembolaget (product sitemaps + product page JSON) ----------
@@ -96,15 +117,15 @@ def sb_meta(out):
     else:
         urls = []
         for c in SB_CATS:
-            r = get(f"https://www.systembolaget.se/sitemap-produkter-{c}.xml")
+            r = get_meta(f"https://www.systembolaget.se/sitemap-produkter-{c}.xml")
             urls += re.findall(r"<loc>([^<]+)</loc>", r.text)
         cache.write_text(json.dumps(urls))
     rows = []
     for u in urls:
         m = re.search(r"/produkt/([^/]+)/(.+)-(\d+)/?$", u)
         if m:
-            rows.append(dict(source="systembolaget", product_id=m.group(3), category=m.group(1), url=u,
-                             _slug=m.group(2)))
+            rows.append({"source": "systembolaget", "product_id": m.group(3), "category": m.group(1), "url": u,
+                         "_slug": m.group(2)})
     return rows
 
 
@@ -132,27 +153,28 @@ def sb_fill(d):
 
 # ---------- Drinkfinder (Shopify products.json) ----------
 def df_meta(out):
+    """Every page up to the first empty one. The cache is written after the last page, so a failed run leaves none."""
     cache = out / "meta.jsonl"
     if cache.exists():
-        return [json.loads(l) for l in cache.open()]
+        with cache.open() as f:
+            return [json.loads(line) for line in f]
     rows, page = [], 1
-    with cache.open("w") as f:
-        while True:
-            r = get(f"https://www.drinkfinder.co.uk/products.json?limit=250&page={page}")
-            ps = r.json().get("products", []) if r is not None and r.status_code == 200 else []
-            if not ps:
-                break
-            for p in ps:
-                body = re.sub("<[^>]+>", " ", p.get("body_html") or "")
-                abv = re.search(r"(\d+(?:\.\d+)?)\s*%\s*(?:abv|vol)", body + " " + p["title"], re.I)
-                d = dict(source="drinkfinder", product_id=str(p["id"]), brand=p.get("vendor") or "",
-                         name=p["title"], category=p.get("product_type") or ",".join(p.get("tags") or []),
-                         volume_ml=vol_from(p["title"]), abv=abv.group(1) if abv else "",
-                         url=f"https://www.drinkfinder.co.uk/products/{p['handle']}",
-                         image_urls=[i["src"].split("?")[0] + "?width=1000" for i in p.get("images") or []])
-                rows.append(d)
-                f.write(json.dumps(d) + "\n")
-            page += 1
+    while True:
+        ps = get_meta(f"https://www.drinkfinder.co.uk/products.json?limit=250&page={page}").json().get("products", [])
+        if not ps:
+            break
+        for p in ps:
+            body = re.sub("<[^>]+>", " ", p.get("body_html") or "")
+            abv = re.search(r"(\d+(?:\.\d+)?)\s*%\s*(?:abv|vol)", body + " " + p["title"], re.I)
+            rows.append({"source": "drinkfinder", "product_id": str(p["id"]), "brand": p.get("vendor") or "",
+                         "name": p["title"], "category": p.get("product_type") or ",".join(p.get("tags") or []),
+                         "volume_ml": vol_from(p["title"]), "abv": abv.group(1) if abv else "",
+                         "url": f"https://www.drinkfinder.co.uk/products/{p['handle']}",
+                         "image_urls": [i["src"].split("?")[0] + "?width=1000" for i in p.get("images") or []]})
+        page += 1
+    tmp = cache.with_suffix(".tmp")
+    tmp.write_text("".join(json.dumps(d) + "\n" for d in rows))
+    tmp.replace(cache)
     return rows
 
 
@@ -166,23 +188,29 @@ def save_img(content, path):
     im.convert("RGB").save(path, "JPEG", quality=90)
 
 
-def main():
-    src = sys.argv[1]
-    minutes = float(sys.argv[sys.argv.index("--minutes") + 1]) if "--minutes" in sys.argv else 1e9
-    deadline = time.time() + minutes * 60
+SOURCES = {"saq": saq_meta, "systembolaget": sb_meta, "drinkfinder": df_meta}
+
+
+def main(src: str, minutes: float):
+    S.headers["User-Agent"] = user_agent()
     out = ROOT / f"retail_{src}"
     (out / "img").mkdir(parents=True, exist_ok=True)
-    rows = {"saq": saq_meta, "systembolaget": sb_meta, "drinkfinder": df_meta}[src](out)
+    rows = SOURCES[src](out)
     if isinstance(rows, list):
         random.Random(0).shuffle(rows)  # spread partial runs across categories
     csv_path = out / "products.csv"
     done = set()
     if csv_path.exists():
-        done = {r["product_id"] for r in csv.DictReader(csv_path.open())}
-    new = not csv_path.exists()
-    fh = csv_path.open("a", newline="")
+        with csv_path.open(newline="") as f:
+            done = {r["product_id"] for r in csv.DictReader(f)}
+    with csv_path.open("a", newline="") as fh:
+        collect(src, out, rows, done, fh, time.time() + minutes * 60)
+
+
+def collect(src, out, rows, done, fh, deadline):
+    """Download each product's images and append its row to products.csv, three workers at a time."""
     w = csv.DictWriter(fh, FIELDS, extrasaction="ignore")
-    if new:
+    if fh.tell() == 0:
         w.writeheader()
     print(src, "products", len(rows) if isinstance(rows, list) else "streamed", "already done", len(done), flush=True)
     wlock, it = threading.Lock(), iter(rows)
@@ -200,7 +228,7 @@ def main():
                 pdir.mkdir(exist_ok=True)
                 save_img(r.content, pdir / f"{i}.jpg")
                 got.append(u)
-            except Exception as e:
+            except IMAGE_ERRORS as e:
                 print("bad image", u, e, flush=True)
         if not got:
             return
@@ -222,14 +250,20 @@ def main():
                 return
             try:
                 one(d)
-            except Exception as e:
+            except PRODUCT_ERRORS as e:
                 print("error", d.get("product_id"), e, flush=True)
 
-    ts = [threading.Thread(target=worker) for _ in range(3)]
-    [t.start() for t in ts]
-    [t.join() for t in ts]
+    ts = [threading.Thread(target=worker) for _ in range(WORKERS)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
     print(src, "finished, total saved", len(done), flush=True)
 
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("source", choices=SOURCES)
+    ap.add_argument("--minutes", type=float, default=1e9, help="stop starting new products after this long")
+    args = ap.parse_args()
+    main(args.source, args.minutes)
