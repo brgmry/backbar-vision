@@ -7,21 +7,15 @@ import argparse
 import csv
 import json
 import re
-import sys
 import tempfile
 import time
 from pathlib import Path
+from typing import get_args
 
-from PIL import Image
-from pillow_heif import register_heif_opener
 from pydantic import ValidationError
 
-sys.path.insert(0, str(Path(__file__).parent))
-from identify import EXTS, PROMPT, Bottle  # noqa: E402
-
-register_heif_opener()
-
-MAX_SIDE = 1568  # same as the Claude baseline
+from identify import PRED_FIELDS, PROMPT, SEND_SIDE, Bottle
+from photos import EXTS, open_photo
 
 FIELDS = list(Bottle.model_fields)
 SCHEMA_HINT = """
@@ -33,12 +27,9 @@ Answer with JSON only, no prose, no markdown fences, in exactly this shape:
 "id_source": "label|shape", "fill_visible": true}]}
 The image is %dx%d pixels."""
 
-ENUMS = {
-    "category": ["spirit", "liqueur", "wine", "beer", "mixer", "soft_drink", "syrup", "sauce", "dairy", "oil", "other"],
-    "unit": ["ml", "g", "pint"],
-    "glass": ["clear", "green", "amber", "frosted", "opaque"],
-    "id_source": ["label", "shape"],
-}
+ENUMS = {k: get_args(Bottle.model_fields[k].annotation) for k in ("category", "unit", "glass", "id_source")}
+# an answer outside the allowed values gets the weakest claim: an unknown id_source is a guess, not a label read
+DEFAULTS = {"category": "other", "unit": "ml", "glass": "clear", "id_source": "shape"}
 
 
 def short_name(model: str) -> str:
@@ -46,9 +37,9 @@ def short_name(model: str) -> str:
 
 
 def prep_image(path: Path, tmpdir: Path) -> tuple[Path, float, tuple[int, int]]:
-    img = Image.open(path).convert("RGB")
+    img = open_photo(path)
     width = img.width
-    img.thumbnail((MAX_SIDE, MAX_SIDE))
+    img.thumbnail((SEND_SIDE, SEND_SIDE))  # the size the Claude baseline sees
     out = tmpdir / f"{path.stem}.jpg"
     img.save(out, "JPEG", quality=90)
     return out, width / img.width, img.size
@@ -88,7 +79,7 @@ def coerce(raw: dict, pos: int) -> Bottle | None:
         d["bbox"] = [0, 0, 0, 0]
     for k, allowed in ENUMS.items():
         v = str(d[k] or "").lower().strip()
-        d[k] = v if v in allowed else ("other" if k == "category" else allowed[0] if k != "glass" else "clear")
+        d[k] = v if v in allowed else DEFAULTS[k]
     try:
         d["size"] = float(re.sub(r"[^0-9.]", "", str(d["size"])) or 0)
     except ValueError:
@@ -140,7 +131,7 @@ def main() -> None:
     images = sorted(p for p in Path(args.folder).iterdir() if p.suffix.lower() in EXTS)
     times = []
     with tempfile.TemporaryDirectory() as tmp, out.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["run", "image", *FIELDS])
+        writer = csv.DictWriter(f, fieldnames=PRED_FIELDS)
         writer.writeheader()
         for run, path in ((r, p) for r in range(1, args.runs + 1) for p in images):
             img_path, scale, (w, h) = prep_image(path, Path(tmp))
