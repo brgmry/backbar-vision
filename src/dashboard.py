@@ -179,7 +179,6 @@ def api_status():
         "counts": {
             "data/raw photos": len(photos()),
             "data/crops images": count_files(DATA / "crops", "*.jpg"),
-            "data/catalogue/img files": count_files(DATA / "catalogue" / "img"),
             "data/predictions.csv rows": len(read_csv(preds)) if preds.exists() else None,
         },
         "prediction_files": [{"file": f.name, "rows": len(read_csv(f))} for f in prediction_files()],
