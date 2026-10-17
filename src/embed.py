@@ -1,23 +1,31 @@
-"""DINOv2 image embeddings, L2-normalised."""
+"""DINOv2 image embeddings, L2-normalised, for the leave-one-photo-out matcher (match.py) and the trained head
+(identify_trained.py). The model loads on the first call, not on import.
+
+These keep DINOv2's own resize and centre crop and run in float32, as they always have: the head was trained on
+features made that way (embed_all.py) and the matcher's numbers were measured with them.
+"""
+from functools import cache
 from pathlib import Path
 
 import torch
 from PIL import Image
-from transformers import AutoImageProcessor, AutoModel
 
-MODEL = "facebook/dinov2-base"
-DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
+import backbones
 
-_processor = AutoImageProcessor.from_pretrained(MODEL)
-_model = AutoModel.from_pretrained(MODEL).to(DEVICE).eval()
+
+@cache
+def _model():
+    return backbones.load("dinov2", pad=False, dtype=torch.float32)
 
 
 def embed(paths: list[Path], batch: int = 32) -> torch.Tensor:
+    emb, prep = _model()
     out = []
     for i in range(0, len(paths), batch):
-        imgs = [Image.open(p).convert("RGB") for p in paths[i:i + batch]]
-        inputs = _processor(images=imgs, return_tensors="pt").to(DEVICE)
+        x = []
+        for p in paths[i:i + batch]:
+            with Image.open(p) as im:
+                x.append(prep(im.convert("RGB")))
         with torch.no_grad():
-            cls = _model(**inputs).pooler_output
-        out.append(torch.nn.functional.normalize(cls, dim=-1).cpu())
+            out.append(emb(torch.stack(x)).cpu())
     return torch.cat(out)
