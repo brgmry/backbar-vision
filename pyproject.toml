@@ -1,0 +1,13 @@
+# Tool settings only; dependencies are in requirements.txt.
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["vendor", "notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "SIM", "UP", "BLE", "PIE", "RET", "C4", "I"]
+ignore = ["E501", "UP035"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
