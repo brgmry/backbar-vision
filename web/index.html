@@ -185,8 +185,8 @@ body.dragging.viewing .dragmask { opacity: 1; }
 <input id="file" type="file" accept="image/*,.heic,.heif" hidden>
 <div class="dragmask" aria-hidden="true">Drop to scan</div>
 
+<script src="/common.js"></script>
 <script>
-const $ = (id) => document.getElementById(id);
 const el = { seg: $("seg"), drop: $("drop"), shelf: $("shelf"), hint: $("hint"), paste: $("paste"), view: $("view"), frame: $("frame"),
   layer: $("layer"), photo: $("photo"), boxes: $("boxes"), status: $("status"), zoom: $("zoom"), copy: $("copy"),
   again: $("again"), count: $("count"), list: $("list"), file: $("file") };
@@ -210,7 +210,6 @@ const SHELF = [  // [path, top y, fill, colour]: wine, whisky, mixer, sauce, min
 let pipeline = "local", file = null, dims = null, ready = null, results = {}, current = null;
 let fileToken = 0, runToken = 0, timer = 0, dragDepth = 0;
 
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const form = (f) => { const d = new FormData(); d.append("image", f, f.name); return d; };
 
@@ -306,7 +305,7 @@ async function identify() {
       const t0 = performance.now();
       let data;
       const saved = DEMO && await fetch("/demo/result.json").then((r) => r.json()).catch(() => null);
-      if (saved && f.name === saved.image) {
+      if (saved && f.name === saved.image && saved.pipeline === p) {  // the other toggle runs for real
         data = saved;
         await ready.catch(() => {});  // the photo is on screen before the clock can stop
         await new Promise((r) => setTimeout(r, Math.max(0, data.seconds * 1000 - (performance.now() - t0))));
@@ -351,7 +350,7 @@ function setScanning(on, p) {
   clearInterval(timer);
   if (!on) return;
   const t0 = performance.now();
-  const label = p === "local" ? "Finding and matching bottles" : "Claude is reading the labels";
+  const label = p === "local" ? "Finding bottles" : "Claude is reading the labels";
   const tick = () => {
     const s = (performance.now() - t0) / 1000;
     const slow = p === "local" && s > 6 && !DEMO ? `<span class="faint">The first run loads the models, up to a minute.</span>` : "";

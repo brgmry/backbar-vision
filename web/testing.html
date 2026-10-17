@@ -151,11 +151,8 @@ select:hover { border-color: #f0a43a70; }
   </section>
 </main>
 
+<script src="/common.js"></script>
 <script>
-const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
-const get = (u) => fetch(u, { cache: "no-store" }).then(async (r) => r.ok ? r.json() : Promise.reject(new Error(`${r.status} ${u}`)));
-const pct = (x) => x == null ? null : `${(100 * x).toFixed(1)}%`;
 const signed = (x) => x == null ? null : `${x > 0 ? "+" : ""}${x.toFixed(2)}`;
 const NA = '<span class="na">n/a</span>';
 const COLORS = ["#f0a43a", "#4fd1c5", "#c38bff", "#ef5d72", "#f4d35e", "#9be15d", "#e0915a", "#7aa8ff", "#ff6b4a", "#ece6da", "#c3c96b", "#ff9ecf"];
@@ -281,7 +278,6 @@ function draw() {
   }
 }
 
-const guard = (fn, box) => fn().catch((e) => { $(box).innerHTML = `<p class="err">${esc(e.message)}</p>`; });
 guard(leaderboard, "lbBody");
 guard(claudeRuns, "crBody");
 guard(inspectorInit, "piBody");

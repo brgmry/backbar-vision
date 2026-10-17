@@ -1,58 +1,44 @@
-"""Embed every image in a CSV index with DINOv2 (CLS, L2-normalised, float16).
+"""Embed every image in a CSV index with DINOv2 (CLS, L2-normalised, float16), with the model's own resize and
+centre crop: the features the trained head (train_head.py) learns from and identify_trained.py compares against.
 
-Usage: python src/embed_all.py data/train/index.csv data/train/feats.npy
+Usage: python src/embed_all.py data/train/index.csv data/train/feats.npy   (also writes feats_ok.npy)
 """
+import argparse
 import csv
-import sys
 import time
 
 import numpy as np
 import torch
-from PIL import Image, ImageFile
-from torch.utils.data import DataLoader, Dataset
-from transformers import AutoImageProcessor, AutoModel
+from torch.utils.data import DataLoader
 
-ImageFile.LOAD_TRUNCATED_IMAGES = True
-MODEL = "facebook/dinov2-base"
-DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
-processor = AutoImageProcessor.from_pretrained(MODEL)
+import backbones
 
-
-class Images(Dataset):
-    def __init__(self, paths):
-        self.paths = paths
-
-    def __len__(self):
-        return len(self.paths)
-
-    def __getitem__(self, i):
-        try:
-            img = Image.open(self.paths[i]).convert("RGB")
-            ok = True
-        except Exception:
-            img, ok = Image.new("RGB", (224, 224)), False
-        return processor(images=img, return_tensors="pt")["pixel_values"][0], ok
+BATCH, WORKERS = 128, 10
+LOG_EVERY = 20  # batches
 
 
 def main(index: str, out: str) -> None:
-    paths = [r["path"] for r in csv.DictReader(open(index))]
-    model = AutoModel.from_pretrained(MODEL, torch_dtype=torch.float16).to(DEVICE).eval()
-    feats = np.zeros((len(paths), model.config.hidden_size), dtype=np.float16)
-    ok_mask = np.zeros(len(paths), dtype=bool)
-    loader = DataLoader(Images(paths), batch_size=128, num_workers=10)
+    with open(index, newline="") as f:
+        paths = [r["path"] for r in csv.DictReader(f)]
+    emb, prep = backbones.load("dinov2", pad=False, dtype=torch.float16)
+    feats, oks = [], []
     t, n = time.time(), 0
     with torch.no_grad():
-        for x, ok in loader:
-            v = model(pixel_values=x.to(DEVICE, torch.float16)).pooler_output.float()
-            feats[n:n + len(x)] = torch.nn.functional.normalize(v, dim=-1).cpu().numpy()
-            ok_mask[n:n + len(x)] = ok.numpy()
+        for x, ok in DataLoader(backbones.Images(paths, prep), batch_size=BATCH, num_workers=WORKERS):
+            feats.append(emb(x).cpu().numpy().astype(np.float16))
+            oks.append(ok.numpy())
             n += len(x)
-            if n % (128 * 20) < 128:
+            if n % (BATCH * LOG_EVERY) < BATCH:
                 print(f"{n}/{len(paths)}  {n / (time.time() - t):.0f} img/s", flush=True)
-    np.save(out, feats)
+    ok_mask = np.concatenate(oks)
+    np.save(out, np.concatenate(feats))
     np.save(out.replace(".npy", "_ok.npy"), ok_mask)
     print(f"done: {n} images, {(~ok_mask).sum()} unreadable, {time.time() - t:.0f}s")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("index")
+    ap.add_argument("out")
+    args = ap.parse_args()
+    main(args.index, args.out)

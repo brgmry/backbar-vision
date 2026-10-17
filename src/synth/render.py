@@ -92,7 +92,7 @@ def lathe(name, profile, segments=48, scale=1.0, zmax=None):
 def label_band(name, radius, z0, z1, arc, img_mat):
     """Partial cylinder just outside the glass, UV-mapped 0..1 across the arc and height."""
     seg = 32
-    verts, faces, uvs = [], [], []
+    verts, faces = [], []
     for i in range(seg + 1):
         a = -arc / 2 + arc * i / seg - math.pi / 2  # centred on -Y, facing the camera at azimuth 0
         for z in (z0, z1):
@@ -103,7 +103,7 @@ def label_band(name, radius, z0, z1, arc, img_mat):
     me.from_pydata(verts, [], faces)
     uv = me.uv_layers.new()
     for f in me.polygons:
-        for li, vi in zip(f.loop_indices, f.vertices):
+        for li, vi in zip(f.loop_indices, f.vertices, strict=True):
             uv.data[li].uv = ((vi // 2) / seg, vi % 2)
     ob = bpy.data.objects.new(name, me)
     bpy.context.collection.objects.link(ob)
@@ -240,7 +240,7 @@ def scene(row, all_rows, i):
     # hero + distractors
     hero, top = bottle(row["label"], row["category"], 0, 0, random.uniform(-0.6, 0.6))
     others = [r for r in all_rows if r["brand_key"] != row["brand_key"]]
-    for k in range(random.randint(2, 6)):
+    for _ in range(random.randint(2, 6)):
         o = random.choice(others)
         side = random.choice([-1, 1])
         bottle(o["label"], o["category"], side * random.uniform(0.09, 0.3), random.uniform(-0.05, 0.25),
@@ -286,10 +286,11 @@ def shoot(sc, row, top, i, v, nt, mapn):
     return out
 
 
-rows = list(csv.DictReader(open(LABELS)))
-jobs = [(r, k) for r in rows for k in range(PER)]
+with open(LABELS, newline="") as f:
+    rows = list(csv.DictReader(f))
+jobs = [r for r in rows for _ in range(PER)]
 random.seed(SHARD)
-for j, (r, k) in enumerate(jobs):
+for j, r in enumerate(jobs):
     if j % NSHARDS != SHARD:
         continue
     out = OUT / f"{r['brand_key'].replace(' ', '_')}__{j:05d}_{VIEWS - 1}.jpg"

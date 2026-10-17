@@ -4,14 +4,18 @@ Selection is by OFF category tags only, never by our inventory.
 Input:  data/external/off_alcohol/raw/food.parquet (HF openfoodfacts/product-database)
 Output: data/external/off_alcohol/products.csv, one row per product,
         plus images.csv, one row per image to fetch (code, kind, name, url).
+Usage: python src/external/off_select.py [max_other]   (cap on non-front images per product, default no cap)
 """
-import duckdb, csv, re, sys
+import argparse
+import csv
+import re
 from pathlib import Path
+
+import duckdb
 
 ROOT = Path(__file__).resolve().parents[2] / "data/external/off_alcohol"
 SRC = ROOT / "raw/food.parquet"
 BASE = "https://images.openfoodfacts.org/images/products"
-MAX_OTHER = int(sys.argv[1]) if len(sys.argv) > 1 else 10**6  # cap on non-front raw images
 
 # Exact category tags that make a product bar-relevant.
 ALCOHOL = ["en:alcoholic-beverages", "en:distilled-beverages", "en:artisanal-spirits", "en:liqueurs",
@@ -35,7 +39,7 @@ def split_code(code: str) -> str:
     return "/".join([c[0:3], c[3:6], c[6:9], c[9:]])
 
 
-def main():
+def main(max_other: int):
     con = duckdb.connect()
     tags = ALCOHOL + MIXERS
     tag_sql = "[" + ",".join(f"'{t}'" for t in tags) + "]"
@@ -47,11 +51,14 @@ def main():
           and len(list_intersect(categories_tags, {tag_sql})) > 0
           and images is not null and len(images) > 0
     """).fetchall()
-    alc = set(ALCOHOL)
+    with open(ROOT / "products.csv", "w", newline="") as prod_f, open(ROOT / "images.csv", "w", newline="") as img_f:
+        n_img = write(rows, csv.writer(prod_f), csv.writer(img_f), max_other)
+    print(f"products {len(rows)}  images {n_img}")
 
-    prod_f = open(ROOT / "products.csv", "w", newline="")
-    img_f = open(ROOT / "images.csv", "w", newline="")
-    pw, iw = csv.writer(prod_f), csv.writer(img_f)
+
+def write(rows, pw, iw, max_other: int) -> int:
+    """One products.csv row per product, one images.csv row per image to fetch. Returns the image count."""
+    alc = set(ALCOHOL)
     pw.writerow(["code", "brands", "product_name", "quantity", "categories", "countries",
                  "group", "uk", "n_images", "image_ids"])
     iw.writerow(["code", "name", "url"])
@@ -75,17 +82,19 @@ def main():
         # front_en first, then main-language fronts; keep all fronts (different languages differ)
         fronts.sort(key=lambda kr: (kr[0] != "front_en", kr[0]))
         raws.sort(reverse=True)  # newest uploads first
-        ids = [f"{k}.{r}" for k, r in fronts] + [str(r) for r in raws[:MAX_OTHER]]
+        ids = [f"{k}.{r}" for k, r in fronts] + [str(r) for r in raws[:max_other]]
         for k, r in fronts:
             iw.writerow([code, f"{k}.jpg", f"{BASE}/{path}/{k}.{r}.400.jpg"])
-        for r in raws[:MAX_OTHER]:
+        for r in raws[:max_other]:
             iw.writerow([code, f"{r}.jpg", f"{BASE}/{path}/{r}.400.jpg"])
         n_img += len(ids)
         uk = int(bool(countries) and "en:united-kingdom" in countries)
         pw.writerow([code, brands or "", name, qty or "", cats or "", ",".join(countries or []),
                      group, uk, len(ids), " ".join(ids)])
-    print(f"products {len(rows)}  images {n_img}")
+    return n_img
 
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("max_other", nargs="?", type=int, default=10**6)
+    main(ap.parse_args().max_other)

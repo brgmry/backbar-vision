@@ -1,106 +1,45 @@
 """Local dashboard: photos, boxes, predictions, scores, pipeline status, and the bar labelling page.
 
 Run from the repo root: .venv/bin/python src/dashboard.py  ->  http://localhost:8501
-Re-reads files on every request. Never calls a model or an API. The only write is
+Files are read again whenever they change. Never calls a model or an API. The only write is
 POST /api/bars/label, which writes data/test_bars/labels/<photo>.txt and nothing else.
 """
-import csv
-import io
-import json
-import re
 import statistics
-import sys
 from collections import defaultdict
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 from fastapi.responses import HTMLResponse, Response
-from PIL import Image
-from pillow_heif import register_heif_opener
+from pydantic import BaseModel
 
-register_heif_opener()
+import datafiles as df
+import score
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-LOG_DIR = Path("runs/judge_logs")
-DETECT_SIDE = 2400  # detect.py resizes so the longest side is 2400px
+DATA = df.DATA
 VIEW_SIDE = 1200
-IMG_EXT = {".heic", ".jpg", ".jpeg", ".png"}
-BARS = DATA / "test_bars"
-BARS_IMG = BARS / "img"
-BARS_LABELS = BARS / "labels"
-BAR_NAME = re.compile(r"^bar_\d{2,3}\.jpg$")
+BAR_SIDE = 2000
+MIN_SIDE = 100
+BARS_LABELS = DATA / "test_bars" / "labels"
 MAX_LABEL_CHARS = 20000
-
-sys.path.insert(0, str(ROOT / "src"))
-try:
-    import score as scorer  # noqa: E402
-except Exception as e:  # missing deps should not take the dashboard down
-    scorer, SCORER_ERROR = None, repr(e)
+SCORE_ERRORS = (KeyError, TypeError, ValueError)  # a predictions file with missing or malformed columns
 
 app = FastAPI(title="bottle-vision dashboard")
-_jpeg_cache: dict[tuple[str, int, float], bytes] = {}
-
-
-def read_csv(path: Path) -> list[dict]:
-    """Rows of a CSV, tolerating a missing file or a half-written last line."""
-    try:
-        with path.open(newline="") as f:
-            return [r for r in csv.DictReader(f) if r and None not in r and None not in r.values()]
-    except (FileNotFoundError, csv.Error, UnicodeDecodeError):
-        return []
-
-
-def photos() -> list[Path]:
-    raw = DATA / "raw"
-    return sorted(p for p in raw.iterdir() if p.suffix.lower() in IMG_EXT) if raw.exists() else []
-
-
-def photo_path(name: str) -> Path:
-    for p in photos():
-        if p.name == name or p.stem == name:
-            return p
-    raise HTTPException(404, f"no photo {name}")
-
-
-def inventory() -> list[dict]:
-    return read_csv(DATA / "labelled" / "inventory.csv")
-
-
-def prediction_files() -> list[Path]:
-    return sorted(DATA.glob("predictions*.csv"))
-
-
-def parse_bbox(s: str):
-    try:
-        b = json.loads(s)
-        return [float(v) for v in b] if isinstance(b, list) and len(b) == 4 else None
-    except (ValueError, TypeError):
-        return None
+app.include_router(df.router)  # /common.js
 
 
 @app.get("/photo/{name}")
 def photo_jpeg(name: str, side: int = VIEW_SIDE):
-    path = photo_path(name)
-    side = max(100, min(side, VIEW_SIDE))
-    key = (path.name, side, path.stat().st_mtime)
-    if key not in _jpeg_cache:
-        img = Image.open(path).convert("RGB")
-        img.thumbnail((side, side))
-        buf = io.BytesIO()
-        img.save(buf, "JPEG", quality=85)
-        _jpeg_cache[key] = buf.getvalue()
-    return Response(_jpeg_cache[key], media_type="image/jpeg")
+    path = df.kitchen_photo(name)
+    return Response(df.jpeg(path, max(MIN_SIDE, min(side, VIEW_SIDE))), media_type="image/jpeg")
 
 
 @app.get("/api/photos")
 def api_photos():
     out = []
-    for p in photos():
+    for p in df.kitchen_photos():
         try:
-            w, h = Image.open(p).size
-        except Exception:
+            w, h = df.image_size(p)
+        except OSError:
             w = h = None
         out.append({"name": p.name, "stem": p.stem, "width": w, "height": h})
     return out
@@ -108,17 +47,17 @@ def api_photos():
 
 @app.get("/api/inventory")
 def api_inventory():
-    return inventory()
+    return df.inventory()
 
 
 @app.get("/api/photo/{name}")
 def api_photo(name: str):
-    path = photo_path(name)
-    w, h = Image.open(path).size
-    scale = max(w, h) / DETECT_SIDE
-    labels = {(r["photo"], r["crop"]): r for r in read_csv(DATA / "crops" / "labels.csv")}
+    path = df.kitchen_photo(name)
+    w, h = df.image_size(path)
+    scale = df.detector_scale((w, h))
+    labels = {(r["photo"], r["crop"]): r for r in df.read_csv(DATA / "crops" / "labels.csv")}
     detector = []
-    for b in read_csv(DATA / "crops" / "boxes.csv"):
+    for b in df.read_csv(DATA / "crops" / "boxes.csv"):
         if b["photo"] != path.stem:
             continue
         try:
@@ -130,32 +69,30 @@ def api_photo(name: str):
         detector.append({"crop": b["crop"], "score": b["score"], "bbox": [x1, y1, x2 - x1, y2 - y1], "item_id": item})
 
     sources = {}
-    for f in prediction_files():
+    for f in df.prediction_files():
         runs = defaultdict(list)
-        for r in read_csv(f):
+        for r in df.read_csv(f):
             if r.get("image") in (path.name, path.stem):
-                runs[r.get("run", "1")].append(r | {"bbox": parse_bbox(r.get("bbox", ""))})
-        sources[f.stem] = dict(sorted(runs.items()))
+                runs[r.get("run", "1")].append(r | {"bbox": df.parse_bbox(r.get("bbox", ""))})
+        sources[f.stem] = dict(sorted(runs.items(), key=lambda kv: df.run_key(kv[0])))
     return {"name": path.name, "width": w, "height": h, "detector": detector, "sources": sources}
 
 
 @app.get("/api/scores")
 def api_scores():
-    if scorer is None:
-        return {"error": f"could not import src/score.py: {SCORER_ERROR}", "files": []}
-    inv = inventory()
+    inv = df.inventory()
     files = []
-    for f in prediction_files():
+    for f in df.prediction_files():
         by_photo = defaultdict(list)
-        for r in read_csv(f):
+        for r in df.read_csv(f):
             if r.get("image"):
                 by_photo[(r.get("run", "1"), r["image"])].append(r)
         if not by_photo or not inv:
             files.append({"file": f.name, "error": "no rows" if inv else "no inventory"})
             continue
         try:
-            scores = {k: scorer.score_photo(v, inv) for k, v in by_photo.items()}
-        except Exception as e:
+            scores = {k: score.score_photo(v, inv) for k, v in by_photo.items()}
+        except SCORE_ERRORS as e:
             files.append({"file": f.name, "error": repr(e)})
             continue
         metrics = list(next(iter(scores.values())))
@@ -176,23 +113,13 @@ def count_files(d: Path, pattern: str = "*") -> int | None:
 @app.get("/api/status")
 def api_status():
     preds = DATA / "predictions.csv"
-    logs = []
-    if LOG_DIR.exists():
-        for p in sorted(LOG_DIR.glob("*.log")):
-            try:
-                lines = p.read_text(errors="replace").splitlines()
-            except OSError:
-                lines = []
-            logs.append({"name": p.name, "lines": len(lines), "tail": "\n".join(lines[-20:])})
     return {
         "counts": {
-            "data/raw photos": len(photos()),
+            "data/raw photos": len(df.kitchen_photos()),
             "data/crops images": count_files(DATA / "crops", "*.jpg"),
-            "data/catalogue/img files": count_files(DATA / "catalogue" / "img"),
-            "data/predictions.csv rows": len(read_csv(preds)) if preds.exists() else None,
+            "data/predictions.csv rows": len(df.read_csv(preds)) if preds.exists() else None,
         },
-        "prediction_files": [{"file": f.name, "rows": len(read_csv(f))} for f in prediction_files()],
-        "logs": logs,
+        "prediction_files": [{"file": f.name, "rows": len(df.read_csv(f))} for f in df.prediction_files()],
     }
 
 
@@ -200,37 +127,14 @@ def api_status():
 def api_runs(name: str):
     """Every run of one predictions file: per-run means, per-photo scores, every row with what it matched."""
     f = DATA / name
-    if scorer is None or not f.exists() or f.parent != DATA:
+    if not f.exists() or f.parent != DATA:
         raise HTTPException(404)
-    inv = inventory()
-    by_run = defaultdict(lambda: defaultdict(list))
-    for r in read_csv(f):
-        if r.get("image"):
-            by_run[r.get("run", "1")][r["image"]].append(r)
-    runs = []
-    for run, photos_ in sorted(by_run.items(), key=lambda kv: int(kv[0]) if kv[0].isdigit() else kv[0]):
-        per_photo = []
-        for image, rows in sorted(photos_.items()):
-            for r, m in zip(rows, scorer.match_photo(rows, inv)):
-                r["matched"] = f"{m['brand']} {m['product']}".strip() if m else ""
-            found = {r["matched"] for r in rows if r["matched"]}
-            per_photo.append({"image": image, "scores": scorer.score_photo(rows, inv), "rows": rows,
-                              "missed": [f"{i['brand']} {i['product']}".strip() for i in inv if f"{i['brand']} {i['product']}".strip() not in found]})
-        metrics = list(per_photo[0]["scores"])
-        runs.append({"run": run, "means": {m: statistics.mean(p["scores"][m] for p in per_photo) for m in metrics}, "photos": per_photo})
-    return {"file": name, "runs": runs}
+    return {"file": name, "runs": df.scored_runs(f)}
 
 
 @app.get("/api/results")
 def api_results():
-    return read_csv(DATA / "results.csv")
-
-
-def bar_path(name: str) -> Path:
-    """Only bar_NN.jpg files that actually exist in data/test_bars/img."""
-    if not BAR_NAME.match(name) or not (BARS_IMG / name).is_file():
-        raise HTTPException(404, f"no bar photo {name}")
-    return BARS_IMG / name
+    return df.read_csv(DATA / "results.csv")
 
 
 def bar_label_path(name: str) -> Path:
@@ -239,35 +143,25 @@ def bar_label_path(name: str) -> Path:
 
 @app.get("/bar/{name}")
 def bar_jpeg(name: str, side: int = 0):
-    path = bar_path(name)
+    path = df.bar_photo(name)
     if side <= 0:
         return Response(path.read_bytes(), media_type="image/jpeg")
-    side = max(100, min(side, 2000))
-    key = ("bar:" + path.name, side, path.stat().st_mtime)
-    if key not in _jpeg_cache:
-        img = Image.open(path).convert("RGB")
-        img.thumbnail((side, side))
-        buf = io.BytesIO()
-        img.save(buf, "JPEG", quality=85)
-        _jpeg_cache[key] = buf.getvalue()
-    return Response(_jpeg_cache[key], media_type="image/jpeg")
+    return Response(df.jpeg(path, max(MIN_SIDE, min(side, BAR_SIDE))), media_type="image/jpeg")
 
 
 @app.get("/api/bars")
 def api_bars():
-    if not BARS_IMG.exists():
-        return []
     out = []
-    for p in sorted(BARS_IMG.glob("bar_*.jpg")):
+    for p in df.bar_photos():
         lab = bar_label_path(p.name)
-        lines = [l for l in lab.read_text().splitlines() if l.strip()] if lab.exists() else []
+        lines = [line for line in lab.read_text().splitlines() if line.strip()] if lab.exists() else []
         out.append({"name": p.name, "labelled": lab.exists(), "bottles": len(lines)})
     return out
 
 
 @app.get("/api/bars/label/{name}")
 def api_bar_label(name: str):
-    path = bar_path(name)
+    path = df.bar_photo(name)
     lab = bar_label_path(path.name)
     return {"name": path.name, "text": lab.read_text() if lab.exists() else "", "labelled": lab.exists()}
 
@@ -280,11 +174,11 @@ class BarLabel(BaseModel):
 @app.post("/api/bars/label")
 def api_bar_label_save(body: BarLabel):
     """The only write endpoint. Writes data/test_bars/labels/<stem>.txt for an existing bar photo."""
-    path = bar_path(body.name)
+    path = df.bar_photo(body.name)
     if len(body.text) > MAX_LABEL_CHARS:
         raise HTTPException(413, "label text too long")
-    lines = [l.strip() for l in body.text.replace("\r", "").split("\n")]
-    text = "\n".join(l for l in lines if l) + "\n"
+    lines = [line.strip() for line in body.text.replace("\r", "").split("\n")]
+    text = "\n".join(line for line in lines if line) + "\n"
     BARS_LABELS.mkdir(parents=True, exist_ok=True)
     out = bar_label_path(path.name)
     if out.resolve().parent != BARS_LABELS.resolve():
@@ -330,12 +224,10 @@ button{font-size:14px;padding:6px 16px;cursor:pointer}
 <h1>bottle-vision</h1><div class="muted">Read-only except Label bars. Every view re-reads the files. <span id="when"></span></div>
 <nav style="margin:12px 0"><a onclick="show('results')">Leaderboard</a><a onclick="show('claude')">Claude runs</a><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a><a onclick="show('bars')">Label bars</a></nav>
 <div id="main"></div>
+<script src="/common.js"></script>
 <script>
 const COLORS=['#e6194b','#3cb44b','#4363d8','#f58231','#911eb4','#42d4f4','#f032e6','#9a6324','#469990','#800000','#808000','#000075'];
 const itemColor=id=>id>0?COLORS[(id-1)%COLORS.length]:'#999';
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const $=id=>document.getElementById(id);
-const get=u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(r.status+' '+u));
 let INV=[],DETAIL=null,state={source:'detector',run:null};
 
 function show(view,arg){
@@ -411,8 +303,7 @@ async function viewClaude(){
 }
 async function viewStatus(){
   const s=await get('/api/status');
-  $('main').innerHTML=`<h2>Counts</h2><table>${Object.entries(s.counts).map(([k,v])=>`<tr><td>${esc(k)}</td><td class=n>${v??'<span class=muted>missing</span>'}</td></tr>`).join('')}${s.prediction_files.map(f=>`<tr><td>data/${esc(f.file)} rows</td><td class=n>${f.rows}</td></tr>`).join('')}</table>
-  <h2>Logs</h2>${s.logs.length?s.logs.map(l=>`<div><b>${esc(l.name)}</b> <span class=muted>${l.lines} lines, last 20</span><pre>${esc(l.tail)}</pre></div>`).join(''):'<p class=muted>No logs.</p>'}`;
+  $('main').innerHTML=`<h2>Counts</h2><table>${Object.entries(s.counts).map(([k,v])=>`<tr><td>${esc(k)}</td><td class=n>${v??'<span class=muted>missing</span>'}</td></tr>`).join('')}${s.prediction_files.map(f=>`<tr><td>data/${esc(f.file)} rows</td><td class=n>${f.rows}</td></tr>`).join('')}</table>`;
 }
 const BAR_HELP='Label bars: type every bottle you can identify, one per line; skip bottles you cannot identify yourself.';
 async function viewBars(){

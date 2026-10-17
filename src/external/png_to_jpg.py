@@ -2,17 +2,23 @@
 Used for whiskeyClassification (22.6 GB of PNG) to keep it under ~20 GB on disk.
 Usage: python src/external/png_to_jpg.py data/external/whiskey-classification/dataset
 """
-import sys, os
+import os
+import sys
 from multiprocessing import Pool
+
 from PIL import Image
+
 
 def conv(p):
     out = p[:-4] + ".jpg"
     try:
-        Image.open(p).convert("RGB").save(out, quality=95)
+        with Image.open(p) as im:
+            im.convert("RGB").save(out, quality=95)
         os.remove(p)
-    except Exception as e:
+    except (OSError, ValueError, Image.DecompressionBombError) as e:  # reported at the end; the PNG stays
         return f"{p}: {e}"
+    return None
+
 
 if __name__ == "__main__":
     root = sys.argv[1]
@@ -20,4 +26,5 @@ if __name__ == "__main__":
     with Pool(8) as pool:
         errs = [e for e in pool.imap_unordered(conv, files, chunksize=16) if e]
     print(f"converted {len(files) - len(errs)}, errors {len(errs)}")
-    for e in errs[:20]: print(e)
+    for e in errs[:20]:
+        print(e)

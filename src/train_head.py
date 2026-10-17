@@ -13,16 +13,29 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-SEED, MIN_PER_BRAND, DIM, EPOCHS, BATCH, TEMP = 0, 30, 256, 30, 512, 0.1
-torch.manual_seed(SEED)
-random.seed(SEED)
+from models import DEVICE
+
+SEED = 0
+MIN_PER_BRAND = 30  # training images a brand needs to get its own classifier output
+DIM = 256  # embedding size out of the head
+HIDDEN = 1024
+DROPOUT = 0.1
+EPOCHS = 30
+BATCH = 512
+PER_BRAND = 8  # images per sampled brand in a batch, so every batch has positives
+TEMP = 0.1  # supervised contrastive temperature
+NOISE = 0.02  # feature-space noise as light augmentation
+LR = 1e-3
+WEIGHT_DECAY = 1e-4
+VAL_EVERY = 10  # one in ten products, and one in ten wild images without a product, is validation
+VAL_QUERIES = 3000  # wild validation images scored per evaluation
 
 
 class Head(torch.nn.Module):
     def __init__(self, n_brands: int, d_in: int = 768):
         super().__init__()
-        self.proj = torch.nn.Sequential(torch.nn.Linear(d_in, 1024), torch.nn.GELU(), torch.nn.Dropout(0.1),
-                                        torch.nn.Linear(1024, DIM))
+        self.proj = torch.nn.Sequential(torch.nn.Linear(d_in, HIDDEN), torch.nn.GELU(), torch.nn.Dropout(DROPOUT),
+                                        torch.nn.Linear(HIDDEN, DIM))
         self.cls = torch.nn.Linear(DIM, n_brands)
 
     def embed(self, x):
@@ -45,7 +58,10 @@ def supcon(z, y):
 
 
 def main():
-    rows = list(csv.DictReader(open("data/train/index.csv")))
+    torch.manual_seed(SEED)
+    random.seed(SEED)
+    with open("data/train/index.csv", newline="") as f:
+        rows = list(csv.DictReader(f))
     feats = np.load("data/train/feats.npy").astype(np.float32)
     ok = np.load("data/train/feats_ok.npy")
     keep = [i for i in range(len(rows)) if ok[i] and rows[i]["brand_key"]]
@@ -53,8 +69,9 @@ def main():
     # split by product (catalogue) and by image (wild), so validation products are unseen
     products = sorted({rows[i]["product_key"] for i in keep if rows[i]["product_key"]})
     random.shuffle(products)
-    val_products = set(products[: len(products) // 10])
-    val = [i for i in keep if rows[i]["product_key"] in val_products or (not rows[i]["product_key"] and random.random() < 0.1)]
+    val_products = set(products[: len(products) // VAL_EVERY])
+    val = [i for i in keep if rows[i]["product_key"] in val_products
+           or (not rows[i]["product_key"] and random.random() < 1 / VAL_EVERY)]
     val_set = set(val)
     train = [i for i in keep if i not in val_set]
 
@@ -64,29 +81,27 @@ def main():
     all_brands = {b: k for k, b in enumerate(sorted({rows[i]["brand_key"] for i in keep}))}
     print(f"train {len(train)}, val {len(val)}, classifier brands {len(brands)}, all brands {len(all_brands)}")
 
-    dev = "mps" if torch.backends.mps.is_available() else "cpu"
-    X = torch.tensor(feats, device=dev)
-    yb = torch.tensor([all_brands.get(r["brand_key"], -1) for r in rows], device=dev)
-    yc = torch.tensor([bidx.get(r["brand_key"], -1) for r in rows], device=dev)
-    model = Head(len(brands)).to(dev)
-    opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4)
+    X = torch.tensor(feats, device=DEVICE)
+    yb = torch.tensor([all_brands.get(r["brand_key"], -1) for r in rows], device=DEVICE)
+    yc = torch.tensor([bidx.get(r["brand_key"], -1) for r in rows], device=DEVICE)
+    model = Head(len(brands)).to(DEVICE)
+    opt = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, EPOCHS)
 
-    # balanced-ish batches: sample brands, then up to 8 images per brand, so positives exist
+    # balanced-ish batches: sample brands, then up to PER_BRAND images per brand, so positives exist
     by_brand = defaultdict(list)
     for i in train:
         by_brand[rows[i]["brand_key"]].append(i)
     multi = [b for b, v in by_brand.items() if len(v) >= 2]
 
-    tr_t = torch.tensor(train, device=dev)
     for epoch in range(EPOCHS):
         model.train()
         losses = []
         for _ in range(len(train) // BATCH):
-            bs = random.sample(multi, BATCH // 8)
-            idx = [i for b in bs for i in random.sample(by_brand[b], min(8, len(by_brand[b])))]
-            idx = torch.tensor(idx, device=dev)
-            x = X[idx] + 0.02 * torch.randn_like(X[idx])  # feature-space noise as light augmentation
+            bs = random.sample(multi, BATCH // PER_BRAND)
+            idx = [i for b in bs for i in random.sample(by_brand[b], min(PER_BRAND, len(by_brand[b])))]
+            idx = torch.tensor(idx, device=DEVICE)
+            x = X[idx] + NOISE * torch.randn_like(X[idx])
             z, logits = model(F.normalize(x, dim=-1))
             loss = supcon(z, yb[idx])
             m = yc[idx] >= 0
@@ -107,13 +122,13 @@ def evaluate(model, X, rows, train, val, yc) -> str:
     """Val brand accuracy by nearest catalogue neighbour (raw vs head) and by classifier."""
     model.eval()
     gal = [i for i in train if rows[i]["gallery"] == "1" and not rows[i]["source"].startswith("wild")]
-    q = [i for i in val if rows[i]["source"].startswith("wild")][:3000]  # real photos vs catalogue: the hard direction
+    q = [i for i in val if rows[i]["source"].startswith("wild")][:VAL_QUERIES]  # real photos vs catalogue: the hard way
     gb = [rows[i]["brand_key"] for i in gal]
     out = []
     for name, f in (("raw", lambda t: t), ("head", model.embed)):
         G, Q = f(X[gal]), f(X[q])
         nn = (Q @ G.T).argmax(1).cpu().tolist()
-        out.append(f"{name} NN {np.mean([gb[j] == rows[i]['brand_key'] for i, j in zip(q, nn)]):.3f}")
+        out.append(f"{name} NN {np.mean([gb[j] == rows[i]['brand_key'] for i, j in zip(q, nn, strict=True)]):.3f}")
     m = [i for i in q if yc[i] >= 0]
     if m:
         pred = model(X[m])[1].argmax(1)

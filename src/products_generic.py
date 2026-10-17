@@ -85,9 +85,10 @@ CLUTTER = ["a reusable water bottle", "a cocktail shaker", "a mug", "a drinking 
 
 
 def products() -> list[dict]:
-    rows = [dict(brand=b, product=p, category="spirit", liquid=l) for b, p, l in SPIRITS]
-    rows += [dict(brand=b, product=p, category="liqueur", liquid=l) for b, p, l in LIQUEURS]
-    rows += [dict(brand=b, product=p, category=c, liquid=l) for b, p, c, l in MIXERS + BEER_WINE + KITCHEN]
+    rows = [{"brand": b, "product": p, "category": "spirit", "liquid": liquid} for b, p, liquid in SPIRITS]
+    rows += [{"brand": b, "product": p, "category": "liqueur", "liquid": liquid} for b, p, liquid in LIQUEURS]
+    rows += [{"brand": b, "product": p, "category": c, "liquid": liquid}
+             for b, p, c, liquid in MIXERS + BEER_WINE + KITCHEN]
     for r in rows:
         r["size"] = SIZE[r["category"]]
     return rows
