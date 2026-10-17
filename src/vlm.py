@@ -10,6 +10,7 @@ import base64
 import hashlib
 import io
 import os
+import tempfile
 from pathlib import Path
 from typing import Protocol, TypeVar
 
@@ -77,9 +78,12 @@ class Claude:
         if response.stop_reason == "refusal":
             raise Refusal(f"{self.name} declined to answer")
         CACHE.mkdir(parents=True, exist_ok=True)
-        tmp = cached.with_suffix(f".{os.getpid()}.tmp")
-        tmp.write_text(response.parsed_output.model_dump_json())
-        tmp.replace(cached)  # atomic: a crash never leaves half an answer behind
+        # a unique temp file per write: API threads can store the same answer at once; replace is atomic, so a crash
+        # never leaves half an answer behind
+        fd, tmp = tempfile.mkstemp(dir=CACHE, suffix=".tmp")
+        with os.fdopen(fd, "w") as f:
+            f.write(response.parsed_output.model_dump_json())
+        os.replace(tmp, cached)
         return response.parsed_output
 
 

@@ -39,3 +39,11 @@ def test_not_an_image():
 def test_preview_reports_the_photo_size():
     r = client.post("/preview", files={"image": ("a.jpg", jpeg())})
     assert r.status_code == 200 and r.headers["x-width"] == "64"
+
+
+def test_judge_results_stay_hidden_until_every_item_is_judged(monkeypatch):
+    import judge_routes
+    monkeypatch.setattr(judge_routes, "all_judged", lambda: False)
+    for path in ("/api/judge/results", "/api/judge/history"):
+        assert client.get(path).status_code == 403
+    assert judge_routes.leaderboard_rows() == []

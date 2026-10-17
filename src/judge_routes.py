@@ -23,6 +23,7 @@ import os
 import random
 import re
 import secrets
+import string
 import threading
 import time
 from collections import defaultdict
@@ -54,6 +55,7 @@ PHOTO_SIDE = 800  # the whole photo beside the crop, for context
 TOKEN = re.compile(r"^[0-9a-f]{16}$")
 JUDGE = re.compile(r"^[A-Za-z][A-Za-z .'-]{0,29}$")
 UNKNOWN = "Unknown brand"
+SIZE_OR_STRENGTH = re.compile(r"\d+(?:[.,]\d+)?\s*(?:ml|cl|ltr|litres?|liters?|l|oz|proof|%(?:\s*(?:vol|abv))?)(?![a-z])", re.I)
 
 api = APIRouter(prefix="/api/judge", tags=["judge"])
 router = APIRouter()
@@ -112,15 +114,14 @@ def answer(r: dict | None) -> str:
 
 
 def shown(r: dict | None) -> str:
-    """Brand and product only, one format for both systems: sizes, Claude's "Unknown" and product names that repeat
-    the brand would give a system away."""
+    """Brand and product only, one format for both systems: sizes and strengths, letter case, Claude's "Unknown" and
+    product names that repeat the brand would give a system away."""
     if r is None:
         return ""
-    brand = r.get("brand", "").strip()
+    brand, product = (string.capwords(SIZE_OR_STRENGTH.sub("", r.get(k) or "")).strip(" -,|") for k in ("brand", "product"))
     if brand.lower() in ("", "unknown"):
         brand = UNKNOWN
-    product = r.get("product", "").strip()
-    if brand != UNKNOWN and product.lower().startswith(brand.lower()):
+    elif product.lower().startswith(brand.lower()):
         product = product[len(brand):].strip(" -,")
     return " | ".join(p for p in (brand, product) if p)
 
@@ -361,9 +362,21 @@ def stats() -> dict:
     return out
 
 
+def all_judged() -> bool:
+    """Every item has a verdict other than skip, from anyone. Until then results would unblind the judges."""
+    done = {j.get("item_id") for j in judgements() if j.get("verdict") != "skip"}
+    return all(i in done for i in queue_ids(items()))
+
+
+def until_all_judged() -> None:
+    if not all_judged():
+        raise HTTPException(403, "hidden until every item is judged, so the answers stay blind")
+
+
 @api.get("/results")
 def results():
     """Live accuracy per system plus how often the two systems agree, by name and by the judge's verdict."""
+    until_all_judged()
     s = stats()
     all_items = items().values()
     pairs = [it for it in all_items if not it["single"]]
@@ -378,12 +391,15 @@ def results():
 @api.get("/history")
 def history(limit: int = 50):
     """Latest judgements first, with which answer was which revealed."""
+    until_all_judged()
     limit = max(1, min(limit, 500))
     return [reveal(j) for j in reversed(judgements()[-limit:])]
 
 
 def leaderboard_rows() -> list[dict]:
-    """Two Testing-leaderboard rows (human-judged brand accuracy), or none when nothing is judged yet."""
+    """Two Testing-leaderboard rows (human-judged brand accuracy), or none until every item is judged."""
+    if not all_judged():
+        return []
     s = stats()
     rows = []
     # named after the files, since JUDGE_CLAUDE / JUDGE_OURS can point anywhere

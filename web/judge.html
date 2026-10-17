@@ -98,7 +98,7 @@ th { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08
 <main>
   <section>
     <h2>Blind <em>judging</em></h2>
-    <p class="sub">One bottle from the bar photos at a time, with up to two answers. Which system gave which answer stays hidden, and so do the results and history below, until you have judged or skipped every item. Right means the brand is right. An unknown brand is never right.</p>
+    <p class="sub">One bottle from the bar photos at a time, with up to two answers. Which system gave which answer stays hidden, and so do the results and history below, until every item has a verdict. Right means the brand is right. An unknown brand is never right.</p>
     <div id="jBody"><p class="empty">Loading...</p></div>
   </section>
 
@@ -125,7 +125,14 @@ const KEYS = { "1": "a", "2": "b", "3": "both", "4": "neither", "5": "cant_tell"
 
 const S = { ids: [], q: null, item: null, busy: false };
 // counts that move after each verdict, or a list of past answers, would teach a judge which system is which
-const HIDDEN = '<p class="empty">Hidden while you judge, so the answers stay blind. It shows here once you have judged or skipped every item.</p>';
+const HIDDEN = '<p class="empty">Hidden while you judge, so the answers stay blind. It shows here once every item has a verdict.</p>';
+// Results and history answer 403 until then: show the notice instead of an error.
+const revealed = async (u, box) => {
+  const r = await fetch(u, { cache: "no-store" });
+  if (r.status === 403) { $(box).innerHTML = HIDDEN; return null; }
+  if (!r.ok) throw new Error(`${r.status} ${u}`);
+  return r.json();
+};
 $("who").value = store.get("judge");
 $("who").addEventListener("input", () => { store.set("judge", $("who").value.trim()); });
 $("who").addEventListener("change", () => loadQueue());
@@ -203,7 +210,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 async function results() {
-  const d = await get("/api/judge/results");
+  const d = await revealed("/api/judge/results", "rBody");
+  if (!d) return;
   const card = (k) => {
     const s = d.systems[k];
     const ci = s.ci_low == null ? "" : `<div class="ci"><i style="left:${100 * s.ci_low}%;width:${100 * (s.ci_high - s.ci_low)}%"></i><b style="left:${100 * s.accuracy}%"></b></div><div class="meta">95% CI ${pct(s.ci_low)} to ${pct(s.ci_high)}</div>`;
@@ -217,7 +225,8 @@ async function results() {
 }
 
 async function history() {
-  const rows = await get("/api/judge/history?limit=40");
+  const rows = await revealed("/api/judge/history?limit=40", "hBody");
+  if (!rows) return;
   if (!rows.length) { $("hBody").innerHTML = '<p class="empty">No judgements yet.</p>'; return; }
   const cell = (x) => `${esc(x.answer || "")}${x.answer ? (x.right == null ? "" : x.right ? ' <span class="ok">&#10003;</span>' : ' <span class="bad">&#10007;</span>') : '<span class="faint">no answer</span>'}`;
   $("hBody").innerHTML = `<div class="tablewrap"><table><tr><th>When</th><th>Judge</th><th>Photo</th><th>Verdict</th><th>A was</th><th>Claude</th><th>Ours</th></tr>
