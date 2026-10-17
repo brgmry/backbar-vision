@@ -115,11 +115,8 @@ th { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08
   </section>
 </main>
 
+<script src="/common.js"></script>
 <script>
-const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
-const get = (u) => fetch(u, { cache: "no-store" }).then(async (r) => r.ok ? r.json() : Promise.reject(new Error(`${r.status} ${u}`)));
-const pct = (x) => x == null ? "n/a" : `${(100 * x).toFixed(1)}%`;
 const store = { get: (k) => { try { return localStorage.getItem(k) || ""; } catch { return ""; } },
                 set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
 const NAMES = { claude: "Claude", ours: "Ours" };
@@ -227,7 +224,6 @@ async function history() {
     ${rows.map((r) => `<tr><td class="faint">${esc((r.timestamp || "").replace("T", " ").slice(0, 16))}</td><td>${esc(r.judge)}</td><td>${esc(r.photo)}</td><td>${esc(VLABEL[r.verdict] || r.verdict)}</td><td>${esc(NAMES[r.a_is] || r.a_is)}</td><td>${cell(r.claude)}</td><td>${cell(r.ours)}</td></tr>`).join("")}</table></div>`;
 }
 
-const guard = (fn, box) => fn().catch((e) => { $(box).innerHTML = `<p class="err">${esc(e.message)}</p>`; });
 guard(loadQueue, "jBody");
 </script>
 </body>

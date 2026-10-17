@@ -147,9 +147,8 @@ a.link:hover { text-decoration: underline; }
   <div class="dwrap" id="dBody"></div>
 </dialog>
 
+<script src="/common.js"></script>
 <script>
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
 const fmt = n => n.toLocaleString("en-GB");
 const SRC = {
   off: ["Open Food Facts", "var(--amber)"], saq: ["SAQ", "var(--blue)"], systembolaget: ["Systembolaget", "var(--blue)"],
@@ -163,7 +162,7 @@ const st = {source: "all", q: "", brand: "", page: 1};
 function readHash() {
   const h = new URLSearchParams(location.hash.slice(1));
   st.source = h.get("source") || "all"; st.q = h.get("q") || ""; st.brand = h.get("brand") || ""; st.page = +h.get("page") || 1;
-  $("#source").value = st.source; $("#q").value = st.q;
+  $("source").value = st.source; $("q").value = st.q;
 }
 function writeHash() {
   const h = new URLSearchParams();
@@ -182,17 +181,17 @@ async function load() {
     const r = await fetch("/api/data/items?" + p);
     if (!r.ok) throw new Error(await r.text());
     d = await r.json();
-  } catch (e) { $("#grid").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
+  } catch (e) { $("grid").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
   if (my !== seq) return;
   st.page = d.page;
   const order = ["off", "saq", "systembolaget", "drinkfinder", "wild_verified", "wild", "beer_ru", "whiskey", "stperez", "beerbb", "rp2k", "ttb"];
-  $("#stats").innerHTML = `<span><b>${fmt(d.total)}</b> images match</span>` +
+  $("stats").innerHTML = `<span><b>${fmt(d.total)}</b> images match</span>` +
     order.filter(s => d.sources[s]).map(s => `<span>${esc(SRC[s][0])} ${fmt(d.sources[s])}</span>`).join("");
-  const cb = $("#clearBrand");
+  const cb = $("clearBrand");
   cb.hidden = !st.brand; cb.textContent = `Brand: ${st.brand} (clear)`;
-  $("#brands").innerHTML = d.brands.map(b => `<button class="chip${b.key === st.brand ? " on" : ""}" data-k="${esc(b.key)}">${esc(b.name)}<i>${fmt(b.count)}</i></button>`).join("");
-  $("#grid").innerHTML = d.items.length ? d.items.map(tile).join("") : `<p class="empty">Nothing matches this filter.</p>`;
-  $("#pager").innerHTML = d.pages > 1 ? `<button data-p="${d.page - 1}" ${d.page <= 1 ? "disabled" : ""}>Previous</button>
+  $("brands").innerHTML = d.brands.map(b => `<button class="chip${b.key === st.brand ? " on" : ""}" data-k="${esc(b.key)}">${esc(b.name)}<i>${fmt(b.count)}</i></button>`).join("");
+  $("grid").innerHTML = d.items.length ? d.items.map(tile).join("") : `<p class="empty">Nothing matches this filter.</p>`;
+  $("pager").innerHTML = d.pages > 1 ? `<button data-p="${d.page - 1}" ${d.page <= 1 ? "disabled" : ""}>Previous</button>
     <span>Page ${fmt(d.page)} of ${fmt(d.pages)}</span>
     <button data-p="${d.page + 1}" ${d.page >= d.pages ? "disabled" : ""}>Next</button>` : "";
 }
@@ -211,19 +210,19 @@ function dl(obj, labels = {}) {
   }).join("")}</dl>`;
 }
 async function openItem(id) {
-  const dlg = $("#detail");
-  $("#dBody").innerHTML = `<p class="empty">Loading...</p>`;
+  const dlg = $("detail");
+  $("dBody").innerHTML = `<p class="empty">Loading...</p>`;
   if (!dlg.open) dlg.showModal();
   let d;
   try {
     const r = await fetch(`/api/data/item/${id}`);
     if (!r.ok) throw new Error(await r.text());
     d = await r.json();
-  } catch (e) { $("#dBody").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
+  } catch (e) { $("dBody").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; return; }
   const it = d.item;
   const same = d.same_product.length ? `<section class="full"><h4>Same product (${fmt(d.same_product_total)} other image${d.same_product_total === 1 ? "" : "s"})</h4>
     <div class="mini">${d.same_product.map(s => `<button data-id="${s.id}" title="${esc(s.brand)} ${esc(s.product)}"><img loading="lazy" alt="" src="${img(s, "thumb")}"></button>`).join("")}</div></section>` : "";
-  $("#dBody").innerHTML = `
+  $("dBody").innerHTML = `
     <div class="big"><img alt="${esc(it.brand)} ${esc(it.product)}" src="${img(it, "full")}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'broken',textContent:'image missing or unreadable'}))"></div>
     <div class="side">
       <div><h3>${esc(it.brand || "(no brand)")}</h3><p class="sub" style="margin:4px 0 6px">${esc(it.product)}</p>${badge(it.source)}</div>
@@ -233,20 +232,20 @@ async function openItem(id) {
     </div>${same}`;
 }
 
-$("#source").onchange = e => { st.source = e.target.value; st.page = 1; load(); };
+$("source").onchange = e => { st.source = e.target.value; st.page = 1; load(); };
 let t;
-$("#q").oninput = e => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value.trim(); st.page = 1; load(); }, 250); };
-$("#brands").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; st.brand = st.brand === b.dataset.k ? "" : b.dataset.k; st.page = 1; load(); };
-$("#clearBrand").onclick = () => { st.brand = ""; st.page = 1; load(); };
-$("#pager").onclick = e => { const b = e.target.closest("button[data-p]"); if (!b || b.disabled) return; st.page = +b.dataset.p; load(); scrollTo({top: 0, behavior: "smooth"}); };
-$("#grid").onclick = e => { const b = e.target.closest(".tile"); if (b) openItem(+b.dataset.id); };
-$("#dBody").onclick = e => {
-  const m = e.target.closest(".mini button"); if (m) { openItem(+m.dataset.id); $("#detail").scrollTop = 0; return; }
+$("q").oninput = e => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value.trim(); st.page = 1; load(); }, 250); };
+$("brands").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; st.brand = st.brand === b.dataset.k ? "" : b.dataset.k; st.page = 1; load(); };
+$("clearBrand").onclick = () => { st.brand = ""; st.page = 1; load(); };
+$("pager").onclick = e => { const b = e.target.closest("button[data-p]"); if (!b || b.disabled) return; st.page = +b.dataset.p; load(); scrollTo({top: 0, behavior: "smooth"}); };
+$("grid").onclick = e => { const b = e.target.closest(".tile"); if (b) openItem(+b.dataset.id); };
+$("dBody").onclick = e => {
+  const m = e.target.closest(".mini button"); if (m) { openItem(+m.dataset.id); $("detail").scrollTop = 0; return; }
   const a = e.target.closest("a[data-brand]");
-  if (a) { st.brand = a.dataset.brand; st.source = "all"; st.q = ""; st.page = 1; $("#source").value = "all"; $("#q").value = ""; $("#detail").close(); load(); }
+  if (a) { st.brand = a.dataset.brand; st.source = "all"; st.q = ""; st.page = 1; $("source").value = "all"; $("q").value = ""; $("detail").close(); load(); }
 };
-$("#closeBtn").onclick = () => $("#detail").close();
-$("#detail").onclick = e => { if (e.target === e.currentTarget) e.currentTarget.close(); };
+$("closeBtn").onclick = () => $("detail").close();
+$("detail").onclick = e => { if (e.target === e.currentTarget) e.currentTarget.close(); };
 readHash();
 load();
 </script>
