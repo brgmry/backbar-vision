@@ -5,17 +5,24 @@ Mounted in api.py with app.include_router(judge_routes.router). Page at /judge, 
 Inputs are read again when they change (they may still be being written). Change the pair in CLAUDE / OURS below
 or with the JUDGE_CLAUDE / JUDGE_OURS env vars. Claude: run 1. Ours: lowest run present.
 Each photo's Claude and our bottles are paired by box IoU (Hungarian, IoU >= 0.3). An item is one physical bottle
-with one or two answers. A/B is a keyed hash of the item id, so it is stable across restarts and never sent
-to the page before the item is judged. The only write is POST /api/judge/judgement, append-only to
+with one or two answers.
+
+Blind means nothing the page gets tells the systems apart: items reach it under a keyed token (the internal id says
+which system answered a single-answer item), A/B is keyed the same way, both answers are written in one format
+(brand and product only), and a verdict gets no reveal back. The key is JUDGE_SECRET from .env, or a fresh one per
+server start (a page loaded before a restart then needs a reload). The page shows results and history only once
+the judge has nothing left to judge. The only write is POST /api/judge/judgement, append-only to
 data/test_bars/judgements.csv.
 """
 import csv
 import hashlib
+import hmac
 import io
 import math
 import os
 import random
 import re
+import secrets
 import threading
 import time
 from collections import defaultdict
@@ -44,9 +51,9 @@ SETTLED = 60  # seconds: a file untouched this long is finished, so its last pho
 IOU_MIN = 0.3
 CROP_SIDE = 1100  # px: bigger crops are shrunk to this
 PHOTO_SIDE = 800  # the whole photo beside the crop, for context
-SALT = "bottle-vision-judge-v1"
-ITEM_ID = re.compile(r"^bar_\d{2,3}-c\d{0,3}-o\d{0,3}$")
+TOKEN = re.compile(r"^[0-9a-f]{16}$")
 JUDGE = re.compile(r"^[A-Za-z][A-Za-z .'-]{0,29}$")
+UNKNOWN = "Unknown brand"
 
 api = APIRouter(prefix="/api/judge", tags=["judge"])
 router = APIRouter()
@@ -93,14 +100,30 @@ def _rows(path: Path, run: str | None, fresh: bool) -> dict[str, list[dict]]:
 
 
 def answer(r: dict | None) -> str:
+    """The whole answer, as recorded in judgements.csv."""
     if r is None:
         return ""
     size = f"{r.get('size', '')} {r.get('unit', '')}".strip()
     if size:
         with suppress(TypeError, ValueError, KeyError):  # free text such as "33 cl" stays as it is
             size = f"{float(r['size']):g} {r.get('unit', '')}".strip()
-    parts = [r.get("brand", "").strip() or "Unknown brand", r.get("product", "").strip(), size]
+    parts = [r.get("brand", "").strip() or UNKNOWN, r.get("product", "").strip(), size]
     return " | ".join(p for p in parts if p)
+
+
+def shown(r: dict | None) -> str:
+    """The answer as the judge sees it: brand and product only, in one format for both systems. Sizes (Claude
+    always gives one, as "700 ml"), its "Unknown" brand and our product names that repeat the brand would each
+    tell the systems apart, and the verdict is about the brand anyway."""
+    if r is None:
+        return ""
+    brand = r.get("brand", "").strip()
+    if brand.lower() in ("", "unknown"):
+        brand = UNKNOWN
+    product = r.get("product", "").strip()
+    if brand != UNKNOWN and product.lower().startswith(brand.lower()):
+        product = product[len(brand):].strip(" -,")
+    return " | ".join(p for p in (brand, product) if p)
 
 
 def union_box(a, b):
@@ -111,16 +134,40 @@ def union_box(a, b):
     return [x1, y1, x2 - x1, y2 - y1]
 
 
+@lru_cache(maxsize=1)
+def secret() -> bytes:
+    """Key for item tokens and A/B, read on first use so .env is loaded by then."""
+    return (os.environ.get("JUDGE_SECRET") or secrets.token_hex(16)).encode()
+
+
+def keyed(text: str) -> bytes:
+    return hmac.new(secret(), text.encode(), hashlib.sha256).digest()
+
+
+def token(item_id: str) -> str:
+    """What the page calls an item."""
+    return keyed(f"id|{item_id}").hex()[:16]
+
+
 def a_is(item_id: str, single: str | None) -> str:
     if single:
         return single
-    return "claude" if hashlib.sha256(f"{SALT}|{item_id}".encode()).digest()[0] % 2 == 0 else "ours"
+    return "claude" if keyed(f"ab|{item_id}")[0] % 2 == 0 else "ours"
 
 
 def items() -> dict[str, dict]:
     """Every judgeable item, keyed by id. Only photos present in both files, so ids don't shift later. Built once
     per version of the two files: every /item, /crop and /queue request needs it."""
     return _items(_stamp(CLAUDE), _stamp(OURS))
+
+
+def find(tok: str) -> dict:
+    """The item the page calls `tok`."""
+    if TOKEN.match(tok):
+        for it in items().values():
+            if it["token"] == tok:
+                return it
+    raise HTTPException(404, "no such item")
 
 
 @lru_cache(maxsize=4)
@@ -141,9 +188,11 @@ def _items(claude_stamp: tuple, ours_stamp: tuple) -> dict[str, dict]:
             o = os_[j] if j is not None else None
             iid = f"{Path(photo).stem}-c{c['position'] if c else ''}-o{o['position'] if o else ''}"
             single = None if c and o else ("claude" if c else "ours")
-            out[iid] = {"id": iid, "photo": photo, "box": union_box(c and c["_box"], o and o["_box"]),
-                        "claude": answer(c), "ours": answer(o), "claude_brand": (c or {}).get("brand", ""),
-                        "ours_brand": (o or {}).get("brand", ""), "single": single, "a_is": a_is(iid, single)}
+            out[iid] = {"id": iid, "token": token(iid), "photo": photo,
+                        "box": union_box(c and c["_box"], o and o["_box"]),
+                        "claude": answer(c), "ours": answer(o), "claude_shown": shown(c), "ours_shown": shown(o),
+                        "claude_brand": (c or {}).get("brand", ""), "ours_brand": (o or {}).get("brand", ""),
+                        "single": single, "a_is": a_is(iid, single)}
     return out
 
 
@@ -165,16 +214,17 @@ def queue_ids(all_items: dict[str, dict]) -> list[str]:
 
 
 def public(it: dict) -> dict:
-    """What the page may see before judging: no system names."""
+    """What the page may see before judging: no system names, nothing that tells the answers apart."""
     a, b = ("claude", "ours") if it["a_is"] == "claude" else ("ours", "claude")
     w, h = df.image_size(df.bar_photo(it["photo"]))
-    return {"id": it["id"], "photo": it["photo"], "box": [round(v) for v in it["box"]], "width": w, "height": h,
-            "single": bool(it["single"]), "a": it[a], "b": None if it["single"] else it[b]}
+    return {"id": it["token"], "photo": it["photo"], "box": [round(v) for v in it["box"]], "width": w, "height": h,
+            "single": bool(it["single"]), "a": it[f"{a}_shown"], "b": None if it["single"] else it[f"{b}_shown"]}
 
 
 @api.get("/queue")
 def queue(judge: str = ""):
-    """Remaining item ids in judging order. An item is done once anyone has judged it, or this judge skipped it."""
+    """Remaining items in judging order, as tokens. An item is done once anyone has judged it, or this judge
+    skipped it."""
     all_items = items()
     done, skipped = set(), set()
     for j in judgements():
@@ -186,16 +236,15 @@ def queue(judge: str = ""):
     order = queue_ids(all_items)
     remaining = [i for i in order if i not in done and i not in skipped]
     return {"total": len(order), "judged": sum(i in done for i in order), "remaining": len(remaining),
-            "photos": len({it["photo"] for it in all_items.values()}), "ids": remaining,
-            "inputs": {"claude": CLAUDE.is_file() and CLAUDE.stat().st_size > 0, "ours": OURS.is_file() and OURS.stat().st_size > 0}}
+            "photos": len({it["photo"] for it in all_items.values()}),
+            "ids": [all_items[i]["token"] for i in remaining],
+            "inputs": {"claude": CLAUDE.is_file() and CLAUDE.stat().st_size > 0,
+                       "ours": OURS.is_file() and OURS.stat().st_size > 0}}
 
 
-@api.get("/item/{item_id}")
-def item(item_id: str):
-    it = items().get(item_id)
-    if it is None:
-        raise HTTPException(404, "no such item")
-    return public(it)
+@api.get("/item/{tok}")
+def item(tok: str):
+    return public(find(tok))
 
 
 @lru_cache(maxsize=512)  # crops are under 200 KB
@@ -207,11 +256,9 @@ def _crop(path: str, box: tuple, mtime_ns: int) -> bytes:
     return buf.getvalue()
 
 
-@api.get("/crop/{item_id}")
-def crop(item_id: str):
-    it = items().get(item_id)
-    if it is None:
-        raise HTTPException(404, "no such item")
+@api.get("/crop/{tok}")
+def crop(tok: str):
+    it = find(tok)
     p = df.bar_photo(it["photo"])
     data = _crop(str(p), tuple(round(v) for v in it["box"]), p.stat().st_mtime_ns)
     return Response(data, media_type="image/jpeg", headers={"Cache-Control": "max-age=3600"})
@@ -223,24 +270,21 @@ def photo(name: str):
 
 
 class Judgement(BaseModel):
-    item_id: str
+    item_id: str  # the token the page got from /queue
     verdict: str
     judge: str
 
 
 @api.post("/judgement")
 def post_judgement(body: Judgement):
-    """Append one judgement. Everything except the verdict and the judge's name is filled in server-side."""
-    if not ITEM_ID.match(body.item_id):
-        raise HTTPException(400, "bad item_id")
+    """Append one judgement. Everything except the verdict and the judge's name is filled in server-side. Nothing
+    about which answer was which comes back: the page would learn each system's style from it."""
     if body.verdict not in VERDICTS:
         raise HTTPException(400, f"verdict must be one of {', '.join(VERDICTS)}")
     judge = body.judge.strip()
     if not JUDGE.match(judge):
         raise HTTPException(400, "judge name: letters, spaces, . ' - only, up to 30 characters")
-    it = items().get(body.item_id)
-    if it is None:
-        raise HTTPException(404, "no such item")
+    it = find(body.item_id)
     if it["single"] and body.verdict in ("b", "both"):
         raise HTTPException(400, "this item has only answer A")
     row = {"photo": it["photo"], "item_id": it["id"], "box": "[" + ", ".join(str(round(v)) for v in it["box"]) + "]",
@@ -254,7 +298,7 @@ def post_judgement(body: Judgement):
             if new:
                 w.writeheader()
             w.writerow(row)
-    return {"ok": True, "reveal": reveal(row)}
+    return {"ok": True}
 
 
 def right(j: dict) -> dict[str, bool | None]:

@@ -66,7 +66,6 @@ h2 em { color: var(--amber); }
 .btns kbd { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 6px; background: var(--line); color: var(--muted); font: 600 12px var(--sans); }
 .btns button.flash { background: #f0a43a33; border-color: var(--amber); }
 .hint { color: var(--faint); font-size: 12.5px; }
-.reveal { padding: 10px 14px; border-radius: 12px; background: var(--panel); border: 1px dashed var(--line); font-size: 13px; color: var(--muted); }
 
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 .card { padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
@@ -93,13 +92,13 @@ th { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08
     bottle <em>vision</em>
   </div>
   <nav class="tabs" aria-label="Views"><a href="/">Identify</a><a href="/testing">Testing</a><a href="/data">Data</a><a href="/judge" aria-current="page">Judge</a></nav>
-  <label class="who">Judge <input id="who" placeholder="Bergen or Alan" maxlength="30" autocomplete="off"></label>
+  <label class="who">Judge <input id="who" placeholder="Your name" maxlength="30" autocomplete="off"></label>
 </header>
 
 <main>
   <section>
     <h2>Blind <em>judging</em></h2>
-    <p class="sub">One bottle from the bar photos at a time, with up to two answers. Which system gave which answer is hidden until you judge. Right means the brand is right. An unknown brand is never right.</p>
+    <p class="sub">One bottle from the bar photos at a time, with up to two answers. Which system gave which answer stays hidden, and so do the results and history below, until you have judged or skipped every item. Right means the brand is right. An unknown brand is never right.</p>
     <div id="jBody"><p class="empty">Loading...</p></div>
   </section>
 
@@ -127,7 +126,9 @@ const NAMES = { claude: "Claude", ours: "Ours" };
 const VLABEL = { a: "A right", b: "B right", both: "Both right", neither: "Neither right", cant_tell: "Can't tell", skip: "Skipped" };
 const KEYS = { "1": "a", "2": "b", "3": "both", "4": "neither", "5": "cant_tell", s: "skip", S: "skip" };
 
-const S = { ids: [], q: null, item: null, busy: false, last: null };
+const S = { ids: [], q: null, item: null, busy: false };
+// counts that move after each verdict, or a list of past answers, would teach a judge which system is which
+const HIDDEN = '<p class="empty">Hidden while you judge, so the answers stay blind. It shows here once you have judged or skipped every item.</p>';
 $("who").value = store.get("judge");
 $("who").addEventListener("input", () => { store.set("judge", $("who").value.trim()); });
 $("who").addEventListener("change", () => loadQueue());
@@ -144,9 +145,11 @@ async function next() {
   const q = S.q;
   if (!q.inputs.claude || !q.inputs.ours || !q.total) {
     $("jBody").innerHTML = `<p class="empty">Nothing to judge yet. Needs both predictions files (set at the top of src/judge_routes.py) with rows for the same photos${q.inputs.claude ? "" : " (Claude file missing or empty)"}${q.inputs.ours ? "" : " (ours missing or empty)"}. <a href="#" onclick="loadQueue();return false" style="color:var(--amber)">Check again</a></p>`;
+    record();
     return;
   }
-  if (!S.ids.length) { $("jBody").innerHTML = `<p class="empty">All ${q.total} items across ${q.photos} photos are judged or skipped. ${reveal()}</p>`; return; }
+  if (!S.ids.length) { $("jBody").innerHTML = `<p class="empty">All ${q.total} items across ${q.photos} photos are judged or skipped.</p>`; record(); return; }
+  $("rBody").innerHTML = $("hBody").innerHTML = HIDDEN;
   const id = S.ids[0];
   const it = await get(`/api/judge/item/${encodeURIComponent(id)}`);
   S.item = it;
@@ -167,17 +170,14 @@ async function next() {
         <button data-v="skip"><kbd>S</kbd>Skip</button>
       </div>
       <div class="ctx"><svg viewBox="0 0 ${it.width} ${it.height}"><image href="/api/judge/photo/${encodeURIComponent(it.photo)}" width="${it.width}" height="${it.height}"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#f0a43a" stroke-width="${lw}"/></svg></div>
-      ${reveal()}
     </div></div>`;
   $("jBody").querySelectorAll("button[data-v]").forEach((b) => b.addEventListener("click", () => judge(b.dataset.v)));
   if (S.ids[1]) new Image().src = `/api/judge/crop/${encodeURIComponent(S.ids[1])}`;
 }
 
-function reveal() {
-  const r = S.last;
-  if (!r) return "";
-  const mark = (x) => x.right == null ? "" : x.right ? ' <span class="ok">right</span>' : ' <span class="bad">wrong</span>';
-  return `<div class="reveal">Last one (${esc(VLABEL[r.verdict])}): A was <b>${NAMES[r.a_is]}</b>. Claude said ${esc(r.claude.answer || "nothing")}${mark(r.claude)}. Ours said ${esc(r.ours.answer || "nothing")}${mark(r.ours)}.</div>`;
+function record() {
+  guard(results, "rBody");
+  guard(history, "hBody");
 }
 
 async function judge(v) {
@@ -192,10 +192,8 @@ async function judge(v) {
       body: JSON.stringify({ item_id: S.item.id, verdict: v, judge: name }) });
     const d = await r.json();
     if (!r.ok) throw new Error(d.detail || r.status);
-    S.last = d.reveal;
     S.ids.shift();
     await next();
-    results(); history();
   } catch (e) {
     $("jBody").insertAdjacentHTML("afterbegin", `<p class="err">${esc(e.message)}</p>`);
   } finally { S.busy = false; }
@@ -231,8 +229,6 @@ async function history() {
 
 const guard = (fn, box) => fn().catch((e) => { $(box).innerHTML = `<p class="err">${esc(e.message)}</p>`; });
 guard(loadQueue, "jBody");
-guard(results, "rBody");
-guard(history, "hBody");
 </script>
 </body>
 </html>
