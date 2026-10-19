@@ -1,16 +1,18 @@
 """Draw detection boxes over each photo for eyeballing.
 
-Usage: python src/draw.py <out_dir> [--photos data/raw] [--crops data/crops]
+Usage: python src/experiments/draw.py <out_dir> [--photos data/raw] [--crops data/crops]
 """
 import argparse
 import csv
+import sys
 from collections import defaultdict
 from pathlib import Path
 
 from PIL import ImageDraw
 
-import detect
-from photos import EXTS
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+import detect  # noqa: E402
+from photos import EXTS  # noqa: E402
 
 
 def main(out_dir: str, photos_dir: str, crops_dir: str) -> None:

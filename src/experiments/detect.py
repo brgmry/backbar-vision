@@ -1,19 +1,21 @@
 """Find bottles with OWLv2 and save the crops, for the catalogue experiments (the API uses find.py).
 
-Usage: python src/detect.py [photos_dir] [out_dir]   (defaults: data/raw, data/crops)
+Usage: python src/experiments/detect.py [photos_dir] [out_dir]   (defaults: data/raw, data/crops)
   -> <out_dir>/<photo>/<n>.jpg and <out_dir>/boxes.csv, boxes in the photo shrunk to boxes.DETECT_SIDE
 """
 import argparse
 import csv
+import sys
 from pathlib import Path
 
 import torch
 from PIL import Image
 from transformers import Owlv2ForObjectDetection, Owlv2Processor
 
-from boxes import DETECT_SIDE, iou_xyxy, overlap_xyxy
-from models import DEVICE
-from photos import EXTS, open_photo
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from boxes import DETECT_SIDE, iou_xyxy, overlap_xyxy  # noqa: E402
+from models import DEVICE  # noqa: E402
+from photos import EXTS, open_photo  # noqa: E402
 
 MODEL = "google/owlv2-base-patch16-ensemble"
 QUERIES = ["a bottle", "a jug", "a sauce bottle"]

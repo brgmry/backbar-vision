@@ -2,7 +2,7 @@
 
 Resume-safe: skips files already on disk. UK products first. Non-image responses skipped.
 Needs CONTACT_EMAIL in .env (it goes in the User-Agent).
-Usage: python src/external/off_download.py [workers]
+Usage: python src/experiments/external/off_download.py [workers]
 """
 import argparse
 import csv
@@ -15,10 +15,10 @@ from pathlib import Path
 
 import requests
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for contact.py
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/experiments/, for contact.py
 from contact import user_agent  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[2] / "data/external/off_alcohol"
+ROOT = Path(__file__).resolve().parents[3] / "data/external/off_alcohol"
 JPEG_MAGIC = b"\xff\xd8\xff"
 local = threading.local()
 stats = {"ok": 0, "skip": 0, "bad": 0, "err": 0, "bytes": 0}

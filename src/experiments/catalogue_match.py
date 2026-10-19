@@ -4,18 +4,20 @@ keep the best crop per product, write the predictions CSV. The scripts differ on
 """
 import csv
 import math
+import sys
 from pathlib import Path
 
 from PIL import Image
 from rapidfuzz import fuzz
 
-from boxes import DETECT_SIDE, padded_crop, resized_scale
-from identify import PRED_FIELDS
-from photos import EXTS, open_photo
-from schema import read_csv
-from train_index import key
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from boxes import DETECT_SIDE, padded_crop, resized_scale  # noqa: E402
+from identify import PRED_FIELDS  # noqa: E402
+from photos import EXTS, open_photo  # noqa: E402
+from schema import read_csv  # noqa: E402
+from train_index import key  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 CROP_PAD = 0.05  # widen each box a little so edge letters are not cut
 MIN_BRAND_KEY = 5  # characters (spaces aside): shorter brand names turn up inside too much unrelated label text
 BRAND_MATCH = 90  # fuzzy partial_ratio a brand name needs inside the label text

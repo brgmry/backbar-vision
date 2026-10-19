@@ -3,7 +3,7 @@
 Uses the pHash each photo got when it was collected. Moved photos go to data/external/wild/_test_overlap/ and are
 listed in its dropped.csv; the per-brand manifests, manifest.csv and verified.csv are rewritten without them.
 Stops if data/test_bars/phashes.txt is missing or empty. train_index.py checks every source again.
-usage: python src/drop_test_overlap.py
+usage: python src/experiments/drop_test_overlap.py
 """
 import csv
 import json

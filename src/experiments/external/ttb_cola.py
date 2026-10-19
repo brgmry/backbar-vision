@@ -2,7 +2,7 @@
 Step 1: list COLAs via basic search + CSV export, weekly windows, spirits class ranges.
 Step 2: per COLA, open the printable form and download every label attachment.
 
-Usage: python src/external/ttb_cola.py [target] [--out data/external/ttb-cola-spirits]   (rerun to resume)
+Usage: python src/experiments/external/ttb_cola.py [target] [--out data/external/ttb-cola-spirits]   (rerun to resume)
 """
 import argparse
 import csv
@@ -19,7 +19,7 @@ from pathlib import Path
 
 from curlsess import CurlSession
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 BASE = "https://ttbonline.gov/colasonline/"
 UA = "Mozilla/5.0 (academic dataset research; low rate)"
 IMG = re.compile(r'src="/colasonline/(publicViewAttachment\.do\?filename=([^"&]*)&filetype=l)"')

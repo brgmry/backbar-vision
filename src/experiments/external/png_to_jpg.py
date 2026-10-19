@@ -1,6 +1,6 @@
 """Convert every .png under a directory to .jpg (quality 95) in place, deleting the PNG.
 Used for whiskeyClassification (22.6 GB of PNG) to keep it under ~20 GB on disk.
-Usage: python src/external/png_to_jpg.py data/external/whiskey-classification/dataset
+Usage: python src/experiments/external/png_to_jpg.py data/external/whiskey-classification/dataset
 """
 import os
 import sys

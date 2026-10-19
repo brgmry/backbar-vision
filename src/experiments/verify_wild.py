@@ -1,7 +1,7 @@
 """Clean the in-the-wild brand photos for free: keep a photo only if its own label text (Apple Vision OCR)
 names the brand it was searched for. Turns search-query labels into verified real-world brand photos.
 
-Usage: python src/verify_wild.py [workers]   -> data/external/wild/verified.csv (file, brand, brand_key, text)
+Usage: python src/experiments/verify_wild.py [workers]   -> data/external/wild/verified.csv (file, brand, brand_key, text)
 """
 import argparse
 import csv

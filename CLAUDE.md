@@ -15,7 +15,7 @@ Output per bottle: `{position, description, bbox, brand, product, category, liqu
 - `data/raw/` the kitchen photos. Never edit, rename or overwrite.
 - `data/labelled/` ground truth: `inventory.csv` (the 12 items in every kitchen photo), `fill.csv` (measured fill levels), `crop_exclude.csv` (crops rejected by hand, scores the crop check).
 - `data/pour/` the pour test; `data/test_bars/` the bar test set; `data/predictions_*.csv` every run; `data/results.csv` the leaderboard.
-- `src/` code. Shared helpers live in `photos.py`, `boxes.py`, `models.py`, `schema.py`; use them instead of copying HEIC loading, box maths, devices or unit tables.
+- `src/` the pipeline, scorer and app; `src/experiments/` the local identification experiments. Shared helpers live in `photos.py`, `boxes.py`, `models.py`, `schema.py`; use them instead of copying HEIC loading, box maths, devices or unit tables.
 - `tests/` fast offline tests: `.venv/bin/python -m pytest`.
 
 ## Pipeline
@@ -25,12 +25,12 @@ Output per bottle: `{position, description, bbox, brand, product, category, liqu
 - `src/experiment.py` runs any fill estimator on any predictions CSV, so identification and fill swap independently. `src/api.py` serves the pipeline and the web UI.
 
 ## Identification design (agreed 10 Oct)
-- Crop, then a backbone (DINOv2 or SigLIP2) with a trained projection head, then a brand classifier for brands with at least `MIN_PER_BRAND` training images (30 in src/train_head.py; the 10 Oct plan said 100) and nearest-neighbour retrieval against the catalogue for the exact product, or "unknown". OCR on each crop (Apple Vision) is fused with the image score and reported as its own leaderboard row.
+- Crop, then a backbone (DINOv2 or SigLIP2) with a trained projection head, then a brand classifier for brands with at least `MIN_PER_BRAND` training images (30 in src/experiments/train_head.py; the 10 Oct plan said 100) and nearest-neighbour retrieval against the catalogue for the exact product, or "unknown". OCR on each crop (Apple Vision) is fused with the image score and reported as its own leaderboard row.
 - No distillation: Claude never labels training data. Training data comes from external sources, cleaned without a model where possible (for example OCR checks on in-the-wild brand photos).
 - Unknown thresholds and hyperparameters are tuned on a validation split of the external data, never on a test set.
 
 ## Ground truth is the answer, never an input
-The only input is photos. `data/labelled/`, `data/crops/labels.csv` and the bar test labels are read by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The leave-one-photo-out matcher (`src/match.py`, 97.6% recall) breaks this rule and is kept only as a record of what not to report.
+The only input is photos. `data/labelled/`, `data/crops/labels.csv` and the bar test labels are read by the scorer and nothing else: not as a reference library, not as a stock list in a prompt, not to pick which catalogue images to download. Pretrained models and broad external catalogues are fine as long as nothing in them was chosen by looking at our answers. The `data/reference/` packshots were picked from the answer list, so they are out. The leave-one-photo-out matcher (97.6% recall) broke this rule; its row stays in `data/results.csv`, marked invalid.
 
 ## Eval protocol
 - Kitchen set (`data/raw/`): 7 photos, 12 items, scored by `src/score.py`.

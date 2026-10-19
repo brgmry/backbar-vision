@@ -24,5 +24,5 @@ duckdb==1.5.6
 pyobjc-framework-Vision==12.2.2; sys_platform == 'darwin'  # Apple Vision OCR
 pyobjc-framework-Quartz==12.2.2; sys_platform == 'darwin'  # Apple Vision OCR
 
-# Not installed by default: mlx-vlm for the local VLM rows (src/identify_vlm.py, Apple silicon only);
-# src/synth/render.py runs inside Blender (bpy).
+# Not installed by default: mlx-vlm for the local VLM rows (src/experiments/identify_vlm.py, Apple silicon only);
+# src/experiments/synth/render.py runs inside Blender (bpy).

@@ -3,17 +3,20 @@
 Loss: supervised contrastive on brand (photos of the same brand pull together) + cross-entropy brand
 classifier over brands with at least MIN_PER_BRAND images. Validation = held-out 10% of products and
 of in-the-wild images, never a test set.
-Usage: python src/train_head.py   -> data/train/head.pt
+Usage: python src/experiments/train_head.py   -> data/train/head.pt
 """
 import csv
 import random
+import sys
 from collections import Counter, defaultdict
+from pathlib import Path
 
 import numpy as np
 import torch
 import torch.nn.functional as F
 
-from models import DEVICE
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from models import DEVICE  # noqa: E402
 
 SEED = 0
 MIN_PER_BRAND = 30  # training images a brand needs to get its own classifier output

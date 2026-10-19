@@ -7,9 +7,10 @@ Modes:
   ocr   brand from label text (Apple Vision OCR) matched against catalogue + top-brand names, exact product
         by head nearest neighbour within that brand; no readable brand -> head nearest neighbour
 Crops are re-cut from the full-resolution photo (the saved crops come from a 2400px copy).
-Usage: python src/identify_trained.py <mode> <photos_dir> <crops_dir> <out.csv>
+Usage: python src/experiments/identify_trained.py <mode> <photos_dir> <crops_dir> <out.csv>
 """
 import argparse
+import sys
 import tempfile
 from collections import defaultdict
 from pathlib import Path
@@ -17,7 +18,8 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from catalogue_match import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from catalogue_match import (  # noqa: E402
     brand_names,
     brand_only,
     full_res_crops,
@@ -26,9 +28,9 @@ from catalogue_match import (
     read_brand,
     write_predictions,
 )
-from embed import embed
-from schema import read_csv
-from train_head import Head
+from embed import embed  # noqa: E402
+from schema import read_csv  # noqa: E402
+from train_head import Head  # noqa: E402
 
 MODES = ("raw", "head", "cls", "ocr")
 

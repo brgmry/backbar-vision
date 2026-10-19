@@ -1,6 +1,6 @@
 """Run fill-level estimators on any identification output. Alcohol only by default; other rows come out null.
 
-The identification step is whatever wrote the predictions CSV (src/identify.py, src/match.py, ...), so
+The identification step is whatever wrote the predictions CSV (src/identify.py, src/experiments/identify_clip.py, ...), so
 identifiers and fill estimators swap independently. Each crop's bottle outline is computed once and shared by the
 crop check and every estimator.
 

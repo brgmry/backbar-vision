@@ -3,8 +3,8 @@
 gallery: one image per catalogue product (external data only). For each backbone:
   raw  nearest catalogue product by image
   ocr  brand from label text (if readable) then nearest product within that brand, else raw
-Usage: python src/compare_backbones.py embed <backbone>           -> data/train/gal_<bb>.npy (+ gal_<bb>_ok.npy)
-       python src/compare_backbones.py predict <backbone> <photos_dir> <crops_dir> <tag>
+Usage: python src/experiments/compare_backbones.py embed <backbone>           -> data/train/gal_<bb>.npy (+ gal_<bb>_ok.npy)
+       python src/experiments/compare_backbones.py predict <backbone> <photos_dir> <crops_dir> <tag>
                                                                    -> data/predictions_<tag>_<bb>_{raw,ocr}.csv
 """
 import argparse
@@ -19,8 +19,9 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-import backbones
-from catalogue_match import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+import backbones  # noqa: E402
+from catalogue_match import (  # noqa: E402
     brand_names,
     brand_only,
     full_res_crops,
@@ -29,8 +30,8 @@ from catalogue_match import (
     read_brand,
     write_predictions,
 )
-from schema import read_csv
-from train_index import key
+from schema import read_csv  # noqa: E402
+from train_index import key  # noqa: E402
 
 # GALLERY=v2 adds the OCR-verified real-world brand photos (brand-level entries) to the catalogue gallery
 V = os.environ.get("GALLERY", "v1")

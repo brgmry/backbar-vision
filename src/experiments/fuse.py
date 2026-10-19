@@ -4,9 +4,10 @@
   ocr    label text read by Apple Vision naming a brand (overrides when present)
 Signals are z-scored per crop across brands and added with fixed, untuned weights.
 The gallery follows GALLERY like compare_backbones.py, and its embeddings come from `compare_backbones.py embed`.
-Usage: python src/fuse.py <photos_dir> <crops_dir> <tag>   -> data/predictions_<tag>_siglip2_fuse.csv
+Usage: python src/experiments/fuse.py <photos_dir> <crops_dir> <tag>   -> data/predictions_<tag>_siglip2_fuse.csv
 """
 import argparse
+import sys
 import tempfile
 from collections import defaultdict
 from pathlib import Path
@@ -15,11 +16,12 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoModel, AutoProcessor
 
-from backbones import BACKBONES
-from catalogue_match import brand_names, full_res_crops, keep_best, ocr_texts, read_brand, write_predictions
-from compare_backbones import embed_paths, gallery
-from models import DEVICE
-from schema import read_csv
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from backbones import BACKBONES  # noqa: E402
+from catalogue_match import brand_names, full_res_crops, keep_best, ocr_texts, read_brand, write_predictions  # noqa: E402
+from compare_backbones import embed_paths, gallery  # noqa: E402
+from models import DEVICE  # noqa: E402
+from schema import read_csv  # noqa: E402
 
 BB = "siglip2"
 W_IMAGE = 1.0

@@ -4,7 +4,7 @@ Each render: one hero bottle (label wrapped on a generic shape chosen from the s
 distractor bottles around it, lit by a random indoor HDRI, random camera, fill level, glass tint and depth of field.
 The output is a crop-like portrait image of the hero bottle, the same shape as a detector crop from a bar photo.
 
-Usage: blender -b -P src/synth/render.py -- <labels.csv> <out_dir> <per_label> <shard> <n_shards>
+Usage: blender -b -P src/experiments/synth/render.py -- <labels.csv> <out_dir> <per_label> <shard> <n_shards>
 """
 import csv
 import math

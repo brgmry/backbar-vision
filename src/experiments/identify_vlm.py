@@ -1,12 +1,13 @@
 """Open-weight VLM baseline, run locally with MLX. Same prompt and output schema as identify.py.
 
-Usage: python src/identify_vlm.py --model mlx-community/Qwen3-VL-8B-Instruct-8bit [--runs 1] [--folder data/raw] [--out ...]
+Usage: python src/experiments/identify_vlm.py --model mlx-community/Qwen3-VL-8B-Instruct-8bit [--runs 1] [--folder data/raw] [--out ...]
        -> data/predictions_vlm_<model-short>.csv
 """
 import argparse
 import csv
 import json
 import re
+import sys
 import tempfile
 import time
 from pathlib import Path
@@ -14,8 +15,9 @@ from typing import get_args
 
 from pydantic import ValidationError
 
-from identify import PRED_FIELDS, PROMPT, SEND_SIDE, Bottle
-from photos import EXTS, open_photo
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from identify import PRED_FIELDS, PROMPT, SEND_SIDE, Bottle  # noqa: E402
+from photos import EXTS, open_photo  # noqa: E402
 
 FIELDS = list(Bottle.model_fields)
 SCHEMA_HINT = """

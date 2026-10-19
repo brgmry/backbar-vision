@@ -5,8 +5,8 @@ from our ground truth). Sources: Wikimedia Commons, Openverse, DuckDuckGo/Bing i
 Output: data/external/wild/<slug>/<n>.jpg + data/external/wild/manifest.csv.
 Needs CONTACT_EMAIL in .env (it goes in the User-Agent).
 
-usage: python src/collect_wild.py [max_brands] [per_brand]
-       python src/collect_wild.py merge   (rebuild manifest.csv from the per-brand manifests)
+usage: python src/experiments/collect_wild.py [max_brands] [per_brand]
+       python src/experiments/collect_wild.py merge   (rebuild manifest.csv from the per-brand manifests)
 """
 import argparse
 import csv
@@ -26,7 +26,7 @@ from PIL import Image
 
 from contact import user_agent
 
-ROOT = Path(__file__).resolve().parents[1] / "data" / "external"
+ROOT = Path(__file__).resolve().parents[2] / "data" / "external"
 OUT = ROOT / "wild"
 MIN_SIDE, MAX_SIDE = 200, 1024
 MAX_BYTES = 15_000_000  # a bigger download is not a photo we want

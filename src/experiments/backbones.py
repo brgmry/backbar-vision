@@ -5,12 +5,16 @@ Every backbone sees the image padded to a white square first, so a tall bottle i
 pad=False keeps the model's own resize and centre crop instead: data/train/feats.npy, the trained head and the
 leave-one-photo-out matcher were built that way, so their numbers only hold with the same features.
 """
+import sys
+from pathlib import Path
+
 import torch
 import torch.nn.functional as F
 from PIL import Image, ImageFile
 from torch.utils.data import Dataset
 
-from models import DEVICE
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from models import DEVICE  # noqa: E402
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True  # some catalogue downloads are cut short; DataLoader workers import this too
 BACKBONES = {

@@ -1,13 +1,14 @@
 """Local zero-shot baseline, no VLM: OWLv2 crops (detect.py) + SigLIP2 zero-shot over a generic product list.
 
-The label list is src/products_generic.py (best-selling brands and kitchen staples, written without
+The label list is src/experiments/products_generic.py (best-selling brands and kitchen staples, written without
 looking at the inventory). Crops closest to a clutter prompt are dropped. Same output schema as identify.py.
 
-Usage: python src/identify_clip.py [data/raw] [--model google/siglip2-so400m-patch14-384]
+Usage: python src/experiments/identify_clip.py [data/raw] [--model google/siglip2-so400m-patch14-384]
        -> data/predictions_clip_siglip2.csv
 """
 import argparse
 import csv
+import sys
 import time
 from pathlib import Path
 
@@ -15,11 +16,12 @@ import torch
 from PIL import Image
 from transformers import AutoModel, AutoProcessor
 
-import detect
-from boxes import DETECT_SIDE, resized_scale
-from identify import PRED_FIELDS, Bottle
-from photos import EXTS
-from products_generic import CLUTTER, products
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+import detect  # noqa: E402
+from boxes import DETECT_SIDE, resized_scale  # noqa: E402
+from identify import PRED_FIELDS, Bottle  # noqa: E402
+from photos import EXTS  # noqa: E402
+from products_generic import CLUTTER, products  # noqa: E402
 
 TEMPLATES = ["a photo of a bottle of {}.", "a product photo of {}, {}."]
 MIN_BOX = 8  # px in the detector's copy: thinner boxes are slivers, not bottles

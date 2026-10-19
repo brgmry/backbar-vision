@@ -1,6 +1,6 @@
 """Collect retail product catalogues (images + metadata) for pre-training.
 
-Usage: python src/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]
+Usage: python src/experiments/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]
 
 Whole categories only, never selected by data/labelled/. Resume-safe: products
 whose image dir is complete are skipped, metadata pages are cached in meta.jsonl.
@@ -13,6 +13,7 @@ import io
 import json
 import random
 import re
+import sys
 import threading
 import time
 from pathlib import Path
@@ -21,10 +22,11 @@ from urllib.parse import urlparse
 import requests
 from PIL import Image
 
-from contact import user_agent
-from schema import TO_ML
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from contact import user_agent  # noqa: E402
+from schema import TO_ML  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent / "data" / "external"
+ROOT = Path(__file__).resolve().parents[2] / "data" / "external"
 FIELDS = ["source", "product_id", "brand", "name", "category", "volume_ml", "abv", "url", "image_urls"]
 IMAGE_ERRORS = (OSError, ValueError, Image.DecompressionBombError)  # what a bad image download raises in PIL
 PRODUCT_ERRORS = (requests.RequestException, KeyError, *IMAGE_ERRORS)  # one product fails, the run goes on

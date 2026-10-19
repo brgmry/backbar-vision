@@ -5,8 +5,8 @@ both the whole photo and the most confident OWLv2 bottle crop. Never used to bui
 Galleries: catalogue images (OFF, retailers, etc.), flat TTB labels, renders, catalogue + renders.
 Score: top-1 brand among the rendered brands (max cosine per brand), SigLIP2.
 
-Usage: python src/synth/eval_synth.py crops   (once: OWLv2 crops of the queries)
-       python src/synth/eval_synth.py         -> table, appended to data/synth/results.txt
+Usage: python src/experiments/synth/eval_synth.py crops   (once: OWLv2 crops of the queries)
+       python src/experiments/synth/eval_synth.py         -> table, appended to data/synth/results.txt
 """
 import sys
 from functools import cache
@@ -15,7 +15,8 @@ from pathlib import Path
 import numpy as np
 import torch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, run as a script from the repo root
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # src/, for the shared helpers
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/experiments/
 from boxes import padded_crop  # noqa: E402
 from catalogue_match import CROP_PAD  # noqa: E402
 from compare_backbones import embed_paths  # noqa: E402

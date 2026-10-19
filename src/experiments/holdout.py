@@ -6,7 +6,7 @@ from pathlib import Path
 import imagehash
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 TEST_HASHES = ROOT / "data/test_bars/phashes.txt"
 MAX_PHASH_DIST = 6  # at or under this pHash distance two images are the same photo, resized or recompressed
 READ_ERRORS = (OSError, ValueError, Image.DecompressionBombError)

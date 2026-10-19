@@ -9,18 +9,20 @@ Columns: group is the coarse bar category (spirit, liqueur, wine, beer, mixer, o
 finer category text. gallery 1 = usable as a reference image of a known product, 0 = training only.
 Every image within pHash distance holdout.MAX_PHASH_DIST of a bar test photo is left out, whatever its source;
 the ones left out are listed in data/train/test_overlap.csv.
-Usage: python src/train_index.py   -> data/train/index.csv (writes beerbb crops on first run)
+Usage: python src/experiments/train_index.py   -> data/train/index.csv (writes beerbb crops on first run)
 """
 import csv
 import json
 import re
+import sys
 import unicodedata
 from collections import Counter
 from multiprocessing import Pool
 from pathlib import Path
 
-from holdout import MAX_PHASH_DIST, image_phash, test_distance, test_hashes
-from schema import read_csv
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+from holdout import MAX_PHASH_DIST, image_phash, test_distance, test_hashes  # noqa: E402
+from schema import read_csv  # noqa: E402
 
 EXT = Path("data/external")
 OUT = Path("data/train")

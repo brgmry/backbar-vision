@@ -4,7 +4,7 @@ Selection is by OFF category tags only, never by our inventory.
 Input:  data/external/off_alcohol/raw/food.parquet (HF openfoodfacts/product-database)
 Output: data/external/off_alcohol/products.csv, one row per product,
         plus images.csv, one row per image to fetch (code, kind, name, url).
-Usage: python src/external/off_select.py [max_other]   (cap on non-front images per product, default no cap)
+Usage: python src/experiments/external/off_select.py [max_other]   (cap on non-front images per product, default no cap)
 """
 import argparse
 import csv
@@ -13,7 +13,7 @@ from pathlib import Path
 
 import duckdb
 
-ROOT = Path(__file__).resolve().parents[2] / "data/external/off_alcohol"
+ROOT = Path(__file__).resolve().parents[3] / "data/external/off_alcohol"
 SRC = ROOT / "raw/food.parquet"
 BASE = "https://images.openfoodfacts.org/images/products"
 

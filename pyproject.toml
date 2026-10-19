@@ -3,6 +3,7 @@
 [tool.ruff]
 line-length = 120
 extend-exclude = ["vendor", "notebooks"]
+src = ["src", "src/experiments"]  # first-party imports for isort
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "B", "SIM", "UP", "BLE", "PIE", "RET", "C4", "I"]

@@ -2,10 +2,10 @@
 ## wild/ : in-the-wild bottle photos by brand (pre-training only)
 
 - `brands.csv`: ~400 spirits/liqueur brands with source citations (Drinks International Millionaires' Club and Brands Report, The Spirits Business Brand Champions, IWSR, CGA UK on-trade lists). Compiled from those rankings, **not** from `data/labelled/`. Our ground truth was never opened to build it. Citations are list-level, compiled from memory of 2023-2025 editions, not scraped tables.
-- `wild/<slug>/<n>.jpg`: up to 60 photos per brand for the 300 most-cited brands. Longest side <= 1024px, min side >= 200px. Collector: `src/collect_wild.py [max_brands] [per_brand]`, which needs `CONTACT_EMAIL` in `.env` (resumable, `_done` marker per brand; `merge` rebuilds the manifest).
+- `wild/<slug>/<n>.jpg`: up to 60 photos per brand for the 300 most-cited brands. Longest side <= 1024px, min side >= 200px. Collector: `src/experiments/collect_wild.py [max_brands] [per_brand]`, which needs `CONTACT_EMAIL` in `.env` (resumable, `_done` marker per brand; `merge` rebuilds the manifest).
 - Sources in priority order: Wikimedia Commons (search API, free licences), Openverse (CC, anon limit 200 req/day so roughly the first 180 brands only), DuckDuckGo image search via `ddgs` (queries `<brand> bottle bar|cocktail|hand`, licence unknown). No Flickr key in env, so Flickr direct was skipped (Openverse returns Flickr CC images anyway).
 - `wild/manifest.csv`: brand, slug, file, source, url, page, licence, w, h, phash.
-- Dedup: pHash, Hamming <= 6 within a brand, <= 2 across brands. Images within distance 6 of `data/test_bars/phashes.txt` are moved to `wild/_test_overlap/` by `src/drop_test_overlap.py`, and `src/train_index.py` drops any training image from any source within that distance (listed in `data/train/test_overlap.csv`).
+- Dedup: pHash, Hamming <= 6 within a brand, <= 2 across brands. Images within distance 6 of `data/test_bars/phashes.txt` are moved to `wild/_test_overlap/` by `src/experiments/drop_test_overlap.py`, and `src/experiments/train_index.py` drops any training image from any source within that distance (listed in `data/train/test_overlap.csv`).
 - Labels are **weak**: brand = the search query. Many images show several brands on a shelf, some are packshots or watermarked stock. Use for contrastive pre-training or with a detector crop + filter, not as clean classification labels. Licence "unknown" (DDG) images are for internal research use only, never redistribute.
 
 ## winesensed/ : WineSensed (Vivino user photos of wine labels), all 24 shards
@@ -41,24 +41,24 @@
 
 - Source: https://huggingface.co/datasets/spacenship/whiskeyClassification (DGIST summer intern project, 2025). **No licence or card**: internal research only.
 - Repo is 81 GB of PNG. We take only `dataset/` (the YOLO-style split): 20 classes, 350 train / 100 val / 50 test images per class, 10,000 images with YOLO `labels/<split>/*.txt`, plus `labeling.py`. Skipped: the `labels/<name>/` raw-frame tree (12 classes, ~26k PNG, 58 GB), which duplicates the same videos.
-- PNGs (22.6 GB) converted in place to JPEG q95 (`src/external/png_to_jpg.py`): 10,000 images, 3.9 GB on disk. Layout `dataset/images/{train,val,test}/<classid>_NNNN.jpg`, `dataset/labels/<split>/<same>.txt`.
+- PNGs (22.6 GB) converted in place to JPEG q95 (`src/experiments/external/png_to_jpg.py`): 10,000 images, 3.9 GB on disk. Layout `dataset/images/{train,val,test}/<classid>_NNNN.jpg`, `dataset/labels/<split>/<same>.txt`.
 - The YOLO `.txt` files are **not identity labels**: each line is `39 0 cx cy w h` (COCO class 39 = bottle, apparently detector output), one box per bottle. Identity comes only from the filename prefix via `classes.csv`. Use the boxes to crop.
 - **Class mapping** `classes.csv`: file prefix `N_` is `whiskey_list.index(name) + 1` from the repo's `makeDataset.py`. Verified for 12 of 20 classes by matching LFS sha256 of `dataset/images` files against the named `labels/<name>/` tree (all 500 images per class matched). The other 8 (ardbeg 5, ardbeg 10, balvenie 12/14, glendronach 12/15, glenfiddich 12/15) rely on the script only.
 - `makeDataset.py` keeps every 5th of each class's sequentially numbered captures, so near-duplicates within a class are common: split by class or video, not by frame, for any eval.
-- Fetch: `set -a; . ./.env; set +a; hf download spacenship/whiskeyClassification --repo-type dataset --local-dir data/external/whiskey-classification --include "dataset/*" --include "labeling.py"`, then `python src/external/png_to_jpg.py data/external/whiskey-classification/dataset`.
+- Fetch: `set -a; . ./.env; set +a; hf download spacenship/whiskeyClassification --repo-type dataset --local-dir data/external/whiskey-classification --include "dataset/*" --include "labeling.py"`, then `python src/experiments/external/png_to_jpg.py data/external/whiskey-classification/dataset`.
 - Brands chosen by the dataset author, not by us. Check overlap with our inventory only when scoring, never filter on it.
 
 ## ttb-cola-spirits/ : US TTB COLA public registry label images (spirits)
 
 - Source: https://ttbonline.gov/colasonline/publicSearchColasBasic.do (US Treasury TTB Certificate of Label Approval registry). US government public record; label artwork copyright stays with the brand owner, so internal research only.
-- Method (`src/external/ttb_cola.py`, resumable): basic search, CSV export (`publicSaveSearchResultsToFile.do`, capped at 1,000 rows per query) over 1-week windows every 4 weeks from Jan 2024, class/type ranges 100-699 (whisky, gin, vodka, rum, brandy, liqueurs, specialties) and 977-983 (tequila, mezcal, agave, sake). 4,003 COLAs listed, 3,000 sampled at random (seed 0) into `index.csv`. Per COLA: open `viewColaDetails.do?action=publicFormDisplay&ttbid=...` then fetch every `publicViewAttachment.do?filename=...&filetype=l` image in the same session.
+- Method (`src/experiments/external/ttb_cola.py`, resumable): basic search, CSV export (`publicSaveSearchResultsToFile.do`, capped at 1,000 rows per query) over 1-week windows every 4 weeks from Jan 2024, class/type ranges 100-699 (whisky, gin, vodka, rum, brandy, liqueurs, specialties) and 977-983 (tequila, mezcal, agave, sake). 4,003 COLAs listed, 3,000 sampled at random (seed 0) into `index.csv`. Per COLA: open `viewColaDetails.do?action=publicFormDisplay&ttbid=...` then fetch every `publicViewAttachment.do?filename=...&filetype=l` image in the same session.
 - Layout: `index.csv` (TTB ID, permit, serial, completed date, fanciful name, brand name, origin, class/type code + description), `images.csv` (ttb_id, file, original filename, which often says FRONT/BACK/NECK), `images/<ttbid>_<k>.<ext>`.
 - These are flat label artwork (front, back, neck), not photos of bottles. Good for label-text/logo embedding pre-training and synthetic compositing onto bottle renders.
-- Rate: the server is slow (~80 KB/s per connection), so ~10 COLAs/min with 8 workers and 0.5 s sleeps. It was still running at hand-off; rerun the same command to resume: `.venv/bin/python src/external/ttb_cola.py 3000`.
+- Rate: the server is slow (~80 KB/s per connection), so ~10 COLAs/min with 8 workers and 0.5 s sleeps. It was still running at hand-off; rerun the same command to resume: `.venv/bin/python src/experiments/external/ttb_cola.py 3000`.
 
 ## retail_<source>/ : retailer product catalogues (pre-training only)
 
-Collector: `src/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]`. Whole catalogues in seeded random order, never filtered by `data/labelled/`. Resume-safe (skips product_ids already in `products.csv`; re-run continues). Max 1 request/second per host, 3 worker threads, UA `bottle-vision-hackathon/0.1 (<CONTACT_EMAIL from .env>)`. Logs in `retail_<source>.log`.
+Collector: `src/experiments/collect_retail.py <saq|systembolaget|drinkfinder> [--minutes N]`. Whole catalogues in seeded random order, never filtered by `data/labelled/`. Resume-safe (skips product_ids already in `products.csv`; re-run continues). Max 1 request/second per host, 3 worker threads, UA `bottle-vision-hackathon/0.1 (<CONTACT_EMAIL from .env>)`. Logs in `retail_<source>.log`.
 
 Layout per source: `img/<product_id>/<n>.jpg` (RGB JPEG, transparent backgrounds flattened to white, n = gallery position) and `products.csv` (source, product_id, brand, name, category, volume_ml, abv, url, image_urls; image_urls space-separated). Images are clean studio packshots, mostly front-only: use as a domain-gap complement to bar photos, not a substitute.
 
@@ -113,11 +113,11 @@ The Whisky Exchange and Total Wine (403 to a polite UA), Master of Malt (429), M
 ## off_alcohol/ : Open Food Facts bar products (pre-training only)
 
 - Source: Open Food Facts full dump, Hugging Face `openfoodfacts/product-database` `food.parquet` (4.79M products, pulled 10 Oct 2026). Images from `images.openfoodfacts.org`. Licence: database ODbL, images CC BY-SA 3.0 (attribute "Open Food Facts contributors").
-- Selection by OFF category tags only, never by `data/labelled/`. Alcohol: alcoholic-beverages, distilled-beverages, artisanal-spirits, liqueurs, wines (incl. sparkling, fortified, champagne, prosecco), beers (lagers, stouts), ciders, hard seltzer, whisky, vodka, gins, rums, tequilas, cognac, brandys, vermouth, aperitif, sherry. Mixers: tonic, sodas, colas, lemonades, carbonated waters, ginger beer/ale, bitters, cocktail mixers, alcohol-free cocktails/beer/wine. Plain still water and squash syrups excluded. Exact lists in `src/external/off_select.py`.
+- Selection by OFF category tags only, never by `data/labelled/`. Alcohol: alcoholic-beverages, distilled-beverages, artisanal-spirits, liqueurs, wines (incl. sparkling, fortified, champagne, prosecco), beers (lagers, stouts), ciders, hard seltzer, whisky, vodka, gins, rums, tequilas, cognac, brandys, vermouth, aperitif, sherry. Mixers: tonic, sodas, colas, lemonades, carbonated waters, ginger beer/ale, bitters, cocktail mixers, alcohol-free cocktails/beer/wine. Plain still water and squash syrups excluded. Exact lists in `src/experiments/external/off_select.py`.
 - Counts: 57,197 products (36,083 alcohol, 21,114 mixer), 249,095 images, 5.4 GB. UK-tagged: 2,507 products (4.4%), 13,409 images. Any country.
 - `products.csv`: code, brands, product_name, quantity, categories, countries, group (alcohol|mixer), uk, n_images, image_ids.
 - `images.csv`: code, name, url (every image fetched).
 - `img/<code>/front_<lang>.jpg`: the selected, cropped front photo per language (62,156 total). `img/<code>/<imgid>.jpg`: every raw upload (other views, back labels, shelf shots). All at the 400px size.
 - `raw/food.parquet`: the 7.9 GB source dump, kept so selection can be re-run.
-- Rebuild: `python src/external/off_select.py` then `python src/external/off_download.py 16` (resume-safe, UK first).
+- Rebuild: `python src/experiments/external/off_select.py` then `python src/experiments/external/off_download.py 16` (resume-safe, UK first).
 - Labels are crowd-sourced: brands/categories are noisy, and some "front" crops are wrong or show a multipack. Raw images include ingredient/nutrition panels, not just the bottle. Same barcode can be different vintages or label redesigns.

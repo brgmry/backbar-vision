@@ -5,19 +5,20 @@ only (no model): old boxes that sit mostly inside the new box, or the old box th
 whose overlapping old boxes disagree on the item, or that overlaps none, gets -1 (excluded from scoring).
 These labels are derived, not hand-made: eyeball data/crops_whole/sheets/ before trusting them.
 
-Usage: python src/recut_crops.py   -> data/crops_whole/<photo>/<n>.jpg, boxes.csv, labels.csv, sheets/
-Then:  CROPS=data/crops_whole python src/match.py 3
+Usage: python src/experiments/recut_crops.py   -> data/crops_whole/<photo>/<n>.jpg, boxes.csv, labels.csv, sheets/
 """
 import csv
+import sys
 from collections import defaultdict
 from pathlib import Path
 
 from PIL import ImageDraw
 
-import detect
-from boxes import area_xyxy, intersection_xyxy
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # src/, for the shared helpers
+import detect  # noqa: E402
+from boxes import area_xyxy, intersection_xyxy  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 OLD, OUT = ROOT / "data/crops", ROOT / "data/crops_whole"
 INSIDE = 0.6  # share of a box's area that must lie inside the other box
 AMBIGUOUS = 0.25  # a second item holding this share of the top item's overlap makes the label ambiguous

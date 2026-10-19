@@ -1,4 +1,4 @@
-"""DINOv2 image embeddings, L2-normalised, for the leave-one-photo-out matcher (match.py) and the trained head
+"""DINOv2 image embeddings, L2-normalised, for the trained head
 (identify_trained.py). The model loads on the first call, not on import.
 
 These keep DINOv2's own resize and centre crop and run in float32, as they always have: the head was trained on

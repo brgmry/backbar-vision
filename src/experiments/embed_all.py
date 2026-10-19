@@ -1,7 +1,7 @@
 """Embed every image in a CSV index with DINOv2 (CLS, L2-normalised, float16), with the model's own resize and
 centre crop: the features the trained head (train_head.py) learns from and identify_trained.py compares against.
 
-Usage: python src/embed_all.py data/train/index.csv data/train/feats.npy   (also writes feats_ok.npy)
+Usage: python src/experiments/embed_all.py data/train/index.csv data/train/feats.npy   (also writes feats_ok.npy)
 """
 import argparse
 import csv
