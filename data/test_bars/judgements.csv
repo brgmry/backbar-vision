@@ -1,0 +1,44 @@
+photo,item_id,box,claude_answer,ours_answer,a_is,verdict,judge,timestamp
+bar_05.jpg,bar_05-c-o32,"[1945, 363, 53, 249]",,Fernandes | Cream Ginger | 33 cl,ours,neither,Allen,2026-10-10T19:56:04+00:00
+bar_01.jpg,bar_01-c19-o,"[1177, 440, 38, 145]",Unknown | Red Wine | 750 ml,,claude,a,Allen,2026-10-10T19:56:08+00:00
+bar_04.jpg,bar_04-c-o26,"[1582, 575, 78, 189]",,"TALISKER | Single Malt Scotch Whisky, | 70cl",ours,a,Allen,2026-10-10T19:56:14+00:00
+bar_02.jpg,bar_02-c13-o,"[0, 1071, 83, 319]",Unknown | Gin | 700 ml,,claude,a,Allen,2026-10-10T19:56:17+00:00
+bar_03.jpg,bar_03-c69-o,"[1113, 645, 48, 120]",Sourz | Mango | 700 ml,,claude,a,Allen,2026-10-10T19:56:19+00:00
+bar_05.jpg,bar_05-c-o19,"[1059, 781, 87, 267]",,Samichlaus | Classic | 0.75 l,ours,a,Allen,2026-10-10T19:56:20+00:00
+bar_01.jpg,bar_01-c15-o,"[1020, 440, 35, 145]",Unknown | Red Wine | 750 ml,,claude,a,Allen,2026-10-10T19:56:21+00:00
+bar_04.jpg,bar_04-c-o28,"[1654, 381, 52, 145]",,Badger | Tangle Foot | 500 ml,ours,neither,Allen,2026-10-10T19:56:28+00:00
+bar_02.jpg,bar_02-c-o18,"[971, 1089, 89, 95]",,MIAMI Soul | MIAMI Soul | 250 ml,ours,neither,Allen,2026-10-10T19:56:29+00:00
+bar_03.jpg,bar_03-c76-o,"[900, 560, 40, 142]",Unknown | Liqueur | 700 ml,,claude,a,Allen,2026-10-10T19:56:32+00:00
+bar_05.jpg,bar_05-c14-o,"[1448, 1008, 96, 240]",Bulleit | Bourbon | 750 ml,,claude,a,Allen,2026-10-10T19:56:34+00:00
+bar_01.jpg,bar_01-c12-o,"[858, 455, 45, 135]",Sourz | Unknown | 700 ml,,claude,a,Allen,2026-10-10T19:56:35+00:00
+bar_04.jpg,bar_04-c1-o3,"[48, 728, 146, 232]",Chambord | Black Raspberry Liqueur | 700 ml,Brasserie Galibier | Snowball | 33 cl,ours,b,Allen,2026-10-10T19:56:55+00:00
+bar_02.jpg,bar_02-c14-o3,"[29, 1129, 115, 290]",Unknown | Rum | 700 ml,Gordon's | Gin Gordon's | 1l,claude,cant_tell,Allen,2026-10-10T19:57:09+00:00
+bar_03.jpg,bar_03-c45-o60,"[1112, 393, 51, 133]",Kraken | Black Spiced Rum | 700 ml,Dead Man's Fingers,claude,b,Allen,2026-10-10T19:57:15+00:00
+bar_05.jpg,bar_05-c7-o9,"[580, 950, 86, 298]",The Glenlivet | 12 Year Old | 750 ml,Glenkinchie | Glenkinchie Distillers Edition 2008 70cl | 700 ml,ours,b,Allen,2026-10-10T19:57:18+00:00
+bar_01.jpg,bar_01-c35-o19,"[1140, 215, 50, 156]",Archers | Peach Schnapps | 1000 ml,Aperol | Apéros Apéritif Italien 15* | 70cl,claude,neither,Allen,2026-10-10T19:57:25+00:00
+bar_04.jpg,bar_04-c15-o20,"[1298, 624, 106, 348]",L'Heritier-Guyot | Creme de Cassis | 700 ml,L’HERITIER-GUYON | Crème de Cassis | 700ml,claude,a,Allen,2026-10-10T19:58:21+00:00
+bar_02.jpg,bar_02-c11-o,"[1105, 568, 202, 376]",Jack Daniel's | Tennessee Fire | 700 ml,,claude,a,Allen,2026-10-10T19:58:24+00:00
+bar_03.jpg,bar_03-c-o24,"[483, 799, 38, 27]",,Badger | Tangle Foot | 500 ml,ours,neither,Allen,2026-10-10T19:58:28+00:00
+bar_05.jpg,bar_05-c12-o22,"[1221, 987, 108, 264]",Knob Creek | Kentucky Straight Bourbon | 750 ml,Knob Creek | Knob Creek kentucky straight bourbon Whiskey Small batch | 700 ml,ours,a,Allen,2026-10-10T19:58:34+00:00
+bar_01.jpg,bar_01-c10-o,"[743, 455, 50, 140]",Sourz | Cherry | 700 ml,,claude,a,Allen,2026-10-10T19:58:42+00:00
+bar_04.jpg,bar_04-c20-o9,"[754, 408, 72, 263]",Unknown | Liqueur | 750 ml,Captain Morgan | Original Spiced Rum | 1.75 L,claude,a,Allen,2026-10-10T19:58:51+00:00
+bar_02.jpg,bar_02-c-o9,"[242, 762, 76, 26]",,Badger | Tangle Foot | 500 ml,ours,neither,Allen,2026-10-10T19:58:59+00:00
+bar_03.jpg,bar_03-c-o54,"[982, 912, 32, 83]",,"COCA-COLA SERVICES SA/NV | fanta Orange 0,33 | 330 ml",ours,neither,Allen,2026-10-10T19:59:05+00:00
+bar_05.jpg,bar_05-c-o33,"[1949, 994, 51, 255]",,Coca-Cola | Coca-cola,ours,neither,Allen,2026-10-10T19:59:07+00:00
+bar_01.jpg,bar_01-c14-o,"[960, 478, 40, 110]",Tia Maria | Coffee Liqueur | 700 ml,,claude,neither,Allen,2026-10-10T19:59:20+00:00
+bar_04.jpg,bar_04-c-o13,"[941, 461, 37, 168]",,Coca-Cola | Coca-cola,ours,neither,Allen,2026-10-10T19:59:23+00:00
+bar_02.jpg,bar_02-c-o1,"[0, 1427, 67, 71]",,Orangina | Orangina | 33 cl e,ours,neither,Allen,2026-10-10T19:59:26+00:00
+bar_03.jpg,bar_03-c-o27,"[523, 800, 23, 21]",,Orangina | Orangina | 33 cl e,ours,neither,Allen,2026-10-10T19:59:27+00:00
+bar_05.jpg,bar_05-c25-o,"[1658, 816, 89, 191]",Tullamore D.E.W. | Original | 750 ml,,claude,a,Allen,2026-10-10T19:59:31+00:00
+bar_01.jpg,bar_01-c-o11,"[589, 702, 179, 62]",,Pepsi | Pepsi,ours,a,Allen,2026-10-10T19:59:33+00:00
+bar_04.jpg,bar_04-c-o23,"[1396, 381, 53, 241]",,Captain Morgan | Captain Morgan Rum | 700 mL,ours,cant_tell,Allen,2026-10-10T19:59:40+00:00
+bar_02.jpg,bar_02-c16-o6,"[140, 1148, 131, 320]",Unknown | Pink Gin | 700 ml,Artic Brands Group | Artic Blue Gin | 500ml,claude,a,Allen,2026-10-10T20:00:03+00:00
+bar_03.jpg,bar_03-c-o13,"[343, 596, 25, 68]",,"Rosbacher | MARTIN HILSHEIMER | 0,75 l",ours,cant_tell,Allen,2026-10-10T20:00:07+00:00
+bar_05.jpg,bar_05-c-o12,"[628, 913, 54, 179]",,alhambra | Alhambra,ours,cant_tell,Allen,2026-10-10T20:00:09+00:00
+bar_01.jpg,bar_01-c34-o,"[1090, 230, 40, 135]",Martini | Rosso | 1000 ml,,claude,cant_tell,Allen,2026-10-10T20:00:13+00:00
+bar_04.jpg,bar_04-c9-o,"[832, 670, 57, 293]",Branca Menta | Menta | 750 ml,,claude,a,Allen,2026-10-10T20:00:23+00:00
+bar_02.jpg,bar_02-c-o2,"[1, 790, 40, 178]",,Coca-Cola | Huevo,ours,neither,Allen,2026-10-10T20:00:25+00:00
+bar_03.jpg,bar_03-c65-o,"[870, 645, 46, 120]",Sourz | Apple | 700 ml,,claude,a,Allen,2026-10-10T20:00:28+00:00
+bar_05.jpg,bar_05-c18-o31,"[1854, 957, 105, 293]",Angel's Envy | Port Finish Bourbon | 750 ml,Baileys | Baileys liquor,claude,a,Allen,2026-10-10T20:00:37+00:00
+bar_01.jpg,bar_01-c2-o1,"[115, 437, 49, 189]",Antica | Sambuca Red | 700 ml,Pampero | Pampero Seleccion,claude,cant_tell,Allen,2026-10-10T20:00:44+00:00
+bar_04.jpg,bar_04-c18-o27,"[1582, 394, 94, 282]",Wild Turkey | 101 Bourbon | 1000 ml,Wild Turkey | Wild Turkey Bourbon 70cl | 700 ml,ours,a,Allen,2026-10-10T20:00:59+00:00

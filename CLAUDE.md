@@ -35,6 +35,7 @@ The only input is photos. `data/labelled/`, `data/crops/labels.csv` and the bar 
 ## Eval protocol
 - Kitchen set (`data/raw/`): 7 photos, 12 items, scored by `src/score.py`.
 - Bar test set (`data/test_bars/`): 82 real bar photos from web search (bar_01 to bar_34 from DuckDuckGo, bar_35 to bar_82 from Wikimedia Commons with licence, author and an easy/medium/hard tier in `manifest.csv`). Labelled by people only, never by a model, since the baseline is a model. Never used for training: any training image within phash distance 6 of `data/test_bars/phashes.txt` is dropped.
+- Judged answers on bar_01 to bar_05: `data/test_bars/card_verdicts.csv`, scored by `src/score_judged.py`. Rows by the judge `claude-opus-5-5` are a cross-check: always report them apart from human verdicts and say a model judged them.
 - Fill: measured labels only (poured or weighed), never model-made. Report the error in points of bottle size and the share of bottles answered.
 - Report item recall, brand recall and bar recall (spirits, liqueurs, wine, beer, mixers). Size, category and liquid only count when something actually predicts them.
 - Thresholds and prompts are tuned on our own kitchen and pour photos, never on a test set.

@@ -1,0 +1,380 @@
+card,photo,pair,system,text,brand_given,judge,verdict,note
+eaf604d3fefc,bar_01.jpg,bar_01-c-o10,ours,Angelo Poretti,yes,claude-opus-5-5,cant_tell,"tiny purple blur, nothing readable"
+1046dc0c008e,bar_01.jpg,bar_01-c-o11,ours,Pepsi,yes,claude-opus-5-5,cant_tell,"Pepsi-branded display with row of green-capped bottles, no single bottle identifiable"
+ef16becd3a26,bar_01.jpg,bar_01-c-o13,ours,Modelo Negra,yes,claude-opus-5-5,wrong,"row of blue and green bottles with silver necks, not brown gold-foil Modelo"
+07919bdd1985,bar_01.jpg,bar_01-c-o14,ours,Eco,yes,Allen,cant_tell,
+07919bdd1985,bar_01.jpg,bar_01-c-o14,ours,Eco,yes,claude-opus-5-5,cant_tell,"tiny blurred pinkish patch, no bottle detail"
+4dcf4b85e51d,bar_01.jpg,bar_01-c-o17,ours,Ratz,yes,claude-opus-5-5,cant_tell,"tiny blurred patch, no bottle detail"
+26359776b70c,bar_01.jpg,bar_01-c-o2,ours,Mission Passion-Technique Premium Lager World 2018,yes,claude-opus-5-5,cant_tell,"tiny red blur, nothing readable"
+2d1a6e525ab7,bar_01.jpg,bar_01-c-o20,ours,Orangina,yes,claude-opus-5-5,cant_tell,"dark wide box, no bottle discernible"
+f4fc9ec86095,bar_01.jpg,bar_01-c-o21,ours,Badger Tangle Foot,yes,claude-opus-5-5,cant_tell,"tiny blurred patch, no bottle detail"
+44c01a720b1b,bar_01.jpg,bar_01-c-o8,ours,Coca-Cola,yes,claude-opus-5-5,cant_tell,"small pale contoured bottle, no label readable"
+960c23f0e542,bar_01.jpg,bar_01-c1-o,claude,Antica Sambuca Black,yes,claude-opus-5-5,right,dark bottle with diamond label reading Antica SAMBUCA
+4fb898d8ddd8,bar_01.jpg,bar_01-c10-o,claude,Sourz Cherry,yes,claude-opus-5-5,wrong,"frosted square bottle with AFTER SHOCK labels, red liquid"
+a8cf36216701,bar_01.jpg,bar_01-c11-o,claude,Sourz Unknown,yes,claude-opus-5-5,wrong,frosted square bottle with AFTER SHOCK label
+f014be1de732,bar_01.jpg,bar_01-c12-o,claude,Sourz Unknown,yes,claude-opus-5-5,wrong,"dark square-shouldered bottle with pourer and small white labels, not a Sourz flask"
+d12f62ddba38,bar_01.jpg,bar_01-c13-o16,claude,Sourz Blue Raspberry,yes,claude-opus-5-5,wrong,"square-shouldered bottle with small rectangular labels, not Sourz splash label"
+19f8ed695b43,bar_01.jpg,bar_01-c13-o16,ours,Alhambra,yes,claude-opus-5-5,wrong,"square spirit bottle with pourer and small white labels, not an Alhambra beer bottle"
+69b5524228aa,bar_01.jpg,bar_01-c14-o,claude,Tia Maria Coffee Liqueur,yes,claude-opus-5-5,cant_tell,"dark silhouette of square-shouldered bottle, label unreadable"
+f3810da50b0f,bar_01.jpg,bar_01-c15-o,claude,Red Wine,no,claude-opus-5-5,wrong,bare category; dark wine bottle with red capsule and cream label
+9ac8de49c5fb,bar_01.jpg,bar_01-c16-o18,claude,Red Wine,no,Allen,wrong,
+9ac8de49c5fb,bar_01.jpg,bar_01-c16-o18,claude,Red Wine,no,claude-opus-5-5,wrong,bare category name; dark wine bottle with pale label
+58ad941895ca,bar_01.jpg,bar_01-c16-o18,ours,Côtes De Bourg Duplessis,yes,claude-opus-5-5,cant_tell,"dark wine bottle, small pale label, unreadable"
+f73b8bfe563b,bar_01.jpg,bar_01-c17-o,claude,Red Wine,no,claude-opus-5-5,wrong,"bare category; red-capsule wine bottle, label unreadable"
+1df92e475ccd,bar_01.jpg,bar_01-c18-o,claude,Red Wine,no,claude-opus-5-5,wrong,bare category; dark wine bottle with cream label
+3a09e38b5ba0,bar_01.jpg,bar_01-c19-o,claude,Red Wine,no,claude-opus-5-5,wrong,"bare category; dark wine bottle with red capsule, label unreadable"
+78e518940f69,bar_01.jpg,bar_01-c2-o1,claude,Antica Sambuca Red,yes,claude-opus-5-5,right,"diamond red label reading Antica SAMBUCA, red liquid"
+6cb267b8c0ab,bar_01.jpg,bar_01-c2-o1,ours,Pampero Seleccion,yes,claude-opus-5-5,wrong,"clear bottle, red liquid, red diamond label reading '...SAMBU..'"
+7c7c668a885b,bar_01.jpg,bar_01-c20-o,claude,Red Wine,no,claude-opus-5-5,wrong,"bare category; dark wine bottle, label unreadable"
+7520c023a165,bar_01.jpg,bar_01-c21-o,claude,The Famous Grouse Blended Scotch Whisky,yes,claude-opus-5-5,wrong,"upside-down optic bottle, dark ornate gold crest label, not Famous Grouse white bird label"
+9e7d1c6d72a5,bar_01.jpg,bar_01-c22-o,claude,Bacardi Carta Blanca,yes,claude-opus-5-5,right,"inverted clear rum bottle, BACARDI label, 1862 embossed"
+448cccf343fb,bar_01.jpg,bar_01-c23-o4,claude,Southern Comfort Original,yes,claude-opus-5-5,right,"inverted bottle on optic, label SOUTHERN COMFORT"
+b0d66a9050dd,bar_01.jpg,bar_01-c23-o4,ours,Southern Comfort,yes,claude-opus-5-5,right,"inverted bottle in optic, label reads 'SOUTHERN COMFORT'"
+dcb95dc50336,bar_01.jpg,bar_01-c24-o6,claude,Bell's Original Blended Scotch,yes,claude-opus-5-5,right,"upside-down bottle on optic, label reads BELL'S"
+e7d529ed7e71,bar_01.jpg,bar_01-c24-o6,ours,Bell's Scotch Whisky,yes,claude-opus-5-5,right,"inverted bottle, label reads BELL'S"
+d3ca77f6a856,bar_01.jpg,bar_01-c25-o,claude,Jack Daniel's Old No. 7,yes,claude-opus-5-5,right,"inverted on optic, black JACK DANIEL'S Tennessee Whiskey label"
+94ae23d52e5c,bar_01.jpg,bar_01-c26-o7,claude,Smirnoff Red Label,yes,claude-opus-5-5,right,"inverted clear bottle on optic, red SMIRNOFF label"
+ba03583b20af,bar_01.jpg,bar_01-c26-o7,ours,Ricard Édition Limitée,yes,claude-opus-5-5,wrong,"inverted clear bottle, red SMIRNOFF label"
+c4fee8014ff3,bar_01.jpg,bar_01-c27-o,claude,Smirnoff Red Label,yes,claude-opus-5-5,right,"inverted clear bottle on optic, red SMIRNOFF label"
+c7c2ec0b362c,bar_01.jpg,bar_01-c28-o12,claude,Jack Daniel's Old No. 7,yes,claude-opus-5-5,right,"inverted on optic, black JACK DANIEL'S Tennessee Whiskey label"
+57ea270df39b,bar_01.jpg,bar_01-c28-o12,ours,Jack Daniel's Jack Daniels 150 Anniversaire,yes,claude-opus-5-5,wrong,"inverted standard black-label 'JACK DANIEL'S Tennessee Whiskey' Old No.7, not the 150th Anniversary bottle"
+ecb253a28f9d,bar_01.jpg,bar_01-c29-o,claude,Bell's Original Blended Scotch,yes,Allen,right,
+ecb253a28f9d,bar_01.jpg,bar_01-c29-o,claude,Bell's Original Blended Scotch,yes,claude-opus-5-5,right,"upside-down optic bottle, cream label 'BELL'S'"
+d6846b7f0d59,bar_01.jpg,bar_01-c3-o3,claude,Antica Sambuca Raspberry,yes,claude-opus-5-5,right,pink diamond label reading Antica SAMBUCA Raspberry
+3f01201ab628,bar_01.jpg,bar_01-c3-o3,ours,Giarola Sambuca,yes,claude-opus-5-5,wrong,"clear bottle, purple cap, diamond label '...Sambuca...' (Antica style), not Giarola's white rectangular label"
+ad7b72f252cd,bar_01.jpg,bar_01-c30-o15,claude,Bacardi Carta Blanca,yes,claude-opus-5-5,right,"inverted clear bottle on optic, BACARDI label with red bat logo"
+adb2d069cbd3,bar_01.jpg,bar_01-c30-o15,ours,L'Étoile D'Azur Rosé 2015,yes,claude-opus-5-5,wrong,inverted clear rum bottle reading BACARDI
+fc585ce87741,bar_01.jpg,bar_01-c31-o,claude,Captain Morgan Original Spiced Gold,yes,claude-opus-5-5,right,"inverted bottle in optic, gold-bordered label with captain figure, 'Captain Morgan'"
+5ade0d20a35e,bar_01.jpg,bar_01-c32-o,claude,Martell Vs,yes,claude-opus-5-5,right,"inverted bottle, gold label with MARTELL on dark band"
+fabdbaf5fe4e,bar_01.jpg,bar_01-c33-o,claude,Malibu Original,yes,claude-opus-5-5,right,"white bottle with MALIBU palm logo, upside down on optic"
+262dd8569896,bar_01.jpg,bar_01-c34-o,claude,Martini Rosso,yes,claude-opus-5-5,cant_tell,"inverted dark red bottle on optic, cream label unreadable"
+5fed02513d30,bar_01.jpg,bar_01-c35-o19,claude,Archers Peach Schnapps,yes,claude-opus-5-5,right,"inverted white bottle, silver disc 'ARCHERS'"
+22e067441f08,bar_01.jpg,bar_01-c35-o19,ours,Aperol Apéros Apéritif Italien 15*,yes,claude-opus-5-5,wrong,"inverted frosted white bottle with round label reading ARC(HERS?), not orange Aperol"
+2cd9945217a8,bar_01.jpg,bar_01-c36-o,claude,Gordon's London Dry Gin,yes,claude-opus-5-5,right,inverted green bottle with Gordon's script label
+a6fc278c426d,bar_01.jpg,bar_01-c37-o22,claude,Lamb's Navy Rum,yes,claude-opus-5-5,cant_tell,"dark bottle upside down on optic, label not visible"
+163cd9758981,bar_01.jpg,bar_01-c37-o22,ours,Ursus,yes,claude-opus-5-5,cant_tell,"small inverted dark bottle on optic with red neck bands, label unreadable"
+bdac7a0c95a2,bar_01.jpg,bar_01-c38-o,claude,Vodka,no,claude-opus-5-5,wrong,bare category name; boxed bottle blurred with green/pink label
+6ec0a9825d20,bar_01.jpg,bar_01-c4-o,claude,Antica Sambuca Apple,yes,claude-opus-5-5,right,"Antica-style bottle with diamond label, bright green liquid"
+f849b9972303,bar_01.jpg,bar_01-c5-o5,claude,Antica Sambuca Gold,yes,claude-opus-5-5,right,"Antica SAMBUCA diamond label, gold/yellow liquid, blue cap"
+96dc9fe6148c,bar_01.jpg,bar_01-c5-o5,ours,Crai Gassosa,yes,claude-opus-5-5,wrong,"spirit bottle with diamond label reading SAMBUCA, not a Gassosa soda"
+9eecce1d379a,bar_01.jpg,bar_01-c6-o,claude,Midori Melon Liqueur,yes,claude-opus-5-5,right,"bright green liquid, dark neck with pourer, Midori-like"
+851ac54b1b1e,bar_01.jpg,bar_01-c7-o9,claude,Baileys Original Irish Cream,yes,claude-opus-5-5,right,"dark bottle, BAILEYS arched label with landscape"
+f83ad2ba90ae,bar_01.jpg,bar_01-c7-o9,ours,"Baileys Irish Cream Original Bailey's 17% , 1 Bouteille",yes,claude-opus-5-5,right,"dark bottle, label reads BAILEYS"
+4e3e997c1fe1,bar_01.jpg,bar_01-c8-o,claude,Liqueur,no,claude-opus-5-5,wrong,"bare category; square bottle with dark square cap, label unreadable"
+930fb7ba02c1,bar_01.jpg,bar_01-c9-o,claude,Sourz Apple,yes,claude-opus-5-5,wrong,"square-shouldered bottle with small rectangular labels, no round SOURZ logo"
+67afdb20fee6,bar_02.jpg,bar_02-c-o1,ours,Orangina,yes,claude-opus-5-5,cant_tell,"dark blurry area, no bottle or label discernible"
+737f4b45d902,bar_02.jpg,bar_02-c-o12,ours,Bruce Cost Jasmine Tea Ginger Ale,yes,claude-opus-5-5,cant_tell,"narrow sliver, bottle mostly hidden behind wood panel"
+8cf93c53c8f0,bar_02.jpg,bar_02-c-o14,ours,Monkey Shoulder,yes,claude-opus-5-5,cant_tell,"inverted bottle in Beaumont optic, only a cream label edge with upside-down text visible, no monkeys or brand readable"
+2d099fa8955d,bar_02.jpg,bar_02-c-o15,ours,Ricard,yes,claude-opus-5-5,wrong,Beaumont optic under inverted Jack Daniel's Old No.7 bottle
+6eaaa095096b,bar_02.jpg,bar_02-c-o16,ours,Dreher Bier,yes,claude-opus-5-5,wrong,"Beaumont 50ml optic under inverted Jack Daniel's Apple bottle, no beer"
+4123dc229cd2,bar_02.jpg,bar_02-c-o18,ours,Miami Soul,yes,claude-opus-5-5,wrong,Beaumont spirit optic 50ml with amber liquid; not a Miami Soul can
+6161d877b8f5,bar_02.jpg,bar_02-c-o19,ours,De Castellane Champagne Brut,yes,claude-opus-5-5,wrong,"inverted green bottle on optic, label reads Jack Daniel's Tennessee"
+b6cbe0f30ed9,bar_02.jpg,bar_02-c-o2,ours,Coca-Cola Huevo,yes,claude-opus-5-5,cant_tell,"blurred clear glass edge in shadow, nothing readable"
+84dcf990ddbf,bar_02.jpg,bar_02-c-o20,ours,Rosbacher Martin Hilsheimer,yes,claude-opus-5-5,wrong,"dark green framed label spirit bottle next to Jack Daniel's, not Rosbacher water"
+f4f6d67f7da9,bar_02.jpg,bar_02-c-o21,ours,Johnnie Walker Mini Johnnie Walker Black Label,yes,claude-opus-5-5,cant_tell,"only a Beaumont 50ml optic with amber spirit, bottle label not visible"
+357806e36837,bar_02.jpg,bar_02-c-o22,ours,Jack Daniel's Tennessee Honey,yes,claude-opus-5-5,right,"branded drinking glass printed Jack Daniel's Tennessee Honey (glass, not a bottle)"
+b0d11fe285e6,bar_02.jpg,bar_02-c-o24,ours,Alhambra,yes,claude-opus-5-5,wrong,"dark bottle upside down on optic, embossed 'No.2 ... PIO', not Alhambra beer"
+f4d59ebe395d,bar_02.jpg,bar_02-c-o25,ours,Jack Daniel's Tennessee Honey,yes,claude-opus-5-5,wrong,"branded pint glass printed Jack Daniel's Tennessee Honey, not a bottle"
+3af03c994781,bar_02.jpg,bar_02-c-o4,ours,Tursan Secret D Eugénie,yes,claude-opus-5-5,wrong,"upside-down wine glasses, no Tursan wine bottle"
+9ae8ab08a7b7,bar_02.jpg,bar_02-c-o9,ours,Badger Tangle Foot,yes,claude-opus-5-5,cant_tell,"dark blurred sliver at shelf edge, nothing readable"
+89247d34c93c,bar_02.jpg,bar_02-c1-o,claude,Gin,no,claude-opus-5-5,wrong,"bare category; dark bottle with gold neck band, partial 'AI' text"
+359374655a9a,bar_02.jpg,bar_02-c10-o17,claude,Jack Daniel's Tennessee Apple,yes,claude-opus-5-5,right,upside-down green label 'JACK DANIEL'S Tennessee APPLE'
+9ea22d874cbb,bar_02.jpg,bar_02-c10-o17,ours,Jack Daniel's Pomme,yes,claude-opus-5-5,right,"inverted, green label JACK DANIEL'S Tennessee APPLE"
+c251ceab5fc3,bar_02.jpg,bar_02-c11-o,claude,Jack Daniel's Tennessee Fire,yes,claude-opus-5-5,right,upside-down red label 'JACK DANIEL'S Tennessee FIRE'
+38d911a1b74e,bar_02.jpg,bar_02-c12-o23,claude,Jack Daniel's Old No. 7 Tennessee Whiskey,yes,claude-opus-5-5,right,inverted JACK DANIEL'S Old No.7 Tennessee Whiskey
+1ff8096fa569,bar_02.jpg,bar_02-c12-o23,ours,Jack Daniel's Jack Daniel,yes,Allen,right,
+1ff8096fa569,bar_02.jpg,bar_02-c12-o23,ours,Jack Daniel's Jack Daniel,yes,claude-opus-5-5,right,inverted JACK DANIEL'S Old No.7 Tennessee Whiskey
+73ee8cb4caba,bar_02.jpg,bar_02-c13-o,claude,Gin,no,claude-opus-5-5,wrong,"bare category; clear bottle with gold cap, label hidden"
+e93fd797d4cd,bar_02.jpg,bar_02-c14-o3,claude,Rum,no,claude-opus-5-5,wrong,bare category name; dark bottles incl. one reading Mr Squid Gin
+d3eeffcdd464,bar_02.jpg,bar_02-c14-o3,ours,Gordon's Gin Gordon's,yes,claude-opus-5-5,wrong,"dark bottles with maroon cap and 'SQUID GIN' label, not Gordon's"
+86755ef3ca01,bar_02.jpg,bar_02-c15-o,claude,Gin,no,claude-opus-5-5,wrong,"bare category; copper bottle, black label Mr Squid Gin"
+7c4d0d35bd22,bar_02.jpg,bar_02-c16-o6,claude,Pink Gin,no,claude-opus-5-5,wrong,bare category name; pink gin bottle with landscape label and GIN roundel
+0f988e95648a,bar_02.jpg,bar_02-c16-o6,ours,Artic Brands Group Artic Blue Gin,yes,claude-opus-5-5,wrong,"pink gin, landscape label with black roundel 'GIN'; not the blue-marble Arctic Blue bottle"
+9060ac50aff7,bar_02.jpg,bar_02-c17-o10,claude,Drumshanbo Gunpowder Irish Gin,yes,claude-opus-5-5,right,"blue fluted bottle, cork, DRUMSHANBO GUNPOWDER GIN"
+dd69f65590c8,bar_02.jpg,bar_02-c17-o10,ours,Bimmerle Schwarzwald Gin,yes,claude-opus-5-5,wrong,blue fluted bottle reads DRUMSHANBO GUNPOWDER GIN
+9f1cae5ecdd8,bar_02.jpg,bar_02-c2-o,claude,Whitley Neill Gin,yes,claude-opus-5-5,right,"white bottle, copper neck, orange tree logo, '...LEY NEILL'"
+fd7966bcecc4,bar_02.jpg,bar_02-c3-o5,claude,That Boutique-Y Gin Company Jaffa Cake Gin,yes,claude-opus-5-5,right,purple/orange striped label reading JAFFA CAKE
+d333c3a6e820,bar_02.jpg,bar_02-c3-o5,ours,Brasserie Galibier Snowball,yes,claude-opus-5-5,wrong,orange/purple label 'JAFFA CAKE' spirit bottle
+ab56c0c4c81e,bar_02.jpg,bar_02-c4-o7,claude,Gordon's Gin,yes,claude-opus-5-5,right,"yellow cap, partial '...don's' label with yellow band, clear gin bottle"
+4cc8fcaec572,bar_02.jpg,bar_02-c4-o7,ours,Talisker Single Malt Scotch Whisky,yes,claude-opus-5-5,wrong,"clear gin-style bottle, yellow/purple neck, label '...lon's', not Talisker"
+c7a4b4ea00b6,bar_02.jpg,bar_02-c5-o8,claude,Salcombe Start Point Gin,yes,claude-opus-5-5,right,cork-top clear bottle reads SALCOMBE GIN
+c844355622ea,bar_02.jpg,bar_02-c5-o8,ours,Salcombe Gin Salcombe Rose Sainte Marie Gin,yes,Allen,right,
+c844355622ea,bar_02.jpg,bar_02-c5-o8,ours,Salcombe Gin Salcombe Rose Sainte Marie Gin,yes,claude-opus-5-5,wrong,"'SALCOMBE GIN' label but clear liquid, not the pink Rose Sainte Marie"
+033fb1f99cfe,bar_02.jpg,bar_02-c6-o11,claude,Whitley Neill Parma Violet Gin,yes,claude-opus-5-5,wrong,"purple embossed bottle but gold label reads J.J. WHITLEY, not Whitley Neill"
+be1fe986fb90,bar_02.jpg,bar_02-c6-o11,ours,Finley Bitter Lemon Finley,yes,claude-opus-5-5,wrong,"purple embossed bottle, gold label 'J.J. WHITLEY'"
+0e14985cd45f,bar_02.jpg,bar_02-c7-o13,claude,Jack Daniel's Tennessee Honey,yes,claude-opus-5-5,right,"inverted square bottle, cream label 'JACK DANIEL'S Tennessee HONEY' with bee"
+5c8af20565c5,bar_02.jpg,bar_02-c7-o13,ours,Jack Daniel‘S Original Recipe Tennessee Honey,yes,claude-opus-5-5,right,"inverted, cream label JACK DANIEL'S Tennessee HONEY"
+7040bf561830,bar_02.jpg,bar_02-c8-o,claude,Jack Daniel's Old No. 7 Tennessee Whiskey,yes,claude-opus-5-5,right,"inverted square bottle, black label Jack Daniel's Old No.7"
+a2cc20703b55,bar_02.jpg,bar_02-c9-o,claude,Jack Daniel's Tennessee Honey,yes,claude-opus-5-5,right,"inverted, cream label JACK DANIEL'S Tennessee HONEY"
+d9a0de60f489,bar_03.jpg,bar_03-c-o1,ours,Tuborg Tubourg,yes,claude-opus-5-5,wrong,"fridge row of Birra Moretti, Beck's and Peroni bottles, no Tuborg"
+7e94de39ef7a,bar_03.jpg,bar_03-c-o11,ours,Rosemount Estate Rosemount Shiraz Cabernet,yes,claude-opus-5-5,cant_tell,"tiny blurred green bottle neck with silver capsule, no label readable"
+c017d658cda2,bar_03.jpg,bar_03-c-o13,ours,Rosbacher Martin Hilsheimer,yes,claude-opus-5-5,cant_tell,"tiny crop of gap between bottles, only a dark neck visible"
+883ea0a29138,bar_03.jpg,bar_03-c-o15,ours,Coca-Cola,yes,claude-opus-5-5,wrong,"dark bottle in fridge with oval crest label, no red Coca-Cola band"
+9d383c39a073,bar_03.jpg,bar_03-c-o18,ours,Coca-Cola Huevo,yes,claude-opus-5-5,cant_tell,"box shows a drip grate, no bottle visible"
+97924425fa2f,bar_03.jpg,bar_03-c-o22,ours,Kirkland Gin,yes,claude-opus-5-5,wrong,"box spans Hendrick's, Brockmans and other gins, no Kirkland label"
+296dff098b4b,bar_03.jpg,bar_03-c-o24,ours,Badger Tangle Foot,yes,claude-opus-5-5,cant_tell,"tiny dark blurred patch, no bottle discernible"
+e47b9110c93c,bar_03.jpg,bar_03-c-o27,ours,Orangina,yes,claude-opus-5-5,cant_tell,"tiny blurred patch, nothing readable"
+7646f0df6011,bar_03.jpg,bar_03-c-o3,ours,De Castellane Champagne Brut,yes,claude-opus-5-5,wrong,"bottle neck with orange cap above a DRAMBUIE label, no gold Champagne foil"
+af8c6290ca3c,bar_03.jpg,bar_03-c-o30,ours,Samichlaus Classic,yes,claude-opus-5-5,wrong,"spirits bottle with amber liquid and white/red label, not a brown Samichlaus beer bottle"
+246b5d3fff95,bar_03.jpg,bar_03-c-o33,ours,Angelo Poretti,yes,claude-opus-5-5,cant_tell,"tiny blurred patch, nothing readable"
+d85451044c39,bar_03.jpg,bar_03-c-o36,ours,Dagsbier 7% Vol,yes,claude-opus-5-5,wrong,"dark beer bottle with black oval label, pink emblem, green text; not Dagsbier crown/white circle design"
+324c592dd0a3,bar_03.jpg,bar_03-c-o42,ours,Captain Morgan Rum,yes,claude-opus-5-5,wrong,"box spans a whole shelf row (Jose Cuervo, Cockburn's, others), no Captain Morgan label"
+984a181f9e7e,bar_03.jpg,bar_03-c-o47,ours,Three Cents Gentlemen's Soda,yes,claude-opus-5-5,wrong,"yellow-green drink with J2O-style logo, not Three Cents"
+e98bacb1b8e0,bar_03.jpg,bar_03-c-o48,ours,Gwoon Orange Zero Sugar,yes,claude-opus-5-5,cant_tell,"tiny blurred yellow bottle with blue outlined logo, unreadable"
+9730a9ff7d00,bar_03.jpg,bar_03-c-o54,ours,Coca-Cola Services Sa/Nv Fanta Orange,yes,claude-opus-5-5,cant_tell,"blurred pale yellow bottle in fridge, blue/orange logo unreadable"
+a5aeee200b46,bar_03.jpg,bar_03-c1-o,claude,Wychwood Ice Breaker,yes,claude-opus-5-5,right,"brown beer bottle, icy-blue round label ending ...EAKER, blue neck label"
+34c79cf8ec8e,bar_03.jpg,bar_03-c10-o,claude,Moët & Chandon Brut Impérial,yes,claude-opus-5-5,right,"gold foil reads MOET, red seal, white Moet & Chandon label"
+1123670cebb1,bar_03.jpg,bar_03-c11-o32,claude,Moët & Chandon Ice Impérial,yes,claude-opus-5-5,right,"white champagne bottle, 'MOET' neck, black ribbon - Ice Imperial style"
+ac4ddc60fab5,bar_03.jpg,bar_03-c11-o32,ours,Alfred Rothschild Champagne Cuvée Excellence,yes,claude-opus-5-5,wrong,"white bottle with MOET on neck (Moet Ice Imperial style), not Alfred Rothschild"
+9666b62b90d0,bar_03.jpg,bar_03-c12-o,claude,Moët & Chandon Ice Impérial,yes,claude-opus-5-5,right,"white bottle, black ribbon, MOET & CHANDON ICE IMPERIAL"
+75c8b7ae27ee,bar_03.jpg,bar_03-c13-o37,claude,Moët & Chandon Ice Impérial,yes,claude-opus-5-5,right,"white champagne bottle, 'MOET' neck, black ribbon, 'Moet & Chandon' - Ice Imperial"
+520c895a6cb5,bar_03.jpg,bar_03-c13-o37,ours,Prosecco Origine Contrôle Brut Bottega Gold,yes,claude-opus-5-5,wrong,"white bottle reading MOET with black ribbon, Moet Ice Imperial"
+6646e749b3be,bar_03.jpg,bar_03-c14-o41,claude,Red Wine,no,claude-opus-5-5,wrong,bare category; dark bottle with white animal-icon label above Gordon's
+48ae2580417b,bar_03.jpg,bar_03-c14-o41,ours,Brasserie Galibier Snowball,yes,claude-opus-5-5,wrong,"beer bottle, white label with grid of black animal silhouettes, unlike Galibier blue ibex label"
+4167bc944c98,bar_03.jpg,bar_03-c15-o,claude,Rosé Wine,no,claude-opus-5-5,wrong,bare category name; rose bottle with animal-icon label
+9b1fed6d6200,bar_03.jpg,bar_03-c16-o,claude,Red Wine,no,claude-opus-5-5,wrong,"bare category; dark bottle, white label with rabbit silhouettes '...Rabbit'"
+d727c302febe,bar_03.jpg,bar_03-c17-o53,claude,Greene King Ipa,yes,claude-opus-5-5,right,"brown bottle, green 'GREENE KING IPA' label"
+bdff2bb3e6b8,bar_03.jpg,bar_03-c17-o53,ours,Greene King Ipa,yes,claude-opus-5-5,right,"brown beer bottle, green label GREENE KING IPA"
+902227d44ed0,bar_03.jpg,bar_03-c18-o57,claude,Morland Old Speckled Hen,yes,claude-opus-5-5,right,"amber beer bottle, octagonal label 'OLD SPECKLED HEN'"
+5e6429f37769,bar_03.jpg,bar_03-c18-o57,ours,Morland Old Speckled Hen - Low Alcohol,yes,claude-opus-5-5,wrong,"OLD SPECKLED HEN with red octagon (regular), not blue Low Alcohol"
+3d3a6c845841,bar_03.jpg,bar_03-c19-o61,claude,Greene King Abbot Ale,yes,claude-opus-5-5,right,beer bottle with purple/cream label 'Abbo..'
+2a116a0d825d,bar_03.jpg,bar_03-c19-o61,ours,Warenghem Whisky Breton,yes,claude-opus-5-5,wrong,beer bottle with purple/cream label 'Abbo..' - Abbot Ale
+ed097efda36c,bar_03.jpg,bar_03-c2-o2,claude,Greene King Abbot Ale,yes,claude-opus-5-5,right,"brown beer bottle, purple/cream label 'Abbot'"
+5adfd8f3b33e,bar_03.jpg,bar_03-c2-o2,ours,Abbot,yes,claude-opus-5-5,right,"beer bottle, label reads Abbot"
+d7e69b01f53b,bar_03.jpg,bar_03-c20-o,claude,Wychwood Ice Breaker,yes,claude-opus-5-5,right,"brown ale bottle, oval label reads ICE BREA(KER) with anchor"
+7d1415ae5f6b,bar_03.jpg,bar_03-c21-o,claude,Isle Of Jura 10 Year Old,yes,claude-opus-5-5,wrong,embossed decanter-style bottle with text '...IGHLAND...'; not the Jura bottle
+bbafca4d3686,bar_03.jpg,bar_03-c22-o,claude,Glenfiddich 12 Year Old,yes,claude-opus-5-5,wrong,"dark round bottle, helmsman medallion, maroon 12 band (Bunnahabhain-like), not green Glenfiddich"
+8c2b83c37847,bar_03.jpg,bar_03-c23-o4,claude,Drambuie,yes,claude-opus-5-5,right,"squat bottle, red cap, label reads DRAMBUIE"
+b0216db9226c,bar_03.jpg,bar_03-c23-o4,ours,Drambuie,yes,claude-opus-5-5,right,"label reads DRAMBUIE, orange cap"
+cb3a4e790296,bar_03.jpg,bar_03-c24-o6,claude,Jameson Irish Whiskey,yes,claude-opus-5-5,right,"green bottle, red cap, label JAMES(ON), partly behind Glayva"
+5400e0ea0ecf,bar_03.jpg,bar_03-c24-o6,ours,Jameson Whisky,yes,claude-opus-5-5,right,"green bottle, red cap, cream label JAMES(ON)"
+31fc4dc004b9,bar_03.jpg,bar_03-c25-o7,claude,Glayva,yes,claude-opus-5-5,right,"embossed bottle, dark label reads GLAYVA"
+cc5ef2e3f6dc,bar_03.jpg,bar_03-c25-o7,ours,Glayva Liqueur,yes,claude-opus-5-5,right,"amber embossed bottle, dark label 'GLAYVA'"
+cec146a57e82,bar_03.jpg,bar_03-c26-o10,claude,Liqueur,no,claude-opus-5-5,wrong,"bare category; green bottle with white cap, label '...APHIR... SELE...'"
+6d0b9140e44e,bar_03.jpg,bar_03-c26-o10,ours,Laphroaig Select,yes,claude-opus-5-5,right,"green bottle, white label 'LAPHR...' with black SELECT band"
+325e96d29ba6,bar_03.jpg,bar_03-c27-o12,claude,Bourbon,no,claude-opus-5-5,wrong,bare category; white label 'JIM BEAM ... BOURBON'
+6bf4a4ab5627,bar_03.jpg,bar_03-c27-o12,ours,Jim Beam Bourbon Wiskey,yes,claude-opus-5-5,right,white label 'JIM BEAM ... BOURBON'
+e8b82a3fc3f1,bar_03.jpg,bar_03-c28-o16,claude,Whisky,no,claude-opus-5-5,wrong,"bare category; green bottle with gold label, partly hidden"
+4a2598491718,bar_03.jpg,bar_03-c28-o16,ours,Oban Single Malt Scotch Whisky,yes,claude-opus-5-5,wrong,"green glass bottle with gold/black label, not Oban's clear bottle and cream label"
+e9f8a93a653e,bar_03.jpg,bar_03-c29-o19,claude,Smirnoff No. 21 Vodka,yes,claude-opus-5-5,right,label reads SMIRNOFF No21 Vodka
+ace1d8c90359,bar_03.jpg,bar_03-c29-o19,ours,Smirnoff Vodka,yes,Allen,right,
+ace1d8c90359,bar_03.jpg,bar_03-c29-o19,ours,Smirnoff Vodka,yes,claude-opus-5-5,right,"inverted bottle, SMIRNOFF No21 vodka label"
+a898aaeb3747,bar_03.jpg,bar_03-c3-o,claude,Morland Old Speckled Hen,yes,claude-opus-5-5,right,label reads OLD SPECKLED HEN
+9478e4819337,bar_03.jpg,bar_03-c30-o21,claude,Southern Comfort Original,yes,claude-opus-5-5,right,upside-down optic bottle 'SOUTHERN COMFORT Original'
+5e352c2dba4d,bar_03.jpg,bar_03-c30-o21,ours,Southern Comfort Liqueur,yes,claude-opus-5-5,right,"inverted, label reads SOUTHERN COMFORT Original"
+3e13d6885e94,bar_03.jpg,bar_03-c31-o25,claude,The Famous Grouse Blended Scotch,yes,claude-opus-5-5,right,"inverted bottle, label reads THE FAMOUS GROUSE with grouse"
+e0e2c0f3f75e,bar_03.jpg,bar_03-c31-o25,ours,Famous Grouse,yes,claude-opus-5-5,right,"upside-down bottle, label THE FAMOUS GROUSE with grouse"
+b946a0fb0c8f,bar_03.jpg,bar_03-c32-o,claude,Jack Daniel's Old No. 7,yes,claude-opus-5-5,right,"inverted square bottle, black label Jack Daniel's Old No.7"
+456a3664a240,bar_03.jpg,bar_03-c33-o31,claude,Bacardi Carta Blanca,yes,claude-opus-5-5,right,"upside-down bottle, red bat logo, BACARDI Carta Blanca"
+0eb80db82e9e,bar_03.jpg,bar_03-c33-o31,ours,Bacardi Barcadi Carta Blanca,yes,Allen,right,
+0eb80db82e9e,bar_03.jpg,bar_03-c33-o31,ours,Bacardi Barcadi Carta Blanca,yes,claude-opus-5-5,right,"inverted, reads BACARDI CARTA BLANCA"
+31999e05e30a,bar_03.jpg,bar_03-c34-o35,claude,Captain Morgan Spiced Gold,yes,claude-opus-5-5,right,"upside-down bottle, label Captain Morgan Spiced Gold"
+dbc1d48387eb,bar_03.jpg,bar_03-c34-o35,ours,Captain Morgan Rhum Ambré,yes,claude-opus-5-5,wrong,"Captain Morgan white label with red SPICED GOLD band, not the brown Gold Rum / Rhum Ambre"
+b66ef961c679,bar_03.jpg,bar_03-c35-o39,claude,Gordon's Premium Pink Gin,yes,claude-opus-5-5,right,"inverted Gordon's, pink floral band under label, embossed pink-tinted bottle"
+8ed60c0d7571,bar_03.jpg,bar_03-c35-o39,ours,Gordon's Розовый Джин Premium Pin,yes,claude-opus-5-5,right,"inverted, Gordon's label with pink liquid, Premium Pink"
+8c1f34e7e4a6,bar_03.jpg,bar_03-c36-o43,claude,Bombay Sapphire London Dry Gin,yes,claude-opus-5-5,right,inverted blue bottle 'BOMBAY SAPPHIRE Distilled London Dry Gin'
+90fbc2a72688,bar_03.jpg,bar_03-c36-o43,ours,Bombay Sapphire London Dry Gin,yes,claude-opus-5-5,right,inverted blue bottle 'BOMBAY SAPPHIRE Distilled London Dry Gin'
+1b3378bf3eb3,bar_03.jpg,bar_03-c37-o46,claude,Grey Goose Vodka,yes,claude-opus-5-5,right,frosted bottle with geese and GREY GOOSE VODKA
+4edcc2f3a664,bar_03.jpg,bar_03-c37-o46,ours,Grey Goose Original,yes,claude-opus-5-5,right,frosted bottle with geese and GREY GOOSE VODKA
+6ff7ade61398,bar_03.jpg,bar_03-c38-o,claude,Vodka,no,claude-opus-5-5,wrong,bare category name; gold bottle with red cap
+2183c0223f77,bar_03.jpg,bar_03-c39-o,claude,Absolut Vodka,yes,claude-opus-5-5,right,"clear bottle, blue ABSOLUT VODKA text"
+732792a87cb2,bar_03.jpg,bar_03-c4-o9,claude,Greene King Ipa,yes,Allen,right,
+732792a87cb2,bar_03.jpg,bar_03-c4-o9,claude,Greene King Ipa,yes,claude-opus-5-5,right,"brown beer bottle, green label GREENE KING IPA"
+a6f171e1dc7f,bar_03.jpg,bar_03-c4-o9,ours,Alltech Kentucky Ipa,yes,claude-opus-5-5,wrong,beer bottle with green label 'GREENE KING IPA'
+263eb2dd572d,bar_03.jpg,bar_03-c40-o51,claude,Gin,no,claude-opus-5-5,wrong,bare category; clear flat bottle with purple screw cap
+bc9212a8246c,bar_03.jpg,bar_03-c40-o51,ours,Côtes De Bourg Duplessis,yes,claude-opus-5-5,wrong,"clear flat bottle with purple screw cap between Absolut bottles, not a Bordeaux wine"
+c12c576083b6,bar_03.jpg,bar_03-c41-o56,claude,Absolut Vanilia,yes,claude-opus-5-5,right,reads ABSOLUT VANILIA
+5a677bffd883,bar_03.jpg,bar_03-c41-o56,ours,Absolut Vodka,yes,claude-opus-5-5,wrong,"reads ABSOLUT VANILIA, not original Absolut Vodka"
+12bb68268dca,bar_03.jpg,bar_03-c42-o,claude,Gin,no,claude-opus-5-5,wrong,"bare category; tall clear bottle with green cap, label unreadable"
+199fd12f2bc4,bar_03.jpg,bar_03-c43-o,claude,Havana Club Añejo Especial,yes,claude-opus-5-5,wrong,"Havana Club, black cap and black/gold label, looks like Anejo 7 not Especial (gold cap)"
+e7cb6fd80782,bar_03.jpg,bar_03-c44-o,claude,Malibu Original,yes,claude-opus-5-5,wrong,"slim curved cream/pale bottle, not Malibu white straight bottle with palm logo"
+1b8260fcafe9,bar_03.jpg,bar_03-c45-o60,claude,Kraken Black Spiced Rum,yes,claude-opus-5-5,wrong,black bottle reading DEAD MAN'S FINGERS with skull
+94e60381ef78,bar_03.jpg,bar_03-c45-o60,ours,Dead Man's Fingers,yes,claude-opus-5-5,right,"black bottle, DMF neck, reads DEAD MAN'S FINGERS with skull"
+700944bd8150,bar_03.jpg,bar_03-c46-o62,claude,Whiskey,no,claude-opus-5-5,wrong,"bare category; clear bottle with dark oval label, script text"
+13c37d460f99,bar_03.jpg,bar_03-c46-o62,ours,Nando’S Britvic Lime Cordial,yes,claude-opus-5-5,wrong,clear spirit bottle with dark oval script label; not a green Britvic lime cordial bottle
+04a876e9caaf,bar_03.jpg,bar_03-c47-o63,claude,Ovd Demerara Rum,yes,claude-opus-5-5,right,"dark bottle, label reads O.V.D Demerara Rum"
+d520dac329f2,bar_03.jpg,bar_03-c47-o63,ours,El Dorado 5 Year Old,yes,claude-opus-5-5,wrong,label reads O.V.D. Old Vatted Demerara Rum
+8b69a4f896cb,bar_03.jpg,bar_03-c48-o64,claude,Havana Club 7 Años,yes,claude-opus-5-5,wrong,"Havana Club Especial: silver cap, clear glass, Especial script, no 7"
+a10d693604b5,bar_03.jpg,bar_03-c48-o64,ours,Havana Club Rum,yes,claude-opus-5-5,right,Havana Club Especial label
+01f1a05d8273,bar_03.jpg,bar_03-c49-o,claude,Edinburgh Gin Classic,yes,claude-opus-5-5,wrong,"Edinburgh Gin bottle with big EG logo, sage neck and pinkish contents, not the blue-neck Classic"
+e7340a018412,bar_03.jpg,bar_03-c5-o,claude,White Wine,no,claude-opus-5-5,wrong,bare category; wine bottle with rabbit-icon Jack Rabbit label
+af2ce69e8264,bar_03.jpg,bar_03-c50-o,claude,Edinburgh Gin Classic,yes,claude-opus-5-5,right,"clear bottle, blue cap, large EG logo on white label (Edinburgh Gin)"
+c0be7778980f,bar_03.jpg,bar_03-c51-o,claude,Gordon's London Dry Gin,yes,claude-opus-5-5,wrong,"Gordon's script label with magenta band and dark liquid, a flavoured variant not London Dry"
+e749d2947eca,bar_03.jpg,bar_03-c52-o17,claude,Beefeater Blood Orange,yes,claude-opus-5-5,right,"orange liquid, white label BEEFEATER with beefeater and blood oranges"
+5b526a7e00b2,bar_03.jpg,bar_03-c52-o17,ours,Beefeater London Blood Orange,yes,claude-opus-5-5,right,"orange-tinted bottle, 'BEEFEATER LONDON' label with oranges and beefeater"
+9718f5637a34,bar_03.jpg,bar_03-c53-o,claude,Pink Gin,no,claude-opus-5-5,wrong,"bare category; dark bottle with silver medallion, label ...GIN"
+84b88ba34b99,bar_03.jpg,bar_03-c54-o,claude,Whitley Neill Parma Violet,yes,claude-opus-5-5,right,"dark purple bottle 'WHITLEY NEILL' with violet flower, purple lower label"
+f90acc673338,bar_03.jpg,bar_03-c55-o,claude,Whitley Neill Blackberry,yes,claude-opus-5-5,wrong,"Whitley Neill bottle but dark plum/red with pink neck, not the blue Blackberry bottle"
+7b0ef9e8d1c1,bar_03.jpg,bar_03-c56-o5,claude,Whitley Neill Raspberry,yes,claude-opus-5-5,right,red bottle 'WHITLEY NEILL GIN' with white flower motif
+2a953e7bdafb,bar_03.jpg,bar_03-c56-o5,ours,Whitley Neill Gin,yes,claude-opus-5-5,right,"red Whitley Neill bottle, WHITLEY NEILL GIN on label"
+ccd081a262c6,bar_03.jpg,bar_03-c57-o8,claude,Gin,no,claude-opus-5-5,wrong,"bare category; dark bottle, label reads ...LEY NEILL (Whitley Neill)"
+261a20f5d664,bar_03.jpg,bar_03-c57-o8,ours,Chartreuse Liqueur 9 Ème Centenaire Chartreuse,yes,claude-opus-5-5,wrong,"dark bottle with orange tree logo, '...LEY NEILL' - Whitley Neill gin, not Chartreuse"
+e44ed0dba6ca,bar_03.jpg,bar_03-c58-o14,claude,Gin,no,claude-opus-5-5,wrong,bare category; Tanqueray-style bottle with red seal and Sevilla label
+5d5b8d01f3df,bar_03.jpg,bar_03-c58-o14,ours,Gordon's Gin Gordon's,yes,claude-opus-5-5,wrong,"red cap, red shoulder seal, label reads Tanqueray SEVILLA, orange liquid"
+b0e61b25b1d1,bar_03.jpg,bar_03-c59-o,claude,Tanqueray London Dry Gin,yes,claude-opus-5-5,right,green Tanqueray bottle with red seal
+d29e6bb39d9b,bar_03.jpg,bar_03-c6-o20,claude,White Wine,no,claude-opus-5-5,wrong,bare category; bottle is Jack Rabbit wine with rabbit-icon label
+2e3e837448bc,bar_03.jpg,bar_03-c6-o20,ours,Vagrant Cider Skytramp Cider,yes,claude-opus-5-5,wrong,"clear wine bottle, label with rabbit silhouettes reading Jack Rabbit, not a Vagrant cider"
+3347c180b655,bar_03.jpg,bar_03-c60-o,claude,Gin,no,claude-opus-5-5,wrong,"bare category; gin bottle with cream label, starburst logo, unreadable name"
+16b506280927,bar_03.jpg,bar_03-c61-o23,claude,Hendrick's Gin,yes,claude-opus-5-5,right,"dark bottle, diamond label HENDRICK'S GIN"
+e89cb1cc7e80,bar_03.jpg,bar_03-c61-o23,ours,Hendrick's Gin,yes,claude-opus-5-5,right,"dark apothecary bottle, diamond HENDRICK'S GIN label"
+3235679ce6ba,bar_03.jpg,bar_03-c62-o26,claude,Brockmans Gin,yes,claude-opus-5-5,right,"dark textured bottle, BROCKMANS GIN label"
+1a1ce0df8669,bar_03.jpg,bar_03-c62-o26,ours,Brockman's Premium Gin Intensely Smooth,yes,claude-opus-5-5,right,black textured bottle 'BROCKMANS GIN' with red motif
+fffcabcecd96,bar_03.jpg,bar_03-c63-o,claude,Gin,no,claude-opus-5-5,wrong,bare category; dark ornate bottle with red medallion label
+a7ca06f4dfb0,bar_03.jpg,bar_03-c64-o,claude,Bóe Violet Gin,yes,claude-opus-5-5,right,"dark bottle with floral print and Boe script logo, violet gin"
+d2d2eed27280,bar_03.jpg,bar_03-c65-o,claude,Sourz Apple,yes,claude-opus-5-5,right,green bottle 'SOURZ APPLE'
+228cae80b5ad,bar_03.jpg,bar_03-c66-o49,claude,Sourz Cherry,yes,claude-opus-5-5,right,red bottle reading SOURZ CHERRY
+d30e189e26fa,bar_03.jpg,bar_03-c66-o49,ours,Sourz Cherry Sourz,yes,claude-opus-5-5,right,"red bottle, label SOURZ CHERRY"
+2bec0a21e29f,bar_03.jpg,bar_03-c67-o55,claude,Midori Melon Liqueur,yes,claude-opus-5-5,right,"textured green bottle, black neck, MIDORI label"
+79dff1c43a41,bar_03.jpg,bar_03-c67-o55,ours,Midori,yes,claude-opus-5-5,right,"green textured bottle, black MIDORI neck label"
+e284c128298c,bar_03.jpg,bar_03-c68-o,claude,Sourz Raspberry,yes,claude-opus-5-5,right,"dark bottle, pink splash 'SOURZ' raspberry design"
+e8c84d5468b2,bar_03.jpg,bar_03-c69-o,claude,Sourz Mango,yes,claude-opus-5-5,right,SOURZ logo with yellow-orange splash label
+5999939498b0,bar_03.jpg,bar_03-c7-o,claude,White Wine,no,claude-opus-5-5,wrong,bare category; white label with black animal icons above Southern Comfort
+0f5d8eb6f974,bar_03.jpg,bar_03-c70-o,claude,Liqueur,no,claude-opus-5-5,wrong,"bare category; square amber bottle with white label, Cointreau-like"
+8196650bbb35,bar_03.jpg,bar_03-c71-o34,claude,Jägermeister,yes,claude-opus-5-5,right,"dark green bottle, stag logo and orange Jagermeister band"
+e5d88a0c446b,bar_03.jpg,bar_03-c71-o34,ours,Jägermeister,yes,claude-opus-5-5,right,"dark bottle, stag crest, orange JAGERMEISTER band"
+673966a23007,bar_03.jpg,bar_03-c72-o38,claude,Fireball Cinnamon Whisky,yes,claude-opus-5-5,right,"label reads FIREBALL with red devil, red cap"
+f1b5d55bf5bc,bar_03.jpg,bar_03-c72-o38,ours,Fireball Cinnamome Whisky,yes,claude-opus-5-5,right,label reads FIREBALL with red dragon
+1bf43631f45b,bar_03.jpg,bar_03-c73-o40,claude,Disaronno Originale,yes,claude-opus-5-5,right,"square amber bottle, cream label reading DISARONNO"
+b4b63c879d22,bar_03.jpg,bar_03-c73-o40,ours,Disaronno Originale,yes,claude-opus-5-5,right,"square amber bottle, cream label reading DISARONNO"
+391a39f86eb4,bar_03.jpg,bar_03-c74-o44,claude,Jose Cuervo Especial Silver,yes,claude-opus-5-5,right,"silver cap, 'Jose Cuervo' arched label, blue bottom band"
+2cb31198605f,bar_03.jpg,bar_03-c74-o44,ours,Crai Gassosa,yes,claude-opus-5-5,wrong,Jose Cuervo Especial silver tequila bottle
+a231130985b4,bar_03.jpg,bar_03-c75-o45,claude,Cockburn's Special Reserve Port,yes,claude-opus-5-5,wrong,"red label COCKBURN'S Fine Ruby, not black Special Reserve"
+af23c097ff9d,bar_03.jpg,bar_03-c75-o45,ours,Gordon's Special Dry London Gin,yes,claude-opus-5-5,wrong,dark bottle red label 'COCKBURN'S FINE RUBY' port
+c1365d16696c,bar_03.jpg,bar_03-c76-o,claude,Liqueur,no,claude-opus-5-5,wrong,"bare category; clear bottle, blue diamond label 'Antica Sambuca'"
+82d3f6782bb1,bar_03.jpg,bar_03-c77-o50,claude,Liqueur,no,claude-opus-5-5,wrong,bare category; dark bottle with silver star motif above Sourz
+7b45352347d5,bar_03.jpg,bar_03-c77-o50,ours,Clément Rhum,yes,claude-opus-5-5,wrong,"dark bottle with silver crescent/star motif, not Clement cream/black label"
+ce376f317e53,bar_03.jpg,bar_03-c78-o52,claude,Archers Peach Schnapps,yes,claude-opus-5-5,right,"red cap, orange floral pattern on white bottle, partly hidden; matches Archers"
+d767073ef56a,bar_03.jpg,bar_03-c78-o52,ours,Hennessy Vs Cognac,yes,claude-opus-5-5,wrong,orange patterned bottle with burgundy cap and pink diamond label; not Hennessy
+3a0c25092126,bar_03.jpg,bar_03-c79-o,claude,Liqueur,no,claude-opus-5-5,wrong,"bare category; gold ornate diamond-label bottle, brand unread"
+ba3a016cfac2,bar_03.jpg,bar_03-c8-o28,claude,Moët & Chandon Brut Impérial,yes,claude-opus-5-5,right,"gold MOET neck foil, red seal, dark green champagne bottle"
+0a03c2ab3008,bar_03.jpg,bar_03-c8-o28,ours,Martini Vermouth,yes,claude-opus-5-5,wrong,champagne bottle with gold foil MOET and red seal
+f386a270113c,bar_03.jpg,bar_03-c80-o58,claude,Pimm's No. 1,yes,claude-opus-5-5,right,"red-brown bottle, label reads PIMM'S"
+3f2d3585bcb9,bar_03.jpg,bar_03-c80-o58,ours,Pulp Des Nines Rouge 2018,yes,claude-opus-5-5,wrong,"red-brown bottle, label reads PIMM'S"
+8a7c58dcd696,bar_03.jpg,bar_03-c81-o59,claude,Courvoisier Vs,yes,claude-opus-5-5,right,label reads COURVOISIER VS
+264cbd50f7cb,bar_03.jpg,bar_03-c81-o59,ours,Moulin D'Aubey Cognac,yes,claude-opus-5-5,wrong,white label reading 'COURVOISIER VS'
+6fb6ca60a987,bar_03.jpg,bar_03-c82-o,claude,Liqueur,no,claude-opus-5-5,wrong,bare category; dark bottle with red neck behind a Sourz bottle
+842790a6f21d,bar_03.jpg,bar_03-c83-o,claude,Brandy,no,claude-opus-5-5,wrong,bare category; round decanter with silver band label
+22211dcb27ff,bar_03.jpg,bar_03-c9-o29,claude,Moët & Chandon Brut Impérial,yes,claude-opus-5-5,right,"MOET neck foil, red seal, label MOET & CHANDON Imperial"
+d0bca33f41d8,bar_03.jpg,bar_03-c9-o29,ours,Moet & Chandon Moët & Chandon Brut Impérial,yes,claude-opus-5-5,right,"gold foil 'MOET', red seal, cream 'Moet & Chandon Imperial' label"
+3d2c5cc7ae67,bar_04.jpg,bar_04-c-o1,ours,Eco,yes,claude-opus-5-5,cant_tell,"blurred bokeh, bottle unreadable"
+07376eb4cf00,bar_04.jpg,bar_04-c-o10,ours,De Castellane Champagne Brut,yes,claude-opus-5-5,cant_tell,"crowded blurred back-bar, no readable label"
+cbf0841cb16a,bar_04.jpg,bar_04-c-o11,ours,Havana Club Rum,yes,claude-opus-5-5,wrong,"clear bottle with white label reading Jim Beam, no yellow Havana Club label"
+598930f5a1e9,bar_04.jpg,bar_04-c-o13,ours,Coca-Cola,yes,claude-opus-5-5,wrong,"blurred clear spirit bottles with dark caps, no Coca-Cola red label or dark cola"
+1b908580d8e3,bar_04.jpg,bar_04-c-o15,ours,Fernandes Cream Ginger,yes,claude-opus-5-5,wrong,"tall clear/silver spirit bottle neck, no orange Fernandes can or bottle"
+865a92c49f57,bar_04.jpg,bar_04-c-o17,ours,Modelo Negra,yes,claude-opus-5-5,wrong,"clear spirit/wine bottle with dark neck and pourer, red label edge, not a Modelo beer bottle"
+6ee55a88d284,bar_04.jpg,bar_04-c-o19,ours,Rosemount Estate Rosemount Shiraz Cabernet,yes,claude-opus-5-5,cant_tell,"dark bottle with gold neck band, mostly hidden, no label readable"
+700fdb3cafea,bar_04.jpg,bar_04-c-o2,ours,Bruce Cost Jasmine Tea Ginger Ale,yes,claude-opus-5-5,cant_tell,"heavily blurred brown bottle with bluish patch, label unreadable"
+5b492532e3f9,bar_04.jpg,bar_04-c-o21,ours,Orangina,yes,claude-opus-5-5,cant_tell,"blurred pale blob, no bottle features visible"
+a43eee6fd9d3,bar_04.jpg,bar_04-c-o23,ours,Captain Morgan Rum,yes,claude-opus-5-5,cant_tell,"cluttered clear bottles with pourers, dark neck label, no Captain Morgan label visible"
+5ef86d8fefb9,bar_04.jpg,bar_04-c-o25,ours,Teneguia Vino Blanco,yes,claude-opus-5-5,cant_tell,"blurred clear bottle with pourer, no label visible"
+435b602b44a3,bar_04.jpg,bar_04-c-o26,ours,Talisker Single Malt Scotch Whisky,yes,claude-opus-5-5,cant_tell,"dark bottle with black neck mostly hidden behind other bottles, label not readable"
+4580732be035,bar_04.jpg,bar_04-c-o28,ours,Badger Tangle Foot,yes,claude-opus-5-5,cant_tell,"blurred bar background, no bottle label visible"
+1f73af2f547e,bar_04.jpg,bar_04-c-o29,ours,Chateau Vieux Moulin Puisseguin Saint Emilion,yes,claude-opus-5-5,cant_tell,"thin hidden sliver of a bottle, no label readable"
+595508d6ac0d,bar_04.jpg,bar_04-c-o30,ours,Angelo Poretti,yes,claude-opus-5-5,cant_tell,"tiny dark blurred bottle, no label readable"
+835105d7fdb1,bar_04.jpg,bar_04-c-o31,ours,Rolly Gassmann Riesling,yes,claude-opus-5-5,cant_tell,"blurred dark green bottle with white top and tan band, no label readable"
+7bc0790feaf9,bar_04.jpg,bar_04-c-o32,ours,Coca-Cola Huevo,yes,claude-opus-5-5,wrong,"clear empty glass-like object, no label, no cola or red Coca-Cola branding"
+2e95b9b07d4f,bar_04.jpg,bar_04-c-o6,ours,Coors Light,yes,claude-opus-5-5,wrong,"spirit bottle with pourer and dark amber liquid, not Coors Light"
+ea55b9378f6c,bar_04.jpg,bar_04-c-o8,ours,Intermarché Kingsbräu Bière Blonde Extra Forte La Cannette De 50,yes,claude-opus-5-5,wrong,"spirit bottle neck with pourer and red neck label, not a Kingsbrau can"
+cd4179435029,bar_04.jpg,bar_04-c1-o3,claude,Chambord Black Raspberry Liqueur,yes,Allen,right,
+cd4179435029,bar_04.jpg,bar_04-c1-o3,claude,Chambord Black Raspberry Liqueur,yes,claude-opus-5-5,right,"round dark bottle, gold band 'CHAMBORD'"
+256af14f84ef,bar_04.jpg,bar_04-c1-o3,ours,Brasserie Galibier Snowball,yes,claude-opus-5-5,wrong,"round Chambord bottle, gold band reading ...BORD"
+20f133c5e316,bar_04.jpg,bar_04-c10-o12,claude,Bulleit Bourbon,yes,claude-opus-5-5,wrong,"flask-shaped bottle with olive/green label band (Bulleit Rye style), not the orange Bourbon band"
+148d175e41a5,bar_04.jpg,bar_04-c10-o12,ours,Clément Rhum,yes,claude-opus-5-5,wrong,"round bottle, amber-red liquid, gold-green band label unlike Clement labels"
+3f97b8669942,bar_04.jpg,bar_04-c11-o14,claude,Bombay Sapphire London Dry Gin,yes,claude-opus-5-5,right,label reads BOMBAY SAPPHIRE with Victoria medallion
+ca1a6e3a42e9,bar_04.jpg,bar_04-c11-o14,ours,Chartreuse Jaune,yes,claude-opus-5-5,wrong,"label reads 'BOMBAY SAPPHIRE', not yellow Chartreuse"
+489069b8c099,bar_04.jpg,bar_04-c12-o16,claude,Jameson Irish Whiskey,yes,claude-opus-5-5,right,"green bottle, cream label 'JAMESON Irish Whiskey'"
+b81df5f695d3,bar_04.jpg,bar_04-c12-o16,ours,Jameson,yes,claude-opus-5-5,right,"green bottle, label JAMESON Irish Whiskey"
+5a6785eb638a,bar_04.jpg,bar_04-c13-o18,claude,Liqueur,no,claude-opus-5-5,wrong,"bare category; green bottle seen from back, barcode label"
+60633eb30d3e,bar_04.jpg,bar_04-c13-o18,ours,Côtes De Bourg Duplessis,yes,claude-opus-5-5,wrong,"dark green squat tapered liqueur-style bottle with pourer, back label/barcode facing; not a Bordeaux wine bottle"
+5df274b3d0ca,bar_04.jpg,bar_04-c14-o,claude,Liqueur,no,claude-opus-5-5,wrong,bare category; dark amber bottle with gold wreath emblem
+df95759e63d9,bar_04.jpg,bar_04-c15-o20,claude,L'Heritier-Guyot Creme De Cassis,yes,claude-opus-5-5,wrong,"label reads Cassis with stained-glass window and vine border, not L'Heritier-Guyot red/blue label"
+64787e863e55,bar_04.jpg,bar_04-c15-o20,ours,L’Heritier-Guyon Crème De Cassis,yes,claude-opus-5-5,wrong,"cream label with stained-glass art and red 'Cassis' script, not L'Heritier-Guyot red/blue label"
+a8dde7fd484a,bar_04.jpg,bar_04-c16-o24,claude,1800 Reposado Tequila,yes,claude-opus-5-5,right,"label reads 1800 REPOSADO, 100% agave"
+531ab0ebd9f0,bar_04.jpg,bar_04-c16-o24,ours,1800 Tequila,yes,claude-opus-5-5,right,tapered bottle reads 1800 REPOSADO
+d8645366d985,bar_04.jpg,bar_04-c17-o,claude,Vodka,no,claude-opus-5-5,wrong,bare category name; back label of a handmade vodka bottle
+fcdbcc97ee7c,bar_04.jpg,bar_04-c18-o27,claude,Wild Turkey 101 Bourbon,yes,claude-opus-5-5,right,label reads WILD TURKEY with red 1 of 101
+dd5dbe4f43e0,bar_04.jpg,bar_04-c18-o27,ours,Wild Turkey Bourbon,yes,claude-opus-5-5,right,cream label reading WILD TURKEY 101
+1978e25f09d6,bar_04.jpg,bar_04-c19-o22,claude,Bushmills Original Irish Whiskey,yes,claude-opus-5-5,right,"clear bottle, white label 'BUSHMI...' with black banner"
+f1b238f361f3,bar_04.jpg,bar_04-c19-o22,ours,Captain Morgan,yes,claude-opus-5-5,wrong,label reads BUSHMILLS
+e472c0b007d7,bar_04.jpg,bar_04-c2-o,claude,Clase Azul Reposado,yes,claude-opus-5-5,right,"white ceramic bottle, blue hand-painted leaves, silver cap: Clase Azul"
+a8bcb6965dc4,bar_04.jpg,bar_04-c20-o9,claude,Liqueur,no,Allen,wrong,
+a8bcb6965dc4,bar_04.jpg,bar_04-c20-o9,claude,Liqueur,no,claude-opus-5-5,wrong,bare category; J.P. WISER'S red label whisky
+b7bf2fc40dec,bar_04.jpg,bar_04-c20-o9,ours,Captain Morgan Original Spiced Rum,yes,claude-opus-5-5,wrong,red oval label reading 'JP WISER'S ...OPPE..'
+7258a91e9180,bar_04.jpg,bar_04-c3-o4,claude,Disaronno Originale Amaretto,yes,claude-opus-5-5,right,"square textured bottle, label reads DISARONNO Originale"
+186efbac5e38,bar_04.jpg,bar_04-c3-o4,ours,Disaronno Originale,yes,claude-opus-5-5,right,"square bottle, label 'DISARONNO ORIGINALE'"
+768ad4826105,bar_04.jpg,bar_04-c4-o5,claude,Amaro Montenegro Amaro,yes,claude-opus-5-5,right,"green-neck bottle, cream label reading MONTE(NEGRO) Amaro"
+f4173b06f1a8,bar_04.jpg,bar_04-c4-o5,ours,Alhambra,yes,claude-opus-5-5,wrong,"Amaro Montenegro bottle (MONTE.. label), not Alhambra beer"
+7c57c5c791c8,bar_04.jpg,bar_04-c5-o,claude,Bourbon,no,claude-opus-5-5,wrong,"bare category; amber liquid bottle with pourer, label not visible"
+788e698e4127,bar_04.jpg,bar_04-c6-o,claude,Crown Royal Fine De Luxe,yes,claude-opus-5-5,right,"faceted wide-shoulder bottle with arched label shape, Crown Royal style"
+9f3b323f8bfe,bar_04.jpg,bar_04-c7-o7,claude,Mitchell Creek Copper Pot Whisky,yes,claude-opus-5-5,wrong,label reads FORTY CREEK Copper Pot Reserve Whisky
+4591eef3ee0e,bar_04.jpg,bar_04-c7-o7,ours,Black Velvet,yes,claude-opus-5-5,wrong,label reads FORTY CREEK Copper Pot Reserve Whisky
+2116e7b33c16,bar_04.jpg,bar_04-c8-o,claude,Fernet-Branca Fernet,yes,claude-opus-5-5,right,"dark green bottle, eagle globe logo, label FERNET-BRANCA"
+9ebb3c0b91c8,bar_04.jpg,bar_04-c9-o,claude,Branca Menta Menta,yes,claude-opus-5-5,right,"dark Branca-style bottle, pale label with two lines ending 'A' / 'A'"
+cd7ba2801e51,bar_05.jpg,bar_05-c-o10,ours,Badger Tangle Foot,yes,claude-opus-5-5,wrong,"dark stemmed coupe glass silhouette, not a beer bottle"
+5b5bacb4896c,bar_05.jpg,bar_05-c-o11,ours,Modelo Negra,yes,claude-opus-5-5,wrong,green glass beer bottle and a cream-labelled bottle; no gold foil or black Modelo label
+d48a3e428aa3,bar_05.jpg,bar_05-c-o12,ours,Alhambra,yes,claude-opus-5-5,cant_tell,"green glass bottle partly hidden, no label visible"
+6745b53be19a,bar_05.jpg,bar_05-c-o17,ours,Brasserie Galibier Snowball,yes,claude-opus-5-5,wrong,"clear amber spirit decanter partly behind a picture frame, not a brown beer bottle"
+a42c4d0f241b,bar_05.jpg,bar_05-c-o18,ours,Clément Rhum,yes,claude-opus-5-5,cant_tell,"heavily blurred bottle behind others, no label readable"
+a1a064ed4458,bar_05.jpg,bar_05-c-o19,ours,Samichlaus Classic,yes,claude-opus-5-5,wrong,"spirits bottle with white rectangular script label, not Samichlaus beer"
+7a6c44388feb,bar_05.jpg,bar_05-c-o2,ours,Orangina,yes,claude-opus-5-5,cant_tell,"dark blurred bottles, no label or Orangina shape visible"
+a552a1c1ca0f,bar_05.jpg,bar_05-c-o21,ours,Bruce Cost Jasmine Tea Ginger Ale,yes,claude-opus-5-5,cant_tell,"blurred glass with amber liquid, no label visible"
+3ecc4d584bf5,bar_05.jpg,bar_05-c-o24,ours,Coca-Cola Huevo,yes,claude-opus-5-5,wrong,"clear/white ridged glass object, no red Coca-Cola label or dark cola"
+6e37c9838814,bar_05.jpg,bar_05-c-o26,ours,Lite A Fine Pilsner Beer,yes,claude-opus-5-5,wrong,"Miller Lite beer tap handle, not a bottle"
+4865fe1424be,bar_05.jpg,bar_05-c-o28,ours,Ilrhéa Pineau Des Charente,yes,claude-opus-5-5,wrong,"clear bottle with red wax top and red seal, not Ilrhea's black-capped bottle with white swoosh label"
+b97eeb40cd11,bar_05.jpg,bar_05-c-o29,ours,Miami Soul,yes,claude-opus-5-5,wrong,"tap handle reading ANCHOR STEAM, not a Miami Soul can"
+bbaddffb1433,bar_05.jpg,bar_05-c-o32,ours,Fernandes Cream Ginger,yes,claude-opus-5-5,wrong,"clear empty glass decanter with stopper, not an orange can"
+4e668b7e9302,bar_05.jpg,bar_05-c-o33,ours,Coca-Cola,yes,claude-opus-5-5,cant_tell,"narrow blurred sliver of a dark bottle, no label visible"
+a23594be11b4,bar_05.jpg,bar_05-c-o6,ours,L'Étoile D'Azur Rosé 2015,yes,claude-opus-5-5,wrong,"broad-shouldered clear bottle, cork top with green neck band, clear/gold liquid; not a pink rose bottle"
+4f14d434b79c,bar_05.jpg,bar_05-c-o8,ours,Vichy Catalan,yes,claude-opus-5-5,wrong,"frosted glass decanter with stopper, no label; not Vichy Catalan bottle"
+ec473a618015,bar_05.jpg,bar_05-c1-o,claude,Crown Royal Fine De Luxe,yes,claude-opus-5-5,right,"arched label with crown, diamond-cut glass, Crown Royal shape"
+f87e7a7c0745,bar_05.jpg,bar_05-c10-o,claude,Johnnie Walker Black Label,yes,claude-opus-5-5,right,square bottle with slanted label reading BLACK LABEL
+95e0443cb724,bar_05.jpg,bar_05-c11-o20,claude,Knob Creek Rye,yes,Allen,right,
+95e0443cb724,bar_05.jpg,bar_05-c11-o20,claude,Knob Creek Rye,yes,claude-opus-5-5,right,"reads KNOB CREEK RYE, 100 proof"
+7badd2600c59,bar_05.jpg,bar_05-c11-o20,ours,Knob Creek Rye Whiskey 50%,yes,claude-opus-5-5,right,"KNOB CREEK RYE black label, 100 proof"
+f7d27f8bb29e,bar_05.jpg,bar_05-c12-o22,claude,Knob Creek Kentucky Straight Bourbon,yes,claude-opus-5-5,right,"KNOB CREEK label, straight bourbon whiskey, small batch 100"
+dfc3bf9a3ae7,bar_05.jpg,bar_05-c12-o22,ours,Knob Creek Kentucky Straight Bourbon Whiskey Small Batch,yes,claude-opus-5-5,right,"label reads KNOB CREEK Kentucky straight bourbon, small batch 100"
+cb4d9f54f42c,bar_05.jpg,bar_05-c13-o25,claude,Bulleit Bourbon 10 Year,yes,claude-opus-5-5,right,"flask bottle, label reads BULLEIT BOURBON 10"
+7009f5648898,bar_05.jpg,bar_05-c13-o25,ours,Talisker Single Malt Scotch Whisky,yes,claude-opus-5-5,cant_tell,"blurred clear bottle, cream label with red 10, name unreadable"
+7e9f35aa7d27,bar_05.jpg,bar_05-c14-o,claude,Bulleit Bourbon,yes,claude-opus-5-5,right,"flask bottle, low label reading BULLEIT BOURBON with orange strip"
+1c0423e8d853,bar_05.jpg,bar_05-c15-o,claude,Bulleit Rye,yes,claude-opus-5-5,right,clear flask bottle with RYE embossed and green bottom band
+4ce933e7d705,bar_05.jpg,bar_05-c16-o,claude,Bulleit Bourbon,yes,Allen,right,
+4ce933e7d705,bar_05.jpg,bar_05-c16-o,claude,Bulleit Bourbon,yes,claude-opus-5-5,right,"flask bottle, embossed BOURBON, orange lower label like Bulleit"
+a81b74f714aa,bar_05.jpg,bar_05-c17-o30,claude,Maker's Mark Bourbon,yes,Allen,right,
+a81b74f714aa,bar_05.jpg,bar_05-c17-o30,claude,Maker's Mark Bourbon,yes,claude-opus-5-5,right,"red wax top, label 'Maker's Mark Whisky'"
+eeba0f4be728,bar_05.jpg,bar_05-c17-o30,ours,Maker's Mark Kentucky Straight Bourbon Whisky,yes,claude-opus-5-5,right,"red wax top, label reads Maker's Mark Whisky"
+e2a301ff0295,bar_05.jpg,bar_05-c18-o31,claude,Angel's Envy Port Finish Bourbon,yes,claude-opus-5-5,right,"curvy Angel's Envy bottle, ANGELS ENVY on label"
+30f98bac3d12,bar_05.jpg,bar_05-c18-o31,ours,Baileys Liquor,yes,claude-opus-5-5,wrong,"clear bourbon-style bottle, label reads ANGEL'S ENVY-like text, not Baileys"
+2ecf2b545cde,bar_05.jpg,bar_05-c19-o14,claude,Seagram's 7 Crown,yes,claude-opus-5-5,right,"brown bottle, white label with big red 7"
+bbbfbfa5a566,bar_05.jpg,bar_05-c19-o14,ours,Kaufland Gin,yes,claude-opus-5-5,wrong,"cream label with big red 7, Seagram's 7 Crown style"
+9138653ad703,bar_05.jpg,bar_05-c2-o,claude,Crown Royal Black,yes,claude-opus-5-5,right,"Crown Royal decanter shape, dark arched label with crown, dark liquid"
+f2068250191a,bar_05.jpg,bar_05-c20-o16,claude,Johnnie Walker Blue Label,yes,claude-opus-5-5,right,"dark bottle, diagonal label reading Blue Label, silver cap"
+d9a0e953026a,bar_05.jpg,bar_05-c20-o16,ours,Jhonnie Walker Red Label,yes,claude-opus-5-5,wrong,"dark bottle silver cap, label reads Blue Label"
+bb43beb23e51,bar_05.jpg,bar_05-c21-o23,claude,Jameson Irish Whiskey,yes,claude-opus-5-5,right,"green bottle, JAMESON label"
+15bc59c3e4a8,bar_05.jpg,bar_05-c21-o23,ours,Jameson Whisky,yes,claude-opus-5-5,wrong,"JAMESON on dark green label, white neck, looks like Caskmates not standard Jameson"
+38d2fa157048,bar_05.jpg,bar_05-c22-o,claude,Jameson Black Barrel,yes,claude-opus-5-5,right,dark label reads JAMESON BLACK BARREL
+1c7368a454bd,bar_05.jpg,bar_05-c23-o,claude,Jameson Caskmates Stout Edition,yes,claude-opus-5-5,right,"green bottle, black label JAMESON ... CASKMATES"
+49af2bfd8cee,bar_05.jpg,bar_05-c24-o27,claude,Southern Comfort Original,yes,claude-opus-5-5,right,"amber ribbed bottle, label 'SOUTHERN COMFORT'"
+a158b25d01c1,bar_05.jpg,bar_05-c24-o27,ours,Southern Comfort,yes,claude-opus-5-5,right,label 'SOUTHERN COMFORT'
+f761be67ff0d,bar_05.jpg,bar_05-c25-o,claude,Tullamore D.E.W. Original,yes,claude-opus-5-5,right,green label 'TULLA... DE...' Tullamore Dew
+cb8f53e343f3,bar_05.jpg,bar_05-c26-o1,claude,Martini & Rossi Extra Dry,yes,claude-opus-5-5,right,"green bottle, round red/white MARTINI & ROSSI label"
+7be9d7773cdf,bar_05.jpg,bar_05-c26-o1,ours,Côtes De Bourg Duplessis,yes,claude-opus-5-5,wrong,"green bottle with round white/red Martini-style label, not a Bordeaux wine"
+a4d9edb4ffd9,bar_05.jpg,bar_05-c27-o,claude,Martini & Rossi Rosso,yes,claude-opus-5-5,wrong,"MARTINI & ROSSI disc label but green glass bottle, looks Extra Dry not Rosso"
+7ff7ff4774c8,bar_05.jpg,bar_05-c28-o4,claude,Aperol Aperitivo,yes,claude-opus-5-5,right,"orange bottle, blue APEROL banner label"
+ed8100732951,bar_05.jpg,bar_05-c28-o4,ours,Aperol,yes,claude-opus-5-5,right,"orange bottle, blue APEROL banner label"
+fa54dab9409f,bar_05.jpg,bar_05-c29-o,claude,Patrón Reposado,yes,claude-opus-5-5,wrong,"tall long-neck tequila bottle with agave oval medallion, not Patron shape"
+05fdd1b6e8a5,bar_05.jpg,bar_05-c3-o3,claude,Jack Daniel's Single Barrel Select,yes,claude-opus-5-5,right,"squat Jack Daniel's bottle, black label Single Barrel Select"
+a2a780efa1bf,bar_05.jpg,bar_05-c3-o3,ours,Jack Daniel's,yes,claude-opus-5-5,right,"square bottle, black Jack Daniel's label (Single Barrel style)"
+911a6ea2bff6,bar_05.jpg,bar_05-c30-o,claude,Clase Azul Reposado,yes,claude-opus-5-5,right,"white ceramic decanter with blue hand-painted pattern, silver cap"
+7ae9b727e951,bar_05.jpg,bar_05-c31-o,claude,Patrón Añejo,yes,Allen,wrong,
+7ae9b727e951,bar_05.jpg,bar_05-c31-o,claude,Patrón Añejo,yes,claude-opus-5-5,wrong,"tall wooden stopper, agave emblem in round medallion, not Patron bee/cork shape"
+08090a34a7aa,bar_05.jpg,bar_05-c4-o,claude,Old Forester 86 Proof,yes,claude-opus-5-5,wrong,"blurry clear bottle, clear neck, white label; no Old Forester black neck or amber bourbon"
+f65b1f6518ea,bar_05.jpg,bar_05-c5-o5,claude,Wild Turkey 101 Rye,yes,claude-opus-5-5,right,label reads WILD TURKEY 101 RYE
+74f4e9ca3ced,bar_05.jpg,bar_05-c5-o5,ours,Wild Turkey Rye,yes,claude-opus-5-5,right,label 'WILD TURKEY 101 RYE' with turkey
+06f0dc1daacd,bar_05.jpg,bar_05-c6-o7,claude,Wild Turkey 101,yes,claude-opus-5-5,right,"label reads WILD TURKEY, red neck wrap"
+d54f76407b22,bar_05.jpg,bar_05-c6-o7,ours,Wild Turkey Bourbon,yes,claude-opus-5-5,right,label reads WILD TURKEY
+54e845a456ab,bar_05.jpg,bar_05-c7-o9,claude,The Glenlivet 12 Year Old,yes,claude-opus-5-5,right,green bottle reads THE GLENLIVET 12
+3a7b10801af0,bar_05.jpg,bar_05-c7-o9,ours,Glenkinchie Distillers Edition 2008,yes,claude-opus-5-5,wrong,green bottle reads THE GLENLIVET 12
+bff792c715c4,bar_05.jpg,bar_05-c8-o13,claude,Jack Daniel's Tennessee Fire,yes,claude-opus-5-5,right,"square Jack Daniel's bottle with red label, Fire style"
+1833d8871a82,bar_05.jpg,bar_05-c8-o13,ours,Jack Daniel's Black Label No.7,yes,claude-opus-5-5,wrong,"square Jack Daniel's bottle with red label (Fire/Cinnamon), not black No.7"
+8f45548fa87d,bar_05.jpg,bar_05-c9-o15,claude,Jack Daniel's Tennessee Honey,yes,claude-opus-5-5,right,"square bottle, label reads JACK DANIEL'S Tennessee HONEY"
+012965de24c9,bar_05.jpg,bar_05-c9-o15,ours,Nando’S Britvic Lime Cordial,yes,claude-opus-5-5,wrong,cream label JACK DANIEL'S Tennessee Honey

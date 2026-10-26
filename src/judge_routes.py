@@ -18,7 +18,6 @@ import csv
 import hashlib
 import hmac
 import io
-import math
 import os
 import random
 import re
@@ -41,6 +40,7 @@ from scipy.optimize import linear_sum_assignment
 import datafiles as df
 from boxes import iou, padded_crop
 from photos import open_photo
+from score import wilson
 
 DATA = df.DATA
 CLAUDE = Path(os.environ.get("JUDGE_CLAUDE", DATA / "predictions_bars5_claude.csv"))
@@ -318,16 +318,6 @@ def reveal(j: dict) -> dict:
             "judge": j.get("judge"), "timestamp": j.get("timestamp"),
             "claude": {"answer": j.get("claude_answer", ""), "right": r["claude"]},
             "ours": {"answer": j.get("ours_answer", ""), "right": r["ours"]}}
-
-
-def wilson(k: int, n: int, z: float = 1.96):
-    if n == 0:
-        return None, None
-    p = k / n
-    d = 1 + z * z / n
-    c = (p + z * z / (2 * n)) / d
-    m = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
-    return max(0.0, c - m), min(1.0, c + m)
 
 
 def _norm(s: str) -> str:

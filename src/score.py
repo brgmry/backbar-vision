@@ -10,6 +10,7 @@ in percentage points of bottle size, over matched bottles whose fill was visible
 Usage: python src/score.py [data/predictions.csv] [--alcohol]
 """
 import argparse
+import math
 import statistics
 from collections import defaultdict
 from pathlib import Path
@@ -80,6 +81,17 @@ def score_matched(preds: list[dict], inventory: list[dict], matched: list[tuple[
 
 def score_photo(preds: list[dict], inventory: list[dict]) -> dict[str, float]:
     return score_matched(preds, inventory, matched_pairs(preds, inventory))
+
+
+def wilson(k: int, n: int, z: float = 1.96) -> tuple[float | None, float | None]:
+    """95% Wilson interval for k successes out of n."""
+    if n == 0:
+        return None, None
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    m = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return max(0.0, c - m), min(1.0, c + m)
 
 
 def by_photo(rows: list[dict]) -> dict[tuple[str, str], list[dict]]:
