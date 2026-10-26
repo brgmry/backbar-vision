@@ -29,6 +29,8 @@ Fill level, on four photos of one 50 ml miniature holding 7.5 ml, then 15 ml, of
 
 That is far too small a sample to publish as a finding. A measured pour series and human labels for the 82-photo bar test set (`data/test_bars/`) come next.
 
+On five bar photos, judged blind: in a human A/B (`data/test_bars/judgements.csv`) Claude's names were right 18 of 23 times and ours 6 of 24. A model judge (Claude Opus 5.5, with web images) gave 65% and 34% on all 365 answers (`data/test_bars/card_verdicts.csv`, `src/score_judged.py`); it is a cross-check, not a result. [`docs/writeup.md`](docs/writeup.md) tells the whole story.
+
 ## How it works
 
 ```mermaid
