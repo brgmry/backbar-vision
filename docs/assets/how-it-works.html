@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Bottle Vision: how it actually works</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#0f1115;--card:#171a21;--ink:#e8e6e1;--mute:#9aa0a6;--line:#2a2f3a;--a:#f5b942;--b:#6cc3ff;--c:#8be28b;--d:#ff7a7a;--e:#c49bff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Inter",sans-serif}
+main{max-width:1080px;margin:0 auto;padding:40px 24px 140px}
+nav{position:sticky;top:0;background:#0f1115ee;backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:8px 0;z-index:5;font-size:13px;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--mute);text-decoration:none;margin-right:14px}nav a:hover{color:var(--a)}
+h1{font-size:38px;margin:18px 0 6px;letter-spacing:-.02em}h2{font-size:27px;margin:72px 0 8px;letter-spacing:-.01em;scroll-margin-top:50px}h3{font-size:18.5px;margin:26px 0 6px;color:var(--a)}
+.sub{color:var(--mute);font-size:18px;margin-bottom:28px}.mute{color:var(--mute)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:16px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid currentColor;margin-right:6px}
+.flow{display:flex;gap:0;overflow-x:auto;padding:10px 0}
+.step{flex:1 0 118px;background:#1d212b;border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:.15s;position:relative}
+.step:hover,.step.on{border-color:var(--a);transform:translateY(-2px)}
+.step b{display:block;font-size:15px}.step i{display:block;font-style:normal;color:var(--mute);font-size:12.5px;margin-top:3px}
+.step .n{position:absolute;top:-10px;left:10px;background:var(--a);color:#111;font-weight:700;font-size:12px;border-radius:99px;padding:0 7px}
+.arrow{flex:0 0 20px;display:flex;align-items:center;justify-content:center;color:var(--mute)}
+#detail{min-height:170px}#detail h3{margin-top:0}
+code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;background:#232836;padding:1px 6px;border-radius:5px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--mute);font-weight:600}
+.bar{height:16px;border-radius:4px;background:var(--b);display:inline-block;vertical-align:middle}.bar.cl{background:var(--a)}.bar.bad{background:var(--d)}
+.big{font-size:42px;font-weight:700;letter-spacing:-.02em}
+.photo{position:relative;display:inline-block;max-width:100%}.photo img{max-width:100%;display:block;border-radius:10px}.photo .bx{position:absolute;border:2px solid;border-radius:2px}
+.legend span{margin-right:14px;font-size:13px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.qa summary{cursor:pointer;font-weight:600;padding:6px 0}.qa p{margin:4px 0 14px}
+svg text{fill:var(--ink);font-family:inherit}
+.k{color:var(--a);font-weight:600}
+blockquote{margin:12px 0;padding:10px 16px;border-left:3px solid var(--a);background:#1b1f28;border-radius:0 10px 10px 0}
+.math{font-family:"STIX Two Math","Cambria Math","Times New Roman",serif;font-size:22px;text-align:center;padding:14px;margin:10px 0;background:#12151b;border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+.math .s{font-size:15px}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 4px}.frac>span:first-child{border-bottom:1px solid var(--ink);padding:0 4px}.frac>span:last-child{padding:0 4px}
+.words{border-left:3px solid var(--c);padding:6px 14px;background:#151d17;border-radius:0 8px 8px 0;margin:10px 0}
+.work{border-left:3px solid var(--b);padding:6px 14px;background:#141b22;border-radius:0 8px 8px 0;margin:10px 0;font-size:15px}
+.words::before{content:"In words  ";font-weight:700;color:var(--c);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.work::before{content:"Worked example  ";font-weight:700;color:var(--b);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.why{border-left:3px solid var(--a);padding:6px 14px;background:#1f1c14;border-radius:0 8px 8px 0;margin:10px 0;font-size:15px}
+.why::before{content:"Why it matters  ";font-weight:700;color:var(--a);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+input[type=range]{width:100%;accent-color:var(--a)}
+button{background:var(--a);border:0;border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer;color:#111}
+.out{font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--c)}
+.lvl{font-size:11px;font-weight:700;color:#111;background:var(--e);border-radius:99px;padding:1px 8px;margin-left:8px;vertical-align:middle}
+</style></head><body><main>
+
+<nav>
+<a href="#s1">1 Big picture</a><a href="#s2">2 Pipeline</a><a href="#s3">3 Images as numbers</a><a href="#s4">4 Detection maths</a><a href="#s5">5 Embeddings</a><a href="#s6">6 Training maths</a><a href="#s7">7 Zero-shot + OCR + fusion</a><a href="#s8">8 Fill maths</a><a href="#s9">9 Scoring maths</a><a href="#s10">10 Data</a><a href="#s11">11 Local VLMs</a><a href="#s12">12 Live run</a><a href="#s13">13 App + who did what</a><a href="#s14">14 Scoreboard</a><a href="#s15">15 Glossary</a><a href="#s16">16 Q&amp;A</a>
+</nav>
+
+<h1>Bottle Vision</h1>
+<div class="sub">What Allen and I built on Saturday 10 Oct 2026, every piece of it, including the maths. Repo <span class="mono">~/dev/bottle-vision</span>: 79 commits and about 5,000 lines of Python in roughly five hours. Each maths box has the formula, then what it means in plain words, then a worked example with real numbers from the repo. Anything marked <span class="lvl">DEEP</span> is optional.</div>
+
+<div class="card"><b>The 30-second version.</b> One photo of a back bar goes in. Out comes every bottle with its brand, size and how full it is. We built two ways to do it. The first sends the photo to <span class="k">Claude</span> and lets it answer. The second is our own <span class="k">local pipeline</span>: a chain of small open models running free on the laptop. The goal was for the chain to beat Claude by 10 points at zero cost per photo. <b>It didn't:</b> Claude got the brand right about 39% of the time, our best chain 23%. The reason was the data, not the models.</div>
+
+<!-- ============ 1 ============ -->
+<h2 id="s1">1. The big picture: one generalist against an assembly line</h2>
+<div class="grid2">
+<div class="card"><span class="tag" style="color:var(--a)">Baseline</span><h3 style="margin-top:8px">Claude (<code>claude-opus-5-5</code>)</h3>
+<p>Photo plus a prompt in, JSON out: one row per bottle with brand, product, size, fill and a box. It's a <b>vision-language model</b> (VLM), meaning a language model that can also read images (section 3 explains how).</p>
+<ul class="small"><li>Has seen most of the internet, so it knows premium spirits.</li><li>Costs money on every photo, takes seconds, and <b>guesses</b>: 144 of its 414 IDs came from shape, not from reading the label, and it invents brands it can't read (it called a Thai Dragon bottle "Flying Goose").</li><li>We ran it 5 times on each of the 7 photos, because it gives a slightly different answer each time (recall 0.595 ± 0.015).</li></ul></div>
+<div class="card"><span class="tag" style="color:var(--b)">Challenger</span><h3 style="margin-top:8px">The local pipeline</h3>
+<p>Eight specialist steps, all open models, running on the Mac's GPU through Apple's <code>MPS</code> backend, with no API calls.</p>
+<ul class="small"><li>Each step is small, does one job and can be measured on its own.</li><li>Free per photo, and it can answer "unknown" instead of inventing something.</li><li>It only knows what's in the catalogue we built, so <b>the data sets the ceiling</b>.</li></ul></div>
+</div>
+<div class="card small"><b>Two test sets.</b> The <b>kitchen set</b> is 7 photos of the same 12 items (spirits, sauces, milk, syrups) shot in Allen's place, which is what most of the leaderboard uses. The <b>bar test set</b> is 82 real bar photos from the web (DuckDuckGo and Wikimedia Commons, with licences, tiered easy/medium/hard), labelled only by humans. The official objective was set on the bar set, but most numbers below are from the kitchen set plus a 5-photo bar comparison.</div>
+
+<!-- ============ 2 ============ -->
+<h2 id="s2">2. The local pipeline, step by step</h2>
+<p class="mute">Click a step. Each one has its own maths section further down.</p>
+<div class="flow" id="flow"></div>
+<div class="card" id="detail"></div>
+
+<!-- ============ 3 ============ -->
+<h2 id="s3">3. How a model "sees": images as numbers</h2>
+<p>Every model here starts the same way. A photo is a grid of pixels, and each pixel is 3 numbers (red, green, blue, each 0 to 255). The grid gets chopped into small squares called <b>patches</b>, and each patch becomes a list of numbers.</p>
+<div class="grid2">
+<div>
+<h3>Patches</h3>
+<div class="work">OWLv2 looks at a 960 × 960 image in 16 × 16 pixel patches. 960 ÷ 16 = 60, so the image becomes 60 × 60 = <b>3,600 patches</b>. Each patch is 16 × 16 × 3 = 768 raw numbers, squashed by a learned layer into one vector. The model then reads those 3,600 vectors the way a language model reads 3,600 words.</div>
+<p>That's why we <b>tile</b> the photo (section 4). In a 4,000-pixel bar photo shrunk to 960, a small bottle might cover 2 or 3 patches, which isn't enough to see anything.</p>
+</div>
+<div class="card" style="text-align:center"><svg id="patch" viewBox="0 0 300 300" width="100%"></svg><div class="small mute">Hover a patch: each square becomes one vector</div></div>
+</div>
+<h3>Attention: how patches talk to each other <span class="lvl">DEEP</span></h3>
+<p>Inside a <b>transformer</b> (the architecture under Claude, DINOv2, SigLIP2, OWLv2 and SAM), every patch asks every other patch "are you relevant to me?" and mixes in their information in proportion to the answer.</p>
+<div class="math">Attention(Q, K, V) = softmax<span class="s">(</span> <span class="frac"><span>Q K<sup>T</sup></span><span>√d</span></span> <span class="s">)</span> V</div>
+<div class="words">Each patch makes three vectors: a <b>query</b> Q ("what am I looking for?"), a <b>key</b> K ("what do I contain?") and a <b>value</b> V ("what I'll pass on"). Multiply a query by every key to get a relevance score. Divide by √d so the numbers don't blow up when vectors are long. <b>Softmax</b> turns the scores into weights that add up to 1 (section 6 has a slider). Each patch's new vector is the weighted average of everyone's values. Stack this 12 to 40 times and a patch on a label "knows" it's part of a bottle on a shelf.</div>
+<div class="why">This is why one model can do everything: attention is general. It's also why bigger images cost more. 3,600 patches means 3,600 × 3,600 ≈ 13 million pairwise scores per layer.</div>
+
+<!-- ============ 4 ============ -->
+<h2 id="s4">4. Finding the bottles: detection maths</h2>
+<p><b>OWLv2</b> (Google) is an <b>open-vocabulary detector</b>. You give it text ("a bottle", "a jug", "a sauce bottle") and it scores every patch on "does a box here match this text?". It needed no training on our bottles. Any box scoring above <code>0.12</code> is kept.</p>
+
+<h3>Tiling with overlap</h3>
+<div class="math">tile width = <span class="frac"><span>W</span><span>T − (T − 1) · overlap</span></span> = <span class="frac"><span>W</span><span>3 − 2 × 0.4</span></span> = <span class="frac"><span>W</span><span>2.2</span></span></div>
+<div class="words">Cut the photo into a 3 × 3 grid (T = 3) where neighbouring tiles overlap by 40%, so any bottle sits fully inside at least one tile. Each tile is enlarged to 960 pixels, so small bottles get more patches.</div>
+<div class="work">The photo is resized to 2,400 px wide. Each tile is 2,400 ÷ 2.2 ≈ <b>1,091 px</b>, nearly half the photo instead of all of it. A bottle 40 px wide is 40 × 960/2400 = 16 px (one patch) without tiling, and 40 × 960/1091 ≈ 35 px (two patches) with it. Any box within 4 px of an inner tile edge is thrown away, because it's probably a half-bottle cut by the tile; a neighbouring tile sees it whole.</div>
+
+<h3>IoU and non-maximum suppression (NMS)</h3>
+<p>Overlapping tiles mean the same bottle gets found two or three times. To decide whether two boxes are the same bottle, we measure how much they overlap.</p>
+<div class="math">IoU(A, B) = <span class="frac"><span>area(A ∩ B)</span><span>area(A ∪ B)</span></span> = <span class="frac"><span>overlap</span><span>area A + area B − overlap</span></span></div>
+<div class="words">Intersection over union: the shared area divided by the total area covered. 1 means identical boxes, 0 means not touching. <b>NMS:</b> sort the boxes by score, keep the best, delete any other box with IoU ≥ 0.3 against it (or with 70% of itself inside it), then repeat.</div>
+<div class="grid2">
+<div class="card" style="text-align:center"><svg id="iou" viewBox="0 0 300 200" width="100%"></svg><input type="range" id="iouS" min="0" max="140" value="40"><div class="out" id="iouO"></div></div>
+<div class="work">Two 100 × 200 px boxes shifted 40 px sideways. Overlap = 60 × 200 = 12,000. Union = 20,000 + 20,000 − 12,000 = 28,000. IoU = 12,000 / 28,000 = <b>0.43</b>, which is ≥ 0.3, so it's treated as the same bottle and the weaker box goes. Drag the slider: once the shift passes about 54 px, IoU drops below 0.3 and both boxes survive, i.e. two bottles standing next to each other.</div>
+</div>
+<h3>Segmentation instead of boxes (SAM 3)</h3>
+<p>A box is 4 numbers. A <b>segmentation mask</b> is a yes/no for every pixel: is this pixel part of the bottle? Meta's <b>SAM</b> (Segment Anything) does this. SAM 2.1 needs a box as a hint; <b>SAM 3</b> takes text, so one "bottle" pass over the whole photo gives every bottle's outline. For full bar walls Allen replaced OWLv2 with SAM 3, sorted bottles into shelf rows and then left to right, and dropped blobs covering several bottles. bar_03 went from at most 12 boxes to <b>113 bottles</b>.</p>
+<h3>The crop check</h3>
+<div class="math">fill ratio = <span class="frac"><span>mask pixels</span><span>box pixels</span></span> ≥ 0.55</div>
+<div class="words">If the bottle's outline covers less than 55% of its box, something's wrong: the bottle is hidden behind another, or the box is off. That crop is rejected and nobody estimates its fill. A shape check also compares height ÷ width with the median for that item and flags anything more than 25% off. On bar_03, 2 crops were rejected this way.</div>
+
+<!-- ============ 5 ============ -->
+<h2 id="s5">5. Embeddings: fingerprints in space</h2>
+<div class="grid2">
+<div>
+<p>Your <span class="mono">Embeddings.md</span> note covers the idea. A <b>backbone</b> turns a crop into a vector, which is a point in space: 768 numbers for DINOv2, 768 for SigLIP2-base, 256 after our head. Photos of the same thing should land close together.</p>
+<div class="math">cos θ = <span class="frac"><span>a · b</span><span>‖a‖ ‖b‖</span></span> = <span class="frac"><span>a₁b₁ + a₂b₂ + … + a<sub>n</sub>b<sub>n</sub></span><span>√(a₁² + … + a<sub>n</sub>²) · √(b₁² + … + b<sub>n</sub>²)</span></span></div>
+<div class="words">Multiply matching numbers, add them up, then divide by both lengths. The result is the cosine of the angle between the arrows: 1 = same direction (same thing), 0 = at right angles (unrelated), −1 = opposite. Length doesn't matter, only direction, so a bright and a dim photo of the same bottle can still match.</div>
+<div class="work">Three-number vectors. Crop a = (2, 1, 0), Jameson photo b = (4, 2, 1), Smirnoff photo c = (0, 1, 3).<br>a·b = 8 + 2 + 0 = 10, ‖a‖ = √5 = 2.24, ‖b‖ = √21 = 4.58 → cos = 10 / 10.25 = <b>0.98</b>.<br>a·c = 0 + 1 + 0 = 1, ‖c‖ = √10 = 3.16 → cos = 1 / 7.07 = <b>0.14</b>.<br>The nearest neighbour is Jameson. The real thing does exactly this with 768 numbers, against 42,652 gallery images, for every crop.</div>
+<div class="why">The trick that makes this fast: <b>normalise</b> every vector to length 1 in advance. Then cosine is just the dot product, and comparing one crop against 42,652 images is a single matrix multiplication that takes milliseconds.</div>
+</div>
+<div class="card" style="text-align:center">
+<svg id="cos" viewBox="0 0 300 220" width="100%"></svg><input type="range" id="cosS" min="0" max="180" value="30"><div class="out" id="cosO"></div>
+<hr style="border-color:var(--line);margin:18px 0">
+<svg id="emb" viewBox="0 0 420 320" width="100%"></svg>
+<button id="train" style="margin-top:8px">Train the head (pull same brand together)</button>
+<div class="legend small" style="margin-top:8px"><span><i style="background:var(--a)"></i>Jameson</span><span><i style="background:var(--b)"></i>Smirnoff</span><span><i style="background:var(--c)"></i>Gordon's</span><span><i style="background:#fff"></i>your crop</span></div>
+</div>
+</div>
+<h3>Retrieval and the "unknown" threshold</h3>
+<div class="math">prediction = <span class="s">{</span> label of argmax<sub>g</sub> cos(crop, g) &nbsp;if max ≥ τ;&nbsp; "unknown" otherwise <span class="s">}</span></div>
+<div class="words"><b>argmax</b> means "the item that gives the biggest value". Find the gallery image with the highest similarity and take its label. If even the best match is weak (below a threshold τ, which was 0.3 in the 12-item matcher), say "unknown". Clutter crops (a water bottle, a shaker, kitchen roll) are put in the gallery as their own class, so they have somewhere to go.</div>
+<div class="why">Retrieval means a new product just needs a few photos added to the gallery. No retraining. That's how most real retail-recognition systems work, and it's why the enrolment idea (shoot each bottle 3 times on a plain surface) is so strong.</div>
+<h3>The three backbones</h3>
+<table class="card" style="display:table">
+<tr><th>Backbone</th><th>How it was trained</th><th>Image-only brand recall</th></tr>
+<tr><td><b>DINOv2</b> (Meta)</td><td><b>Self-supervised</b>: no labels at all. A student network learns to match a teacher network's output on different crops of the same image, so it learns shape and texture.</td><td>0.052</td></tr>
+<tr><td><b>Marqo e-commerce B</b></td><td>Image-text model tuned on product listings.</td><td>0.156</td></tr>
+<tr><td><b>SigLIP2</b> (Google)</td><td>Trained on billions of image-caption pairs, so it has a <b>text tower</b> too, and words like "Jameson" mean something to it.</td><td><b>0.156</b>, best overall with OCR</td></tr>
+</table>
+<p class="small mute">Lesson: a brand is a word. Models that learned from captions handle brands better than ones that only learned what things look like.</p>
+
+<!-- ============ 6 ============ -->
+<h2 id="s6">6. Training maths: the only part we trained</h2>
+<p>The backbone stays <b>frozen</b>: its millions of weights never change. On top sits a small <b>projection head</b> that we did train: 768 → 1,024 → 256 numbers, with a GELU bend in the middle. Training a small layer on a frozen pretrained model is <b>transfer learning</b>. It's cheap enough for a laptop because we embed every training image once, save the vectors, and only push those saved vectors through the head 30 times.</p>
+
+<h3>Softmax and temperature</h3>
+<div class="math">p<sub>i</sub> = <span class="frac"><span>e<sup>s<sub>i</sub> / T</sup></span><span>Σ<sub>j</sub> e<sup>s<sub>j</sub> / T</sup></span></span></div>
+<div class="words">Turns any list of scores into probabilities that add up to 1. Raise e to each score (always positive, and big scores get much bigger), then divide by the total. <b>Temperature T</b> sets how decisive it is: a small T exaggerates the gap, making the winner take nearly everything; a large T flattens everything towards equal. It's the same "temperature" setting LLMs have.</div>
+<div class="card"><div class="grid2"><div><label class="small">Scores for Jameson, Smirnoff, Gordon's: 0.9, 0.7, 0.2</label><br><label class="small">Temperature T = <b id="tv">1.0</b></label><input type="range" id="tS" min="0.05" max="2" step="0.05" value="1"></div><div id="smx"></div></div>
+<div class="small mute">At T = 1 the answer is mushy (43% / 35% / 21%). At T = 0.1, which is what our training used, it's 88% / 12% / 0%. That sharpness is why the loss punishes near-misses hard.</div></div>
+
+<h3>Supervised contrastive loss (the training signal) <span class="lvl">DEEP</span></h3>
+<div class="math">L<sub>i</sub> = − <span class="frac"><span>1</span><span>|P(i)|</span></span> Σ<sub>p ∈ P(i)</sub> log <span class="frac"><span>e<sup>z<sub>i</sub>·z<sub>p</sub> / T</sup></span><span>Σ<sub>a ≠ i</sub> e<sup>z<sub>i</sub>·z<sub>a</sub> / T</sup></span></span></div>
+<div class="words">Take one photo i in a batch of 512. P(i) is every other photo in the batch with the <b>same brand</b> (the positives). For each positive, run a softmax over "how similar is i to everything else in the batch" and look up the probability given to that positive. We want it near 1, so the loss is −log of it (−log 1 = 0, no penalty; −log 0.01 = 4.6, big penalty). Average over the positives and over the batch. Then adjust the head's weights slightly so the loss goes down (<b>gradient descent</b>, using the AdamW optimiser, learning rate 0.001, decaying on a cosine schedule). That's 30 passes over the data (<b>epochs</b>).</div>
+<div class="work">One Jameson photo with one other Jameson in the batch. If the head maps them to similarity 0.8 and the closest Smirnoff to 0.6, then at T = 0.1 that's e<sup>8</sup> against e<sup>6</sup>: the softmax gives Jameson 88%, loss = −log 0.88 = 0.13. If they were the other way round, the loss would be −log 0.12 = 2.1. The gradient nudges the weights so Jameson photos rotate towards each other in the 256-dimensional space. That's the animation in section 5.</div>
+
+<h3>The brand classifier: cross-entropy</h3>
+<div class="math">L = − log p<sub>correct brand</sub></div>
+<div class="words">A second output layer predicts one of the brands that have at least 30 training photos, through a softmax. The loss is how surprised it was by the right answer. It's trained alongside the contrastive loss, and the two are added.</div>
+<div class="why">The honest result: the head barely helped (brand recall 0.039 → 0.078). Training photos were clean product shots, test photos were dim shelves. The head learned what "close" means for packshots, and that didn't carry over. This is called <b>domain shift</b>, and it's the whole story of the day. Hyperparameters were tuned on a <b>validation split</b> (10% of products held out), never on the test set.</div>
+
+<!-- ============ 7 ============ -->
+<h2 id="s7">7. Zero-shot, OCR and fusion</h2>
+<h3>Zero-shot: matching a picture to a sentence</h3>
+<p>SigLIP2 embeds images and text into the <b>same space</b>. So you can embed the sentence "a photo of a bottle of Jameson" and take its cosine with the crop, with no training on Jameson at all. That's <b>zero-shot classification</b>, the idea behind CLIP.</p>
+<div class="math">CLIP: softmax over the whole batch &nbsp;&nbsp;|&nbsp;&nbsp; SigLIP: σ(t · cos + b) per pair, σ(x) = <span class="frac"><span>1</span><span>1 + e<sup>−x</sup></span></span></div>
+<div class="words"><span class="lvl">DEEP</span> CLIP learns by asking "which of these 32,000 captions belongs to this image?", which is one big softmax. SigLIP asks each image-caption pair separately, "match or not?", with a <b>sigmoid</b> that squeezes any number into 0 to 1. Same goal, but it scales better and gives calibrated per-pair scores.</div>
+<div class="work">We ran SigLIP2-so400m against 180 generic product names. Loose recall was 0.524, which looks great, but strict brand recall was 0.078. It was matching "Tomato Ketchup" and "Whole Milk", not brands. Always check which metric you're reading.</div>
+
+<h3>OCR: just read the label</h3>
+<p><b>Apple Vision</b> reads text off each crop on the Mac itself, with language correction off (brand names aren't dictionary words). The text is then matched to brand names with <b>fuzzy matching</b>, because OCR misreads letters.</p>
+<div class="math">partial_ratio(brand, text) ≥ 90 &nbsp;(brand words of 6+ letters) &nbsp;&nbsp;·&nbsp;&nbsp; exact word match (shorter words)</div>
+<div class="words">Fuzzy ratios come from <b>edit distance</b> (Levenshtein): how many single-letter insertions, deletions or swaps turn one string into the other, rescaled to 0 to 100. "partial" means the best-matching window of the longer text. Short words like "Jim" need an exact hit, otherwise they'd match everything.</div>
+<div class="work">OCR reads "TANQUERAY L0NDON DRY GIN" (a zero instead of an O). Against "Tanqueray": the window "tanqueray" matches exactly, 100 ≥ 90, so it counts as a hit. "L0NDON" vs "London" is one substitution in 6 letters, ratio about 83, so "London Dry" alone wouldn't pass. That's deliberate, because lots of gins say London Dry.</div>
+<div class="why">Biggest single lift of the day: brand recall 0.039 → <b>0.169</b> just by adding OCR. When the label is legible, reading beats recognising.</div>
+
+<h3>Fusion with z-scores</h3>
+<div class="math">z = <span class="frac"><span>x − mean</span><span>standard deviation</span></span> &nbsp;&nbsp;&nbsp; score<sub>brand</sub> = 1.0 · z<sub>image</sub> + 1.0 · z<sub>name</sub> &nbsp;(OCR overrides if it names a brand)</div>
+<div class="words">Image similarity and text similarity are on different scales, so adding them raw would let one drown the other. A <b>z-score</b> asks "how many standard deviations above average is this brand, for this crop?". Once both signals are on the same scale, add them with equal weights. We left the weights untuned on purpose, because tuning them on the test photos would be cheating.</div>
+<div class="work">For one crop, across 4 brands, image similarities are 0.62, 0.55, 0.54, 0.53 (mean 0.56, sd 0.04) and name similarities are 0.10, 0.18, 0.09, 0.07 (mean 0.11, sd 0.04).<br>Brand 1: z<sub>img</sub> = +1.5, z<sub>name</sub> = −0.25 → <b>1.25</b>. Brand 2: −0.25 + 1.75 → <b>1.5</b>. So brand 2 wins on a strong name signal even though brand 1 looked closest. Then the product is picked within the winning brand.</div>
+
+<!-- ============ 8 ============ -->
+<h2 id="s8">8. Fill level maths: geometry, not guessing</h2>
+<p>Asking Claude "how many ml are left?" was off by <b>19 percentage points</b> on measured pours. So we did geometry, and only asked a model where the liquid line is.</p>
+<div class="grid2">
+<div>
+<h3>Volume from a silhouette (the disc method)</h3>
+<div class="math">V(below y) = Σ<sub>rows r = y … base</sub> π (w<sub>r</sub> / 2)² &nbsp;&nbsp;⟹&nbsp;&nbsp; fill % = <span class="frac"><span>Σ<sub>line→base</sub> w<sub>r</sub>²</span><span>Σ<sub>neck→base</sub> w<sub>r</sub>²</span></span></div>
+<div class="words">A bottle is round, so each pixel row of its outline is a thin disc whose diameter is the outline's width there. A disc's area is π × radius², so a row twice as wide holds <b>4×</b> as much. Add up the discs from the liquid line to the base, then divide by the total up to the neck. π and the ¼ cancel, so you only need the sum of width². No real-world units needed: it's a ratio.</div>
+<div class="work">Drag the slider. With the line halfway up the <i>height</i>, the bottle is 56% full by <i>volume</i>, and three-quarters of the way up it's already 83%, because the bottom is the fat part. That's why "fill % is volume, not height" is a rule in the repo. Only then is ml = fill % × size (e.g. 70% × 700 ml = 490 ml).</div>
+<h3>Where is "full"?</h3>
+<div class="words">Bottles are filled to about the bottom of the neck. The code finds the <b>shoulder</b>: going up from mid-height, measure how fast the width shrinks over windows of 3% of the height. The steepest narrowing is the shoulder; the first row above it where the width shrinks by less than 10% per window is the neck. That row is 100%. This is a numerical <b>derivative</b>: rate of change of width with height.</div>
+</div>
+<div class="card">
+<svg viewBox="0 0 260 340" width="100%">
+<defs><clipPath id="bt"><path d="M110 20 h40 v60 q0 20 30 50 q20 25 20 60 v120 q0 15 -15 15 h-110 q-15 0 -15 -15 v-120 q0 -35 20 -60 q30 -30 30 -50 z"/></clipPath></defs>
+<g clip-path="url(#bt)"><rect x="0" y="0" width="260" height="340" fill="#232836"/><rect id="liq" x="0" y="200" width="260" height="140" fill="#c98a2e" opacity=".85"/><g id="slices"></g></g>
+<path d="M110 20 h40 v60 q0 20 30 50 q20 25 20 60 v120 q0 15 -15 15 h-110 q-15 0 -15 -15 v-120 q0 -35 20 -60 q30 -30 30 -50 z" fill="none" stroke="#e8e6e1" stroke-width="2"/>
+<line x1="20" x2="240" y1="128" y2="128" stroke="var(--c)" stroke-dasharray="4 4"/><text x="186" y="122" font-size="11">100% (neck)</text>
+<line id="ll" x1="20" x2="240" y1="200" y2="200" stroke="var(--a)" stroke-width="2"/>
+</svg>
+<input id="lvl" type="range" min="135" max="320" value="224">
+<div style="text-align:center"><span class="big" id="pct">0%</span><div class="small mute" id="pct2"></div></div>
+</div>
+</div>
+
+<h3>Camera tilt: why the base is an ellipse <span class="lvl">DEEP</span></h3>
+<div class="grid2">
+<div>
+<div class="math">sin θ = <span class="frac"><span>ellipse height</span><span>ellipse width</span></span> = <span class="frac"><span>2 × (lowest pixel − widest row)</span><span>base width</span></span></div>
+<div class="words">A circle seen from straight on is a line, and seen from above it's a circle. In between, it's an ellipse whose height-to-width ratio is the sine of the camera's angle above horizontal. The bottle's widest row near the bottom is the middle of the base ellipse; the lowest pixel is its front edge. Twice that gap is the ellipse height. So the photo tells you how high the camera was. The same logic says the liquid surface's true height is where it meets the side walls, not its front edge.</div>
+<div class="work">Base 80 px wide, lowest pixel 10 px below the widest row. Ellipse height = 20 px, sin θ = 20/80 = 0.25, θ = arcsin 0.25 = <b>14.5°</b>, a camera slightly above shelf height. If the formula ever says more than 60°, the base is probably hidden, so the code falls back to the lowest pixel.</div>
+</div>
+<div class="card" style="text-align:center"><svg id="tilt" viewBox="0 0 300 200" width="100%"></svg><input type="range" id="tiltS" min="0" max="80" value="15"><div class="out" id="tiltO"></div></div>
+</div>
+
+<h3>Is the liquid line real? Colour distance in Lab</h3>
+<div class="math">ΔE = √( (L₁ − L₂)² + (a₁ − a₂)² + (b₁ − b₂)² ) &nbsp;&nbsp; must be ≥ 15</div>
+<div class="words"><b>Lab</b> is a colour space built so that equal distances look equally different to a human eye: L = lightness, a = green↔red, b = blue↔yellow. RGB doesn't work that way. Measure the average colour in a band just above the line and just below it, inside the bottle. Their straight-line distance is ΔE (Pythagoras in 3D). If it's under 15, there's no real edge there, so answer "unsure" rather than give a number.</div>
+<div class="work">Whisky below (L 45, a 18, b 40) against empty glass above (L 60, a 2, b 10): ΔE = √(225 + 256 + 900) = √1381 ≈ <b>37</b>, a clear line. The threshold of 15 was chosen because the two clearly wrong readings had contrast 11 to 12 and every correct one had 21 or more. Caveat: it doesn't catch a sharp edge in the wrong place, like a printed orange band on a label (No. 18 read as 34 ml when other photos said about 320).</div>
+
+<h3>Five ways to find the line, measured</h3>
+<div class="math">MAE = <span class="frac"><span>1</span><span>n</span></span> Σ | predicted % − true % |</div>
+<div class="words">Mean absolute error in <b>percentage points</b> (pp): the average size of the miss, ignoring direction. "True" came from measured pours (7.5 and 15 ml into 50 ml miniatures, measured, never generated by a model), plus sealed full bottles.</div>
+<table class="card" style="display:table">
+<tr><th>Line finder</th><th>MAE on 4 measured pours</th><th>Free?</th><th>What happened</th></tr>
+<tr><td><code>vlm:opus</code> Claude estimates ml directly</td><td>19 pp (4 of 4)</td><td>no</td><td>A confident guess every time.</td></tr>
+<tr><td><code>geometry:edge</code> strongest horizontal colour change</td><td>39 pp</td><td>yes</td><td>Labels and reflections have stronger edges than the liquid.</td></tr>
+<tr><td><code>geometry:labpics</code> SAM 2 fine-tuned on lab glassware photos</td><td>73 pp</td><td>yes</td><td>Lab beakers don't look like bar bottles. Domain shift again.</td></tr>
+<tr><td><code>geometry:sam3</code> SAM 3 asked for "liquid"</td><td style="color:var(--d)">77 pp</td><td>yes</td><td>Read the whole bottle as liquid, so always about "full".</td></tr>
+<tr><td><code>geometry:opus</code> Claude names a pixel row</td><td>9.0 pp (1 of 4 read)</td><td>no</td><td>Models are bad at exact coordinates.</td></tr>
+<tr><td><code>geometry:opus-grid</code> numbered ticks drawn beside the bottle, Claude names the tick</td><td class="k">2.1 pp (2 of 4 read)</td><td>no</td><td><b>Best, and the default.</b> 30 ticks from neck to base turn a measurement into multiple choice. Sealed full bottles: 0.3 pp on 7 of 7.</td></tr>
+</table>
+<p class="small mute">"Oracle" runs (<code>pour_oracle</code>, <code>packshot_oracle</code>) give the fill step the correct bottle identity so fill can be measured on its own, without identification errors mixed in. n = 4 is tiny: these are signals, not proof. The fill step still uses Claude a little (it only names a tick), so the fully free version isn't solved yet. Upside-down optics (bottles on bar pourers) are flagged and not measured.</p>
+
+<!-- ============ 9 ============ -->
+<h2 id="s9">9. Scoring maths: how we knew who won</h2>
+<h3>Matching predictions to the truth (the Hungarian algorithm)</h3>
+<div class="words">A system says "Jameson Irish Whiskey, Smirnoff Red, Heinz Ketchup…" and the truth is a list of 12 items. Which prediction goes with which item? Build a table of fuzzy text similarity (token_set_ratio, 0 to 100) between every prediction and every item, then find the <b>one-to-one pairing with the highest total</b>, so two predictions can't both claim the same bottle. That's the assignment problem, solved by the Hungarian algorithm (<code>linear_sum_assignment</code>). Pairs scoring below 60 count as wrong.</div>
+<div class="math">recall = <span class="frac"><span>items correctly matched</span><span>items really there</span></span> &nbsp;&nbsp; precision = <span class="frac"><span>correct predictions</span><span>all predictions</span></span> &nbsp;&nbsp; count error = predicted count − true count</div>
+<div class="work">12 bottles in the photo. The system outputs 10, of which 7 match. Recall = 7/12 = <b>0.58</b> (it missed 5). Precision = 7/10 = <b>0.70</b> (3 answers were wrong). Count error = 10 − 12 = <b>−2</b>. Claude's −0.171 means it finds almost exactly the right number of bottles; the catalogue pipeline's +9 means it found clutter too.</div>
+<div class="words"><b>Strict brand recall</b>, the headline number: a match only counts if the predicted <i>brand</i> also scores ≥ 80 against the true brand, and "Unknown" or a generic name ("Coffee Liqueur") always fails. <b>bar_recall</b> counts only spirits, liqueurs, wine, beer and mixers, because nobody needs a bar camera for ketchup.</div>
+<h3>Variance across runs</h3>
+<div class="words">Claude gives different answers each run, so we ran it 5 times. 0.595 ± 0.015 is the mean and <b>standard deviation</b> (the typical distance of a run from the mean). The catalogue pipeline and SigLIP2 give the same answer every time, so one run is enough. The open VLMs sample with temperature 0.7, so they got 3 runs.</div>
+<h3>Wilson confidence interval (the Judge tab) <span class="lvl">DEEP</span></h3>
+<div class="math">p̂ ± margin, &nbsp; centre = <span class="frac"><span>p̂ + z²/2n</span><span>1 + z²/n</span></span>, &nbsp; margin = <span class="frac"><span>z √( p̂(1−p̂)/n + z²/4n² )</span><span>1 + z²/n</span></span>, &nbsp; z = 1.96</div>
+<div class="words">If a human judge says one system was right 8 times out of 20, the true rate isn't exactly 40%. With so few samples it could easily be 25% or 60%. A <b>confidence interval</b> gives the range you can believe 95% of the time (that's the 1.96). The textbook ±1.96·√(p(1−p)/n) breaks with small n or rates near 0 or 1 (it can give negative ranges). Wilson's version pulls the centre slightly towards 50% and behaves.</div>
+<div class="card"><div class="grid2"><div><label class="small">Correct k = <b id="wk">8</b></label><input type="range" id="wkS" min="0" max="50" value="8"><label class="small">Judged n = <b id="wn">20</b></label><input type="range" id="wnS" min="1" max="200" value="20"></div><div class="out" id="wO"></div></div></div>
+<h3>Perceptual hashes: keeping the test set out of training</h3>
+<div class="math">Hamming(h₁, h₂) = number of the 64 bits that differ &nbsp;&nbsp; drop if ≤ 6</div>
+<div class="words">A <b>perceptual hash</b> shrinks an image to a tiny greyscale thumbnail, takes the low-frequency pattern (via a DCT, the maths behind JPEG) and records 64 bits: brighter or darker than the median. Resized, recompressed or slightly cropped copies get nearly the same 64 bits. Any training image within 6 bits of a test photo is dropped, so a web photo that is also in our bar test set can't be memorised.</div>
+
+<!-- ============ 10 ============ -->
+<h2 id="s10">10. Data: why we lost</h2>
+<div class="grid3">
+<div class="card"><div class="big">75 GB</div>pulled in one afternoon: Open Food Facts (alcohol products), retailer catalogues (Quebec's SAQ, Sweden's Systembolaget, Drink Finder), RP2K (Chinese retail shelves), WineSensed, wine-images-126k, wine and beer label sets, a whisky set, ImageNet and Open Images bottle crops, US TTB label filings, and web photos of the top ~300 bar brands (from trade rankings, never from our answers).</div>
+<div class="card"><div class="big">1,674 : 0</div>photos of Coca-Cola against shop photos of The Macallan. Open datasets are supermarket data. Premium spirits on a dim back bar barely exist in them.</div>
+<div class="card"><div class="big">72%</div>of web "photos of brand X" actually showed X. OCR verification (the fuzzy match in section 7): keep the photo only if its own label text names the brand. That gave <b>12.7k verified spirit photos</b> free, with no human or Claude labelling. The gallery grew from 29,990 to 42,652 images.</div>
+</div>
+<h3>Rules that kept the result honest</h3>
+<ul>
+<li><b>Ground truth only ever scores.</b> Human labels never become an input: not a reference library, not a stock list in a prompt, not a guide to which images to download. Even the 12 retailer packshots were thrown out, because we'd picked them by looking at the answer list.</li>
+<li><b>No distillation:</b> Claude wasn't allowed to label our training data. Otherwise we'd be copying the system we were trying to beat, mistakes included.</li>
+<li><b>Test photos deduplicated</b> by perceptual hash (section 9). <b>Thresholds tuned on a validation split</b> of external data only.</li>
+<li><b>Fill truth is measured</b> (poured or weighed), never generated by a model.</li>
+</ul>
+<blockquote><b>The 98% that wasn't.</b> Early on, the local pipeline hit 97.6% item recall. Its reference crops came from the <i>other photos of the same 12 bottles</i>: same room, same light, minutes apart. That's <b>data leakage</b>: the answers leaked into the inputs. The method is called leave-one-photo-out (LOPO): hold one photo back, use the other 6 as references. It's valid for testing the matcher and invalid as a result. The honest equivalent, retailer packshots only, scored 59% crop accuracy. It's in the leaderboard marked <code>follows_rule = no</code>.</blockquote>
+<div class="card small"><b>LOPO numbers, for the record (invalid as results):</b> 1 reference crop per item → 0.81 crop accuracy / 0.88 item recall; 2 → 0.85 / 0.93; 3 → 0.87 / 0.98. What it does show: with 3 photos of each bottle in the actual room, retrieval nearly solves identification. That's the case for an <b>enrolment</b> step at each bar.</div>
+<h3>Last hour: synthetic data</h3>
+<p>If the photos don't exist, render them. <span class="mono">src/synth/render.py</span> takes flat label artwork from US government filings (TTB COLA), wraps it onto a generic bottle shape picked by spirit type in <b>Blender</b> (3D software, running headless), stands it on a shelf with distractor bottles, and randomises the lighting (an HDRI: a 360° photo of a real room used as the light source), camera angle, fill level, glass tint and depth of field. Half the filings were back labels, so they were filtered on the words "Government Warning". Randomising everything is called <b>domain randomisation</b>: if training covers enough variety, a real bar is just one more variation. <b>We stopped before evaluating it</b>, so whether it helps is unknown.</p>
+
+<!-- ============ 11 ============ -->
+<h2 id="s11">11. Running open VLMs on the laptop</h2>
+<p>We also asked "what if Claude's role was played by a free open model?" Same prompt and schema, run locally with Apple's <b>MLX</b> library.</p>
+<div class="math">memory ≈ parameters × bits per weight ÷ 8</div>
+<div class="words">A model is billions of numbers (<b>parameters</b>). Normally each is 16 bits. <b>Quantisation</b> stores them in 4 or 8 bits, which loses a little accuracy and saves most of the memory and time.</div>
+<div class="work">Qwen3.5-9B at 4-bit: 9 × 10⁹ × 4 ÷ 8 = <b>4.5 GB</b>, so it fits easily, at 59 s per photo. Qwen3-VL-32B at 4-bit: <b>16 GB</b>, 242 s per photo, and it scored <i>no better</i> (brand 0.156 against 0.203). Bigger isn't automatically better; newer training beat size. Gemma 4 12B mostly answered "unknown" (0.069). Qwen3-VL-8B sometimes got stuck in a loop and listed 52 bottles.</div>
+
+<!-- ============ 12 ============ -->
+<h2 id="s12">12. What it actually saw: bar_03, a live run</h2>
+<p class="mute">Real pipeline output on a test photo nothing was tuned on: 113 bottles found by SAM 3 in about 17 to 33 s. Hover a box.</p>
+<div class="legend"><span><i style="background:var(--c)"></i>fill measured (49)</span><span><i style="background:var(--b)"></i>liquid line not visible (47)</span><span><i style="background:var(--e)"></i>upside-down optic (14)</span><span><i style="background:var(--d)"></i>rejected or unsure (3)</span></div>
+<div class="photo" id="ph"><img src="bar_03.jpg" id="phimg"></div>
+<p class="small mute">⚠️ The <span class="mono">/demo</span> page with brand names is a <b>scripted replay</b>: those labels were read off each crop by Claude and checked by eye, with duplicates dropped (110 bottles). The live pipeline found the bottles and read fill, but left them unidentified (every bottle assumed 700 ml). Say this if anyone asks about the demo video.</p>
+
+<!-- ============ 13 ============ -->
+<h2 id="s13">13. The app, the speed work, and who did what</h2>
+<div class="grid2">
+<div class="card"><h3 style="margin-top:0">The web app (<code>src/api.py</code>, <code>dashboard.py</code>)</h3>
+<ul class="small">
+<li><b>Identify:</b> upload a photo, get bottles, boxes and fill. <code>pipeline=local</code> (SAM 3 finds everything) or <code>pipeline=reference</code> (the 12-item matcher).</li>
+<li><b>Testing tab:</b> the leaderboard by brand recall, Claude's runs, and a per-photo inspector.</li>
+<li><b>Data tab:</b> browse the training images and their metadata, filtered by source and brand.</li>
+<li><b>Judge tab:</b> blind A/B. A human sees two answers for the same bottle without knowing which system gave which, picks the right one, and the tab shows live accuracy with Wilson intervals.</li>
+<li><b>Demo:</b> instant replay of bar_03 (scripted, see above).</li></ul></div>
+<div class="card"><h3 style="margin-top:0">Making it fast</h3>
+<ul class="small">
+<li>The GPU can only run one model safely at a time, so SAM and crop checks run in order under a <b>lock</b>.</li>
+<li>Claude fill calls are network waits, not GPU work, so they run <b>in parallel</b> in a thread pool, with OCR in its own thread. A cold run on IMG_6342 went from 27 to 37 s down to <b>10 to 11 s</b>.</li>
+<li><b>Caching:</b> SAM masks are reused (the whole-photo outline feeds fill, with no second SAM call), and OCR results and gallery embeddings are saved to disk.</li></ul></div>
+</div>
+<div class="card small"><b>Split.</b> <b>Allen</b>: detection, SAM 3 outlines, the whole fill-level system (geometry, tilt, tick grid, contrast gate, crop check), the API and its speed, the demo. <b>Me</b>: the Claude baseline and scorer, the ground-truth rules, external data collection and OCR verification, backbones, the trained head, fusion, open VLMs, the Testing, Data and Judge tabs, and synthetic renders. Check this against Allen's memory before saying it publicly.</div>
+
+<!-- ============ 14 ============ -->
+<h2 id="s14">14. The scoreboard</h2>
+<p class="mute">Strict brand recall on the kitchen set (7 photos, 12 items): of the bottles really there, the share where the right brand was named.</p>
+<table class="card" style="display:table" id="lb"></table>
+<div class="card small"><b>5 real bar photos, Claude vs our best</b> (<code>predictions_bars5_*</code>): Claude gave 189 bottle rows, 147 with a named brand. Ours gave 176, all with a brand, because it always picks the nearest catalogue match. These are what the Judge tab serves up for blind human scoring.</div>
+
+<!-- ============ 15 ============ -->
+<h2 id="s15">15. Glossary</h2>
+<table class="card" style="display:table" id="gl"></table>
+
+<!-- ============ 16 ============ -->
+<h2 id="s16">16. If someone asks</h2>
+<div class="card qa">
+<details open><summary>"Why not just use Claude?"</summary><p>You could, and it wins today. But it costs money on every photo, a bar shooting its shelves daily adds up, and it confidently invents brands it can't read. A local chain is free, can say "unknown", and every step can be measured and improved on its own.</p></details>
+<details><summary>"So why did you lose?"</summary><p>Data, not models. Claude has effectively seen the internet, premium spirits included. Open datasets are supermarket data. Our image side alone got about 16% brand recall; reading the label lifted it to 23%. Training on packshots and testing on dim shelves is domain shift, and it showed up everywhere, including the fill models trained on lab glassware.</p></details>
+<details><summary>"What would close the gap?"</summary><p>Real photos of the bottles bars actually stock. Cheapest: an enrolment shot of each bottle at each bar (3 photos on a plain surface), which our invalid-but-telling LOPO run says gets close to 90%+. Or synthetic renders from label artwork, built but not yet evaluated. Then fine-tune the backbone itself, not just the head.</p></details>
+<details><summary>"How do you know your numbers aren't fake?"</summary><p>Test labels only score; near-duplicates of test photos are removed from training by perceptual hash; thresholds are tuned elsewhere; no Claude labels in training; fill truth is measured. The one time we broke this (98%), it was logged as invalid.</p></details>
+<details><summary>"What's the clever bit on fill?"</summary><p>Don't ask a model for a number. Outline the bottle, sum the width² of every pixel row to get volume, correct for camera tilt from the base ellipse, and only ask the model which numbered tick the liquid sits at. Refuse when the colour edge is weak. Error went from 19 points to about 2, on very few measured pours.</p></details>
+<details><summary>"Embeddings? Contrastive? Explain like I'm five."</summary><p>Every photo becomes a dot on a giant map. Photos of the same thing should be neighbours. Identifying a bottle means finding its nearest neighbour on the map. Training means moving dots so same-brand photos huddle together and different brands spread apart.</p></details>
+</div>
+
+</main>
+<script>
+const $=id=>document.getElementById(id);
+// ---------- pipeline steps
+const STEPS=[
+["Detect","find every bottle",`<h3>1. Detect: where are the bottles?</h3><p><b>OWLv2</b> finds boxes from text prompts, on a 3 × 3 overlapping grid of tiles, with duplicates merged by <b>NMS</b>. For full bar walls, <b>SAM 3</b> outlines every bottle from the single word "bottle". Maths: tiling, IoU, NMS and the crop check in <a href="#s4">section 4</a>.</p><p class="small mute">src/detect.py, src/find.py, src/refine.py, src/qc.py</p>`],
+["Crop","one image per bottle",`<h3>2. Crop</h3><p>Each box is cut from the <b>full-resolution</b> photo, because labels need every pixel. Whole-bottle boxes beat fragments: half a label matches nothing. Every crop in the kitchen set was hand-labelled (0 = clutter, −1 = too small to call) for scoring only.</p><p class="small mute">src/recut_crops.py, data/crops_whole, data/crops/labels.csv</p>`],
+["Embed","crop → 768 numbers",`<h3>3. Embed</h3><p>A frozen backbone (DINOv2, Marqo or SigLIP2) turns each crop into a vector. SigLIP2 won. Cosine maths and the comparison in <a href="#s5">section 5</a>.</p><p class="small mute">src/embed.py, src/backbones.py, src/compare_backbones.py</p>`],
+["Head","our trained layer",`<h3>4. Projection head</h3><p>768 → 1,024 → 256, trained with supervised contrastive loss plus a brand classifier, on external data only. It barely helped, because of domain shift. Softmax, temperature and the loss in <a href="#s6">section 6</a>.</p><p class="small mute">src/train_head.py</p>`],
+["Retrieve","nearest catalogue photo",`<h3>5. Retrieve</h3><p>Nearest neighbour among 42,652 gallery images. Too weak a match gives "unknown". New products need photos, not retraining. <a href="#s5">Section 5</a>.</p><p class="small mute">src/match.py, src/identify_trained.py, data/train/gallery_v2.csv</p>`],
+["OCR","read the label",`<h3>6. OCR</h3><p>Apple Vision reads the text on the Mac, and fuzzy matching maps it to a brand. The biggest single lift: 0.039 → 0.169. <a href="#s7">Section 7</a>.</p><p class="small mute">src/ocr.py, src/ocr_crops.py</p>`],
+["Fuse","combine the votes",`<h3>7. Fuse</h3><p>Image similarity plus SigLIP2 zero-shot name similarity, z-scored and added; OCR overrides. Best: <b>0.234</b> against Claude's 0.387. <a href="#s7">Section 7</a>.</p><p class="small mute">src/fuse.py</p>`],
+["Fill","how much is left",`<h3>8. Fill</h3><p>Volume from the outline (sum of width²), tilt correction, a numbered-tick line finder, and a Lab contrast gate. <a href="#s8">Section 8</a>.</p><p class="small mute">src/fill.py</p>`]];
+const flow=$('flow'),det=$('detail');
+STEPS.forEach((s,i)=>{if(i)flow.insertAdjacentHTML('beforeend','<div class="arrow">→</div>');const d=document.createElement('div');d.className='step';d.innerHTML=`<span class="n">${i+1}</span><b>${s[0]}</b><i>${s[1]}</i>`;d.onclick=()=>{document.querySelectorAll('.step').forEach(x=>x.classList.remove('on'));d.classList.add('on');det.innerHTML=s[2]};flow.appendChild(d)});
+flow.querySelector('.step').click();
+
+// ---------- patches
+(()=>{const s=$('patch');let h='';const n=10,c=30;for(let i=0;i<n;i++)for(let j=0;j<n;j++){const bottle=(j>=3&&j<=6&&i>=1)||(j>=4&&j<=5&&i==0);const v=bottle?140+((i*7+j*3)%5)*15:40+((i*3+j*5)%4)*10;h+=`<rect x="${j*c}" y="${i*c}" width="${c-1}" height="${c-1}" fill="rgb(${bottle?v:v},${bottle?Math.round(v*.7):v},${bottle?50:v+10})" data-i="${i}" data-j="${j}"><title>patch (${i},${j}) → vector [${(v/255).toFixed(2)}, ${((i*0.13)%1).toFixed(2)}, ${((j*0.29)%1).toFixed(2)}, … 768 numbers]</title></rect>`}s.innerHTML=h})();
+
+// ---------- IoU
+function iou(){const d=+$('iouS').value,w=100,h=120,ax=50,ay=40,bx=ax+d;const ov=Math.max(0,w-d)*h,un=2*w*h-ov,v=ov/un;
+$('iou').innerHTML=`<rect x="${ax}" y="${ay}" width="${w}" height="${h}" fill="#6cc3ff33" stroke="#6cc3ff" stroke-width="2"/><rect x="${bx}" y="${ay}" width="${w}" height="${h}" fill="#f5b94233" stroke="#f5b942" stroke-width="2"/>${ov?`<rect x="${bx}" y="${ay}" width="${w-d}" height="${h}" fill="#8be28b66"/>`:''}`;
+$('iouO').textContent=`shift ${d}px → IoU = ${ov}/${un} = ${v.toFixed(2)} → ${v>=0.3?'same bottle, drop the weaker box':'two bottles, keep both'}`}
+$('iouS').oninput=iou;iou();
+
+// ---------- cosine
+function cosd(){const a=+$('cosS').value*Math.PI/180,o=[150,170],L=110;const p1=[o[0]+L,o[1]],p2=[o[0]+L*Math.cos(a),o[1]-L*Math.sin(a)];
+$('cos').innerHTML=`<path d="M${o[0]+30} ${o[1]} A30 30 0 0 0 ${o[0]+30*Math.cos(a)} ${o[1]-30*Math.sin(a)}" fill="none" stroke="#9aa0a6"/><line x1="${o[0]}" y1="${o[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="#f5b942" stroke-width="3"/><line x1="${o[0]}" y1="${o[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#6cc3ff" stroke-width="3"/><text x="${p1[0]-30}" y="${p1[1]+18}" font-size="12">crop</text><text x="${p2[0]+4}" y="${p2[1]-4}" font-size="12">gallery</text>`;
+const c=Math.cos(a);$('cosO').textContent=`angle ${$('cosS').value}° → cosine ${c.toFixed(2)} → ${c>.8?'very similar':c>.3?'somewhat similar':c>-.3?'unrelated':'opposite'}`}
+$('cosS').oninput=cosd;cosd();
+
+// ---------- embedding animation
+const svg=$('emb'),C=['#f5b942','#6cc3ff','#8be28b'],cent=[[110,90],[310,110],[210,250]];let pts=[];
+const rnd=(a,b)=>a+Math.random()*(b-a);
+for(let c=0;c<3;c++)for(let i=0;i<14;i++)pts.push({c,x:rnd(30,390),y:rnd(30,290),tx:cent[c][0]+rnd(-38,38),ty:cent[c][1]+rnd(-32,32)});
+const q={x:200,y:160,tx:cent[0][0]+30,ty:cent[0][1]+42};
+function draw(){svg.innerHTML=pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="6" fill="${C[p.c]}" opacity=".85"/>`).join('')+`<circle cx="${q.x}" cy="${q.y}" r="8" fill="#fff"/><text x="${q.x+12}" y="${q.y+4}" font-size="12">crop</text>`;
+let best=null,bd=1e9;pts.forEach(p=>{const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<bd){bd=d;best=p}});svg.insertAdjacentHTML('beforeend',`<line x1="${q.x}" y1="${q.y}" x2="${best.x}" y2="${best.y}" stroke="#fff" stroke-dasharray="3 3"/><text x="10" y="312" font-size="12" fill="#9aa0a6">nearest neighbour → ${['Jameson','Smirnoff',"Gordon's"][best.c]}</text>`)}
+draw();
+$('train').onclick=()=>{let t=0;const s=pts.map(p=>({x:p.x,y:p.y})),sq={x:q.x,y:q.y};const id=setInterval(()=>{t+=.04;const e=t<1?t*t*(3-2*t):1;pts.forEach((p,i)=>{p.x=s[i].x+(p.tx-s[i].x)*e;p.y=s[i].y+(p.ty-s[i].y)*e});q.x=sq.x+(q.tx-sq.x)*e;q.y=sq.y+(q.ty-sq.y)*e;draw();if(t>=1)clearInterval(id)},30)};
+
+// ---------- softmax
+function smx(){const T=+$('tS').value,s=[.9,.7,.2],n=['Jameson','Smirnoff',"Gordon's"],e=s.map(x=>Math.exp(x/T)),z=e.reduce((a,b)=>a+b);$('tv').textContent=T.toFixed(2);
+$('smx').innerHTML=s.map((x,i)=>`<div class="small">${n[i]} <span class="bar" style="width:${e[i]/z*260}px;background:${C[i]}"></span> ${(100*e[i]/z).toFixed(0)}%</div>`).join('')}
+$('tS').oninput=smx;smx();
+
+// ---------- fill
+const lvl=$('lvl'),liq=$('liq'),ll=$('ll');
+function W(y){if(y<80)return 40;if(y<130)return 40+(y-80)/50*60;if(y<190)return 100+(y-130)/60*60;return 160}
+const BASE=320,TOP=128;const vol=(a,b)=>{let v=0;for(let y=a;y<b;y++)v+=W(y)**2;return v};const FULL=vol(TOP,BASE);
+let sl='';for(let y=TOP;y<BASE;y+=12)sl+=`<line x1="${130-W(y)/2}" x2="${130+W(y)/2}" y1="${y}" y2="${y}" stroke="#000" opacity=".25"/>`;$('slices').innerHTML=sl;
+function upd(){const y=+lvl.value;liq.setAttribute('y',y);ll.setAttribute('y1',y);ll.setAttribute('y2',y);const v=Math.round(100*vol(Math.max(y,TOP),BASE)/FULL),h=Math.round(100*(BASE-y)/(BASE-TOP));$('pct').textContent=v+'% full';$('pct2').textContent=`${h}% of the height · ${Math.round(v*7)} ml of a 700 ml bottle`}
+lvl.oninput=upd;upd();
+
+// ---------- tilt
+function tilt(){const t=+$('tiltS').value,r=Math.PI/180*t,w=160,eh=w*Math.sin(r);
+$('tilt').innerHTML=`<rect x="70" y="30" width="160" height="${120}" fill="#232836" stroke="#e8e6e1"/><ellipse cx="150" cy="150" rx="80" ry="${Math.max(eh/2,.5)}" fill="#c98a2e66" stroke="#f5b942" stroke-width="2"/><line x1="70" x2="230" y1="150" y2="150" stroke="#8be28b" stroke-dasharray="4 3"/><line x1="240" x2="240" y1="${150-eh/2}" y2="${150+eh/2}" stroke="#6cc3ff" stroke-width="2"/><text x="244" y="154" font-size="11">${eh.toFixed(0)}px</text><text x="74" y="145" font-size="11" fill="#8be28b">widest row = true base</text>`;
+$('tiltO').textContent=`camera ${t}° above → ellipse ${eh.toFixed(0)}/${w} px → sin θ = ${(eh/w).toFixed(2)} → θ = ${t}°${t>60?' (over 60°: code assumes the base is hidden)':''}`}
+$('tiltS').oninput=tilt;tilt();
+
+// ---------- wilson
+function wil(){let k=+$('wkS').value,n=+$('wnS').value;if(k>n){k=n;$('wkS').value=n}$('wk').textContent=k;$('wn').textContent=n;const z=1.96,p=k/n,d=1+z*z/n,c=(p+z*z/(2*n))/d,m=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d,nm=z*Math.sqrt(p*(1-p)/n);
+$('wO').innerHTML=`observed ${(100*p).toFixed(0)}%<br>Wilson 95%: <b>${(100*(c-m)).toFixed(0)}% to ${(100*(c+m)).toFixed(0)}%</b><br><span style="color:#9aa0a6">naive: ${(100*(p-nm)).toFixed(0)}% to ${(100*(p+nm)).toFixed(0)}%</span><br><span style="color:#9aa0a6">try k=0: naive says 0 to 0, which is nonsense</span>`}
+$('wkS').oninput=wil;$('wnS').oninput=wil;wil();
+
+// ---------- photo boxes
+const BOX=[[68,199,36,110,"n",null],[149,199,41,107,"m",100],[226,203,36,103,"m",100],[280,203,32,103,"m",100],[366,178,40,128,"m",99],[420,178,40,129,"m",100],[470,178,40,108,"m",99],[524,171,31,132,"n",null],[551,157,40,150,"n",null],[592,171,40,138,"n",null],[664,167,37,129,"n",null],[699,156,42,150,"n",null],[740,170,32,139,"n",null],[786,174,36,132,"n",null],[840,174,36,132,"m",99],[889,174,36,132,"n",null],[979,199,37,105,"m",100],[1038,199,41,103,"m",100],[1115,199,36,103,"m",97],[1169,201,36,101,"n",null],[99,377,32,89,"u",null],[164,373,34,79,"u",null],[398,306,69,218,"u",null],[458,284,65,200,"u",null],[523,299,55,188,"u",null],[578,310,64,170,"u",null],[642,289,54,198,"u",null],[700,305,54,183,"u",null],[758,300,59,189,"u",null],[758,300,59,189,"u",null],[758,300,59,190,"u",null],[824,313,56,176,"u",null],[867,352,41,172,"n",null],[906,362,28,161,"m",97],[966,359,36,164,"m",97],[1020,359,33,164,"n",null],[1083,348,32,175,"m",75],[1241,363,45,160,"m",100],[36,391,59,135,"m",82],[102,406,56,120,"n",null],[167,409,53,117,"n",null],[234,373,28,153,"u",null],[244,395,58,131,"m",95],[307,379,32,147,"n",null],[327,395,43,131,"m",98],[377,377,34,148,"n",null],[926,402,49,121,"m",97],[984,402,51,121,"m",100],[1052,381,45,142,"m",100],[1115,395,48,128,"n",null],[1147,377,36,146,"m",100],[1191,366,44,157,"m",100],[103,576,41,129,"m",98],[149,590,41,117,"n",null],[190,590,45,115,"n",null],[316,590,40,82,"u",null],[358,588,40,119,"m",98],[401,564,42,141,"m",92],[442,594,41,110,"m",99],[483,608,41,96,"n",null],[523,587,37,114,"n",null],[560,590,36,110,"m",89],[596,580,40,120,"n",null],[659,598,38,102,"n",null],[691,595,45,106,"n",null],[737,580,49,121,"m",100],[782,597,52,106,"m",99],[831,579,36,125,"m",99],[862,559,36,140,"n",null],[897,558,43,146,"m",98],[935,558,40,138,"x",null],[970,558,37,146,"m",100],[1007,558,37,146,"m",100],[1042,553,41,126,"m",100],[1083,580,42,125,"m",99],[1124,576,41,117,"x",null],[1164,622,63,81,"m",82],[208,647,40,119,"m",29],[262,644,39,120,"m",99],[316,622,41,140,"n",null],[388,629,39,135,"m",100],[871,644,45,120,"m",100],[930,644,45,120,"m",100],[985,612,44,152,"n",null],[1043,644,45,123,"n",null],[1115,645,45,119,"m",100],[75,910,32,110,"n",null],[93,910,44,110,"n",null],[126,912,43,108,"n",null],[158,913,36,107,"n",null],[191,910,27,110,"n",null],[213,912,40,105,"n",null],[244,911,22,110,"n",null],[363,903,83,110,"n",null],[397,904,49,109,"n",null],[439,902,39,113,"n",null],[466,903,49,113,"n",null],[511,903,35,111,"n",null],[596,903,41,113,"n",null],[636,900,37,114,"n",null],[710,900,44,116,"n",null],[748,900,46,117,"n",null],[876,910,18,83,"m",93],[889,910,36,85,"m",94],[921,910,31,85,"m",96],[952,910,32,86,"m",100],[981,910,34,82,"m",97],[1011,910,35,86,"m",93],[1043,912,31,98,"n",null],[1133,911,32,81,"n",null],[1162,910,31,81,"n",null],[1187,910,32,68,"m",98],[1214,910,36,67,"x",null]],COL={m:'#8be28b',n:'#6cc3ff',u:'#c49bff',x:'#ff7a7a'};
+const img=$('phimg'),ph=$('ph');
+function boxes(){ph.querySelectorAll('.bx').forEach(e=>e.remove());const s=img.clientWidth/1300;BOX.forEach(([x,y,w,h,st,f])=>{const d=document.createElement('div');d.className='bx';d.style.cssText=`left:${x*s}px;top:${y*s}px;width:${w*s}px;height:${h*s}px;border-color:${COL[st]}`;d.title=st=='m'?f+'% full':{n:'liquid line not visible',u:'upside-down optic',x:'rejected or unsure'}[st];ph.appendChild(d)})}
+img.onload=boxes;window.onresize=boxes;if(img.complete)boxes();
+
+// ---------- leaderboard
+const LB=[["Claude opus 5.5 (baseline)",.387,"API, paid per photo","cl"],["SigLIP2 + OCR (our best)",.234,"local, free",""],["SigLIP2 + name + OCR fusion",.234,"local, free",""],["Marqo + OCR",.208,"local, free",""],["Qwen3.5-9B (open VLM)",.203,"local, 59 s/photo",""],["DINOv2 + OCR",.195,"local, free",""],["Catalogue + head + OCR",.169,"local, free",""],["Qwen3-VL-32B",.156,"local, 242 s/photo",""],["Qwen3-VL-8B",.113,"local, 52 s/photo",""],["SigLIP2 zero-shot, 180 generic names",.078,"local, 6.7 s/photo","bad"],["Catalogue + trained head",.078,"local, free","bad"],["Gemma 4 12B",.069,"local, 119 s/photo","bad"],["Catalogue retrieval, raw",.039,"local, free","bad"]];
+$('lb').innerHTML='<tr><th>System</th><th>Strict brand recall</th><th>Cost / speed</th></tr>'+LB.map(r=>`<tr><td>${r[0]}</td><td><span class="bar ${r[3]}" style="width:${r[1]*600}px"></span> ${r[1].toFixed(3)}</td><td class="mute">${r[2]}</td></tr>`).join('')+'<tr><td colspan=3 class="small mute">Target was Claude + 10 points (about 0.49). Missed by about 25.</td></tr>';
+
+// ---------- glossary
+const GL=[["Argmax","The option with the biggest score."],["Attention","Every patch weighs every other patch's relevance and mixes in their information (section 3)."],["Backbone / foundation model","A big pretrained model used as a feature extractor: DINOv2, SigLIP2, Marqo."],["Cosine similarity","The angle between two vectors: 1 same, 0 unrelated (section 5)."],["Cross-entropy","−log of the probability given to the right answer. Training loss for classifiers."],["Data leakage","Test answers sneak into training or inputs, so the score lies (our 98%)."],["Distillation","Training a small model on a big model's outputs. Deliberately not done."],["Domain shift","Training data looks different from real use (packshots against dim shelves). Why the head and LabPics failed."],["Domain randomisation","Randomise synthetic renders so much that reality is just another variation."],["Embedding","An image or text as a point in a high-dimensional space."],["Epoch","One full pass over the training data. We did 30."],["Frozen backbone + head","Transfer learning: train only a small layer on top."],["Gradient descent / AdamW","Nudge the weights a tiny step in whatever direction lowers the loss; AdamW is a smarter version of the nudge."],["Hungarian algorithm","Finds the best one-to-one pairing of predictions to truth (section 9)."],["IoU / NMS","Box overlap measure, and the rule that deletes duplicate boxes (section 4)."],["Lab colour / ΔE","A colour space where distance matches human perception; ΔE is the distance (section 8)."],["LOPO","Leave one photo out: test on one, reference the rest."],["MAE","Mean absolute error, in percentage points for fill."],["MLX / MPS","Apple's machine-learning library, and PyTorch's Apple-GPU backend."],["OCR","Reading text from pixels (Apple Vision)."],["Open-vocabulary detection","Find objects described in text without training on them (OWLv2)."],["Perceptual hash","64-bit fingerprint of how an image looks; near-copies differ by a few bits."],["Precision / recall","Of what you said, how much was right / of what was there, how much you found."],["Quantisation","Storing model weights in fewer bits (4-bit, 8-bit) to save memory and time."],["Retrieval","Identify by nearest neighbour in a gallery, rather than a fixed classifier."],["Segmentation","Pixel-exact outline instead of a box (SAM 2.1, SAM 3)."],["Self-supervised","Learning from data with no labels (DINOv2)."],["Sigmoid / softmax","Squash a score to 0 to 1 / turn a list of scores into probabilities (section 6)."],["Supervised contrastive loss","Same label pull together, different push apart (section 6)."],["Temperature","How sharp a softmax is: low = decisive, high = flat."],["Transformer","The architecture under all of these models, built on attention."],["Validation split","Data held out for tuning, separate from the test set."],["VLM","Vision-language model: an LLM that also reads images."],["Wilson interval","A confidence range that behaves on small samples (section 9)."],["Z-score","How many standard deviations from average; puts signals on one scale (section 7)."],["Zero-shot","Classify with no training on the class, by comparing an image with a text description."]];
+$('gl').innerHTML=GL.map(g=>`<tr><td style="width:240px"><b>${g[0]}</b></td><td>${g[1]}</td></tr>`).join('');
+</script></body></html>
