@@ -292,10 +292,6 @@ async function showPreview(f, token) {
   el.frame.classList.add("loaded");
 }
 
-// /demo: dropping the demo photo shows the saved result (web/demo/result.json) once the scan has run for its "seconds"
-// (a staged wait, not live work); the time shown is the real elapsed time. Any other photo runs the real pipeline.
-const DEMO = location.pathname.startsWith("/demo");
-
 async function identify() {
   const token = ++runToken, p = pipeline, f = file;
   clear();
@@ -303,17 +299,9 @@ async function identify() {
     if (!results[p]) {
       setScanning(true, p);
       const t0 = performance.now();
-      let data;
-      const saved = DEMO && await fetch("/demo/result.json").then((r) => r.json()).catch(() => null);
-      if (saved && f.name === saved.image && saved.pipeline === p) {  // the other toggle runs for real
-        data = saved;
-        await ready.catch(() => {});  // the photo is on screen before the clock can stop
-        await new Promise((r) => setTimeout(r, Math.max(0, data.seconds * 1000 - (performance.now() - t0))));
-      } else {
-        const res = await fetch(`/identify?pipeline=${p}`, { method: "POST", body: form(f) });
-        if (!res.ok) throw new Error(await detail(res));
-        data = await res.json();
-      }
+      const res = await fetch(`/identify?pipeline=${p}`, { method: "POST", body: form(f) });
+      if (!res.ok) throw new Error(await detail(res));
+      const data = await res.json();
       data.seconds = (performance.now() - t0) / 1000;
       if (f === file) results[p] = data;
     }

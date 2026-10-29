@@ -102,20 +102,6 @@ def index() -> FileResponse:
     return FileResponse(WEB / "index.html")
 
 
-@app.get("/demo", include_in_schema=False)
-def demo_page() -> FileResponse:
-    """The web UI in demo mode: dropping the demo photo replays web/demo/result.json (see src/make_demo.py)."""
-    return FileResponse(WEB / "index.html")
-
-
-@app.get("/demo/{name}", include_in_schema=False)
-def demo_file(name: str) -> FileResponse:
-    path = WEB / "demo" / Path(name).name
-    if not path.is_file():
-        raise HTTPException(404, f"no demo file {name}")
-    return FileResponse(path)
-
-
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}

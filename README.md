@@ -70,8 +70,6 @@ curl -F image=@photo.jpg 'localhost:8000/identify?pipeline=local&fill=geometry:o
 
 Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fill=none`. Interactive API docs are at http://localhost:8000/docs. The Testing and Judge tabs show the leaderboard and blind A/B judging of two prediction files; the Data tab shows the training data once `src/experiments/train_index.py` has built its index.
 
-/demo replays a frozen run on `bar_12.jpg`. Its labels were checked by hand, its fill levels are our eye estimates and its scan time is staged, so it shows the interface and is not a measured result.
-
 ## Reproduce the numbers
 
 ```
