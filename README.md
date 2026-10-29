@@ -93,7 +93,7 @@ uv pip install -p .venv -r requirements-dev.txt && .venv/bin/python -m pytest
 - `src/photos.py`, `boxes.py`, `models.py`, `schema.py` helpers shared by the rest
 - `src/experiments/` the local identification experiments behind the leaderboard: catalogue collection (`src/experiments/collect_*.py`, `src/experiments/external/`, see `data/external/README.md`; collectors need `CONTACT_EMAIL` in `.env`), test-set hold-out (`src/experiments/holdout.py`, `drop_test_overlap.py`), embedding and training (`src/experiments/backbones.py`, `train_index.py`, `train_head.py`), local pipelines (`catalogue_match.py`, `identify_trained.py`, `fuse.py`, `identify_clip.py`, `identify_vlm.py`)
 - the web tabs: `src/testing_routes.py`, `data_routes.py`, `judge_routes.py`, sharing `src/datafiles.py`; pages in `web/`
-- `data/raw/` the kitchen photos; `data/labelled/` ground truth; `data/pour/` the pour test; `data/test_bars/` the bar test set; `data/predictions_*.csv` every run; `data/results.csv` the leaderboard
+- `data/labelled/` ground truth; the kitchen photos (`data/raw/`) and pour photos (`data/pour/`), which are not published; `data/test_bars/` the bar test set; `data/predictions_*.csv` every run; `data/results.csv` the leaderboard
 - `docs/` research notes on datasets and open-set methods
 
 ## Rules we held ourselves to
@@ -105,6 +105,6 @@ uv pip install -p .venv -r requirements-dev.txt && .venv/bin/python -m pytest
 
 ## Licence and credits
 
-Code under Apache-2.0 (`LICENSE`). Our photos, labels and predictions under CC BY 4.0 (`DATA_LICENSE.md`). The bar test photos keep their own licences, listed in `data/test_bars/ATTRIBUTION.md`; photos without a known licence are not redistributed, and `scripts/download_bars.py` fetches them for local use.
+Code under Apache-2.0 (`LICENSE`). Our labels and predictions under CC BY 4.0 (`DATA_LICENSE.md`). The kitchen and pour photos, and the bar photos without a known licence, are not published. The bar test photos that are here keep their own licences, listed in `data/test_bars/ATTRIBUTION.md`, and `scripts/download_bars.py` fetches the others for local use.
 
 Models: [SAM 3](https://huggingface.co/facebook/sam3) and SAM 2.1 (Meta), [OWLv2](https://huggingface.co/google/owlv2-base-patch16-ensemble), DINOv2 and SigLIP2, and Sagi Eppel's [LabPics vessel model](https://github.com/sagieppel/Segment_Anything2_Trained_for_Semantic_Seg_Vessell_Fill_level). None are shipped here; each downloads under its own licence.
