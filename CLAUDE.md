@@ -1,4 +1,4 @@
-# bottle-vision
+# backbar-vision
 
 Cameras in restaurant bars that track stock from photos. Started as a Saturday hack by Bergen and Allen; now being cleaned up and written up for open source. README.md has the results and how to run everything.
 

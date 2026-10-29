@@ -1,4 +1,4 @@
-# bottle-vision
+# backbar-vision
 
 Stock tracking for bars from one photo: which bottles are on the shelf, and how much is left in each.
 

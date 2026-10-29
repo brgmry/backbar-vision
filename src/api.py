@@ -41,7 +41,7 @@ PREVIEW_SIDE = 2400
 FILL_WORKERS = 16  # concurrent Claude calls per photo
 ASSUMED_SIZE_ML = 700  # unidentified bottles: a UK standard spirit bottle, so fill_ml can be given
 
-app = FastAPI(title="bottle-vision")
+app = FastAPI(title="backbar-vision")
 app.include_router(testing_routes.router)  # Testing tab: /testing and /api/test (read-only)
 app.include_router(data_routes.router)  # Data tab: /data and /api/data (read-only)
 app.include_router(judge_routes.router)  # Judge tab: /judge and /api/judge (one append-only POST)

@@ -23,7 +23,7 @@ BARS_LABELS = DATA / "test_bars" / "labels"
 MAX_LABEL_CHARS = 20000
 SCORE_ERRORS = (KeyError, TypeError, ValueError)  # a predictions file with missing or malformed columns
 
-app = FastAPI(title="bottle-vision dashboard")
+app = FastAPI(title="backbar-vision dashboard")
 app.include_router(df.router)  # /common.js
 
 
@@ -191,7 +191,7 @@ def index():
 
 PAGE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>bottle-vision</title>
+<title>backbar-vision</title>
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f7f7f5;color:#222;margin:0;padding:16px 24px}
 h1{font-size:20px;margin:0 0 4px}h2{font-size:16px;margin:24px 0 8px}
@@ -218,7 +218,7 @@ pre{background:#fff;border:1px solid #ddd;padding:8px;font-size:12px;overflow-x:
 .barimg.zoom{overflow:auto;max-height:85vh}.barimg.zoom img{width:auto;max-width:none;cursor:zoom-out}
 button{font-size:14px;padding:6px 16px;cursor:pointer}
 </style></head><body>
-<h1>bottle-vision</h1><div class="muted">Read-only except Label bars. Every view shows the files as they are on disk. <span id="when"></span></div>
+<h1>backbar-vision</h1><div class="muted">Read-only except Label bars. Every view shows the files as they are on disk. <span id="when"></span></div>
 <nav style="margin:12px 0"><a onclick="show('results')">Leaderboard</a><a onclick="show('claude')">Claude runs</a><a onclick="show('photos')">Photos</a><a onclick="show('scores')">Scores</a><a onclick="show('status')">Pipeline status</a><a onclick="show('bars')">Label bars</a></nav>
 <div id="main"></div>
 <script src="/common.js"></script>
