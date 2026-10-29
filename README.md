@@ -76,7 +76,6 @@ Without an API key, use `fill=geometry:edge` (local, much less accurate) or `fil
 
 ```
 .venv/bin/python src/score.py data/predictions.csv                       # Claude baseline
-.venv/bin/python src/score_bars.py data/predictions_bars_claude.csv --tier easy  # bar test set, labelled photos
 .venv/bin/python src/score.py data/predictions_fill_pour_oracle_geometry_opus-grid.csv --alcohol
 .venv/bin/python src/experiment.py data/predictions_pour_oracle.csv geometry:edge vlm:opus
 ```
