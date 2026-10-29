@@ -2,7 +2,7 @@
 
 anthropic==1.13.0
 pydantic==2.14.0
-pillow==12.3.0
+pillow==13.0.0
 pillow-heif==1.8.0
 python-dotenv==1.2.4
 rapidfuzz==3.14.6
