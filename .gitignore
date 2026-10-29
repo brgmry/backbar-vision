@@ -15,3 +15,44 @@ data/synth/
 
 # Agent worktrees
 .claude/worktrees/
+
+# Third-party images that are not redistributed (no known licence).
+# scripts/download_bars.py fetches the bar photos for local use; never commit them.
+data/test_bars/img/bar_01.jpg
+data/test_bars/img/bar_02.jpg
+data/test_bars/img/bar_03.jpg
+data/test_bars/img/bar_04.jpg
+data/test_bars/img/bar_05.jpg
+data/test_bars/img/bar_06.jpg
+data/test_bars/img/bar_07.jpg
+data/test_bars/img/bar_08.jpg
+data/test_bars/img/bar_09.jpg
+data/test_bars/img/bar_10.jpg
+data/test_bars/img/bar_11.jpg
+data/test_bars/img/bar_12.jpg
+data/test_bars/img/bar_13.jpg
+data/test_bars/img/bar_14.jpg
+data/test_bars/img/bar_15.jpg
+data/test_bars/img/bar_16.jpg
+data/test_bars/img/bar_17.jpg
+data/test_bars/img/bar_18.jpg
+data/test_bars/img/bar_19.jpg
+data/test_bars/img/bar_20.jpg
+data/test_bars/img/bar_21.jpg
+data/test_bars/img/bar_22.jpg
+data/test_bars/img/bar_23.jpg
+data/test_bars/img/bar_24.jpg
+data/test_bars/img/bar_25.jpg
+data/test_bars/img/bar_26.jpg
+data/test_bars/img/bar_27.jpg
+data/test_bars/img/bar_28.jpg
+data/test_bars/img/bar_29.jpg
+data/test_bars/img/bar_30.jpg
+data/test_bars/img/bar_31.jpg
+data/test_bars/img/bar_32.jpg
+data/test_bars/img/bar_33.jpg
+data/test_bars/img/bar_34.jpg
+
+# Retailer packshots, see data/reference/SOURCES.md for where they came from.
+data/reference/*
+!data/reference/SOURCES.md
