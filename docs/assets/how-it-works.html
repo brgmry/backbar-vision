@@ -47,7 +47,7 @@ button{background:var(--a);border:0;border-radius:8px;padding:8px 14px;font-weig
 </style></head><body><main>
 
 <nav>
-<a href="#s1">1 Big picture</a><a href="#s2">2 Pipeline</a><a href="#s3">3 Images as numbers</a><a href="#s4">4 Detection maths</a><a href="#s5">5 Embeddings</a><a href="#s6">6 Training maths</a><a href="#s7">7 Zero-shot + OCR + fusion</a><a href="#s8">8 Fill maths</a><a href="#s9">9 Scoring maths</a><a href="#s10">10 Data</a><a href="#s11">11 Local VLMs</a><a href="#s12">12 Live run</a><a href="#s13">13 App + who did what</a><a href="#s14">14 Scoreboard</a><a href="#s15">15 Glossary</a><a href="#s16">16 Q&amp;A</a>
+<a href="#s1">1 Big picture</a><a href="#s2">2 Pipeline</a><a href="#s3">3 Images as numbers</a><a href="#s4">4 Detection maths</a><a href="#s5">5 Embeddings</a><a href="#s6">6 Training maths</a><a href="#s7">7 Zero-shot + OCR + fusion</a><a href="#s8">8 Fill maths</a><a href="#s9">9 Scoring maths</a><a href="#s10">10 Data</a><a href="#s11">11 Local VLMs</a><a href="#s12">12 App + who did what</a><a href="#s14">14 Scoreboard</a><a href="#s15">15 Glossary</a><a href="#s16">16 Q&amp;A</a>
 </nav>
 
 <h1>Bottle Vision</h1>
@@ -281,15 +281,8 @@ button{background:var(--a);border:0;border-radius:8px;padding:8px 14px;font-weig
 <div class="words">A model is billions of numbers (<b>parameters</b>). Normally each is 16 bits. <b>Quantisation</b> stores them in 4 or 8 bits, which loses a little accuracy and saves most of the memory and time.</div>
 <div class="work">Qwen3.5-9B at 4-bit: 9 × 10⁹ × 4 ÷ 8 = <b>4.5 GB</b>, so it fits easily, at 59 s per photo. Qwen3-VL-32B at 4-bit: <b>16 GB</b>, 242 s per photo, and it scored <i>no better</i> (brand 0.156 against 0.203). Bigger isn't automatically better; newer training beat size. Gemma 4 12B mostly answered "unknown" (0.069). Qwen3-VL-8B sometimes got stuck in a loop and listed 52 bottles.</div>
 
-<!-- ============ 12 ============ -->
-<h2 id="s12">12. What it actually saw: bar_03, a live run</h2>
-<p class="mute">Real pipeline output on a test photo nothing was tuned on: 113 bottles found by SAM 3 in about 17 to 33 s. Hover a box.</p>
-<div class="legend"><span><i style="background:var(--c)"></i>fill measured (49)</span><span><i style="background:var(--b)"></i>liquid line not visible (47)</span><span><i style="background:var(--e)"></i>upside-down optic (14)</span><span><i style="background:var(--d)"></i>rejected or unsure (3)</span></div>
-<div class="photo" id="ph"><img src="bar_03.jpg" id="phimg"></div>
-<p class="small mute">⚠️ The <span class="mono">/demo</span> page with brand names is a <b>scripted replay</b>: those labels were read off each crop by Claude and checked by eye, with duplicates dropped (110 bottles). The live pipeline found the bottles and read fill, but left them unidentified (every bottle assumed 700 ml). Say this if anyone asks about the demo video.</p>
-
 <!-- ============ 13 ============ -->
-<h2 id="s13">13. The app, the speed work, and who did what</h2>
+<h2 id="s12">12. The app, the speed work, and who did what</h2>
 <div class="grid2">
 <div class="card"><h3 style="margin-top:0">The web app (<code>src/api.py</code>, <code>dashboard.py</code>)</h3>
 <ul class="small">
@@ -297,14 +290,14 @@ button{background:var(--a);border:0;border-radius:8px;padding:8px 14px;font-weig
 <li><b>Testing tab:</b> the leaderboard by brand recall, Claude's runs, and a per-photo inspector.</li>
 <li><b>Data tab:</b> browse the training images and their metadata, filtered by source and brand.</li>
 <li><b>Judge tab:</b> blind A/B. A human sees two answers for the same bottle without knowing which system gave which, picks the right one, and the tab shows live accuracy with Wilson intervals.</li>
-<li><b>Demo:</b> instant replay of bar_03 (scripted, see above).</li></ul></div>
+</ul></div>
 <div class="card"><h3 style="margin-top:0">Making it fast</h3>
 <ul class="small">
 <li>The GPU can only run one model safely at a time, so SAM and crop checks run in order under a <b>lock</b>.</li>
 <li>Claude fill calls are network waits, not GPU work, so they run <b>in parallel</b> in a thread pool, with OCR in its own thread. A cold run on IMG_6342 went from 27 to 37 s down to <b>10 to 11 s</b>.</li>
 <li><b>Caching:</b> SAM masks are reused (the whole-photo outline feeds fill, with no second SAM call), and OCR results and gallery embeddings are saved to disk.</li></ul></div>
 </div>
-<div class="card small"><b>Split.</b> <b>Allen</b>: detection, SAM 3 outlines, the whole fill-level system (geometry, tilt, tick grid, contrast gate, crop check), the API and its speed, the demo. <b>Me</b>: the Claude baseline and scorer, the ground-truth rules, external data collection and OCR verification, backbones, the trained head, fusion, open VLMs, the Testing, Data and Judge tabs, and synthetic renders. Check this against Allen's memory before saying it publicly.</div>
+<div class="card small"><b>Split.</b> <b>Allen</b>: detection, SAM 3 outlines, the whole fill-level system (geometry, tilt, tick grid, contrast gate, crop check), the API and its speed. <b>Me</b>: the Claude baseline and scorer, the ground-truth rules, external data collection and OCR verification, backbones, the trained head, fusion, open VLMs, the Testing, Data and Judge tabs, and synthetic renders. Check this against Allen's memory before saying it publicly.</div>
 
 <!-- ============ 14 ============ -->
 <h2 id="s14">14. The scoreboard</h2>
@@ -392,12 +385,6 @@ $('tiltS').oninput=tilt;tilt();
 function wil(){let k=+$('wkS').value,n=+$('wnS').value;if(k>n){k=n;$('wkS').value=n}$('wk').textContent=k;$('wn').textContent=n;const z=1.96,p=k/n,d=1+z*z/n,c=(p+z*z/(2*n))/d,m=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d,nm=z*Math.sqrt(p*(1-p)/n);
 $('wO').innerHTML=`observed ${(100*p).toFixed(0)}%<br>Wilson 95%: <b>${(100*(c-m)).toFixed(0)}% to ${(100*(c+m)).toFixed(0)}%</b><br><span style="color:#9aa0a6">naive: ${(100*(p-nm)).toFixed(0)}% to ${(100*(p+nm)).toFixed(0)}%</span><br><span style="color:#9aa0a6">try k=0: naive says 0 to 0, which is nonsense</span>`}
 $('wkS').oninput=wil;$('wnS').oninput=wil;wil();
-
-// ---------- photo boxes
-const BOX=[[68,199,36,110,"n",null],[149,199,41,107,"m",100],[226,203,36,103,"m",100],[280,203,32,103,"m",100],[366,178,40,128,"m",99],[420,178,40,129,"m",100],[470,178,40,108,"m",99],[524,171,31,132,"n",null],[551,157,40,150,"n",null],[592,171,40,138,"n",null],[664,167,37,129,"n",null],[699,156,42,150,"n",null],[740,170,32,139,"n",null],[786,174,36,132,"n",null],[840,174,36,132,"m",99],[889,174,36,132,"n",null],[979,199,37,105,"m",100],[1038,199,41,103,"m",100],[1115,199,36,103,"m",97],[1169,201,36,101,"n",null],[99,377,32,89,"u",null],[164,373,34,79,"u",null],[398,306,69,218,"u",null],[458,284,65,200,"u",null],[523,299,55,188,"u",null],[578,310,64,170,"u",null],[642,289,54,198,"u",null],[700,305,54,183,"u",null],[758,300,59,189,"u",null],[758,300,59,189,"u",null],[758,300,59,190,"u",null],[824,313,56,176,"u",null],[867,352,41,172,"n",null],[906,362,28,161,"m",97],[966,359,36,164,"m",97],[1020,359,33,164,"n",null],[1083,348,32,175,"m",75],[1241,363,45,160,"m",100],[36,391,59,135,"m",82],[102,406,56,120,"n",null],[167,409,53,117,"n",null],[234,373,28,153,"u",null],[244,395,58,131,"m",95],[307,379,32,147,"n",null],[327,395,43,131,"m",98],[377,377,34,148,"n",null],[926,402,49,121,"m",97],[984,402,51,121,"m",100],[1052,381,45,142,"m",100],[1115,395,48,128,"n",null],[1147,377,36,146,"m",100],[1191,366,44,157,"m",100],[103,576,41,129,"m",98],[149,590,41,117,"n",null],[190,590,45,115,"n",null],[316,590,40,82,"u",null],[358,588,40,119,"m",98],[401,564,42,141,"m",92],[442,594,41,110,"m",99],[483,608,41,96,"n",null],[523,587,37,114,"n",null],[560,590,36,110,"m",89],[596,580,40,120,"n",null],[659,598,38,102,"n",null],[691,595,45,106,"n",null],[737,580,49,121,"m",100],[782,597,52,106,"m",99],[831,579,36,125,"m",99],[862,559,36,140,"n",null],[897,558,43,146,"m",98],[935,558,40,138,"x",null],[970,558,37,146,"m",100],[1007,558,37,146,"m",100],[1042,553,41,126,"m",100],[1083,580,42,125,"m",99],[1124,576,41,117,"x",null],[1164,622,63,81,"m",82],[208,647,40,119,"m",29],[262,644,39,120,"m",99],[316,622,41,140,"n",null],[388,629,39,135,"m",100],[871,644,45,120,"m",100],[930,644,45,120,"m",100],[985,612,44,152,"n",null],[1043,644,45,123,"n",null],[1115,645,45,119,"m",100],[75,910,32,110,"n",null],[93,910,44,110,"n",null],[126,912,43,108,"n",null],[158,913,36,107,"n",null],[191,910,27,110,"n",null],[213,912,40,105,"n",null],[244,911,22,110,"n",null],[363,903,83,110,"n",null],[397,904,49,109,"n",null],[439,902,39,113,"n",null],[466,903,49,113,"n",null],[511,903,35,111,"n",null],[596,903,41,113,"n",null],[636,900,37,114,"n",null],[710,900,44,116,"n",null],[748,900,46,117,"n",null],[876,910,18,83,"m",93],[889,910,36,85,"m",94],[921,910,31,85,"m",96],[952,910,32,86,"m",100],[981,910,34,82,"m",97],[1011,910,35,86,"m",93],[1043,912,31,98,"n",null],[1133,911,32,81,"n",null],[1162,910,31,81,"n",null],[1187,910,32,68,"m",98],[1214,910,36,67,"x",null]],COL={m:'#8be28b',n:'#6cc3ff',u:'#c49bff',x:'#ff7a7a'};
-const img=$('phimg'),ph=$('ph');
-function boxes(){ph.querySelectorAll('.bx').forEach(e=>e.remove());const s=img.clientWidth/1300;BOX.forEach(([x,y,w,h,st,f])=>{const d=document.createElement('div');d.className='bx';d.style.cssText=`left:${x*s}px;top:${y*s}px;width:${w*s}px;height:${h*s}px;border-color:${COL[st]}`;d.title=st=='m'?f+'% full':{n:'liquid line not visible',u:'upside-down optic',x:'rejected or unsure'}[st];ph.appendChild(d)})}
-img.onload=boxes;window.onresize=boxes;if(img.complete)boxes();
 
 // ---------- leaderboard
 const LB=[["Claude opus 5.5 (baseline)",.387,"API, paid per photo","cl"],["SigLIP2 + OCR (our best)",.234,"local, free",""],["SigLIP2 + name + OCR fusion",.234,"local, free",""],["Marqo + OCR",.208,"local, free",""],["Qwen3.5-9B (open VLM)",.203,"local, 59 s/photo",""],["DINOv2 + OCR",.195,"local, free",""],["Catalogue + head + OCR",.169,"local, free",""],["Qwen3-VL-32B",.156,"local, 242 s/photo",""],["Qwen3-VL-8B",.113,"local, 52 s/photo",""],["SigLIP2 zero-shot, 180 generic names",.078,"local, 6.7 s/photo","bad"],["Catalogue + trained head",.078,"local, free","bad"],["Gemma 4 12B",.069,"local, 119 s/photo","bad"],["Catalogue retrieval, raw",.039,"local, free","bad"]];
