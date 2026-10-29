@@ -259,7 +259,7 @@ button{background:var(--a);border:0;border-radius:8px;padding:8px 14px;font-weig
 <h2 id="s10">10. Data: why we lost</h2>
 <div class="grid3">
 <div class="card"><div class="big">75 GB</div>pulled in one afternoon: Open Food Facts (alcohol products), retailer catalogues (Quebec's SAQ, Sweden's Systembolaget, Drink Finder), RP2K (Chinese retail shelves), WineSensed, wine-images-126k, wine and beer label sets, a whisky set, ImageNet and Open Images bottle crops, US TTB label filings, and web photos of the top ~300 bar brands (from trade rankings, never from our answers).</div>
-<div class="card"><div class="big">1,674 : 0</div>photos of Coca-Cola against shop photos of The Macallan. Open datasets are supermarket data. Premium spirits on a dim back bar barely exist in them.</div>
+<div class="card"><div class="big">13,361 : 7</div>shop photos of Coca-Cola against shop photos of The Macallan in our training index (Open Food Facts, SAQ, Drink Finder, St Perez). Open datasets are supermarket data. Premium spirits on a dim back bar barely exist in them.</div>
 <div class="card"><div class="big">72%</div>of web "photos of brand X" actually showed X. OCR verification (the fuzzy match in section 7): keep the photo only if its own label text names the brand. That gave <b>12.7k verified spirit photos</b> free, with no human or Claude labelling. The gallery grew from 29,990 to 42,652 images.</div>
 </div>
 <h3>Rules that kept the result honest</h3>
